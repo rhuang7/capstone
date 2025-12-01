@@ -1,16 +1,31 @@
 from datasets import load_from_disk
 
-ds = load_from_disk("/data/ruoyu/dataset/dbpedia_14_saved")
+def fetch_data(dataset_path, each_num, rand_seed):
+    ds = load_from_disk(dataset_path)
 
-# 假设你已经有 ds = load_dataset("fancyzhx/dbpedia_14")
+    train_features = ds["train"].features
+    label_feature = train_features["label"]
 
-train_features = ds["train"].features
-label_feature = train_features["label"]
+    num_labels = label_feature.num_classes
 
-# 1. 有多少种 label
-num_labels = label_feature.num_classes
-print("label 数量：", num_labels)
+    label_names = label_feature.names
 
-# 2. 每个 label 的名字
-label_names = label_feature.names
-print("label 名称列表：", label_names)
+    train_ds = ds["train"]
+    store = []
+    for label_id in range(num_labels):
+        label_name = label_names[label_id]
+
+        subset = train_ds.filter(lambda e: e["label"] == label_id)
+        subset = subset.shuffle(seed=rand_seed)
+        samples = subset.select(range(each_num))
+        for i, ex in enumerate(samples):
+            store.append([label_name, ex["content"]])
+ 
+    return store
+
+dataset_path = "/data/ruoyu/dataset/dbpedia_14_saved"
+each_num = 10
+rand_seed = 42
+
+test_set = fetch_data(dataset_path, each_num, rand_seed)
+print(test_set)
