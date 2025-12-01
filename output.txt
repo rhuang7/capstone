@@ -1,0 +1,100 @@
+predict label: {
+  "answer": "A",
+  "confidence": 0.95
+}
+original label: A
+predict label: {
+  "answer": "A",
+  "confidence": 0.95
+}
+original label: A
+predict label: {
+  "answer": "A",
+  "confidence": 0.95
+}
+original label: A
+predict label: {
+  "answer": "B",
+  "confidence": 0.95
+}
+original label: A
+predict label: {
+  "answer": "A",
+  "confidence": 0.95
+}
+original label: A
+predict label: {
+  "answer": "C",
+  "confidence": 0.95
+}
+original label: B
+predict label: {
+  "answer": "B",
+  "confidence": 0.95
+}
+original label: B
+predict label: {
+  "answer": "C",
+  "confidence": 0.95
+}
+original label: B
+predict label: {
+  "answer": "B",
+  "confidence": 0.95
+}
+original label: B
+predict label: {
+  "answer": "B",
+  "confidence": 0.95
+}
+original label: B
+predict label: {
+  "answer": "B",
+  "confidence": 0.95
+}
+original label: C
+predict label: {
+  "answer": "A",
+  "confidence": 0.95
+}
+original label: C
+predict label: {
+  "answer": "D",
+  "confidence": 0.95
+}
+original label: C
+predict label: {
+  "answer": "C",
+  "confidence": 0.95
+}
+original label: C
+predict label: {
+  "answer": "C",
+  "confidence": 0.95
+}
+original label: C
+predict label: {
+  "answer": "D",
+  "confidence": 0.95
+}
+original label: D
+predict label: {
+  "answer": "A",
+  "confidence": 0.95
+}
+original label: D
+predict label: {
+  "answer": "D",
+  "confidence": 0.95
+}
+original label: D
+predict label: {
+  "answer": "A",
+  "confidence": 0.95
+}
+original label: D
+predict label: {
+  "answer": "A",
+  "confidence": 0.95
+}
+original label: D
