@@ -4,6 +4,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 from tqdm import tqdm
 import time
+import utils
 
 def fetch_data(dataset_path, each_num, rand_seed):
     ds = load_from_disk(dataset_path)
@@ -66,6 +67,7 @@ def do_test(testset, labels, model_id, cache_dir):
         device_map="auto" if torch.cuda.is_available() else None,
     )
     
+    count_store = []
     total_len = len(testset)
     for i in tqdm(range(total_len), desc="processing"): 
         pair = testset[i]
@@ -96,20 +98,17 @@ def do_test(testset, labels, model_id, cache_dir):
         generated_tokens = outputs[0][inputs["input_ids"].shape[-1]:]
         raw_resp = tokenizer.decode(generated_tokens, skip_special_tokens=True).strip()
 
-        print("predict label:", raw_resp)
+        obj = json.loads(raw_resp)
+        pred_label = obj["label"]
         
-        print("original label:", pair[0])
+        count_store.append([pred_label, pair[0], pair[1], pair[2]])
+        # print("predict label:", raw_resp)
+        
+        # print("original label:", pair[0])
         # if pair[0] not in raw_resp:
         #     print(pair[0])
         
-    return
-
-
-
-
-
-
-
+    return 
 
 
 
@@ -121,4 +120,7 @@ model_id = "Qwen/Qwen3-4B"
 cache_dir = "/data/ruoyu/model"
 
 test_set, labels = fetch_data(dataset_path, each_num, rand_seed)
-do_test(test_set, labels, model_id, cache_dir)
+calcu_result = do_test(test_set, labels, model_id, cache_dir)
+
+print("the perdiction accuracy: ", utils.get_accuracy(calcu_result))
+utils.print_accuracy_by_category(calcu_result)

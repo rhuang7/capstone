@@ -4,7 +4,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 from tqdm import tqdm
 import time
-import capstone.utils as utils
+import utils
 
 def fetch_data(dataset_path, each_num, rand_seed):
     ds = load_from_disk(dataset_path)
@@ -119,7 +119,7 @@ def do_test(testset, labels, model_id, cache_dir):
 
 
 dataset_path = "/data/ruoyu/dataset/dbpedia_14_saved"
-each_num = 1
+each_num = 10
 rand_seed = 42
 
 test_set, labels = fetch_data(dataset_path, each_num, rand_seed)
@@ -128,3 +128,5 @@ model_id = "Qwen/Qwen3-4B"
 cache_dir = "/data/ruoyu/model"
 
 calcu_result = do_test(test_set, labels, model_id, cache_dir)
+print("the perdiction accuracy: ", utils.get_accuracy(calcu_result))
+utils.print_accuracy_by_category(calcu_result)
