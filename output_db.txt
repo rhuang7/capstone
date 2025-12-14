@@ -1,0 +1,700 @@
+predict label: {
+  "label": "Company",
+  "confidence": 0.95
+}
+original label: Company
+predict label: {
+  "label": "Company",
+  "confidence": 0.95
+}
+original label: Company
+predict label: {
+  "label": "Company",
+  "confidence": 0.95
+}
+original label: Company
+predict label: {
+  "label": "Company",
+  "confidence": 0.95
+}
+original label: Company
+predict label: {
+  "label": "Company",
+  "confidence": 0.95
+}
+original label: Company
+predict label: {
+  "label": "Company",
+  "confidence": 0.95
+}
+original label: Company
+predict label: {
+  "label": "Company",
+  "confidence": 0.95
+}
+original label: Company
+predict label: {
+  "label": "MeanOfTransportation",
+  "confidence": 0.95
+}
+original label: Company
+predict label: {
+  "label": "Company",
+  "confidence": 0.95
+}
+original label: Company
+predict label: {
+  "label": "Company",
+  "confidence": 0.95
+}
+original label: Company
+predict label: {
+  "label": "EducationalInstitution",
+  "confidence": 0.95
+}
+original label: EducationalInstitution
+predict label: {
+  "label": "EducationalInstitution",
+  "confidence": 0.95
+}
+original label: EducationalInstitution
+predict label: {
+  "label": "EducationalInstitution",
+  "confidence": 0.95
+}
+original label: EducationalInstitution
+predict label: {
+  "label": "EducationalInstitution",
+  "confidence": 0.95
+}
+original label: EducationalInstitution
+predict label: {
+  "label": "Company",
+  "confidence": 0.95
+}
+original label: EducationalInstitution
+predict label: {
+  "label": "EducationalInstitution",
+  "confidence": 0.95
+}
+original label: EducationalInstitution
+predict label: {
+  "label": "Company",
+  "confidence": 0.95
+}
+original label: EducationalInstitution
+predict label: {
+  "label": "Building",
+  "confidence": 0.95
+}
+original label: EducationalInstitution
+predict label: {
+  "label": "EducationalInstitution",
+  "confidence": 0.95
+}
+original label: EducationalInstitution
+predict label: {
+  "label": "EducationalInstitution",
+  "confidence": 0.95
+}
+original label: EducationalInstitution
+predict label: {
+  "label": "Artist",
+  "confidence": 0.95
+}
+original label: Artist
+predict label: {
+  "label": "Artist",
+  "confidence": 0.95
+}
+original label: Artist
+predict label: {
+  "label": "Artist",
+  "confidence": 0.95
+}
+original label: Artist
+predict label: {
+  "label": "Artist",
+  "confidence": 0.95
+}
+original label: Artist
+predict label: {
+  "label": "Artist",
+  "confidence": 0.95
+}
+original label: Artist
+predict label: {
+  "label": "Artist",
+  "confidence": 0.95
+}
+original label: Artist
+predict label: {
+  "label": "Artist",
+  "confidence": 0.95
+}
+original label: Artist
+predict label: {
+  "label": "Artist",
+  "confidence": 0.95
+}
+original label: Artist
+predict label: {
+  "label": "Artist",
+  "confidence": 0.95
+}
+original label: Artist
+predict label: {
+  "label": "Company",
+  "confidence": 0.95
+}
+original label: Artist
+predict label: {
+  "label": "Athlete",
+  "confidence": 0.95
+}
+original label: Athlete
+predict label: {
+  "label": "Athlete",
+  "confidence": 0.95
+}
+original label: Athlete
+predict label: {
+  "label": "Artist",
+  "confidence": 0.95
+}
+original label: Athlete
+predict label: {
+  "label": "Athlete",
+  "confidence": 0.95
+}
+original label: Athlete
+predict label: {
+  "label": "Athlete",
+  "confidence": 0.95
+}
+original label: Athlete
+predict label: {
+  "label": "Athlete",
+  "confidence": 0.95
+}
+original label: Athlete
+predict label: {
+  "label": "Animal",
+  "confidence": 0.15
+}
+original label: Athlete
+predict label: {
+  "label": "Athlete",
+  "confidence": 0.95
+}
+original label: Athlete
+predict label: {
+  "label": "Athlete",
+  "confidence": 0.95
+}
+original label: Athlete
+predict label: {
+  "label": "Athlete",
+  "confidence": 0.95
+}
+original label: Athlete
+predict label: {
+  "label": "OfficeHolder",
+  "confidence": 0.95
+}
+original label: OfficeHolder
+predict label: {
+  "label": "OfficeHolder",
+  "confidence": 0.95
+}
+original label: OfficeHolder
+predict label: {
+  "label": "OfficeHolder",
+  "confidence": 0.95
+}
+original label: OfficeHolder
+predict label: {
+  "label": "OfficeHolder",
+  "confidence": 0.95
+}
+original label: OfficeHolder
+predict label: {
+  "label": "OfficeHolder",
+  "confidence": 0.95
+}
+original label: OfficeHolder
+predict label: {
+  "label": "OfficeHolder",
+  "confidence": 0.95
+}
+original label: OfficeHolder
+predict label: {
+  "label": "OfficeHolder",
+  "confidence": 0.95
+}
+original label: OfficeHolder
+predict label: {
+  "label": "OfficeHolder",
+  "confidence": 0.95
+}
+original label: OfficeHolder
+predict label: {
+  "label": "OfficeHolder",
+  "confidence": 0.95
+}
+original label: OfficeHolder
+predict label: {
+  "label": "OfficeHolder",
+  "confidence": 0.95
+}
+original label: OfficeHolder
+predict label: {
+  "label": "MeanOfTransportation",
+  "confidence": 0.95
+}
+original label: MeanOfTransportation
+predict label: {
+  "label": "MeanOfTransportation",
+  "confidence": 0.95
+}
+original label: MeanOfTransportation
+predict label: {
+  "label": "MeanOfTransportation",
+  "confidence": 0.95
+}
+original label: MeanOfTransportation
+predict label: {
+  "label": "MeanOfTransportation",
+  "confidence": 0.95
+}
+original label: MeanOfTransportation
+predict label: {
+  "label": "MeanOfTransportation",
+  "confidence": 0.95
+}
+original label: MeanOfTransportation
+predict label: {
+  "label": "MeanOfTransportation",
+  "confidence": 0.95
+}
+original label: MeanOfTransportation
+predict label: {
+  "label": "MeanOfTransportation",
+  "confidence": 0.95
+}
+original label: MeanOfTransportation
+predict label: {
+  "label": "MeanOfTransportation",
+  "confidence": 0.95
+}
+original label: MeanOfTransportation
+predict label: {
+  "label": "MeanOfTransportation",
+  "confidence": 0.95
+}
+original label: MeanOfTransportation
+predict label: {
+  "label": "MeanOfTransportation",
+  "confidence": 0.95
+}
+original label: MeanOfTransportation
+predict label: {
+  "label": "Building",
+  "confidence": 0.95
+}
+original label: Building
+predict label: {
+  "label": "Building",
+  "confidence": 0.95
+}
+original label: Building
+predict label: {
+  "label": "Building",
+  "confidence": 0.95
+}
+original label: Building
+predict label: {
+  "label": "Building",
+  "confidence": 0.95
+}
+original label: Building
+predict label: {
+  "label": "MeanOfTransportation",
+  "confidence": 0.95
+}
+original label: Building
+predict label: {
+  "label": "Building",
+  "confidence": 0.95
+}
+original label: Building
+predict label: {
+  "label": "Building",
+  "confidence": 0.95
+}
+original label: Building
+predict label: {
+  "label": "EducationalInstitution",
+  "confidence": 0.95
+}
+original label: Building
+predict label: {
+  "label": "Building",
+  "confidence": 0.95
+}
+original label: Building
+predict label: {
+  "label": "Building",
+  "confidence": 0.95
+}
+original label: Building
+predict label: {
+  "label": "NaturalPlace",
+  "confidence": 0.95
+}
+original label: NaturalPlace
+predict label: {
+  "label": "NaturalPlace",
+  "confidence": 0.95
+}
+original label: NaturalPlace
+predict label: {
+  "label": "NaturalPlace",
+  "confidence": 0.95
+}
+original label: NaturalPlace
+predict label: {
+  "label": "NaturalPlace",
+  "confidence": 0.95
+}
+original label: NaturalPlace
+predict label: {
+  "label": "NaturalPlace",
+  "confidence": 0.95
+}
+original label: NaturalPlace
+predict label: {
+  "label": "NaturalPlace",
+  "confidence": 0.95
+}
+original label: NaturalPlace
+predict label: {
+  "label": "NaturalPlace",
+  "confidence": 0.95
+}
+original label: NaturalPlace
+predict label: {
+  "label": "NaturalPlace",
+  "confidence": 0.95
+}
+original label: NaturalPlace
+predict label: {
+  "label": "NaturalPlace",
+  "confidence": 0.95
+}
+original label: NaturalPlace
+predict label: {
+  "label": "MeanOfTransportation",
+  "confidence": 0.95
+}
+original label: NaturalPlace
+predict label: {
+  "label": "Village",
+  "confidence": 0.95
+}
+original label: Village
+predict label: {
+  "label": "Village",
+  "confidence": 0.95
+}
+original label: Village
+predict label: {
+  "label": "Village",
+  "confidence": 0.95
+}
+original label: Village
+predict label: {
+  "label": "Village",
+  "confidence": 0.95
+}
+original label: Village
+predict label: {
+  "label": "Village",
+  "confidence": 0.95
+}
+original label: Village
+predict label: {
+  "label": "Village",
+  "confidence": 0.95
+}
+original label: Village
+predict label: {
+  "label": "Village",
+  "confidence": 0.95
+}
+original label: Village
+predict label: {
+  "label": "Village",
+  "confidence": 0.95
+}
+original label: Village
+predict label: {
+  "label": "Village",
+  "confidence": 0.95
+}
+original label: Village
+predict label: {
+  "label": "Village",
+  "confidence": 0.95
+}
+original label: Village
+predict label: {
+  "label": "Animal",
+  "confidence": 0.95
+}
+original label: Animal
+predict label: {
+  "label": "Animal",
+  "confidence": 0.95
+}
+original label: Animal
+predict label: {
+  "label": "Plant",
+  "confidence": 0.95
+}
+original label: Animal
+predict label: {
+  "label": "Plant",
+  "confidence": 0.95
+}
+original label: Animal
+predict label: {
+  "label": "Plant",
+  "confidence": 0.95
+}
+original label: Animal
+predict label: {
+  "label": "Plant",
+  "confidence": 0.85
+}
+original label: Animal
+predict label: {
+  "label": "Plant",
+  "confidence": 0.95
+}
+original label: Animal
+predict label: {
+  "label": "Animal",
+  "confidence": 0.95
+}
+original label: Animal
+predict label: {
+  "label": "Animal",
+  "confidence": 0.95
+}
+original label: Animal
+predict label: {
+  "label": "Animal",
+  "confidence": 0.95
+}
+original label: Animal
+predict label: {
+  "label": "Plant",
+  "confidence": 0.95
+}
+original label: Plant
+predict label: {
+  "label": "Plant",
+  "confidence": 0.95
+}
+original label: Plant
+predict label: {
+  "label": "Plant",
+  "confidence": 0.95
+}
+original label: Plant
+predict label: {
+  "label": "Plant",
+  "confidence": 0.95
+}
+original label: Plant
+predict label: {
+  "label": "Plant",
+  "confidence": 0.95
+}
+original label: Plant
+predict label: {
+  "label": "Plant",
+  "confidence": 0.95
+}
+original label: Plant
+predict label: {
+  "label": "Plant",
+  "confidence": 0.95
+}
+original label: Plant
+predict label: {
+  "label": "Plant",
+  "confidence": 0.95
+}
+original label: Plant
+predict label: {
+  "label": "Plant",
+  "confidence": 0.95
+}
+original label: Plant
+predict label: {
+  "label": "Plant",
+  "confidence": 0.95
+}
+original label: Plant
+predict label: {
+  "label": "Album",
+  "confidence": 0.95
+}
+original label: Album
+predict label: {
+  "label": "Album",
+  "confidence": 0.95
+}
+original label: Album
+predict label: {
+  "label": "Album",
+  "confidence": 0.95
+}
+original label: Album
+predict label: {
+  "label": "Album",
+  "confidence": 0.95
+}
+original label: Album
+predict label: {
+  "label": "Album",
+  "confidence": 0.95
+}
+original label: Album
+predict label: {
+  "label": "Album",
+  "confidence": 0.95
+}
+original label: Album
+predict label: {
+  "label": "Album",
+  "confidence": 0.95
+}
+original label: Album
+predict label: {
+  "label": "Album",
+  "confidence": 0.95
+}
+original label: Album
+predict label: {
+  "label": "Album",
+  "confidence": 0.95
+}
+original label: Album
+predict label: {
+  "label": "Album",
+  "confidence": 0.95
+}
+original label: Album
+predict label: {
+  "label": "Film",
+  "confidence": 0.95
+}
+original label: Film
+predict label: {
+  "label": "Film",
+  "confidence": 0.95
+}
+original label: Film
+predict label: {
+  "label": "Film",
+  "confidence": 0.95
+}
+original label: Film
+predict label: {
+  "label": "Film",
+  "confidence": 0.95
+}
+original label: Film
+predict label: {
+  "label": "Film",
+  "confidence": 0.95
+}
+original label: Film
+predict label: {
+  "label": "Film",
+  "confidence": 0.95
+}
+original label: Film
+predict label: {
+  "label": "Film",
+  "confidence": 0.95
+}
+original label: Film
+predict label: {
+  "label": "Film",
+  "confidence": 0.95
+}
+original label: Film
+predict label: {
+  "label": "Film",
+  "confidence": 0.95
+}
+original label: Film
+predict label: {
+  "label": "Film",
+  "confidence": 0.95
+}
+original label: Film
+predict label: {
+  "label": "WrittenWork",
+  "confidence": 0.95
+}
+original label: WrittenWork
+predict label: {
+  "label": "WrittenWork",
+  "confidence": 0.95
+}
+original label: WrittenWork
+predict label: {
+  "label": "WrittenWork",
+  "confidence": 0.95
+}
+original label: WrittenWork
+predict label: {
+  "label": "Album",
+  "confidence": 0.95
+}
+original label: WrittenWork
+predict label: {
+  "label": "WrittenWork",
+  "confidence": 0.95
+}
+original label: WrittenWork
+predict label: {
+  "label": "WrittenWork",
+  "confidence": 0.95
+}
+original label: WrittenWork
+predict label: {
+  "label": "WrittenWork",
+  "confidence": 0.95
+}
+original label: WrittenWork
+predict label: {
+  "label": "MeanOfTransportation",
+  "confidence": 0.25
+}
+original label: WrittenWork
+predict label: {
+  "label": "WrittenWork",
+  "confidence": 0.95
+}
+original label: WrittenWork
+predict label: {
+  "label": "WrittenWork",
+  "confidence": 0.95
+}
+original label: WrittenWork

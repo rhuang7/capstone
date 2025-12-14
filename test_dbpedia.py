@@ -4,6 +4,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 from tqdm import tqdm
 import time
+import capstone.utils as utils
 
 def fetch_data(dataset_path, each_num, rand_seed):
     ds = load_from_disk(dataset_path)
@@ -58,7 +59,6 @@ Now output the JSON object only:
     
     return prompt
 
-
 def do_test(testset, labels, model_id, cache_dir):
 
     tokenizer = AutoTokenizer.from_pretrained(
@@ -73,6 +73,7 @@ def do_test(testset, labels, model_id, cache_dir):
         device_map="auto" if torch.cuda.is_available() else None,
     )
     
+    count_store = []
     total_len = len(testset)
     for i in tqdm(range(total_len), desc="processing"): 
         pair = testset[i]
@@ -103,18 +104,22 @@ def do_test(testset, labels, model_id, cache_dir):
         generated_tokens = outputs[0][inputs["input_ids"].shape[-1]:]
         raw_resp = tokenizer.decode(generated_tokens, skip_special_tokens=True).strip()
 
-        print("predict label:", raw_resp)
+        obj = json.loads(raw_resp)
+        pred_label = obj["label"]
         
-        print("original label:", pair[0])
+        count_store.append([pred_label, pair[0], pair[1]])
+        # print("predict label:", pred_label)
+        
+        # print("original label:", pair[0])
         # if pair[0] not in raw_resp:
         #     print(pair[0])
         
-    return
+    return count_store
     
 
 
 dataset_path = "/data/ruoyu/dataset/dbpedia_14_saved"
-each_num = 10
+each_num = 1
 rand_seed = 42
 
 test_set, labels = fetch_data(dataset_path, each_num, rand_seed)
@@ -122,4 +127,4 @@ test_set, labels = fetch_data(dataset_path, each_num, rand_seed)
 model_id = "Qwen/Qwen3-4B"
 cache_dir = "/data/ruoyu/model"
 
-do_test(test_set, labels, model_id, cache_dir)
+calcu_result = do_test(test_set, labels, model_id, cache_dir)
