@@ -115,18 +115,17 @@ def do_test(testset, labels, model_id, cache_dir):
         #     print(pair[0])
         
     return count_store
-    
 
+if __name__ == '__main__':
+    dataset_path = "/data/ruoyu/dataset/dbpedia_14_saved"
+    each_num = 10
+    rand_seed = 42
 
-dataset_path = "/data/ruoyu/dataset/dbpedia_14_saved"
-each_num = 10
-rand_seed = 42
+    test_set, labels = fetch_data(dataset_path, each_num, rand_seed)
 
-test_set, labels = fetch_data(dataset_path, each_num, rand_seed)
+    model_id = "Qwen/Qwen3-4B"
+    cache_dir = "/data/ruoyu/model"
 
-model_id = "Qwen/Qwen3-4B"
-cache_dir = "/data/ruoyu/model"
-
-calcu_result = do_test(test_set, labels, model_id, cache_dir)
-print("the perdiction accuracy: ", utils.get_accuracy(calcu_result))
-utils.print_accuracy_by_category(calcu_result)
+    calcu_result = do_test(test_set, labels, model_id, cache_dir)
+    print("the perdiction accuracy: ", utils.get_accuracy(calcu_result))
+    utils.print_accuracy_by_category(calcu_result)

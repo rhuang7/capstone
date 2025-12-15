@@ -1,3 +1,5 @@
+import random
+from tqdm import tqdm
 
 def get_accuracy(result_list):
     total_sample_num = len(result_list)
@@ -26,7 +28,7 @@ def get_accuracy_by_category(result_list):
     for key in out_dict.keys():
         acc_dict[key] = out_dict[key][1] / out_dict[key][0]
     
-    return out_dict
+    return acc_dict
 
 def print_accuracy_by_category(in_dict):
     cate_acc = get_accuracy_by_category(in_dict)
@@ -34,3 +36,25 @@ def print_accuracy_by_category(in_dict):
         print("For category -", key, "- the accuracy is ", cate_acc[key])
     
     return
+
+def rand_nonneg_ints_sum(total, n):
+    m = total + n - 1
+    bars = sorted(random.sample(range(m), n - 1))
+    nums = []
+    prev = -1
+    for b in bars + [m]:
+        nums.append(b - prev - 1)
+        prev = b
+    return nums
+
+def testset_convertage(testset):
+    out_list = []
+    labels = list(testset.keys())
+    for t in tqdm(range(len(labels)), desc="Converting to List"):
+        label = labels[t]
+        for content in testset[label]:
+            current_list = [label]
+            current_list.extend(content)
+            out_list.append(current_list)
+    
+    return out_list
