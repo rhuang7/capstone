@@ -5,6 +5,7 @@ import torch
 from tqdm import tqdm
 import time
 import utils
+import dbpedia_multi_cate
 
 def fetch_data(dataset_path, each_num, rand_seed):
     ds = load_from_disk(dataset_path)
@@ -129,3 +130,13 @@ if __name__ == '__main__':
     calcu_result = do_test(test_set, labels, model_id, cache_dir)
     print("the perdiction accuracy: ", utils.get_accuracy(calcu_result))
     utils.print_accuracy_by_category(calcu_result)
+    
+   
+    n = 8
+    repeat = 20
+    
+    the_datas = dbpedia_multi_cate.fetch_data(dataset_path)
+    testset = utils.testset_convertage(dbpedia_multi_cate.set_testset(the_datas, n, repeat))
+
+    calcu_result = dbpedia_multi_cate.do_test(testset, model_id, cache_dir)
+    utils.print_accuracy_by_category_multi(calcu_result)

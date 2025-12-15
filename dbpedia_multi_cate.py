@@ -40,7 +40,9 @@ def set_testset(mydatasets, n, repeat):
                 if sample_confusion_plan[i] != 0:
                     temp_list.extend(random.sample(mydatasets[confusion_labels[i]], sample_confusion_plan[i]))
             random.shuffle(temp_list)
-            out_dict[label].append(temp_list)
+            with_true =[content]
+            with_true.extend(temp_list)
+            out_dict[label].append(with_true)
             
     return out_dict
 
@@ -99,7 +101,7 @@ def do_test(testset, model_id, cache_dir):
     total_len = len(testset)
     for i in tqdm(range(total_len), desc="processing"): 
         pair = testset[i]
-        prompt = prompt_gen()
+        prompt = prompt_gen(pair[0], pair[2:])
         
         messages = [
             {"role": "user", "content": prompt},
@@ -127,9 +129,9 @@ def do_test(testset, model_id, cache_dir):
         raw_resp = tokenizer.decode(generated_tokens, skip_special_tokens=True).strip()
 
         obj = json.loads(raw_resp)
-        pred_label = obj["label"]
+        pred_index = obj["index"]
         
-        count_store.append([pred_label, pair[0], pair[1]])
+        count_store.append([pair[2:][pred_index - 1], pair[1], pair[0]])
         # print("predict label:", pred_label)
         
         # print("original label:", pair[0])
@@ -139,20 +141,4 @@ def do_test(testset, model_id, cache_dir):
     return count_store
     
 
-dataset_path = "/data/ruoyu/dataset/dbpedia_14_saved"
-each_num = 10
-rand_seed = 42
-n = 5
-repeat = 10
 
-
-the_datas = fetch_data(dataset_path)
-testset = set_testset(the_datas, n, repeat)
-
-testset = utils.testset_convertage(testset)
-print(testset[0])
-
-# model_id = "Qwen/Qwen3-4B"
-# cache_dir = "/data/ruoyu/model"
-
-# calcu_result = do_test(testset, model_id, cache_dir)
