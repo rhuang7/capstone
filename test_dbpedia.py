@@ -7,7 +7,7 @@ import time
 import utils
 import dbpedia_multi_cate
 
-def fetch_data(dataset_path, each_num, rand_seed):
+def fetch_data(dataset_path, rand_seed):
     ds = load_from_disk(dataset_path)
 
     train_features = ds["train"].features
@@ -24,8 +24,7 @@ def fetch_data(dataset_path, each_num, rand_seed):
 
         subset = train_ds.filter(lambda e: e["label"] == label_id)
         subset = subset.shuffle(seed=rand_seed)
-        samples = subset.select(range(each_num))
-        for i, ex in enumerate(samples):
+        for i, ex in enumerate(subset):
             store.append([label_name, ex["content"]])
  
     return store, label_names
@@ -60,7 +59,7 @@ Now output the JSON object only:
     
     return prompt
 
-def do_test(testset, labels, model_id, cache_dir):
+def do_test(testset, labels, model_id, cache_dir, each_num):
 
     tokenizer = AutoTokenizer.from_pretrained(
         model_id,
@@ -76,67 +75,60 @@ def do_test(testset, labels, model_id, cache_dir):
     
     count_store = []
     total_len = len(testset)
-    for i in tqdm(range(total_len), desc="processing"): 
-        pair = testset[i]
-        prompt = prompt_gen(labels, pair[1])
-        
-        messages = [
-            {"role": "user", "content": prompt},
-        ]
+    for i in tqdm(range(total_len), desc="processing"):
+        for j in range(each_num):
+            pair = testset[i]
+            prompt = prompt_gen(labels, pair[1])
+            
+            messages = [
+                {"role": "user", "content": prompt},
+            ]
 
-        inputs = tokenizer.apply_chat_template(
-            messages,
-            add_generation_prompt=True,
-            tokenize=True,
-            return_dict=True,
-            return_tensors="pt",
-            enable_thinking=False
-        ).to(model.device)
+            inputs = tokenizer.apply_chat_template(
+                messages,
+                add_generation_prompt=True,
+                tokenize=True,
+                return_dict=True,
+                return_tensors="pt",
+                enable_thinking=False
+            ).to(model.device)
 
-        with torch.no_grad():
-            outputs = model.generate(
-                **inputs,
-                max_new_tokens=64,  
-                do_sample=False,     
-                top_p=1.0,
-                temperature=0.0,
-            )
+            with torch.no_grad():
+                outputs = model.generate(
+                    **inputs,
+                    max_new_tokens=64,  
+                    do_sample=False,
+                )
 
-        generated_tokens = outputs[0][inputs["input_ids"].shape[-1]:]
-        raw_resp = tokenizer.decode(generated_tokens, skip_special_tokens=True).strip()
+            generated_tokens = outputs[0][inputs["input_ids"].shape[-1]:]
+            raw_resp = tokenizer.decode(generated_tokens, skip_special_tokens=True).strip()
 
-        obj = json.loads(raw_resp)
-        pred_label = obj["label"]
-        
-        count_store.append([pred_label, pair[0], pair[1]])
-        # print("predict label:", pred_label)
-        
-        # print("original label:", pair[0])
-        # if pair[0] not in raw_resp:
-        #     print(pair[0])
+            obj = json.loads(raw_resp)
+            pred_label = obj["label"]
+            
+            count_store.append([pred_label, pair[0], pair[1]])
         
     return count_store
 
 if __name__ == '__main__':
     dataset_path = "/data/ruoyu/dataset/dbpedia_14_saved"
-    each_num = 10
+    each_num = 5
     rand_seed = 42
-
-    test_set, labels = fetch_data(dataset_path, each_num, rand_seed)
-
     model_id = "Qwen/Qwen3-4B"
     cache_dir = "/data/ruoyu/model"
 
-    calcu_result = do_test(test_set, labels, model_id, cache_dir)
+    test_set, labels = fetch_data(dataset_path, rand_seed)
+    calcu_result = do_test(test_set, labels, model_id, cache_dir, each_num)
     print("the perdiction accuracy: ", utils.get_accuracy(calcu_result))
     utils.print_accuracy_by_category(calcu_result)
+    utils.creat_json_for_phase_one(calcu_result, 'phase_one')
     
    
-    n = 8
-    repeat = 20
+    # n = 8
+    # repeat = 20
     
-    the_datas = dbpedia_multi_cate.fetch_data(dataset_path)
-    testset = utils.testset_convertage(dbpedia_multi_cate.set_testset(the_datas, n, repeat))
+    # the_datas = dbpedia_multi_cate.fetch_data(dataset_path)
+    # testset = utils.testset_convertage(dbpedia_multi_cate.set_testset(the_datas, n, repeat))
 
-    calcu_result = dbpedia_multi_cate.do_test(testset, model_id, cache_dir)
-    utils.print_accuracy_by_category_multi(calcu_result)
+    # calcu_result = dbpedia_multi_cate.do_test(testset, model_id, cache_dir)
+    # utils.print_accuracy_by_category_multi(calcu_result)

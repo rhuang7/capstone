@@ -1,5 +1,6 @@
 import random
 from tqdm import tqdm
+import json
 
 def get_accuracy(result_list):
     total_sample_num = len(result_list)
@@ -83,3 +84,25 @@ def print_accuracy_by_category_multi(in_dict):
         print("For category -", key, "- the accuracy is ", cate_acc[key])
     
     return
+
+def creat_json_for_phase_one(data_list, out_file_name):
+    json_data = {}
+    for i in tqdm(range(len(data_list)), desc="Store results into file"):
+        data = data_list[i]
+        if data[1] not in json_data.keys():
+            json_data[data[1]] = {}
+        sub_dict = json_data[data[1]]
+        if data[2] not in sub_dict.keys():
+            sub_dict[data[2]] = [0, 0]
+        if data[0] == data[1]:
+            sub_dict[data[2]][0] += 1
+            sub_dict[data[2]][1] += 1
+        else:
+            sub_dict[data[2]][0] += 1
+    
+    out_file_name = 'output/' + out_file_name
+    with open(out_file_name, 'w') as file:
+        json.dump(json_data, file)
+        
+    return
+        
