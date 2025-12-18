@@ -7,7 +7,7 @@ import time
 import utils
 import dbpedia_multi_cate
 
-def fetch_data(dataset_path, rand_seed):
+def fetch_data(dataset_path, rand_seed, sample_size):
     ds = load_from_disk(dataset_path)
 
     train_features = ds["train"].features
@@ -24,7 +24,8 @@ def fetch_data(dataset_path, rand_seed):
 
         subset = train_ds.filter(lambda e: e["label"] == label_id)
         subset = subset.shuffle(seed=rand_seed)
-        for i, ex in enumerate(subset):
+        samples = subset.select(range(sample_size))
+        for i, ex in enumerate(samples):
             store.append([label_name, ex["content"]])
  
     return store, label_names
@@ -105,19 +106,21 @@ def do_test(testset, labels, model_id, cache_dir, each_num):
 
             obj = json.loads(raw_resp)
             pred_label = obj["label"]
+            pred_confi = obj["confidence"]
             
-            count_store.append([pred_label, pair[0], pair[1]])
+            count_store.append([pred_label, pair[0], pair[1], pred_confi])
         
     return count_store
 
 if __name__ == '__main__':
     dataset_path = "/data/ruoyu/dataset/dbpedia_14_saved"
-    each_num = 5
+    each_num = 10
     rand_seed = 42
+    sample_size = 200
     model_id = "Qwen/Qwen3-4B"
     cache_dir = "/data/ruoyu/model"
 
-    test_set, labels = fetch_data(dataset_path, rand_seed)
+    test_set, labels = fetch_data(dataset_path, rand_seed, sample_size)
     calcu_result = do_test(test_set, labels, model_id, cache_dir, each_num)
     print("the perdiction accuracy: ", utils.get_accuracy(calcu_result))
     utils.print_accuracy_by_category(calcu_result)

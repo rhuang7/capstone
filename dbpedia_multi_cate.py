@@ -25,24 +25,25 @@ def fetch_data(dataset_path):
             
     return store
 
-def set_testset(mydatasets, n, repeat):
+def set_testset(mydatasets, n, repeat, sample_size):
     out_dict = {}
     labels = mydatasets.keys()
     for t in tqdm(range(len(labels)), desc="Generating testsets"):
         label = list(labels)[t]
-        rand_ori_content = random.sample(mydatasets[label], repeat)
+        rand_ori_content = random.sample(mydatasets[label], sample_size)
         out_dict[label] = []
         for content in rand_ori_content:
-            temp_list = [content]
-            sample_confusion_plan = utils.rand_nonneg_ints_sum(n-1, len(labels)-1)
-            confusion_labels = [v for v in labels if v != label]
-            for i in range(0, len(sample_confusion_plan)):
-                if sample_confusion_plan[i] != 0:
-                    temp_list.extend(random.sample(mydatasets[confusion_labels[i]], sample_confusion_plan[i]))
-            random.shuffle(temp_list)
-            with_true =[content]
-            with_true.extend(temp_list)
-            out_dict[label].append(with_true)
+            for i in range(repeat):
+                temp_list = [content]
+                sample_confusion_plan = utils.rand_nonneg_ints_sum(n-1, len(labels)-1)
+                confusion_labels = [v for v in labels if v != label]
+                for i in range(0, len(sample_confusion_plan)):
+                    if sample_confusion_plan[i] != 0:
+                        temp_list.extend(random.sample(mydatasets[confusion_labels[i]], sample_confusion_plan[i]))
+                random.shuffle(temp_list)
+                with_true =[content]
+                with_true.extend(temp_list)
+                out_dict[label].append(with_true)
             
     return out_dict
 
@@ -130,8 +131,9 @@ def do_test(testset, model_id, cache_dir):
 
         obj = json.loads(raw_resp)
         pred_index = obj["index"]
+        pred_confi = obj["confidence"]
         
-        count_store.append([pair[2:][pred_index - 1], pair[1], pair[0]])
+        count_store.append([pair[2:][pred_index - 1], pair[1], pair[0], pred_confi])
         # print("predict label:", pred_label)
         
         # print("original label:", pair[0])
@@ -142,3 +144,20 @@ def do_test(testset, model_id, cache_dir):
     
 
 
+if __name__ == '__main__':
+    dataset_path = "/data/ruoyu/dataset/dbpedia_14_saved"
+    sample_size = 200
+    each_num = 5
+    rand_seed = 42
+    model_id = "Qwen/Qwen3-4B"
+    cache_dir = "/data/ruoyu/model"
+    
+    n = 8
+    repeat = 10
+    
+    the_datas = fetch_data(dataset_path)
+    testset = utils.testset_convertage(set_testset(the_datas, n, repeat, sample_size))
+
+    calcu_result = do_test(testset, model_id, cache_dir)
+    utils.print_accuracy_by_category_multi(calcu_result)
+    utils.creat_json_for_phase_third(calcu_result, 'multi_cate_out')
