@@ -1,6 +1,7 @@
 import random
 from tqdm import tqdm
 import json
+import ast
 
 def get_accuracy(result_list):
     total_sample_num = len(result_list)
@@ -128,3 +129,43 @@ def creat_json_for_phase_third(data_list, out_file_name):
         json.dump(json_data, file)
         
     return
+
+def extract_func_name(code: str) -> str | None:
+    tree = ast.parse(code)
+    for node in tree.body:
+        if isinstance(node, ast.FunctionDef):
+            return node.name
+    return None
+
+def extract_all_func_names(code: str):
+    tree = ast.parse(code)
+    return [node.name for node in ast.walk(tree) if isinstance(node, ast.FunctionDef)]
+
+def rename_function_and_references(code: str, old_name: str, new_name: str) -> str:
+    tree = ast.parse(code)
+
+    class Renamer(ast.NodeTransformer):
+        def visit_FunctionDef(self, node: ast.FunctionDef):
+            if node.name == old_name:
+                node.name = new_name
+            self.generic_visit(node)
+            return node
+
+        def visit_AsyncFunctionDef(self, node: ast.AsyncFunctionDef):
+            if node.name == old_name:
+                node.name = new_name
+            self.generic_visit(node)
+            return node
+
+        def visit_Name(self, node: ast.Name):
+            if node.id == old_name:
+                node.id = new_name
+            return node
+
+        def visit_Attribute(self, node: ast.Attribute):
+            self.generic_visit(node)
+            return node
+
+    new_tree = Renamer().visit(tree)
+    ast.fix_missing_locations(new_tree)
+    return ast.unparse(new_tree) + "\n"

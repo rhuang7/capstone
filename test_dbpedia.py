@@ -127,11 +127,12 @@ if __name__ == '__main__':
     utils.creat_json_for_phase_one(calcu_result, 'phase_one')
     
    
-    # n = 8
-    # repeat = 20
+    n = 8
+    repeat = 10
     
-    # the_datas = dbpedia_multi_cate.fetch_data(dataset_path)
-    # testset = utils.testset_convertage(dbpedia_multi_cate.set_testset(the_datas, n, repeat))
+    the_datas = dbpedia_multi_cate.fetch_data(dataset_path)
+    testset = utils.testset_convertage(dbpedia_multi_cate.set_testset(the_datas, n, repeat, sample_size))
 
-    # calcu_result = dbpedia_multi_cate.do_test(testset, model_id, cache_dir)
-    # utils.print_accuracy_by_category_multi(calcu_result)
+    calcu_result = dbpedia_multi_cate.do_test(testset, model_id, cache_dir)
+    utils.print_accuracy_by_category_multi(calcu_result)
+    utils.creat_json_for_phase_third(calcu_result, 'multi_cate_out')

@@ -1,0 +1,31 @@
+def check(candidate):
+
+    # Check some simple cases
+    assert candidate(5) == 5
+    assert candidate(54) == 5
+    assert candidate(120) ==1
+    assert candidate(5014) == 5
+    assert candidate(98765) == 315
+    assert candidate(5576543) == 2625
+
+    # Check some edge cases that are easy to work out by hand.
+    assert candidate(2468) == 0
+
+
+
+def digits(n):
+    """Given a positive integer n, return the product of the odd digits.
+    Return 0 if all digits are even.
+    For example:
+    digits(1)  == 1
+    digits(4)  == 0
+    digits(235) == 15
+    """
+    product = 1
+    for digit in str(n):
+        d = int(digit)
+        if d % 2 == 1:
+            product *= d
+    return product if any(d % 2 == 1 for d in map(int, str(n))) else 0
+
+check(digits)
