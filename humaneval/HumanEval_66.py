@@ -29,6 +29,10 @@ def digitSum(s):
         digitSum("woArBld") => 131
         digitSum("aAaaaXa") => 153
     """
-    return sum(ord(c) for c in s if c.isupper())
+    total = 0
+    for char in s:
+        if char.isupper():
+            total += ord(char)
+    return total
 
 check(digitSum)

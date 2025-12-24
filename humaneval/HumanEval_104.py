@@ -29,4 +29,4 @@ def unique_digits(x):
     result = [num for num in x if not has_even_digit(num)]
     return sorted(result)
 
-check(has_even_digit)
+check(unique_digits)

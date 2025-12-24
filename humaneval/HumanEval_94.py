@@ -53,4 +53,4 @@ def skjkasdkd(lst):
 
     return sum_digits(max_prime)
 
-check(sum_digits)
+check(skjkasdkd)

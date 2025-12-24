@@ -19,14 +19,14 @@ def starts_one_ends(n):
     positive integers that start or end with 1.
     """
     if n == 1:
-        return 1  # Only the number 1 satisfies the condition
-    # For n-digit numbers, the first digit can be 1 (1 choice)
-    # The last digit can be 1 (1 choice)
-    # However, we must subtract the overlap where both first and last digits are 1
-    # Total = start_with_1 + end_with_1 - both_start_and_end_with_1
-    start_with_1 = 1 * 10 ** (n - 1)
-    end_with_1 = 9 * 1 * 10 ** (n - 2)
-    both_start_and_end_with_1 = 1 * 1 * 10 ** (n - 2)
-    return start_with_1 + end_with_1 - both_start_and_end_with_1
+        return 1  # Only number is 1, which starts and ends with 1
+    count = 0
+    # Numbers that start with 1
+    count += 10 ** (n - 1)
+    # Numbers that end with 1
+    count += 10 ** (n - 1)
+    # Subtract the overlap (numbers that both start and end with 1)
+    count -= 10 ** (n - 2)
+    return count
 
 check(starts_one_ends)

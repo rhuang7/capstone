@@ -23,15 +23,18 @@ def sort_even(l: list):
     even_indices = l[::2]
     sorted_evens = sorted(even_indices)
     
-    # Create the result list by replacing even-indexed elements with sorted ones
+    # Create the result list by placing sorted even elements at even indices
     result = []
     even_idx = 0
+    odd_idx = 1
     for i in range(len(l)):
         if i % 2 == 0:
             result.append(sorted_evens[even_idx])
             even_idx += 1
         else:
-            result.append(l[i])
+            result.append(l[odd_idx])
+            odd_idx += 1
+    
     return result
 
 check(sort_even)

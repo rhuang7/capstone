@@ -48,6 +48,9 @@ def match_parens(lst):
                 return False
         return balance == 0
     
-    return 'Yes' if is_valid(s1 + s2) or is_valid(s2 + s1) else 'No'
+    if is_valid(s1 + s2) or is_valid(s2 + s1):
+        return 'Yes'
+    else:
+        return 'No'
 
-check(is_valid)
+check(match_parens)

@@ -34,7 +34,7 @@ def find_zero(xs: list):
     1.0
     """
     # Find the largest non-zero coefficient
-    max_coeff = max(coeff for coeff in xs if coeff != 0)
+    max_coeff = max([coeff for coeff in xs if coeff != 0])
     # Find the index of the largest non-zero coefficient
     max_index = xs.index(max_coeff)
     # If the largest coefficient is at an even index, return -max_coeff / max_coeff

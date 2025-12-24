@@ -18,9 +18,9 @@ def string_xor(a: str, b: str) -> str:
     >>> string_xor('010', '110')
     '100'
     """
-    # Check if the lengths of the input strings are equal
+    # Check if the inputs are of equal length
     if len(a) != len(b):
-        return ""
+        raise ValueError("Inputs must be of equal length")
     
     # Perform XOR on each pair of bits
     result = []

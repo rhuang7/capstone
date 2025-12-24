@@ -27,16 +27,11 @@ def compare_one(a, b):
     compare_one("5,1", "6") ➞ "6"
     compare_one("1", 1) ➞ None
     """
-    # Convert both values to floats for comparison
-    # Handle strings by replacing commas and periods with dots before converting to float
-    def to_float(value):
-        if isinstance(value, str):
-            value = value.replace(',', '.').replace('.', '')
-        return float(value)
-    
-    a_float = to_float(a)
-    b_float = to_float(b)
-    
+    # Convert a and b to floats for comparison
+    a_float = float(a) if isinstance(a, str) else a
+    b_float = float(b) if isinstance(b, str) else b
+
+    # Compare the float values
     if a_float > b_float:
         return a
     elif a_float < b_float:
@@ -44,4 +39,4 @@ def compare_one(a, b):
     else:
         return None
 
-check(to_float)
+check(compare_one)

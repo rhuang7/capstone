@@ -47,4 +47,4 @@ def prime_length(string):
 
     return is_prime(len(string))
 
-check(is_prime)
+check(prime_length)

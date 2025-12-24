@@ -26,6 +26,6 @@ def digits(n):
         d = int(digit)
         if d % 2 == 1:
             product *= d
-    return product if any(d % 2 == 1 for d in map(int, str(n))) else 0
+    return product if product != 1 else 0
 
 check(digits)

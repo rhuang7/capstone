@@ -35,7 +35,7 @@ def by_length(arr):
             -> reverse arr -> [55, 1, -1]
       return = ['One']
     """
-    # Filter the array to include only numbers between 1 and 9 inclusive
+    # Filter the array to include only numbers between 1 and 9
     filtered = [num for num in arr if 1 <= num <= 9]
     
     # Sort the filtered array

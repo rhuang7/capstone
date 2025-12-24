@@ -130,12 +130,13 @@ def creat_json_for_phase_third(data_list, out_file_name):
         
     return
 
-def extract_func_name(code: str) -> str | None:
+def extract_func_name(code: str):
     tree = ast.parse(code)
+    out = []
     for node in tree.body:
         if isinstance(node, ast.FunctionDef):
-            return node.name
-    return None
+            out.append(node.name)
+    return out
 
 def extract_all_func_names(code: str):
     tree = ast.parse(code)

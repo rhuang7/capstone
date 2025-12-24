@@ -53,33 +53,30 @@ def minPath(grid, k):
     n = len(grid)
     directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
-    # Priority queue: (current_path, current_position, current_value)
-    # We use a priority queue to always expand the lexicographically smallest path
-    # We also need to track visited states to avoid cycles
-    # Each state is (row, col, path_length)
-    # We use a dictionary to track the minimum path for each state
-    visited = {}
-
-    # Start with all cells as possible starting points
+    # Priority queue: (current_value, current_row, current_col, path)
     heap = []
+    # Initialize the heap with all starting positions
     for i in range(n):
         for j in range(n):
-            heappush(heap, (grid[i][j], (i, j), 0, [grid[i][j]]))
-            visited[(i, j, 0)] = grid[i][j]
+            heappush(heap, (grid[i][j], i, j, [grid[i][j]]))
+
+    # Visited set to keep track of visited cells and their path lengths
+    visited = set()
 
     while heap:
-        val, (r, c), steps, path = heappop(heap)
-        if steps == k:
+        val, row, col, path = heappop(heap)
+        # Check if the path length is k
+        if len(path) == k:
             return path
+        # Generate next positions
         for dr, dc in directions:
-            nr, nc = r + dr, c + dc
+            nr, nc = row + dr, col + dc
             if 0 <= nr < n and 0 <= nc < n:
-                new_steps = steps + 1
                 new_path = path + [grid[nr][nc]]
-                key = (nr, nc, new_steps)
-                if key not in visited or grid[nr][nc] < visited[key]:
-                    visited[key] = grid[nr][nc]
-                    heappush(heap, (grid[nr][nc], (nr, nc), new_steps, new_path))
-    return []
+                # Check if this path has been visited before
+                state = (nr, nc, len(new_path))
+                if state not in visited:
+                    visited.add(state)
+                    heappush(heap, (grid[nr][nc], nr, nc, new_path))
 
 check(minPath)

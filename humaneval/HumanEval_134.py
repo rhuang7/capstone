@@ -37,8 +37,8 @@ def check_if_last_char_is_a_letter(txt):
         return False
     # Check if the last character is not part of a word
     # A word ends with a space or is the last character
-    # So, if the last character is a letter and the previous character is a space, it's not part of a word
-    if len(txt) > 1 and txt[-2] == ' ':
+    # So, check if the last character is followed by a space or is the last character
+    if len(txt) == 1 or txt[-2] == ' ':
         return True
     return False
 

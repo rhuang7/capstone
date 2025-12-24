@@ -25,22 +25,12 @@ def count_nums(arr):
     >>> count_nums([-1, 11, -11]) == 1
     >>> count_nums([1, 1, 2]) == 3
     """
-    count = 0
-    for num in arr:
+    def digit_sum(n):
         total = 0
-        # Handle negative numbers by considering the first digit as negative
-        is_negative = num < 0
-        num = abs(num)
-        while num > 0:
-            digit = num % 10
-            if is_negative:
-                total -= digit
-                is_negative = False
-            else:
-                total += digit
-            num = num // 10
-        if total > 0:
-            count += 1
-    return count
+        for ch in str(n):
+            total += int(ch)
+        return total
+
+    return sum(1 for num in arr if digit_sum(num) > 0)
 
 check(count_nums)

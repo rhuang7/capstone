@@ -22,7 +22,7 @@ def fetch_data(dataset_path, sample_size=164):
         temp_list = [id_list[i], prompt_list[i], test_list[i]]
         store.append(temp_list)
     
-    store = random.sample(store, sample_size)
+    #store = random.sample(store, sample_size)
     return store
 
 def do_test(testset, model_id, cache_dir, each_num):
@@ -47,7 +47,7 @@ def do_test(testset, model_id, cache_dir, each_num):
             prompt = current_case[1]
             
             messages = [
-                {"role":"system","content":"You are a code completion model. Output ONLY the function body. The code MUST be complete and executable. Do not stop early."},
+                {"role":"system","content":"You are a code completion model. Output ONLY the function define and function body. The code MUST be complete and executable. Do not stop early."},
                 {"role":"user","content": """You are given a programming prompt that already contains any required imports, the target function signature, and its docstring.
 
 Your task:
@@ -80,7 +80,7 @@ PROMPT>>>"""}
 
             generated_tokens = outputs[0][inputs["input_ids"].shape[-1]:]
             raw_resp = tokenizer.decode(generated_tokens, skip_special_tokens=True).strip()
-
+            
             base_code = current_case[2] + '\n\n' + raw_resp
             function_name = utils.extract_func_name(raw_resp)
             test_code = '\n\ncheck(' + function_name[-1] + ')'

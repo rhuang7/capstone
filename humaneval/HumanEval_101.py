@@ -24,7 +24,7 @@ def words_string(s):
     words_string("One, two, three, four, five, six") == ["One", "two", "three", "four", "five", "six"]
     """
     # Split the string on commas and spaces, then filter out any empty strings
-    words = s.split(', ') if ',' in s else s.split()
-    return [word for word in words if word]
+    words = [word.strip() for word in s.split(',') if word.strip()]
+    return words
 
 check(words_string)

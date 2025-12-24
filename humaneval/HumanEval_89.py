@@ -37,6 +37,7 @@ def encrypt(s):
             shifted = chr(ord(char) + 2)
             result += shifted
         else:
+            # Leave non-alphabetic characters unchanged
             result += char
     return result
 

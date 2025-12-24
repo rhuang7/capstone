@@ -27,7 +27,10 @@ def solve(N):
     Output:
          a string of binary number
     """
+    # Calculate the sum of digits of N
     digit_sum = sum(int(d) for d in str(N))
+    
+    # Convert the sum to binary and return as a string
     return bin(digit_sum)[2:]
 
 check(solve)

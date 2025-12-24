@@ -20,13 +20,13 @@ def split_words(txt):
     split_words("Hello,world!") ➞ ["Hello", "world!"]
     split_words("abcdef") == 3 
     '''
-    # Split on whitespace first
+    # Check for whitespace
     if ' ' in txt:
         return txt.split()
-    # If no whitespace, split on commas
+    # Check for commas
     elif ',' in txt:
         return txt.split(',')
-    # If no whitespace or commas, count lower-case letters with odd order
+    # Count lower-case letters with odd order in the alphabet
     else:
         count = 0
         for char in txt:

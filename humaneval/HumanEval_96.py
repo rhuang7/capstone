@@ -14,7 +14,7 @@ def check(candidate):
 
 
 def count_up_to(n):
-    """Implement a function that takes a non-negative integer and returns an array of the first n
+    """Implement a function that takes an non-negative integer and returns an array of the first n
     integers that are prime numbers and less than n.
     for example:
     count_up_to(5) => [2,3]
@@ -33,11 +33,11 @@ def count_up_to(n):
         return True
 
     primes = []
-    current = 2
-    while len(primes) < n and current < n:
-        if is_prime(current):
-            primes.append(current)
-        current += 1
+    for i in range(2, n):
+        if is_prime(i):
+            primes.append(i)
+            if len(primes) == n:
+                break
     return primes
 
-check(is_prime)
+check(count_up_to)

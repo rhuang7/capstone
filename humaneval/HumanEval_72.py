@@ -38,6 +38,7 @@ def will_it_fly(q, w):
     total_weight = sum(q)
     is_light_enough = total_weight <= w
     
+    # Return True if both conditions are met
     return is_balanced and is_light_enough
 
 check(will_it_fly)

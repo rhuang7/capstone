@@ -16,6 +16,9 @@ def is_equal_to_sum_even(n):
     is_equal_to_sum_even(6) == False
     is_equal_to_sum_even(8) == True
     """
+    # For a number to be expressed as the sum of 4 positive even numbers, it must be at least 8 (2+2+2+2)
+    # Also, since even + even = even, the sum of 4 even numbers will always be even
+    # So, n must be even and at least 8
     return n >= 8 and n % 2 == 0
 
 check(is_equal_to_sum_even)
