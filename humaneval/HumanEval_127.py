@@ -14,6 +14,7 @@ def check(candidate):
 
 
 
+
 def intersection(interval1, interval2):
     """You are given two intervals,
     where each interval is a pair of integers. For example, interval = (start, end) = (1, 2).

@@ -17,6 +17,7 @@ def check(candidate):
     assert True
 
 
+
 def largest_smallest_integers(lst):
     '''
     Create a function that returns a tuple (a, b), where 'a' is

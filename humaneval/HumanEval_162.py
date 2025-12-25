@@ -11,6 +11,7 @@ def check(candidate):
 
 
 
+
 def string_to_md5(text):
     """
     Given a string 'text', return its md5 hash equivalent string.

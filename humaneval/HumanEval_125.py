@@ -10,6 +10,7 @@ def check(candidate):
     assert candidate("") == 0
 
 
+
 def split_words(txt):
     '''
     Given a string of words, return a list of words split on whitespace, if no whitespaces exists in the text you

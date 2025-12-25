@@ -17,6 +17,8 @@ def check(candidate):
     assert candidate(3 * 2 * 3) == [2, 3, 3]
 
 
+
+from typing import List
 def factorize(n: int) -> List[int]:
     """ Return list of prime factors of given integer in the order from smallest to largest.
     Each of the factors should be listed number of times corresponding to how many times it appeares in factorization.

@@ -14,6 +14,7 @@ def check(candidate):
 
 
 
+
 def check_dict_case(dict):
     """
     Given a dictionary, return True if all keys are strings in lower 

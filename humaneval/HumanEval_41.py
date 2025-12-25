@@ -12,6 +12,7 @@ def check(candidate):
 
 
 
+
 def car_race_collision(n: int):
     """
     Imagine a road that's a perfectly straight infinitely long line.

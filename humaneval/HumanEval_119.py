@@ -19,6 +19,7 @@ def check(candidate):
 
 
 
+
 def match_parens(lst):
     '''
     You are given a list of two strings, both strings consist of open

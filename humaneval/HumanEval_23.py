@@ -12,6 +12,7 @@ def check(candidate):
     assert candidate('asdasnakj') == 9
 
 
+
 def strlen(string: str) -> int:
     """ Return length of given string
     >>> strlen('')

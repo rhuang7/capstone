@@ -17,6 +17,7 @@ def check(candidate):
 
 
 
+
 def x_or_y(n, x, y):
     """A simple program which should return the value of x if n is 
     a prime number and should return the value of y otherwise.
@@ -45,4 +46,4 @@ def is_prime(n):
         i += 6
     return True
 
-check(is_prime)
+check(x_or_y)

@@ -13,6 +13,7 @@ def check(candidate):
 
 
 
+
 def words_in_sentence(sentence):
     """
     You are given a string representing a sentence,

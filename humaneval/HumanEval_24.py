@@ -14,6 +14,7 @@ def check(candidate):
     assert candidate(49) == 7
 
 
+
 def largest_divisor(n: int) -> int:
     """ For a given number n, find the largest number that divides n evenly, smaller than n
     >>> largest_divisor(15)

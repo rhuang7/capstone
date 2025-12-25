@@ -13,6 +13,8 @@ def check(candidate):
     assert candidate([3, 2, 3, 100, 3]) == [3, 3, 3, 100, 100]
 
 
+
+from typing import List, Tuple
 def rolling_max(numbers: List[int]) -> List[int]:
     """ From a given list of integers, generate a list of rolling maximum element found until given moment
     in the sequence.

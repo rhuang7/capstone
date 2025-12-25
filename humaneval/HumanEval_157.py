@@ -17,6 +17,7 @@ def check(candidate):
 
 
 
+
 def right_angle_triangle(a, b, c):
     '''
     Given the lengths of the three sides of a triangle. Return True if the three

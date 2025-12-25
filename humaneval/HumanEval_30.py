@@ -11,6 +11,7 @@ def check(candidate):
 
 
 
+
 def get_positive(l: list):
     """Return only positive numbers in the list.
     >>> get_positive([-1, 2, -4, 5, 6])

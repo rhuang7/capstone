@@ -16,6 +16,7 @@ def check(candidate):
 
 
 
+
 def pluck(arr):
     """
     "Given an array representing a branch of a tree that has non-negative integer nodes

@@ -15,6 +15,7 @@ def check(candidate):
 
 
 
+
 def triangle_area(a, b, c):
     '''
     Given the lengths of the three sides of a triangle. Return the area of

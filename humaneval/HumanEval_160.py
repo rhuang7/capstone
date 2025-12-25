@@ -10,6 +10,7 @@ def check(candidate):
 
 
 
+
 def do_algebra(operator, operand):
     """
     Given two lists operator, and operand. The first list has basic algebra operations, and 

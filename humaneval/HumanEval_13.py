@@ -13,6 +13,7 @@ def check(candidate):
     assert candidate(144, 60) == 12
 
 
+
 def greatest_common_divisor(a: int, b: int) -> int:
     """ Return a greatest common divisor of two integers a and b
     >>> greatest_common_divisor(3, 5)

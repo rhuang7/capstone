@@ -15,6 +15,8 @@ def check(candidate):
     assert candidate([1, -2, 2, -2, 5, -5, 4, -4]) == True
 
 
+
+from typing import List
 def below_zero(operations: List[int]) -> bool:
     """ You're given a list of deposit and withdrawal operations on a bank account that starts with
     zero balance. Your task is to detect if at any point the balance of account falls below zero, and

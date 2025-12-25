@@ -60,7 +60,7 @@ PROMPT (copy this verbatim into your output, then fill in the function body):
 <<<PROMPT
 """ + prompt + """
 PROMPT>>>"""}
-            ]
+                        ]
 
             inputs = tokenizer.apply_chat_template(
                 messages,
@@ -80,10 +80,17 @@ PROMPT>>>"""}
 
             generated_tokens = outputs[0][inputs["input_ids"].shape[-1]:]
             raw_resp = tokenizer.decode(generated_tokens, skip_special_tokens=True).strip()
+            temp_lines = current_case[1].splitlines()
+            import_line = '\n'
+            for line in temp_lines:
+                if 'import' in line:
+                    import_line += line + '\n'
+            # raw_resp = "\n".join('    ' + line for line in raw_resp.splitlines())
+            print(raw_resp)
             
-            base_code = current_case[2] + '\n\n' + raw_resp
-            function_name = utils.extract_func_name(raw_resp)
-            test_code = '\n\ncheck(' + function_name[-1] + ')'
+            base_code = current_case[2] + '\n\n' + import_line + raw_resp
+            test_func_name = utils.extract_func_name(current_case[1])
+            test_code = '\n\ncheck(' + test_func_name[-1] + ')'
             base_code += test_code
             
             python_file_name = current_case[0] + '.py'

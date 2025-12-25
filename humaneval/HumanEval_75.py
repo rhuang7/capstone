@@ -13,6 +13,7 @@ def check(candidate):
 
 
 
+
 def is_multiply_prime(a):
     """Write a function that returns true if the given number is the multiplication of 3 prime numbers
     and false otherwise.

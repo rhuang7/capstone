@@ -21,6 +21,8 @@ def check(candidate):
 
 
 
+
+import math
 def find_zero(xs: list):
     """ xs are coefficients of a polynomial.
     find_zero find x such that poly(x) = 0.

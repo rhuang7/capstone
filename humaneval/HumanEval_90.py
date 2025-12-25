@@ -14,6 +14,7 @@ def check(candidate):
 
 
 
+
 def next_smallest(lst):
     """
     You are given a list of integers.

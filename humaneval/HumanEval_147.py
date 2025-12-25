@@ -6,6 +6,7 @@ def check(candidate):
     assert candidate(100) == 53361
 
 
+
 def get_max_triples(n):
     """
     You are given a positive integer n. You have to create an integer array a of length n.

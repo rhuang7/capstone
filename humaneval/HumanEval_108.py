@@ -15,6 +15,7 @@ def check(candidate):
 
 
 
+
 def count_nums(arr):
     """
     Write a function count_nums which takes an array of integers and returns

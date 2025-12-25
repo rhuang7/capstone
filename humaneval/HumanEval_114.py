@@ -17,6 +17,7 @@ def check(candidate):
     assert candidate([1, -1]) == -1
 
 
+
 def minSubArraySum(nums):
     """
     Given an array of integers nums, find the minimum sum of any non-empty sub-array

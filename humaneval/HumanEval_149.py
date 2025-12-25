@@ -13,6 +13,7 @@ def check(candidate):
 
 
 
+
 def sorted_list_sum(lst):
     """Write a function that accepts a list of strings as a parameter,
     deletes the strings that have odd lengths from it,

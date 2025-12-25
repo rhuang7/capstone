@@ -15,6 +15,7 @@ def check(candidate):
     
 
 
+
 def Strongest_Extension(class_name, extensions):
     """You will be given the name of a class (a string) and a list of extensions.
     The extensions are to be used to load additional classes to the class. The

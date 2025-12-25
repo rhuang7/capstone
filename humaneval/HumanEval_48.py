@@ -14,6 +14,7 @@ def check(candidate):
 
 
 
+
 def is_palindrome(text: str):
     """
     Checks if given string is a palindrome

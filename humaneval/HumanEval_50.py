@@ -16,6 +16,7 @@ def check(candidate):
 
 
 
+
 def encode_shift(s: str):
     """
     returns encoded string by shifting every character by 5 in the alphabet.

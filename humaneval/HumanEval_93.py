@@ -11,6 +11,7 @@ def check(candidate):
 
 
 
+
 def encode(message):
     """
     Write a function that takes a message, and encodes in such a 

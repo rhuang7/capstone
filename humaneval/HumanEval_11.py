@@ -12,6 +12,8 @@ def check(candidate):
     assert candidate('0101', '0000') == '0101'
 
 
+
+from typing import List
 def string_xor(a: str, b: str) -> str:
     """ Input are two strings a and b consisting only of 1s and 0s.
     Perform binary XOR on these inputs and return result also as a string.

@@ -10,6 +10,7 @@ def check(candidate):
 
 
 
+
 def special_factorial(n):
     """The Brazilian factorial is defined as:
     brazilian_factorial(n) = n! * (n-1)! * (n-2)! * ... * 1!
@@ -32,4 +33,4 @@ def factorial(n):
         return 1
     return n * factorial(n-1)
 
-check(factorial)
+check(special_factorial)

@@ -14,6 +14,7 @@ def check(candidate):
 
 
 
+
 def smallest_change(arr):
     """
     Given an array arr of integers, find the minimum number of elements that

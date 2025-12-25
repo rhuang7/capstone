@@ -14,6 +14,7 @@ def check(candidate):
 
 
 
+
 def count_upper(s):
     """
     Given a string s, count the number of uppercase vowels in even indices.

@@ -13,6 +13,7 @@ def check(candidate):
 
 
 
+
 def order_by_points(nums):
     """
     Write a function which sorts the given list of integers

@@ -6,6 +6,7 @@ def check(candidate):
     assert candidate(3) == [1, 2, 6]
 
 
+
 def f(n):
     """ Implement the function f that takes n as a parameter,
     and returns a list of size n, such that the value of the element at index i is the factorial of i if i is even

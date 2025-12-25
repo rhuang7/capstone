@@ -14,6 +14,7 @@ def check(candidate):
 
 
 
+
 def odd_count(lst):
     """Given a list of strings, where each string consists of only digits, return a list.
     Each element i of the output should be "the number of odd elements in the

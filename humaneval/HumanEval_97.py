@@ -15,6 +15,7 @@ def check(candidate):
 
 
 
+
 def multiply(a, b):
     """Complete the function that takes two integers and returns 
     the product of their unit digits.

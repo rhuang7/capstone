@@ -17,6 +17,7 @@ def check(candidate):
 
 
 
+
 def maximum(arr, k):
     """
     Given an array arr of integers and a positive integer k, return a sorted list 

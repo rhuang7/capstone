@@ -34,6 +34,7 @@ def check(candidate):
     assert candidate('04-2003') == False
 
 
+
 def valid_date(date):
     """You have to write a function which validates a given date string and
     returns True if the date is valid otherwise False.

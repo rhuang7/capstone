@@ -15,6 +15,7 @@ def check(candidate):
     # Don't remove this line:
 
 
+
 def solve(s):
     """You are given a string s.
     if s[i] is a letter, reverse its case from lower to upper or vise versa, 

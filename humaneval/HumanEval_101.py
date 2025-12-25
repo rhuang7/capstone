@@ -14,6 +14,7 @@ def check(candidate):
 
 
 
+
 def words_string(s):
     """
     You will be given a string of words separated by commas or spaces. Your task is

@@ -13,6 +13,7 @@ def check(candidate):
 
 
 
+
 def is_bored(S):
     """
     You'll be given a string of words, and your task is to count the number

@@ -14,6 +14,7 @@ def check(candidate):
     assert candidate('jerry') == 'jerryrrej'
 
 
+
 def is_palindrome(string: str) -> bool:
     """ Test if given string is a palindrome """
     return string == string[::-1]

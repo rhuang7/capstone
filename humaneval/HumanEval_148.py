@@ -14,6 +14,7 @@ def check(candidate):
 
 
 
+
 def bf(planet1, planet2):
     '''
     There are eight planets in our solar system: the closerst to the Sun 

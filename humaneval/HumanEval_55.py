@@ -12,6 +12,7 @@ def check(candidate):
 
 
 
+
 def fib(n: int):
     """Return n-th Fibonacci number.
     >>> fib(10)

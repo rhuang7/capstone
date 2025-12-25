@@ -11,6 +11,7 @@ def check(candidate):
     assert candidate("mamma", "mia") == ("", True)
 
 
+
 def reverse_delete(s,c):
     """Task
     We are given two strings s and c, you have to deleted all the characters in s that are equal to any character in c

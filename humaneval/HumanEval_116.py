@@ -16,6 +16,7 @@ def check(candidate):
 
 
 
+
 def sort_array(arr):
     """
     In this Kata, you have to sort an array of non-negative integers according to

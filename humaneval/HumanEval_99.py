@@ -11,6 +11,7 @@ def check(candidate):
 
 
 
+
 def closest_integer(value):
     '''
     Create a function that takes a value (string) representing a number

@@ -16,6 +16,7 @@ def check(candidate):
 
 
 
+
 def strange_sort_list(lst):
     '''
     Given list of integers, return list in strange order.

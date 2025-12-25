@@ -15,6 +15,7 @@ def check(candidate):
 
 
 
+
 def compare_one(a, b):
     """
     Create a function that takes integers, floats, or strings representing

@@ -20,6 +20,7 @@ def check(candidate):
 
 
 
+
 def is_prime(n):
     """Return true if a given number is prime, and false otherwise.
     >>> is_prime(6)

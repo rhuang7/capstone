@@ -15,6 +15,7 @@ def check(candidate):
 
 
 
+
 def encode_cyclic(s: str):
     """
     returns encoded string by cycling groups of three characters.

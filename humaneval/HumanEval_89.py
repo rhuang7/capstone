@@ -15,6 +15,7 @@ def check(candidate):
 
 
 
+
 def encrypt(s):
     """Create a function encrypt that takes a string as an argument and
     returns a string encrypted with the alphabet being rotated. 

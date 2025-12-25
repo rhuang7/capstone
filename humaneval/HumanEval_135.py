@@ -11,6 +11,7 @@ def check(candidate):
 
 
 
+
 def can_arrange(arr):
     """Create a function which returns the largest index of an element which
     is not greater than or equal to the element immediately preceding it. If

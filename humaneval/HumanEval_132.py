@@ -20,6 +20,7 @@ def check(candidate):
 
 
 
+
 def is_nested(string):
     '''
     Create a function that takes a string as input which contains only square brackets.

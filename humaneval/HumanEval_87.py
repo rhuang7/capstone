@@ -32,6 +32,7 @@ def check(candidate):
 
 
 
+
 def get_row(lst, x):
     """
     You are given a 2 dimensional data, as a nested lists,
