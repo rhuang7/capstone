@@ -16,6 +16,9 @@ def check(candidate):
 
 
 from typing import List
+from typing import List
+
+
 def parse_music(music_string: str) -> List[int]:
     """ Input to this function is a string representing musical notes in a special ASCII format.
     Your task is to parse this string and return list of integers corresponding to how many beats does each
@@ -29,8 +32,13 @@ def parse_music(music_string: str) -> List[int]:
     >>> parse_music('o o| .| o| o| .| .| .| .| o o')
     [4, 2, 1, 2, 2, 1, 1, 1, 1, 4, 4]
     """
+    # Split the input string by spaces to get individual note representations
     notes = music_string.split()
+    
+    # Initialize the result list
     result = []
+    
+    # Iterate over each note in the list
     for note in notes:
         if note == 'o':
             result.append(4)
@@ -38,6 +46,7 @@ def parse_music(music_string: str) -> List[int]:
             result.append(2)
         elif note == '.|':
             result.append(1)
+    
     return result
 
 check(parse_music)

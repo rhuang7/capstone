@@ -24,10 +24,10 @@ def sum_product(numbers: List[int]) -> Tuple[int, int]:
     >>> sum_product([1, 2, 3, 4])
     (10, 24)
     """
-    total_sum = sum(numbers)
-    total_product = 1
+    sum_total = sum(numbers)
+    product_total = 1
     for num in numbers:
-        total_product *= num
-    return (total_sum, total_product)
+        product_total *= num
+    return (sum_total, product_total)
 
 check(sum_product)

@@ -30,6 +30,7 @@ def closest_integer(value):
     farthest from zero. For example closest_integer("14.5") should
     return 15 and closest_integer("-14.5") should return -15.
     '''
+    import math
     num = float(value)
     decimal_part = num - int(num)
     if decimal_part > 0.5 or decimal_part < -0.5:

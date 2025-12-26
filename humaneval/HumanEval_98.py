@@ -25,7 +25,7 @@ def count_upper(s):
     count_upper('dBBE') returns 0
     """
     count = 0
-    vowels = {'A', 'E', 'I', 'O', 'U'}
+    vowels = "AEIOU"
     for i in range(0, len(s), 2):
         if s[i] in vowels:
             count += 1

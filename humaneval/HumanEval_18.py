@@ -15,7 +15,7 @@ def check(candidate):
 
 
 def how_many_times(string: str, substring: str) -> int:
-    """ Find how many times a given substring can be found in the original string. Count overlaping cases.
+    """ Find how many times a given substring can be found in the original string. Count overlapping cases.
     >>> how_many_times('', 'a')
     0
     >>> how_many_times('aaa', 'a')

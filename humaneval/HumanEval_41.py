@@ -25,6 +25,6 @@ def car_race_collision(n: int):
 
     This function outputs the number of such collisions.
     """
-    return n * n
+    return n * 2
 
 check(car_race_collision)

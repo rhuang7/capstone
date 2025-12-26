@@ -31,14 +31,14 @@ def fix_spaces(text):
         else:
             if count > 0:
                 if count > 2:
-                    result.append('-' * count)
+                    result.append('-')
                 else:
                     result.append('_' * count)
                 count = 0
             result.append(char)
     if count > 0:
         if count > 2:
-            result.append('-' * count)
+            result.append('-')
         else:
             result.append('_' * count)
     return ''.join(result)

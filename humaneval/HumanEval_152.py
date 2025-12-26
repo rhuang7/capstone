@@ -26,6 +26,6 @@ def compare(game, guess):
     compare([1,2,3,4,5,1],[1,2,3,4,2,-2]) -> [0,0,0,0,3,3]
     compare([0,5,0,0,0,4],[4,1,1,0,0,-2]) -> [4,4,1,0,0,6]
     """
-    return [abs(game[i] - guess[i]) for i in range(len(game))]
+    return [abs(game[i] - guess[i]) if game[i] != guess[i] else 0 for i in range(len(game))]
 
 check(compare)

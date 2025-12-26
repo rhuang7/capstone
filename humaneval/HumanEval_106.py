@@ -16,18 +16,13 @@ def f(n):
     Example:
     f(5) == [1, 2, 6, 24, 15]
     """
+    import math
     result = []
     for i in range(1, n+1):
         if i % 2 == 0:
-            # Calculate factorial of i
-            factorial = 1
-            for j in range(1, i+1):
-                factorial *= j
-            result.append(factorial)
+            result.append(math.factorial(i))
         else:
-            # Calculate sum of numbers from 1 to i
-            sum_numbers = i * (i + 1) // 2
-            result.append(sum_numbers)
+            result.append(i * (i + 1) // 2)
     return result
 
 check(f)

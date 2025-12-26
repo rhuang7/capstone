@@ -113,7 +113,15 @@ Traceback (most recent call last):
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError
 ------------------------------------------------------------
-[PASS] humaneval/HumanEval_117.py
+[FAIL] humaneval/HumanEval_117.py (code=1)
+  --- stderr ---
+Traceback (most recent call last):
+  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_117.py", line 41, in <module>
+    check(select_words)
+  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_117.py", line 4, in check
+    assert candidate("Mary had a little lamb", 4) == ["little"], "First test error: " + str(candidate("Mary had a little lamb", 4))      
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: First test error: []
 ------------------------------------------------------------
 [PASS] humaneval/HumanEval_118.py
 ------------------------------------------------------------
@@ -150,7 +158,7 @@ AssertionError
 [FAIL] humaneval/HumanEval_125.py (code=1)
   --- stderr ---
 Traceback (most recent call last):
-  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_125.py", line 38, in <module>
+  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_125.py", line 37, in <module>
     check(split_words)
   File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_125.py", line 8, in check
     assert candidate("aaabb") == 2
@@ -194,14 +202,14 @@ AssertionError
 [FAIL] humaneval/HumanEval_130.py (code=1)
   --- stderr ---
 Traceback (most recent call last):
-  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_130.py", line 47, in <module>
+  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_130.py", line 49, in <module>
     check(tri)
   File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_130.py", line 5, in check
     assert candidate(3) == [1, 3, 2.0, 8.0]
            ^^^^^^^^^^^^
-  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_130.py", line 44, in tri
-    result.append(result[i - 1] + result[i - 2] + result[i + 1])
-                                                  ~~~~~~^^^^^^^
+  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_130.py", line 46, in tri
+    result[i] = result[i - 1] + result[i - 2] + result[i + 1]
+                                                ~~~~~~^^^^^^^
 IndexError: list index out of range
 ------------------------------------------------------------
 [FAIL] humaneval/HumanEval_131.py (code=1)
@@ -224,18 +232,7 @@ Traceback (most recent call last):
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError
 ------------------------------------------------------------
-[FAIL] humaneval/HumanEval_133.py (code=1)
-  --- stderr ---
-Traceback (most recent call last):
-  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_133.py", line 41, in <module>
-    check(sum_squares)
-  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_133.py", line 4, in check
-    assert candidate([1,2,3])==14, "This prints if this assert fails 1 (good for debugging!)"
-           ^^^^^^^^^^^^^^^^^^
-  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_133.py", line 37, in sum_squares
-    rounded = math.ceil(num)
-              ^^^^
-NameError: name 'math' is not defined
+[PASS] humaneval/HumanEval_133.py
 ------------------------------------------------------------
 [PASS] humaneval/HumanEval_134.py
 ------------------------------------------------------------
@@ -270,15 +267,7 @@ ValueError: could not convert string to float: '2,3'
 ------------------------------------------------------------
 [PASS] humaneval/HumanEval_14.py
 ------------------------------------------------------------
-[FAIL] humaneval/HumanEval_140.py (code=1)
-  --- stderr ---
-Traceback (most recent call last):
-  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_140.py", line 46, in <module>
-    check(fix_spaces)
-  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_140.py", line 9, in check
-    assert candidate("Exa   mple") == "Exa-mple", "This prints if this assert fails 4 (good for debugging!)"
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AssertionError: This prints if this assert fails 4 (good for debugging!)
+[PASS] humaneval/HumanEval_140.py
 ------------------------------------------------------------
 [PASS] humaneval/HumanEval_141.py
 ------------------------------------------------------------
@@ -398,7 +387,7 @@ AssertionError: Test 1
 [FAIL] humaneval/HumanEval_26.py (code=1)
   --- stderr ---
 Traceback (most recent call last):
-  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_26.py", line 31, in <module>
+  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_26.py", line 34, in <module>
     check(remove_duplicates)
   File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_26.py", line 12, in check
     assert candidate([1, 2, 3, 2, 4, 3, 5]) == [1, 4, 5]
@@ -420,12 +409,12 @@ AssertionError
 [FAIL] humaneval/HumanEval_32.py (code=1)
   --- stderr ---
 Traceback (most recent call last):
-  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_32.py", line 49, in <module>
+  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_32.py", line 57, in <module>
     check(find_zero)
   File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_32.py", line 20, in check
     assert math.fabs(poly(coeffs, solution)) < 1e-4
-                     ^^^^
-NameError: name 'poly' is not defined
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
 ------------------------------------------------------------
 [PASS] humaneval/HumanEval_33.py
 ------------------------------------------------------------
@@ -433,7 +422,15 @@ NameError: name 'poly' is not defined
 ------------------------------------------------------------
 [PASS] humaneval/HumanEval_35.py
 ------------------------------------------------------------
-[PASS] humaneval/HumanEval_36.py
+[FAIL] humaneval/HumanEval_36.py (code=1)
+  --- stderr ---
+Traceback (most recent call last):
+  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_36.py", line 35, in <module>
+    check(fizz_buzz)
+  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_36.py", line 8, in check
+    assert candidate(78) == 2
+           ^^^^^^^^^^^^^^^^^^
+AssertionError
 ------------------------------------------------------------
 [FAIL] humaneval/HumanEval_37.py (code=1)
   --- stderr ---
@@ -453,7 +450,15 @@ AssertionError
 ------------------------------------------------------------
 [PASS] humaneval/HumanEval_40.py
 ------------------------------------------------------------
-[PASS] humaneval/HumanEval_41.py
+[FAIL] humaneval/HumanEval_41.py (code=1)
+  --- stderr ---
+Traceback (most recent call last):
+  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_41.py", line 30, in <module>
+    check(car_race_collision)
+  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_41.py", line 8, in check
+    assert candidate(3) == 9
+           ^^^^^^^^^^^^^^^^^
+AssertionError
 ------------------------------------------------------------
 [PASS] humaneval/HumanEval_42.py
 ------------------------------------------------------------
@@ -500,9 +505,22 @@ AssertionError
 [PASS] humaneval/HumanEval_58.py
 ------------------------------------------------------------
 [FAIL] humaneval/HumanEval_59.py (code=1)
+  --- stdout ---
+**********************************************************************
+File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_59.py", line 20, in __main__.largest_prime_factor
+Failed example:
+    largest_prime_factor(2048)
+Expected:
+    2
+Got:
+    1
+**********************************************************************
+1 items had failures:
+   1 of   2 in __main__.largest_prime_factor
+***Test Failed*** 1 failures.
   --- stderr ---
 Traceback (most recent call last):
-  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_59.py", line 35, in <module>
+  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_59.py", line 38, in <module>
     check(largest_prime_factor)
   File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_59.py", line 8, in check
     assert candidate(27) == 3
@@ -558,12 +576,15 @@ AssertionError
 [FAIL] humaneval/HumanEval_77.py (code=1)
   --- stderr ---
 Traceback (most recent call last):
-  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_77.py", line 40, in <module>
+  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_77.py", line 37, in <module>
     check(iscube)
-  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_77.py", line 7, in check
-    assert candidate(64) == True, "Fourth test error: " + str(candidate(64))
-           ^^^^^^^^^^^^^^^^^^^^^
-AssertionError: Fourth test error: False
+  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_77.py", line 6, in check
+    assert candidate(-1) == True, "Third test error: " + str(candidate(-1))
+           ^^^^^^^^^^^^^
+  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_77.py", line 35, in iscube
+    return cube_root.is_integer() or (-cube_root).is_integer()
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'complex' object has no attribute 'is_integer'
 ------------------------------------------------------------
 [PASS] humaneval/HumanEval_78.py
 ------------------------------------------------------------
@@ -588,7 +609,7 @@ AssertionError
 [FAIL] humaneval/HumanEval_83.py (code=1)
   --- stderr ---
 Traceback (most recent call last):
-  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_83.py", line 33, in <module>
+  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_83.py", line 36, in <module>
     check(starts_one_ends)
   File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_83.py", line 6, in check
     assert candidate(2) == 18
@@ -621,13 +642,10 @@ AssertionError: This prints if this assert fails 1 (good for debugging!)
 ------------------------------------------------------------
 [FAIL] humaneval/HumanEval_91.py (code=1)
   --- stderr ---
-Traceback (most recent call last):
-  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_91.py", line 36, in <module>
-    check(is_bored)
-  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_91.py", line 5, in check
-    assert candidate("Is the sky blue?") == 0, "Test 2"
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AssertionError: Test 2
+  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_91.py", line 30
+    sentences = [sentence.strip() for sentence in S.split(/[.?!]$/)]
+                                                          ^
+SyntaxError: invalid syntax
 ------------------------------------------------------------
 [PASS] humaneval/HumanEval_92.py
 ------------------------------------------------------------
@@ -668,11 +686,11 @@ AttributeError: 'int' object has no attribute 'islower'
 [FAIL] humaneval/HumanEval_99.py (code=1)
   --- stderr ---
 Traceback (most recent call last):
-  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_99.py", line 40, in <module>
+  File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_99.py", line 41, in <module>
     check(closest_integer)
   File "/home/ruoyu/rhuang7/capstone/humaneval/HumanEval_99.py", line 5, in check
     assert candidate("14.5") == 15, "Test 2"
            ^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: Test 2
 ------------------------------------------------------------
-Done. PASS=124, FAIL=40, TOTAL=164
+Done. PASS=123, FAIL=41, TOTAL=164

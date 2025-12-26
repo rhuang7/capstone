@@ -37,7 +37,9 @@ def get_closest_vowel(word):
     get_closest_vowel("ab") ==> ""
     """
     vowels = "AEIOUaeiou"
+    # Iterate from the end of the word towards the beginning
     for i in range(len(word)-2, -1, -1):
+        # Check if current character is a vowel
         if word[i] in vowels:
             # Check if the next character is a consonant
             if i + 1 < len(word) and word[i+1] not in vowels:

@@ -14,6 +14,9 @@ def check(candidate):
 
 
 from typing import List
+from typing import List
+
+
 def concatenate(strings: List[str]) -> str:
     """ Concatenate list of strings into a single string
     >>> concatenate([])

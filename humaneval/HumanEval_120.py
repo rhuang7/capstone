@@ -45,10 +45,10 @@ def maximum(arr, k):
     """
     # Sort the array in ascending order
     arr.sort()
-    # Take the last k elements (which are the largest)
-    top_k = arr[-k:]
-    # Sort the top k elements in ascending order
-    top_k.sort()
-    return top_k
+    # Take the last k elements (largest k elements)
+    largest_k = arr[-k:]
+    # Sort the largest k elements in ascending order
+    largest_k.sort()
+    return largest_k
 
 check(maximum)

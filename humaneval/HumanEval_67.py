@@ -26,10 +26,7 @@ def fruit_distribution(s,n):
     """
     # Extract numbers from the string
     numbers = [int(x) for x in s.split() if x.isdigit()]
-    # Sum the apples and oranges
-    apples_oranges = sum(numbers)
-    # Calculate mangoes
-    mangoes = n - apples_oranges
-    return mangoes
+    # Sum the numbers and subtract from total
+    return n - sum(numbers)
 
 check(fruit_distribution)

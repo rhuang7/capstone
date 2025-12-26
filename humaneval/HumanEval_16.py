@@ -22,6 +22,11 @@ def count_distinct_characters(string: str) -> int:
     >>> count_distinct_characters('Jerry')
     4
     """
-    return len(set(string.lower()))
+    # Convert the string to lowercase to ignore case
+    lower_string = string.lower()
+    # Use a set to store unique characters
+    unique_chars = set(lower_string)
+    # Return the length of the set
+    return len(unique_chars)
 
 check(count_distinct_characters)

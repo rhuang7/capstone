@@ -33,7 +33,7 @@ def triangle_area(a, b, c):
         s = (a + b + c) / 2
         # Use Heron's formula to calculate the area
         area = (s * (s - a) * (s - b) * (s - c)) ** 0.5
-        # Round to 2 decimal points
+        # Round to 2 decimal places
         return round(area, 2)
     else:
         return -1

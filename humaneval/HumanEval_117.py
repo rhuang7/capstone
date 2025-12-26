@@ -28,18 +28,14 @@ def select_words(s, n):
     select_words("Hello world", 4) ==> ["world"]
     select_words("Uncle sam", 3) ==> ["Uncle"]
     """
+    import re
     vowels = "aeiouAEIOU"
-    words = s.split()
+    words = re.findall(r"\\b\\w+\\b", s)
     result = []
-    
     for word in words:
-        consonant_count = 0
-        for char in word:
-            if char not in vowels:
-                consonant_count += 1
+        consonant_count = sum(1 for char in word if char not in vowels)
         if consonant_count == n:
             result.append(word)
-    
     return result
 
 check(select_words)

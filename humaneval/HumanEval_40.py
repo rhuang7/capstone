@@ -36,9 +36,15 @@ def triples_sum_to_zero(l: list):
     """
     from itertools import combinations
 
-    for triplet in combinations(l, 3):
-        if sum(triplet) == 0:
+    # Check if there are at least three elements in the list
+    if len(l) < 3:
+        return False
+
+    # Generate all possible combinations of three distinct elements
+    for combo in combinations(l, 3):
+        if sum(combo) == 0:
             return True
+
     return False
 
 check(triples_sum_to_zero)

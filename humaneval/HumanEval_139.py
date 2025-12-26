@@ -23,14 +23,10 @@ def special_factorial(n):
     The function will receive an integer as input and should return the special
     factorial of this integer.
     """
+    import math
     result = 1
     for i in range(1, n+1):
-        result *= factorial(i)
+        result *= math.factorial(i)
     return result
-
-def factorial(n):
-    if n == 0:
-        return 1
-    return n * factorial(n-1)
 
 check(special_factorial)

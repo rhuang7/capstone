@@ -24,9 +24,9 @@ def reverse_delete(s,c):
     For s = "abcdedcba", c = "ab", the result should be ('cdedc',True)
     """
     # Remove characters in s that are present in c
-    result = ''.join([char for char in s if char not in c])
-    # Check if the result is a palindrome
-    is_palindrome = result == result[::-1]
-    return (result, is_palindrome)
+    filtered = ''.join([char for char in s if char not in c])
+    # Check if the filtered string is a palindrome
+    is_palindrome = filtered == filtered[::-1]
+    return (filtered, is_palindrome)
 
 check(reverse_delete)

@@ -29,10 +29,6 @@ def histogram(test):
     histogram('') == {}
 
     """
-    # Handle empty input
-    if not test:
-        return {}
-    
     # Split the input string into individual letters
     letters = test.split()
     
@@ -42,6 +38,9 @@ def histogram(test):
         counts[letter] = counts.get(letter, 0) + 1
     
     # Find the maximum occurrence
+    if not counts:
+        return {}
+    
     max_count = max(counts.values())
     
     # Collect all letters with the maximum occurrence

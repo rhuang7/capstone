@@ -51,14 +51,14 @@ def minPath(grid, k):
     """
     from heapq import heappush, heappop
 
-    n = len(grid)
+    N = len(grid)
     directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
     # Priority queue: (current_value, current_row, current_col, path)
     heap = []
     # Initialize the heap with all starting positions
-    for i in range(n):
-        for j in range(n):
+    for i in range(N):
+        for j in range(N):
             heappush(heap, (grid[i][j], i, j, [grid[i][j]]))
 
     # Visited set to keep track of visited cells and their path lengths
@@ -66,13 +66,13 @@ def minPath(grid, k):
 
     while heap:
         val, row, col, path = heappop(heap)
-        # Check if the path length is k
+        # If path length is k, return the path
         if len(path) == k:
             return path
         # Generate next positions
         for dr, dc in directions:
             nr, nc = row + dr, col + dc
-            if 0 <= nr < n and 0 <= nc < n:
+            if 0 <= nr < N and 0 <= nc < N:
                 new_path = path + [grid[nr][nc]]
                 # Check if this path has been visited before
                 state = (nr, nc, len(new_path))

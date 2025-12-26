@@ -27,8 +27,9 @@ def make_a_pile(n):
     >>> make_a_pile(3)
     [3, 5, 7]
     """
-    pile = [n]
+    pile = []
     current = n
+    pile.append(current)
     for i in range(1, n):
         if n % 2 == 0:
             current += 2

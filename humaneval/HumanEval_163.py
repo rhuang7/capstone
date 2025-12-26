@@ -23,11 +23,11 @@ def generate_integers(a, b):
     generate_integers(10, 14) => []
     """
     result = []
-    # Determine the start and end of the range
-    start = min(a, b)
-    end = max(a, b)
-    # Iterate through each number in the range
-    for num in range(start, end + 1):
+    # Ensure a is the smaller number
+    if a > b:
+        a, b = b, a
+    # Iterate through each number from a to b
+    for num in range(a, b + 1):
         # Check each digit of the number
         for digit in str(num):
             if int(digit) % 2 == 0:

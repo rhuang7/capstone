@@ -32,4 +32,7 @@ def largest_prime_factor(n: int):
     # If n is a prime number greater than 2, it is the largest prime factor
     return n
 
+import doctest
+doctest.testmod()
+
 check(largest_prime_factor)

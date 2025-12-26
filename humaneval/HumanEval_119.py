@@ -35,10 +35,7 @@ def match_parens(lst):
     match_parens(['()(', ')']) == 'Yes'
     match_parens([')', ')']) == 'No'
     '''
-    s1, s2 = lst[0], lst[1]
-    
-    # Check both possible orders
-    def is_valid(s):
+    def is_balanced(s):
         balance = 0
         for char in s:
             if char == '(':
@@ -48,8 +45,9 @@ def match_parens(lst):
             if balance < 0:
                 return False
         return balance == 0
-    
-    if is_valid(s1 + s2) or is_valid(s2 + s1):
+
+    s1, s2 = lst[0], lst[1]
+    if is_balanced(s1 + s2) or is_balanced(s2 + s1):
         return 'Yes'
     else:
         return 'No'

@@ -31,10 +31,7 @@ def iscube(a):
     '''
     # Take the cube root of a and check if it is an integer
     cube_root = a ** (1/3)
-    # Handle negative numbers by taking the cube root and then rounding
-    if a < 0:
-        cube_root = -abs(a) ** (1/3)
     # Check if the cube root is an integer
-    return cube_root.is_integer()
+    return cube_root.is_integer() or (-cube_root).is_integer()
 
 check(iscube)

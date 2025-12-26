@@ -21,18 +21,17 @@ def split_words(txt):
     split_words("Hello,world!") ➞ ["Hello", "world!"]
     split_words("abcdef") == 3 
     '''
-    # Check for whitespace
+    # Split on whitespace
     if ' ' in txt:
         return txt.split()
-    # Check for commas
+    # Split on comma if no whitespace
     elif ',' in txt:
         return txt.split(',')
     # Count lower-case letters with odd order in the alphabet
-    else:
-        count = 0
-        for char in txt:
-            if char.islower() and ord(char) % 2 == 1:
-                count += 1
-        return count
+    count = 0
+    for char in txt:
+        if char.islower() and ord(char) % 2 == 1:
+            count += 1
+    return count
 
 check(split_words)

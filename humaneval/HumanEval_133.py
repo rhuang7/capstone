@@ -32,10 +32,7 @@ def sum_squares(lst):
     For lst = [1.4,4.2,0] the output should be 29
     For lst = [-2.4,1,1] the output should be 6
     """
-    total = 0
-    for num in lst:
-        rounded = math.ceil(num)
-        total += rounded ** 2
-    return total
+    import math
+    return sum(math.ceil(num) ** 2 for num in lst)
 
 check(sum_squares)

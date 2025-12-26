@@ -40,18 +40,17 @@ def prime_fib(n: int):
                 return False
         return True
 
-    def generate_fibonacci():
+    def fibonacci():
         a, b = 0, 1
         while True:
             yield a
             a, b = b, a + b
 
     fib_primes = []
-    fib_gen = generate_fibonacci()
-    while len(fib_primes) < n:
-        fib_num = next(fib_gen)
+    for fib_num in fibonacci():
         if is_prime(fib_num):
             fib_primes.append(fib_num)
-    return fib_primes[-1]
+            if len(fib_primes) == n:
+                return fib_num
 
 check(prime_fib)

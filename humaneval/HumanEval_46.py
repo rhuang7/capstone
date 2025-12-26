@@ -18,7 +18,7 @@ def fib4(n: int):
     fib4(1) -> 0
     fib4(2) -> 2
     fib4(3) -> 0
-    fib4(n) -> fib4(n-1) + fib4(n-2) + fib4(n-3) + fib4(n-4).
+    fib4(n) -> fib4(n-1) + fib4(n-1) + fib4(n-2) + fib4(n-3) + fib4(n-4).
     Please write a function to efficiently compute the n-th element of the fib4 number sequence.  Do not use recursion.
     >>> fib4(5)
     4
@@ -38,7 +38,9 @@ def fib4(n: int):
     # Initialize the first four values
     a, b, c, d = 0, 0, 2, 0
     for _ in range(4, n + 1):
+        # Compute the next value as the sum of the previous four values
         next_val = a + b + c + d
+        # Update the values for the next iteration
         a, b, c, d = b, c, d, next_val
     return d
 

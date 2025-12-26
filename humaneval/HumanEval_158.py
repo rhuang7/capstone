@@ -32,9 +32,12 @@ def find_max(words):
     for word in words:
         unique_chars = set(word)
         unique_count = len(unique_chars)
-        if unique_count > max_unique or (unique_count == max_unique and word < result):
+        if unique_count > max_unique:
             max_unique = unique_count
             result = word
+        elif unique_count == max_unique:
+            if word < result:
+                result = word
     return result
 
 check(find_max)

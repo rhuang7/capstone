@@ -20,8 +20,8 @@ def do_algebra(operator, operand):
     The basic algebra operations:
     Addition ( + ) 
     Subtraction ( - ) 
-    Multiplication ( * )
-    Floor division ( // )
+    Multiplication ( * ) 
+    Floor division ( // ) 
     Exponentiation ( ** ) 
 
     Example:

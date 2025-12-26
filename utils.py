@@ -2,6 +2,8 @@ import random
 from tqdm import tqdm
 import json
 import ast
+from pathlib import Path
+import re
 
 def get_accuracy(result_list):
     total_sample_num = len(result_list)
@@ -138,35 +140,6 @@ def extract_func_name(code: str):
             out.append(node.name)
     return out
 
-def extract_all_func_names(code: str):
-    tree = ast.parse(code)
-    return [node.name for node in ast.walk(tree) if isinstance(node, ast.FunctionDef)]
-
-def rename_function_and_references(code: str, old_name: str, new_name: str) -> str:
-    tree = ast.parse(code)
-
-    class Renamer(ast.NodeTransformer):
-        def visit_FunctionDef(self, node: ast.FunctionDef):
-            if node.name == old_name:
-                node.name = new_name
-            self.generic_visit(node)
-            return node
-
-        def visit_AsyncFunctionDef(self, node: ast.AsyncFunctionDef):
-            if node.name == old_name:
-                node.name = new_name
-            self.generic_visit(node)
-            return node
-
-        def visit_Name(self, node: ast.Name):
-            if node.id == old_name:
-                node.id = new_name
-            return node
-
-        def visit_Attribute(self, node: ast.Attribute):
-            self.generic_visit(node)
-            return node
-
-    new_tree = Renamer().visit(tree)
-    ast.fix_missing_locations(new_tree)
-    return ast.unparse(new_tree) + "\n"
+def human_eval_id(p):
+    m = re.search(r'HumanEval_(\d+)\.py$', p.name)
+    return int(m.group(1)) if m else float("inf")
