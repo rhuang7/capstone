@@ -27,7 +27,7 @@ def fetch_data(dataset_path, sample_size=164):
         temp_list = [id_list[i], prompt_list[i], test_list[i]]
         store.append(temp_list)
     
-    #store = random.sample(store, sample_size)
+    store = random.sample(store, sample_size)
     return store
 
 def generate_python_file(testset, model_id, cache_dir, each_num):
@@ -46,6 +46,7 @@ def generate_python_file(testset, model_id, cache_dir, each_num):
     
     total_len = len(testset)
     for i in tqdm(range(total_len), desc="processing"):
+        after_num = 0
         for j in range(each_num):
             current_case = testset[i]
             prompt = current_case[1]
@@ -97,11 +98,12 @@ PROMPT>>>"""}
             test_code = '\n\ncheck(' + test_func_name[-1] + ')'
             base_code += test_code
             
-            python_file_name = current_case[0] + '.py'
+            python_file_name = current_case[0] + '_' + str(after_num) + '.py'
             python_file_name = re.sub(r'/', '_', python_file_name)
             python_file_name = 'humaneval/' + python_file_name
             with open(python_file_name, 'w') as f:
                 f.write(base_code)
+            after_num += 1
             
     return
 
@@ -118,50 +120,55 @@ def run_many_py(folder: str | Path, pattern: str = "*.py", python_exe: str | Non
     results = []
     count_dict = {}
     
-    for i in tqdm(range(1), desc="Testing Generated Code"):
+    for i in tqdm(range(len(files)), desc="Testing Generated Code"):
         f = files[i]
         proc = subprocess.run(
             [python_exe, "count_actual_run.py", str(f)],
             capture_output=True,
             text=True,
         )
+        
+        path_name_list = str(f).split('/')
+        key_name = path_name_list[1]
 
         passed = (proc.returncode == 0)
         results.append((f, passed, proc.returncode, proc.stdout, proc.stderr))
-        test_out = results[-1][3].splitlines()
-        pass_info = test_out[1].split(' ')
-        base_num_assert = count_assert.estimate_assert_runs(f)
-        path_name_list = str(results[-1][0]).split('/')
-        key_name = path_name_list[1]
+        if passed == 1:
+            test_out = results[-1][3].splitlines()
+            pass_info = test_out[1].split(' ')
+            base_num_assert = count_assert.estimate_assert_runs(f)
         
-        if key_name not in count_dict.keys():
-            count_dict[key_name] = []
-        count_dict[key_name].append([pass_info[1], base_num_assert])
+            if key_name not in count_dict.keys():
+                count_dict[key_name] = []
+            count_dict[key_name].append(int(pass_info[1]))
+            count_dict[key_name].append(base_num_assert)
+        else:
+            if key_name not in count_dict.keys():
+                count_dict[key_name] = []
+            count_dict[key_name].append(0)
+            count_dict[key_name].append(-1)
         
-        
-
         if passed:
             ok += 1
         else:
             failed += 1
             
-    print(count_dict)
     print(f"Done. PASS={ok}, FAIL={failed}, TOTAL={len(files)}")
 
-    return 0 if failed == 0 else 1
+    return count_dict
 
 
 if __name__ == '__main__':
-    # dataset_path = "/data/ruoyu/dataset/openai_humaneval"
-    # sample_size = 164
+    dataset_path = "/data/ruoyu/dataset/openai_humaneval"
+    sample_size = 164
+    the_dataset = fetch_data(dataset_path, sample_size)
     
-    # the_dataset = fetch_data(dataset_path, sample_size)
+    model_id = "Qwen/Qwen3-4B"
+    cache_dir = "/data/ruoyu/model"
+    repeat_num = 10
+    generate_python_file(the_dataset, model_id, cache_dir, repeat_num)
     
-    # model_id = "Qwen/Qwen3-4B"
-    # cache_dir = "/data/ruoyu/model"
-    # repeat_num = 1
-    # generate_python_file(the_dataset, model_id, cache_dir, repeat_num)
+    test_outcome_dict = run_many_py("./humaneval", "*.py")
+    utils.creat_json_for_humaneval(test_outcome_dict, 'humaneval_out')
     
-    exit_code = run_many_py("./humaneval", "*.py")
-    sys.exit(exit_code)
     
