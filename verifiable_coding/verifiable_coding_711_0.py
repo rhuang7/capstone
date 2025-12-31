@@ -1,0 +1,49 @@
+import sys
+import math
+
+def solve():
+    import sys
+    input = sys.stdin.buffer.read
+    data = input().split()
+    
+    T = int(data[0])
+    cases = data[1:T+1]
+    
+    for S in cases:
+        n = len(S)
+        res = 0
+        
+        # Precompute frequency of each character in S
+        freq = [0] * 26
+        for c in S:
+            if c != '?':
+                freq[ord(c) - ord('a')] += 1
+        
+        # For each substring, check if it is good
+        for i in range(n):
+            curr_freq = [0] * 26
+            q_count = 0
+            for j in range(i, n):
+                if S[j] == '?':
+                    q_count += 1
+                else:
+                    curr_freq[ord(S[j]) - ord('a')] += 1
+                
+                # Check if this substring is good
+                is_good = True
+                for k in range(26):
+                    # Original count in S
+                    original = freq[k]
+                    # Count in substring
+                    sub = curr_freq[k]
+                    # Check parity
+                    if (original % 2) != (sub % 2):
+                        is_good = False
+                        break
+                if is_good:
+                    res += 1
+        
+        print(res)
+
+if __name__ == '__main__':
+    solve()

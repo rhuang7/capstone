@@ -8,5 +8,5 @@ from datasets import load_dataset, VerificationMode
 ds = load_dataset("chansung/verifiable-coding-problems-python")
 
 # 保存到指定文件夹
-save_path = "/data/ruoyu/dataset/verifiable-coding-problems-python"
+save_path = "/data/ruoyu/dataset/verifiable_coding_problems_python"
 ds.save_to_disk(save_path)

@@ -1,0 +1,36 @@
+import sys
+import math
+
+def solve():
+    input = sys.stdin.buffer.read
+    data = input().split()
+    T = int(data[0])
+    index = 1
+    for _ in range(T):
+        N = int(data[index])
+        A = int(data[index+1])
+        K = int(data[index+2])
+        index += 3
+        
+        # Sum of internal angles of a polygon
+        total = (N - 2) * 180
+        
+        # The angles are in arithmetic progression
+        # First term is A, common difference is d
+        # Sum of AP = N/2 * [2A + (N-1)d] = total
+        # Solve for d
+        d = (2 * (total / N) - 2 * A) / (N - 1)
+        
+        # K-th term of AP is A + (K-1)*d
+        X = int(A + (K-1)*d)
+        Y = 1
+        
+        # Simplify X/Y
+        gcd_val = math.gcd(X, Y)
+        X //= gcd_val
+        Y //= gcd_val
+        
+        print(f"{X} {Y}")
+
+if __name__ == '__main__':
+    solve()

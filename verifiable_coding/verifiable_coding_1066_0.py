@@ -1,0 +1,31 @@
+import sys
+
+def is_nice(num):
+    s = str(num)
+    for i in range(len(s) - 1):
+        if s[i] >= s[i + 1]:
+            return False
+    return True
+
+def find_largest_nice(num):
+    s = list(str(num))
+    length = len(s)
+    for i in range(length - 1, -1, -1):
+        if i > 0 and s[i] > s[i - 1]:
+            s[i] = '9'
+            for j in range(i - 1, -1, -1):
+                s[j] = '9'
+            s[i - 1] = str(int(s[i - 1]) - 1)
+            return int(''.join(s))
+    return 0
+
+def solve():
+    import sys
+    input = sys.stdin.buffer.read().split()
+    t = int(input[0])
+    for i in range(1, t + 1):
+        n = int(input[i])
+        print(find_largest_nice(n))
+
+if __name__ == '__main__':
+    solve()

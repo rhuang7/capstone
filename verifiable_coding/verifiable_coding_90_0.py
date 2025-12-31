@@ -1,0 +1,47 @@
+import sys
+
+def solve():
+    import sys
+    input = sys.stdin.buffer.read
+    data = input().split()
+    idx = 0
+    t = int(data[idx])
+    idx += 1
+    results = []
+    
+    for _ in range(t):
+        n = int(data[idx])
+        idx += 1
+        a = list(map(int, data[idx:idx+n]))
+        idx += n
+        l = list(map(int, data[idx:idx+n]))
+        idx += n
+        
+        locked = [i for i in range(n) if l[i] == 1]
+        unlocked = [i for i in range(n) if l[i] == 0]
+        unlock_values = [a[i] for i in unlocked]
+        
+        # If all positions are locked, do nothing
+        if len(locked) == n:
+            results.append(' '.join(map(str, a)))
+            continue
+        
+        # Sort unlocked values to minimize k
+        # We want to make prefix sums as large as possible early
+        # So sort unlocked values in non-decreasing order
+        unlock_values.sort()
+        
+        # Prepare the result array
+        res = [0] * n
+        for i in range(n):
+            if l[i] == 1:
+                res[i] = a[i]
+            else:
+                res[i] = unlock_values.pop(0)
+        
+        results.append(' '.join(map(str, res)))
+    
+    print('\n'.join(results))
+
+if __name__ == '__main__':
+    solve()

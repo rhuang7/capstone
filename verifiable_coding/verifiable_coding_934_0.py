@@ -1,0 +1,78 @@
+import sys
+MOD = 10**9 + 7
+
+def solve():
+    import sys
+    input = sys.stdin.buffer.read
+    data = input().split()
+    idx = 0
+    T = int(data[idx])
+    idx += 1
+    results = []
+    for _ in range(T):
+        p = int(data[idx])
+        q = int(data[idx+1])
+        r = int(data[idx+2])
+        idx += 3
+        A = list(map(int, data[idx:idx+p]))
+        idx += p
+        B = list(map(int, data[idx:idx+q]))
+        idx += q
+        C = list(map(int, data[idx:idx+r]))
+        idx += r
+        
+        # Preprocess B to sort and compute prefix sums
+        B_sorted = sorted(B)
+        prefix_B = [0] * (q + 1)
+        for i in range(q):
+            prefix_B[i+1] = (prefix_B[i] + B_sorted[i]) % MOD
+        
+        # Preprocess C to sort and compute prefix sums
+        C_sorted = sorted(C)
+        prefix_C = [0] * (r + 1)
+        for i in range(r):
+            prefix_C[i+1] = (prefix_C[i] + C_sorted[i]) % MOD
+        
+        # Compute sum for each element in B
+        total = 0
+        for y in B:
+            # Find elements in A <= y
+            left_A = 0
+            right_A = p - 1
+            while left_A <= right_A:
+                mid = (left_A + right_A) // 2
+                if A[mid] <= y:
+                    left_A = mid + 1
+                else:
+                    right_A = mid - 1
+            count_A = left_A
+            sum_A = 0
+            for i in range(count_A):
+                sum_A = (sum_A + A[i]) % MOD
+            
+            # Find elements in C >= y
+            left_C = 0
+            right_C = r - 1
+            while left_C <= right_C:
+                mid = (left_C + right_C) // 2
+                if C[mid] >= y:
+                    right_C = mid - 1
+                else:
+                    left_C = mid + 1
+            count_C = r - left_C
+            sum_C = 0
+            for i in range(left_C, r):
+                sum_C = (sum_C + C[i]) % MOD
+            
+            # Compute (sum_A * sum_C) * y
+            term = (sum_A * sum_C) % MOD
+            term = (term * y) % MOD
+            total = (total + term) % MOD
+        
+        results.append(total % MOD)
+    
+    for res in results:
+        print(res)
+
+if __name__ == '__main__':
+    solve()

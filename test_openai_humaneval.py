@@ -45,6 +45,7 @@ def generate_python_file(testset, model_id, cache_dir, each_num):
     )
     
     total_len = len(testset)
+    conf_dict = {}
     for i in tqdm(range(total_len), desc="processing"):
         after_num = 0
         for j in range(each_num):
@@ -100,12 +101,47 @@ PROMPT>>>"""}
             
             python_file_name = current_case[0] + '_' + str(after_num) + '.py'
             python_file_name = re.sub(r'/', '_', python_file_name)
+            conf_key = python_file_name
             python_file_name = 'humaneval/' + python_file_name
             with open(python_file_name, 'w') as f:
                 f.write(base_code)
             after_num += 1
             
-    return
+            messages = [
+                {"role":"user","content": """Here is the python code you generated: """ + raw_resp + """
+Here is the task requirement: """ + prompt + """
+
+Give me your confidence level for your code.
+
+Requirements:
+- Output ONLY confidence level. No markdown, no explanations.
+- The confidence level is between 0 to 1, which is a float.
+"""}
+                        ]
+            
+            inputs = tokenizer.apply_chat_template(
+                messages,
+                add_generation_prompt=True,
+                tokenize=True,
+                return_dict=True,
+                return_tensors="pt",
+                enable_thinking=False
+            ).to(model.device)
+
+            with torch.no_grad():
+                outputs = model.generate(
+                    **inputs,
+                    max_new_tokens=2048,  
+                    do_sample=False,
+                )
+
+            generated_tokens = outputs[0][inputs["input_ids"].shape[-1]:]
+            raw_resp = tokenizer.decode(generated_tokens, skip_special_tokens=True).strip()
+            
+            the_conf = float(raw_resp)
+            conf_dict[conf_key] = the_conf
+            
+    return conf_dict
 
 def run_many_py(folder: str | Path, pattern: str = "*.py", python_exe: str | None = None):
     folder = Path(folder)
@@ -166,9 +202,9 @@ if __name__ == '__main__':
     model_id = "Qwen/Qwen3-4B"
     cache_dir = "/data/ruoyu/model"
     repeat_num = 10
-    generate_python_file(the_dataset, model_id, cache_dir, repeat_num)
+    conf_dict = generate_python_file(the_dataset, model_id, cache_dir, repeat_num)
     
     test_outcome_dict = run_many_py("./humaneval", "*.py")
-    utils.creat_json_for_humaneval(test_outcome_dict, 'humaneval_out')
+    utils.creat_json_for_humaneval(test_outcome_dict, 'humaneval_out', conf_dict)
     
     
