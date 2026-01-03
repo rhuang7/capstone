@@ -38,30 +38,34 @@ def main():
         results.append(score)
         
         for __ in range(Q):
-            query_type = data[idx]
-            if query_type == b'1':
-                L = int(data[idx+1])
-                R = int(data[idx+2])
-                X = int(data[idx+3])
-                idx += 4
-                # Update prefix sums for A
-                prefixA[L] -= X * (R - L + 1)
-                prefixA[R+1] += X * (R - L + 1)
-            elif query_type == b'2':
-                L = int(data[idx+1])
-                R = int(data[idx+2])
-                X = int(data[idx+3])
-                idx += 4
-                # Update prefix sums for B
-                prefixB[L] -= X * (R - L + 1)
-                prefixB[R+1] += X * (R - L + 1)
+            query_type = int(data[idx])
+            idx += 1
+            if query_type == 1:
+                L = int(data[idx]) - 1
+                R = int(data[idx+1]) - 1
+                X = int(data[idx+2])
+                idx += 3
+                # Update prefixA
+                prefixA[L+1] += X * (R - L + 1)
+                for i in range(L+1, R+2):
+                    prefixA[i] += X
+                # Update sumA
+                sumA += X * (R - L + 1)
+            elif query_type == 2:
+                L = int(data[idx]) - 1
+                R = int(data[idx+1]) - 1
+                X = int(data[idx+2])
+                idx += 3
+                # Update prefixB
+                prefixB[L+1] += X * (R - L + 1)
+                for i in range(L+1, R+2):
+                    prefixB[i] += X
+                # Update sumB
+                sumB += X * (R - L + 1)
             else:
-                # Compute current sumA and sumB from prefix sums
-                sumA = prefixA[N]
-                sumB = prefixB[M]
-                score = (sumA * sumB) % MOD
-                results.append(score)
-                idx += 1
+                # Query type 3
+                res = (sumA * sumB) % MOD
+                results.append(res)
     
     sys.stdout.write('\n'.join(map(str, results)) + '\n')
 

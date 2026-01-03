@@ -39,6 +39,6 @@ def solve():
                 if res[i] == '.':
                     res[i] = 'a'
             print(''.join(res))
-    
+        
 if __name__ == '__main__':
     solve()

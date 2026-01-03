@@ -5,71 +5,38 @@ def solve():
     input = sys.stdin.buffer.read
     data = input().split()
     
-    T = int(data[0])
-    index = 1
-    
+    idx = 0
+    T = int(data[idx])
+    idx += 1
     results = []
     
     for _ in range(T):
-        N = int(data[index])
-        index += 1
-        S = data[index]
-        index += 1
-        P = data[index]
-        index += 1
+        N = int(data[idx])
+        idx += 1
+        S = data[idx]
+        idx += 1
+        P = data[idx]
+        idx += 1
         
-        # Check if S and P have the same number of 1s and 0s
-        if S.count('1') != P.count('1'):
-            results.append("No")
-            continue
-        
-        # Check if S can be transformed into P using allowed operations
-        # Allowed operations: swap a '1' with a '0' (i < j)
-        # This is possible if for every position, the number of 1s in S up to that position is >= the number of 1s in P up to that position
-        # and the number of 0s in S up to that position is <= the number of 0s in P up to that position
-        
-        # Count the number of 1s and 0s in S and P
-        s_ones = 0
-        s_zeros = 0
-        p_ones = 0
-        p_zeros = 0
-        
-        for i in range(N):
-            if S[i] == '1':
-                s_ones += 1
-            else:
-                s_zeros += 1
-            if P[i] == '1':
-                p_ones += 1
-            else:
-                p_zeros += 1
-        
-        # Check if the counts of 1s and 0s match
-        if s_ones != p_ones or s_zeros != p_zeros:
-            results.append("No")
-            continue
-        
-        # Check if S can be transformed into P
-        s_ones_count = 0
-        p_ones_count = 0
-        valid = True
-        
-        for i in range(N):
-            if S[i] == '1':
-                s_ones_count += 1
-            if P[i] == '1':
-                p_ones_count += 1
-            
-            if s_ones_count < p_ones_count:
-                valid = False
-                break
-        
-        if valid:
+        if S == P:
             results.append("Yes")
-        else:
+            continue
+        
+        s_ones = [i for i in range(N) if S[i] == '1']
+        p_ones = [i for i in range(N) if P[i] == '1']
+        
+        if len(s_ones) != len(p_ones):
             results.append("No")
+            continue
+        
+        # Check if the positions of 1s in S can be rearranged to match P
+        # We can sort the positions of 1s in both S and P and compare
+        s_ones.sort()
+        p_ones.sort()
+        
+        if s_ones != p_ones:
+            results.append("No")
+        else:
+            results.append("Yes")
     
-    sys.stdout.write('\n'.join(results) + '\n')
-
-if __name__ == '__main__':
-    solve()
+    print('\n'.join(results))

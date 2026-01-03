@@ -8,7 +8,6 @@ def solve():
     idx = 0
     T = int(data[idx])
     idx += 1
-    results = []
     for _ in range(T):
         N = int(data[idx])
         M = int(data[idx+1])
@@ -19,24 +18,28 @@ def solve():
             y = int(data[idx+1])
             cabs.append((x, y))
             idx += 2
-        M_customers = int(data[idx])
+        M_val = int(data[idx])
         idx += 1
-        for _ in range(M_customers):
+        customers = []
+        for _ in range(M_val):
             sx = int(data[idx])
             sy = int(data[idx+1])
             dx = int(data[idx+2])
             dy = int(data[idx+3])
+            customers.append((sx, sy, dx, dy))
             idx += 4
+        for cust in customers:
             min_dist = float('inf')
             min_cab = -1
             for i in range(N):
                 x, y = cabs[i]
-                dist = math.hypot(x - sx, y - sy)
-                if dist < min_dist or (dist == min_dist and i + 1 < min_cab):
+                dx = x - cust[0]
+                dy = y - cust[1]
+                dist = dx*dx + dy*dy
+                if dist < min_dist or (dist == min_dist and i+1 < min_cab):
                     min_dist = dist
-                    min_cab = i + 1
-            results.append(str(min_cab))
-    print('\n'.join(results))
+                    min_cab = i+1
+            print(min_cab)
 
 if __name__ == '__main__':
     solve()

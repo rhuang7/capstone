@@ -2,139 +2,112 @@ import sys
 import math
 from collections import defaultdict
 
+def factorize(n):
+    factors = defaultdict(int)
+    i = 2
+    while i * i <= n:
+        while n % i == 0:
+            factors[i] += 1
+            n //= i
+        i += 1
+    if n > 1:
+        factors[n] += 1
+    return factors
+
 def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
     idx = 0
-
+    
     N = int(data[idx])
     idx += 1
-
-    A = list(map(int, data[idx:idx+N]))
-    idx += N
-
+    
+    A = []
+    for _ in range(N):
+        A.append(int(data[idx]))
+        idx += 1
+    
     Q = int(data[idx])
     idx += 1
-
-    queries = []
+    
+    # Precompute prime factors for all numbers up to 1000000
+    max_prime = 1000000
+    primes = []
+    is_prime = [True] * (max_prime + 1)
+    is_prime[0] = is_prime[1] = False
+    for i in range(2, max_prime + 1):
+        if is_prime[i]:
+            primes.append(i)
+            for j in range(i * i, max_prime + 1, i):
+                is_prime[j] = False
+    
+    # Precompute prime factors for each number in A
+    prime_factors = []
+    for num in A:
+        factors = defaultdict(int)
+        n = num
+        for p in primes:
+            if p * p > n:
+                break
+            while n % p == 0:
+                factors[p] += 1
+                n //= p
+        if n > 1:
+            factors[n] += 1
+        prime_factors.append(factors)
+    
+    # Build prefix sums for each prime
+    primes_set = set(primes)
+    prefix = defaultdict(list)
+    for p in primes_set:
+        prefix[p] = [0] * (N + 1)
+    
+    for i in range(1, N + 1):
+        for p in primes_set:
+            prefix[p][i] = prefix[p][i - 1]
+        for p in prime_factors[i - 1]:
+            prefix[p][i] += prime_factors[i - 1][p]
+    
+    def get_product_factors(l, r):
+        res = defaultdict(int)
+        for p in primes_set:
+            res[p] = prefix[p][r] - prefix[p][l - 1]
+        return res
+    
+    def is_perfect_square(factors):
+        for p in factors:
+            if factors[p] % 2 != 0:
+                return False
+        return True
+    
+    output = []
     for _ in range(Q):
         k = int(data[idx])
+        idx += 1
         if k == 1:
-            l = int(data[idx+1])
-            r = int(data[idx+2])
-            queries.append((k, l, r))
-            idx += 3
+            l = int(data[idx])
+            idx += 1
+            r = int(data[idx])
+            idx += 1
+            factors = get_product_factors(l, r)
+            if is_perfect_square(factors):
+                output.append("YES")
+            else:
+                output.append("NO")
         else:
-            i = int(data[idx+1])
-            val = int(data[idx+2])
-            queries.append((k, i, val))
-            idx += 3
-
-    # Precompute primes up to 100
-    primes = list(range(2, 101))
-    prime_factors = [{} for _ in range(101)]
-    for p in primes:
-        for multiple in range(p, 101, p):
-            prime_factors[multiple][p] = 1
-
-    # Function to get prime factors of a number
-    def get_prime_factors(x):
-        factors = {}
-        for p in primes:
-            if x == 1:
-                break
-            if p > x:
-                break
-            if x % p == 0:
-                count = 0
-                while x % p == 0:
-                    x //= p
-                    count += 1
-                factors[p] = count
-        return factors
-
-    # Initialize prime counts for each element
-    prime_counts = [defaultdict(int) for _ in range(N)]
-    for i in range(N):
-        factors = get_prime_factors(A[i])
-        for p, cnt in factors.items():
-            prime_counts[i][p] = cnt
-
-    # Segment tree for range queries
-    class SegmentTree:
-        def __init__(self, data):
-            self.n = len(data)
-            self.size = 1
-            while self.size < self.n:
-                self.size <<= 1
-            self.tree = [defaultdict(int) for _ in range(2 * self.size)]
-            # Fill leaves
-            for i in range(self.n):
-                for p, cnt in data[i].items():
-                    self.tree[self.size + i][p] = cnt
-            # Build the tree
-            for i in range(self.size - 1, 0, -1):
-                for p in self.tree[2 * i]:
-                    self.tree[i][p] += self.tree[2 * i][p]
-                for p in self.tree[2 * i + 1]:
-                    self.tree[i][p] += self.tree[2 * i + 1][p]
-
-        def update(self, pos, new_factors):
-            pos += self.size
-            for p, cnt in new_factors.items():
-                self.tree[pos][p] = cnt
-            pos >>= 1
-            while pos >= 1:
-                for p in self.tree[2 * pos]:
-                    self.tree[pos][p] += self.tree[2 * pos][p]
-                for p in self.tree[2 * pos + 1]:
-                    self.tree[pos][p] += self.tree[2 * pos + 1][p]
-                pos >>= 1
-
-        def query(self, l, r):
-            l += self.size
-            r += self.size
-            res = defaultdict(int)
-            while l <= r:
-                if l % 2 == 1:
-                    for p, cnt in self.tree[l].items():
-                        res[p] += cnt
-                    l += 1
-                if r % 2 == 0:
-                    for p, cnt in self.tree[r].items():
-                        res[p] += cnt
-                    r -= 1
-                l >>= 1
-                r >>= 1
-            return res
-
-    # Build the segment tree
-    st = SegmentTree(prime_counts)
-
-    # Process queries
-    output = []
-    for query in queries:
-        if query[0] == 1:
-            l = query[1] - 1
-            r = query[2] - 1
-            factors = st.query(l, r)
-            is_square = True
-            for p in factors:
-                if factors[p] % 2 != 0:
-                    is_square = False
-                    break
-            output.append("YES" if is_square else "NO")
-        else:
-            i = query[1] - 1
-            val = query[2]
-            # Update the value at index i
-            old_val = A[i]
-            new_val = old_val * val
-            A[i] = new_val
-            # Get prime factors of new_val
-            new_factors = get_prime_factors(new_val)
-            # Update the segment tree
-            st.update(i, new_factors)
-
-    print("\n".join(output))
+            i = int(data[idx])
+            idx += 1
+            val = int(data[idx])
+            idx += 1
+            # Update the value at position i-1
+            A[i - 1] *= val
+            # Factorize the new value
+            new_factors = factorize(A[i - 1])
+            # Update the prefix sums
+            for p in primes_set:
+                prefix[p][i] += new_factors.get(p, 0)
+                for j in range(i + 1, N + 1):
+                    prefix[p][j] += new_factors.get(p, 0)
+    
+    print('\n'.join(output))

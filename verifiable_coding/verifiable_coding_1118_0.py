@@ -15,14 +15,15 @@ def solve():
         S = data[idx]
         idx += 1
         
-        ops = 0
-        for i in range(N - 1):
+        operations = 0
+        i = 0
+        while i < N - 1:
             if S[i] == S[i + 1]:
-                ops += 1
-                # Toggle the current bit
-                S = S[:i] + ('1' if S[i] == '0' else '0') + S[i+1:]
+                operations += 1
+                S = S[:i] + str(1 - int(S[i])) + S[i+1:]
+            i += 1
         
-        print(ops)
+        print(operations)
 
 if __name__ == '__main__':
     solve()

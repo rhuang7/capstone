@@ -24,25 +24,8 @@ def solve():
         
         if odd_count > 2:
             print("NO")
-            continue
-        
-        # Check if the string can be rearranged to form a doublindrome
-        # For a doublindrome, each half must be a palindrome
-        # So, each character must appear an even number of times (or at most two characters with odd counts)
-        # But for the halves to be palindromes, each character must appear even number of times in the entire string
-        # So, the total count of each character must be even
-        # So, we check if all characters have even counts
-        
-        valid = True
-        for char, freq in count.items():
-            if freq % 2 != 0:
-                valid = False
-                break
-        
-        if valid:
-            print("YES")
         else:
-            print("NO")
+            print("YES")
 
 if __name__ == '__main__':
     solve()

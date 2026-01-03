@@ -34,7 +34,7 @@ def solve():
         
         results.append(f"{max_val} {start} {end}")
     
-    print("\n".join(results))
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

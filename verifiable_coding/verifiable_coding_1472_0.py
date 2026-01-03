@@ -2,26 +2,24 @@ import sys
 
 def solve():
     import sys
-    input = sys.stdin.buffer.read().strip()
+    input = sys.stdin.buffer.read().decode().strip()
     N = int(input)
-
-    special_count = 0
-    partial_count = 0
-
+    
+    special = 0
+    partial = 0
+    
     for num in range(1, 10**6):
         digits = list(map(int, str(num)))
         product = 1
-        has_one = False
         for d in digits:
             product *= d
-            if d == 1:
-                has_one = True
         if product == num:
-            if not has_one:
-                special_count += 1
-            partial_count += 1
-
-    print(special_count, partial_count)
+            if 1 not in digits:
+                special += 1
+            else:
+                partial += 1
+                
+    print(special, partial)
 
 if __name__ == '__main__':
     solve()

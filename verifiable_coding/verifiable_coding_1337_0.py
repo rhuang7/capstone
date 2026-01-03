@@ -18,20 +18,20 @@ def solve():
         if R >= min_p:
             print(0)
             continue
-        # For each person count p, the number of candies must be of the form k*p + R
-        # We need the minimum such number that works for all p in P
-        # So we need to find the smallest number x such that x ≡ R (mod p) for all p in P
-        # This is equivalent to finding the smallest x >= R such that x ≡ R (mod LCM of all p in P)
+        # For each person count p, the minimum number of candies needed is (p * k + R) where k is the maximum possible
+        # So we need to find the minimum value of (p * k + R) such that (total - R) is divisible by p for all p in P
+        # Which is equivalent to finding the least common multiple of all (p) and then calculating the minimum total
+        # The minimum total is (lcm * k + R) where k is the smallest integer such that (lcm * k + R) >= (min_p * 1 + R)
+        # So we need to find the lcm of all p in P
         from math import gcd
-        from functools import reduce
         def lcm(a, b):
             return a * b // gcd(a, b)
-        L = reduce(lcm, P)
-        # The smallest x is R + k*L where k is the smallest integer such that x >= R + 1 (since each person must get at least 1 candy)
-        # So x = R + L * k, where k is the smallest integer such that R + L * k >= R + 1
-        # Which is k = 1 if R + L >= R + 1, which it always is
-        x = R + L
-        print(x)
+        current_lcm = 1
+        for p in P:
+            current_lcm = lcm(current_lcm, p)
+        # Now find the minimum k such that (current_lcm * k + R) >= (min_p * 1 + R)
+        # Which is k >= 1, so the minimum is current_lcm * 1 + R
+        print(current_lcm + R)
 
 if __name__ == '__main__':
     solve()

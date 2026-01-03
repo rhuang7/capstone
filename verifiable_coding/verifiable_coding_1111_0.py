@@ -26,8 +26,8 @@ def solve():
             else:
                 odd += 1
         
-        result = even * odd
-        results.append(result)
+        res = even * odd
+        results.append(res)
     
     for res in results:
         print(res)

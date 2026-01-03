@@ -14,23 +14,22 @@ def solve():
         idx += 2
         forgotten = data[idx:idx+N]
         idx += N
-        phrase_words = []
+        phrase_set = set()
         for _ in range(K):
             L = int(data[idx])
             idx += 1
-            phrase_words.extend(data[idx:idx+L])
-            idx += L
-        # Create a set of all words in phrases for fast lookup
-        phrase_set = set(phrase_words)
-        # Check each forgotten word
-        result = []
+            for _ in range(L):
+                word = data[idx]
+                idx += 1
+                phrase_set.add(word)
+        res = []
         for word in forgotten:
             if word in phrase_set:
-                result.append("YES")
+                res.append("YES")
             else:
-                result.append("NO")
-        results.append(" ".join(result))
-    print("\n".join(results))
+                res.append("NO")
+        results.append(' '.join(res))
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

@@ -13,21 +13,16 @@ def solve():
         idx += 1
         a = list(map(int, data[idx:idx + n]))
         idx += n
-        possible = True
-        prefix = 0
+        prefix = [0] * (n + 1)
         for i in range(n):
-            prefix += a[i]
-            if prefix < 0:
-                possible = False
-                break
-        if not possible:
-            results.append("NO")
-            continue
-        suffix = 0
-        for i in range(n - 1, -1, -1):
-            suffix += a[i]
-            if suffix < 0:
+            prefix[i + 1] = prefix[i] + a[i]
+        possible = True
+        for i in range(1, n + 1):
+            if prefix[i] != prefix[i - 1]:
                 possible = False
                 break
         results.append("YES" if possible else "NO")
     print('\n'.join(results))
+
+if __name__ == '__main__':
+    solve()

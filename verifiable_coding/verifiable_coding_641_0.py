@@ -1,6 +1,6 @@
 import sys
 import math
-from collections import defaultdict, deque
+from collections import deque
 
 def solve():
     import sys
@@ -11,80 +11,103 @@ def solve():
     traffic = list(map(int, data[1:N+1]))
     edges = data[N+1:]
     
-    graph = defaultdict(list)
+    adj = [[] for _ in range(N)]
     for i in range(N-1):
-        u = int(edges[i*2]) - 1
-        v = int(edges[i*2 + 1]) - 1
-        graph[u].append(v)
-        graph[v].append(u)
+        u = int(edges[2*i]) - 1
+        v = int(edges[2*i + 1]) - 1
+        adj[u].append(v)
+        adj[v].append(u)
     
     def bfs(start, end):
         visited = [False] * N
-        queue = deque()
-        queue.append((start, [start]))
+        q = deque()
+        q.append((start, [start]))
         visited[start] = True
-        while queue:
-            node, path = queue.popleft()
+        while q:
+            node, path = q.popleft()
             if node == end:
                 return path
-            for neighbor in graph[node]:
+            for neighbor in adj[node]:
                 if not visited[neighbor]:
                     visited[neighbor] = True
-                    queue.append((neighbor, path + [neighbor]))
+                    q.append((neighbor, path + [neighbor]))
         return []
     
     def get_path(u, v):
         path = bfs(u, v)
         return path
     
-    def get_max_traffic(path, traffic):
-        max_t = 0
-        for node in path:
-            max_t = max(max_t, traffic[node])
-        return max_t
+    def get_traffic(path):
+        return sum(traffic[i] for i in path)
     
-    def dfs(node, parent, visited, traffic, max_t, result):
-        if visited[node]:
-            return
-        visited[node] = True
-        current_max = traffic[node]
-        for neighbor in graph[node]:
-            if neighbor != parent:
-                current_max = max(current_max, traffic[neighbor])
-                dfs(neighbor, node, visited, traffic, current_max, result)
-        result.append(current_max)
+    def is_valid_assignment(assignment):
+        for i in range(3):
+            if len(assignment[i]) == 0:
+                continue
+            max_traffic = 0
+            for station in assignment[i]:
+                max_traffic = max(max_traffic, traffic[station])
+            if max_traffic > 1000000000:
+                return False
+        return True
     
-    def find_min_max():
-        visited = [False] * N
-        result = []
-        dfs(0, -1, visited, traffic, 0, result)
-        return max(result)
+    def dfs(node, color, assignment, max_traffic):
+        if color == 3:
+            if is_valid_assignment(assignment):
+                return True
+            return False
+        for neighbor in adj[node]:
+            if neighbor not in assignment[color]:
+                if dfs(neighbor, color, assignment, max_traffic):
+                    return True
+        return False
+    
+    def find_assignment():
+        assignment = [[], [], []]
+        for i in range(N):
+            for j in range(3):
+                if i not in assignment[j]:
+                    assignment[j].append(i)
+        return assignment
+    
+    def min_max_traffic():
+        assignment = find_assignment()
+        max_traffic = 0
+        for i in range(3):
+            if len(assignment[i]) == 0:
+                continue
+            current_max = 0
+            for station in assignment[i]:
+                current_max = max(current_max, traffic[station])
+            max_traffic = max(max_traffic, current_max)
+        return max_traffic
     
     def binary_search():
-        left = 0
-        right = sum(traffic)
-        answer = right
-        while left <= right:
-            mid = (left + right) // 2
-            visited = [False] * N
-            count = 0
+        low = 0
+        high = 1000000000
+        answer = high
+        while low <= high:
+            mid = (low + high) // 2
+            assignment = [[], [], []]
             for i in range(N):
-                if not visited[i]:
-                    path = get_path(i, 0)
-                    max_t = get_max_traffic(path, traffic)
-                    if max_t > mid:
-                        break
-                    count += 1
-                    for node in path:
-                        visited[node] = True
-            if count == N:
+                for j in range(3):
+                    if i not in assignment[j]:
+                        assignment[j].append(i)
+            valid = True
+            for i in range(3):
+                if len(assignment[i]) == 0:
+                    continue
+                current_max = 0
+                for station in assignment[i]:
+                    current_max = max(current_max, traffic[station])
+                if current_max > mid:
+                    valid = False
+                    break
+            if valid:
                 answer = mid
-                right = mid - 1
+                high = mid - 1
             else:
-                left = mid + 1
+                low = mid + 1
         return answer
     
     print(binary_search())
-
-if __name__ == '__main__':
-    solve()

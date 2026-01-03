@@ -12,98 +12,67 @@ def comb(n, k):
     return res
 
 def solve():
-    input = sys.stdin.buffer.read().split()
-    T = int(input[0])
+    import sys
+    input = sys.stdin.buffer.read
+    data = input().split()
+    T = int(data[0])
     idx = 1
     for _ in range(T):
-        p = int(input[idx])
-        q = int(input[idx+1])
-        r = int(input[idx+2])
+        p = int(data[idx])
+        q = int(data[idx+1])
+        r = int(data[idx+2])
         idx += 3
         
         # Total rooms must be exactly r
         # We need to split the rooms into two parts: some for footballers, some for cricketers
-        # Let's try all possible splits of rooms into footballer_rooms and cricketer_rooms
+        # Let's try all possible ways to split the rooms into x for footballers and y for cricketers
+        # where x + y = r, x >= 0, y >= 0
         total = 0
-        for footballer_rooms in range(0, r + 1):
-            cricketer_rooms = r - footballer_rooms
-            # Check if it's possible to place footballers and cricketers
-            # Footballers: must be placed in exactly footballer_rooms rooms, each non-empty
-            # Cricketers: must be placed in exactly cricketer_rooms rooms, each with at least 2
-            # Also, cricketer_rooms must be >= 1, because cricketers can't be alone
-            if cricketer_rooms < 1:
-                continue
-            # Check if footballers can be placed in footballer_rooms rooms
-            # Each room has at least 1 footballer, so p >= footballer_rooms
-            if p < footballer_rooms:
-                continue
-            # Check if cricketers can be placed in cricketer_rooms rooms
-            # Each room has at least 2 cricketers, so q >= 2 * cricketer_rooms
-            if q < 2 * cricketer_rooms:
-                continue
-            # Compute number of ways to place footballers
-            # Choose footballer_rooms rooms and put p footballers into them, one per room
-            # This is the same as p! / (p - footballer_rooms)! * S(p, footballer_rooms)
-            # But since rooms are identical, it's just the number of ways to partition p distinct items into footballer_rooms non-empty subsets
-            # Which is S(p, footballer_rooms) * footballer_rooms! (but since rooms are identical, it's S(p, footballer_rooms))
-            # But since rooms are identical, the number of ways to partition p distinct items into exactly k non-empty subsets is S(p, k)
-            # So the number of ways is S(p, footballer_rooms)
-            # Similarly for cricketers: number of ways is S(q, cricketer_rooms) * (number of ways to assign to rooms)
-            # But since rooms are identical, it's just S(q, cricketer_rooms)
-            # So total ways is S(p, footballer_rooms) * S(q, cricketer_rooms)
-            # But we need to multiply by the number of ways to choose which rooms are for footballers and which are for cricketers
-            # Since rooms are identical, the number of ways to choose which rooms are for footballers is 1 (since rooms are identical)
-            # So the total is S(p, footballer_rooms) * S(q, cricketer_rooms)
-            # But we need to multiply by the number of ways to assign the footballers and cricketers to the rooms
-            # Which is the same as the number of ways to partition the players into the rooms
-            # So the total is S(p, footballer_rooms) * S(q, cricketer_rooms)
-            # But we need to multiply by the number of ways to choose which rooms are for footballers and which are for cricketers
-            # Since rooms are identical, the number of ways to choose which rooms are for footballers is 1 (since rooms are identical)
-            # So the total is S(p, footballer_rooms) * S(q, cricketer_rooms)
-            # But we need to multiply by the number of ways to assign the footballers and cricketers to the rooms
-            # Which is the same as the number of ways to partition the players into the rooms
-            # So the total is S(p, footballer_rooms) * S(q, cricketer_rooms)
-            # But we need to multiply by the number of ways to choose which rooms are for footballers and which are for cricketers
-            # Since rooms are identical, the number of ways to choose which rooms are for footballers is 1 (since rooms are identical)
-            # So the total is S(p, footballer_rooms) * S(q, cricketer_rooms)
-            # But we need to multiply by the number of ways to assign the footballers and cricketers to the rooms
-            # Which is the same as the number of ways to partition the players into the rooms
-            # So the total is S(p, footballer_rooms) * S(q, cricketer_rooms)
-            # But we need to multiply by the number of ways to choose which rooms are for footballers and which are for cricketers
-            # Since rooms are identical, the number of ways to choose which rooms are for footballers is 1 (since rooms are identical)
-            # So the total is S(p, footballer_rooms) * S(q, cricketer_rooms)
-            # But we need to multiply by the number of ways to assign the footballers and cricketers to the rooms
-            # Which is the same as the number of ways to partition the players into the rooms
-            # So the total is S(p, footballer_rooms) * S(q, cricketer_rooms)
-            # But we need to multiply by the number of ways to choose which rooms are for footballers and which are for cricketers
-            # Since rooms are identical, the number of ways to choose which rooms are for footballers is 1 (since rooms are identical)
-            # So the total is S(p, footballer_rooms) * S(q, cricketer_rooms)
-            # But we need to multiply by the number of ways to assign the footballers and cricketers to the rooms
-            # Which is the same as the number of ways to partition the players into the rooms
-            # So the total is S(p, footballer_rooms) * S(q, cricketer_rooms)
-            # But we need to multiply by the number of ways to choose which rooms are for footballers and which are for cricketers
-            # Since rooms are identical, the number of ways to choose which rooms are for footballers is 1 (since rooms are identical)
-            # So the total is S(p, footballer_rooms) * S(q, cricketer_rooms)
-            # But we need to multiply by the number of ways to assign the footballers and cricketers to the rooms
-            # Which is the same as the number of ways to partition the players into the rooms
-            # So the total is S(p, footballer_rooms) * S(q, cricketer_rooms)
-            # But we need to multiply by the number of ways to choose which rooms are for footballers and which are for cricketers
-            # Since rooms are identical, the number of ways to choose which rooms are for footballers is 1 (since rooms are identical)
-            # So the total is S(p, footballer_rooms) * S(q, cricketer_rooms)
-            # But we need to multiply by the number of ways to assign the footballers and cricketers to the rooms
-            # Which is the same as the number of ways to partition the players into the rooms
-            # So the total is S(p, footballer_rooms) * S(q, cricketer_rooms)
-            # But we need to multiply by the number of ways to choose which rooms are for footballers and which are for cricketers
-            # Since rooms are identical, the number of ways to choose which rooms are for footballers is 1 (since rooms are identical)
-            # So the total is S(p, footballer_rooms) * S(q, cricketer_rooms)
-            # But we need to multiply by the number of ways to assign the footballers and cricketers to the rooms
-            # Which is the same as the number of ways to partition the players into the rooms
-            # So the total is S(p, footballer_rooms) * S(q, cricketer_rooms)
-            # But we need to multiply by the number of ways to choose which rooms are for footballers and which are for cricketers
-            # Since rooms are identical, the number of ways to choose which rooms are for footballers is 1 (since rooms are identical)
-            # So the total is S(p, footballer_rooms) * S(q, cricketer_rooms)
-            # But we need to multiply by the number of ways to assign the footballers and cricketers to the rooms
-            # Which is the same as the number of ways to partition the players into the rooms
-            # So the total is S(p, footballer_rooms) * S(q, cricketer_rooms)
-            # But we need to multiply by the number of ways to choose which rooms are for footballers and which are for cricketers
-            # Since rooms are identical, the number of ways to
+        for x in range(r + 1):
+            y = r - x
+            # Check if it's possible to place footballers in x rooms and cricketers in y rooms
+            # Footballers: must be placed in x rooms, each room has at least 1
+            # So the number of ways to place footballers is comb(p-1, x-1)
+            # Cricketers: must be placed in y rooms, each room has at least 2
+            # So the number of ways to place cricketers is comb(q-1, y-1) if q >= 2*y
+            # But since cricketers can't be alone, each room must have at least 2
+            # So the number of ways to place cricketers is comb(q-1, y-1) if q >= 2*y
+            # But we also need to check if y is >= 1 (since cricketers can't be alone in a room)
+            # So if y == 0, then q must be 0
+            # Also, if x == 0, then p must be 0
+            if x == 0:
+                if p == 0:
+                    # All rooms are for cricketers
+                    if y == 0:
+                        # No rooms, but p and q are 0
+                        total += 1
+                    else:
+                        # All rooms are for cricketers, but y > 0
+                        # So q must be >= 2*y
+                        if q >= 2 * y:
+                            # Number of ways to place cricketers is comb(q-1, y-1)
+                            total += comb(q-1, y-1)
+                else:
+                    continue
+            else:
+                if p == 0:
+                    continue
+                # Number of ways to place footballers is comb(p-1, x-1)
+                ways_footballers = comb(p-1, x-1)
+                if y == 0:
+                    # All rooms are for footballers
+                    if q == 0:
+                        total += ways_footballers
+                    else:
+                        continue
+                else:
+                    if q == 0:
+                        continue
+                    # Number of ways to place cricketers is comb(q-1, y-1) if q >= 2*y
+                    if q >= 2 * y:
+                        ways_cricketers = comb(q-1, y-1)
+                        total += ways_footballers * ways_cricketers
+        print(total % MOD)
+
+if __name__ == '__main__':
+    solve()

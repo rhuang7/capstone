@@ -19,13 +19,12 @@ def solve():
         from math import factorial
         for i in range(n):
             digit = digits[i]
-            count = 0
-            for d in digits:
-                if d == digit:
+            count = 1
+            for j in range(i):
+                if digits[j] == digit:
                     count += 1
             perm = factorial(n) // factorial(count)
-            place = 10 ** (n - i - 1)
-            total += digit * perm * place
+            total += digit * 10 ** (n - 1 - i) * perm
         results.append(str(total))
     print('\n'.join(results))
 

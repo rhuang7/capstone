@@ -15,60 +15,48 @@ def solve():
         d = int(data[index+3])
         index += 4
         
-        # Generate the 5 divisors
-        divisors = [a + i*d for i in range(5)]
+        # Compute the 5 values: a, a+d, a+2d, a+3d, a+4d
+        values = [a + i*d for i in range(5)]
         
-        # Use inclusion-exclusion principle to count numbers not divisible by any of the divisors
-        # Total numbers in range: m - n + 1
+        # Use inclusion-exclusion principle to count numbers not divisible by any of the values
+        # Total numbers in range [n, m] is m - n + 1
         total = m - n + 1
         
-        # Count numbers divisible by at least one of the divisors
-        # Using inclusion-exclusion for 5 sets
-        # This is a simplified version for 5 elements, but for larger numbers it would be better to use a sieve or other method
+        # Count numbers divisible by at least one of the values
+        # Use inclusion-exclusion to calculate this
+        # For 5 elements, the inclusion-exclusion formula is:
+        # |A1 ∪ A2 ∪ A3 ∪ A4 ∪ A5| = Σ|Ai| - Σ|Ai ∩ Aj| + Σ|Ai ∩ Aj ∩ Ak| - ... + (-1)^{k+1} |A1 ∩ A2 ∩ ... ∩ Ak|}
         
-        # We'll use a set to store the numbers in the range [n, m]
-        # But for large ranges, this is not feasible, so we use inclusion-exclusion
-        # Here we use inclusion-exclusion for 5 elements
+        # We'll compute all subsets of the 5 values and calculate their intersections
+        # For each subset, calculate the LCM of the values in the subset
+        # Then count how many numbers in [n, m] are divisible by that LCM
         
-        # Count numbers divisible by each divisor
-        cnt = 0
-        for x in divisors:
-            cnt += (m // x) - ((n - 1) // x)
+        from itertools import combinations
         
-        # Subtract numbers divisible by pairwise LCMs
-        for i in range(5):
-            for j in range(i + 1, 5):
-                l = divisors[i] * divisors[j]
-                if l > m:
-                    continue
-                cnt -= (m // l) - ((n - 1) // l)
+        # Function to count numbers divisible by x in [n, m]
+        def count_divisible(x):
+            return (m // x) - ((n - 1) // x)
         
-        # Add numbers divisible by triple LCMs
-        for i in range(5):
-            for j in range(i + 1, 5):
-                for k in range(j + 1, 5):
-                    l = divisors[i] * divisors[j] * divisors[k]
-                    if l > m:
-                        continue
-                    cnt += (m // l) - ((n - 1) // l)
+        # Inclusion-exclusion
+        res = 0
+        for i in range(1, 6):  # i is the size of the subset
+            for subset in combinations(values, i):
+                lcm = 1
+                for num in subset:
+                    lcm = lcm * num // (gcd(lcm, num))
+                cnt = count_divisible(lcm)
+                if i % 2 == 1:
+                    res += cnt
+                else:
+                    res -= cnt
         
-        # Subtract numbers divisible by quadruple LCMs
-        for i in range(5):
-            for j in range(i + 1, 5):
-                for k in range(j + 1, 5):
-                    for l in range(k + 1, 5):
-                        lcm = divisors[i] * divisors[j] * divisors[k] * divisors[l]
-                        if lcm > m:
-                            continue
-                        cnt -= (m // lcm) - ((n - 1) // lcm)
-        
-        # Add numbers divisible by all 5 LCMs
-        lcm = divisors[0] * divisors[1] * divisors[2] * divisors[3] * divisors[4]
-        if lcm <= m:
-            cnt += (m // lcm) - ((n - 1) // lcm)
-        
-        # The answer is total - cnt
-        print(total - cnt)
+        # The answer is total - res
+        print(total - res)
+    
+def gcd(a, b):
+    while b:
+        a, b = b, a % b
+    return a
 
 if __name__ == '__main__':
     solve()

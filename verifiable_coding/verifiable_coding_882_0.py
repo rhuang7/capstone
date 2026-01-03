@@ -10,18 +10,17 @@ def solve():
     
     for _ in range(T):
         A = data[index]
-        index += 1
-        B = data[index]
-        index += 1
+        B = data[index + 1]
+        index += 2
         
         from collections import Counter
-        countA = Counter(A)
-        countB = Counter(B)
+        count_A = Counter(A)
+        count_B = Counter(B)
         
         common = 0
-        for char in countA:
-            if char in countB:
-                common += min(countA[char], countB[char])
+        for char in count_A:
+            if char in count_B:
+                common += min(count_A[char], count_B[char])
         print(common)
 
 if __name__ == '__main__':

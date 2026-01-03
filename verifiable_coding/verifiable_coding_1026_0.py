@@ -13,11 +13,11 @@ def solve():
         total = N1 * N2 * N3
         same = 0
         if N1 >= N2:
-            same += N1 * (N1 - 1) // 2
+            same += N1 * N2 * (N1 - N2)
         if N1 >= N3:
-            same += N1 * (N1 - 1) // 2
+            same += N1 * N3 * (N1 - N3)
         if N2 >= N3:
-            same += N2 * (N2 - 1) // 2
+            same += N2 * N3 * (N2 - N3)
         ans = (total - same) % MOD
         print(ans)
 

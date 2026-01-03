@@ -2,21 +2,20 @@ import sys
 
 def solve():
     import sys
+    from collections import Counter
+
     input = sys.stdin.buffer.read
     data = input().split()
     N = int(data[0])
     a = list(map(int, data[1:]))
     
-    from collections import Counter
     count = Counter(a)
+    max_count = max(count.values())
     
-    days = 0
-    for c in count.values():
-        if c > 2:
-            days += c // 2 + (1 if c % 2 else 0)
-        else:
-            days += 1
-    print(days)
+    if max_count > 2:
+        print(max_count)
+    else:
+        print(2)
 
 if __name__ == '__main__':
     solve()

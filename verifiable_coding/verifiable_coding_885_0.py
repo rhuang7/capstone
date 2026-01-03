@@ -8,7 +8,7 @@ def solve():
     results = []
     for i in range(1, T + 1):
         N = int(data[i])
-        count = bin(N).count('0') - 1  # bin(N) includes '0b' prefix, subtract 1 for '0b'
+        count = bin(N).count('0') - 1  # bin(N) includes '0b' prefix, so subtract 1
         results.append(str(count))
     print('\n'.join(results))
 

@@ -10,78 +10,70 @@ def solve():
     results = []
     
     for _ in range(T):
-        N, M = int(data[idx]), int(data[idx+1])
+        N = int(data[idx])
+        M = int(data[idx+1])
         idx += 2
         R = list(map(int, data[idx:idx+N]))
         idx += N
         
-        rating_changes = []
+        # Initialize player ratings
+        player_ratings = []
         for _ in range(N):
-            rating_changes.append(list(map(int, data[idx:idx+M])))
-            idx += M
+            rating = R.copy()
+            player_ratings.append(rating)
         
-        # Compute final ratings for each player
-        final_ratings = []
-        for i in range(N):
-            rating = R[i]
-            for j in range(M):
-                rating += rating_changes[i][j]
-            final_ratings.append(rating)
+        # Apply changes for each month
+        for month in range(M):
+            for i in range(N):
+                player_ratings[i][month] += int(data[idx])
+            idx += 1
         
         # For each player, compute their ratings after each month
-        player_ratings = []
-        for i in range(N):
-            ratings = [R[i]]
-            for j in range(M):
-                ratings.append(ratings[-1] + rating_changes[i][j])
-            player_ratings.append(ratings)
+        # And compute their rankings after each month
+        # Then find peak rating month and peak ranking month
         
-        # For each month, compute the rankings
-        month_rankings = []
-        for j in range(M):
-            month_ratings = [player_ratings[i][j+1] for i in range(N)]
-            # Sort the ratings and assign ranks
-            sorted_ratings = sorted(month_ratings)
-            rank = 1
-            prev = None
-            rank_dict = {}
-            for i in range(N):
-                if month_ratings[i] != prev:
-                    rank = i + 1
-                    prev = month_ratings[i]
-                rank_dict[i] = rank
-            month_rankings.append(rank_dict)
+        peak_rating_months = []
+        peak_ranking_months = []
         
-        # For each player, find peak rating month and peak ranking month
-        count = 0
         for i in range(N):
-            # Find peak rating month
-            max_rating = -float('inf')
+            # Compute ratings for each month
+            ratings = [player_ratings[i][j] for j in range(M)]
+            
+            # Find peak rating month (earliest)
+            max_rating = max(ratings)
             peak_rating_month = 0
             for j in range(M):
-                if player_ratings[i][j+1] > max_rating:
-                    max_rating = player_ratings[i][j+1]
+                if ratings[j] == max_rating:
                     peak_rating_month = j
-                elif player_ratings[i][j+1] == max_rating:
-                    if j < peak_rating_month:
-                        peak_rating_month = j
+                    break
             
-            # Find peak ranking month
-            best_rank = float('inf')
+            # Compute rankings for each month
+            # For each month, sort the ratings and assign ranks
+            # If multiple players have the same rating, they share the same rank
+            rankings = []
+            for j in range(M):
+                current_ratings = [player_ratings[k][j] for k in range(N)]
+                sorted_ratings = sorted(current_ratings, reverse=True)
+                rank = 1
+                for k in range(N):
+                    if current_ratings[k] != sorted_ratings[k]:
+                        break
+                    rank += 1
+                rankings.append(rank)
+            
+            # Find peak ranking month (earliest)
+            max_rank = max(rankings)
             peak_ranking_month = 0
             for j in range(M):
-                rank = month_rankings[j][i]
-                if rank < best_rank:
-                    best_rank = rank
+                if rankings[j] == max_rank:
                     peak_ranking_month = j
-                elif rank == best_rank:
-                    if j < peak_ranking_month:
-                        peak_ranking_month = j
+                    break
             
+            # Check if peak rating month and peak ranking month are the same
             if peak_rating_month != peak_ranking_month:
-                count += 1
-        
-        results.append(count)
+                results.append(1)
+            else:
+                results.append(0)
     
     for res in results:
         print(res)

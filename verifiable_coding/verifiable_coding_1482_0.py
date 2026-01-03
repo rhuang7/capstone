@@ -2,9 +2,10 @@ import sys
 import math
 
 def solve():
-    input = sys.stdin.buffer.read().split()
-    T = int(input[0])
-    cases = list(map(int, input[1:T+1]))
+    input = sys.stdin.buffer.read
+    data = input().split()
+    T = int(data[0])
+    cases = list(map(int, data[1:T+1]))
     
     for N in cases:
         if N == 1:

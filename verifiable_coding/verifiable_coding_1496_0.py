@@ -10,23 +10,17 @@ def solve():
 
     def get_number(s):
         level = 1
-        pos = 0
+        node = 1
         for c in s:
             if c == 'l':
-                pos = 2 * pos
+                node = 2 * node
             else:
-                pos = 2 * pos + 1
+                node = 2 * node + 1
             level += 1
-        # Calculate the number based on level and position
-        if level % 2 == 1:
-            # Odd level: number = 2^(level-1) + pos
-            return (1 << (level - 1)) + pos
-        else:
-            # Even level: number = 2^(level-1) + pos
-            return (1 << (level - 1)) + pos
+        return node
 
     for s in cases:
-        print(get_number(s) % MOD)
+        print(get_number(s))
 
 if __name__ == '__main__':
     solve()

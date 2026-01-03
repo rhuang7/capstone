@@ -26,31 +26,26 @@ def solve():
             results.append(0)
             continue
         
-        # The number of possible strings is (26^len_S) * (26^(N - len_S)) - (26^len_S - 1) * (26^(N - len_S - 1))
-        # But we need to compute it correctly based on the problem statement
+        # Number of ways to insert len_S characters into N - len_S positions
+        # The formula is (N - len_S + len_S) choose (N - len_S) = (N choose (N - len_S)) = (N choose len_S)
+        # But since we have 26 letters, it's 26^(N - len_S) * (N choose len_S)
+        k = N - len_S
+        if k < 0:
+            results.append(0)
+            continue
         
-        # The correct formula is (26^len_S) * (26^(N - len_S)) - (26^len_S - 1) * (26^(N - len_S - 1))
-        # This is because we subtract the cases where the substring is not deleted (i.e., the original string is kept)
+        # Compute combination (N choose k)
+        from math import comb
+        try:
+            comb_val = comb(N, k)
+        except:
+            comb_val = 0
         
-        # But we need to compute it correctly based on the problem statement
-        # The correct formula is (26^len_S) * (26^(N - len_S)) - (26^len_S - 1) * (26^(N - len_S - 1))
+        # Compute 26^k mod MOD
+        power = pow(26, k, MOD)
         
-        # Precompute powers of 26 modulo MOD
-        max_pow = max(len_S, N - len_S)
-        pow_26 = [1] * (max_pow + 1)
-        for i in range(1, max_pow + 1):
-            pow_26[i] = (pow_26[i - 1] * 26) % MOD
-        
-        len_S_pow = pow_26[len_S]
-        N_lenS_pow = pow_26[N - len_S]
-        len_S_minus_1_pow = pow_26[len_S - 1]
-        N_lenS_minus_1_pow = pow_26[N - len_S - 1]
-        
-        term1 = (len_S_pow * N_lenS_pow) % MOD
-        term2 = ((len_S_minus_1_pow * N_lenS_minus_1_pow) % MOD)
-        ans = (term1 - term2) % MOD
-        
-        results.append(ans)
+        res = (comb_val * power) % MOD
+        results.append(res)
     
     sys.stdout.write('\n'.join(map(str, results)) + '\n')
 

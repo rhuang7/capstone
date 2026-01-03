@@ -2,28 +2,27 @@ import sys
 
 def solve():
     import sys
-    input = sys.stdin.buffer.read
-    data = input().split()
-    N = int(data[0])
-    T = int(data[1])
-    S = list(map(int, data[2:2+N]))
+    input = sys.stdin.buffer.read().split()
+    N = int(input[0])
+    T = int(input[1])
+    S = list(map(int, input[2:2+N]))
     
     count = 0
     from collections import defaultdict
-
-    # Precompute all possible sums of two elements
-    sum2 = defaultdict(int)
+    freq = defaultdict(int)
     for i in range(N):
         for j in range(i+1, N):
-            sum2[S[i] + S[j]] += 1
-
-    # For each pair of sums, check if the remaining sum is T - sum1
-    for sum1 in sum2:
-        target = T - sum1
-        for sum2_val in sum2:
-            if sum1 + sum2_val == T:
-                count += sum2[sum1] * sum2[sum2_val]
-
+            sum_ij = S[i] + S[j]
+            freq[sum_ij] += 1
+    
+    for i in range(N):
+        for j in range(i+1, N):
+            sum_ij = S[i] + S[j]
+            target = T - sum_ij
+            for k in range(j+1, N):
+                for l in range(k+1, N):
+                    if S[k] + S[l] == target:
+                        count += 1
     print(count)
 
 if __name__ == '__main__':

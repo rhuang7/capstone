@@ -15,21 +15,37 @@ def solve():
         # Each single element is a valid sequence
         count += N
         
-        # For each position i, check sequences starting at i with p > 1
+        # For each position i, check all possible p > 1 and see if the sequence can be extended
         for i in range(N):
-            j = i + 1
-            while j < N:
-                if S[i] == S[j]:
+            current = S[i]
+            if current == '1':
+                count += 1
+                
+            # Try all possible p > 1
+            p = 2
+            while True:
+                next_pos = i * p
+                if next_pos >= N:
+                    break
+                if S[next_pos] == current:
                     count += 1
-                p = 2
-                while True:
-                    next_j = j * p
-                    if next_j >= N:
-                        break
-                    if S[j] == S[next_j]:
+                    # Check if we can extend further
+                    next_next_pos = next_pos * p
+                    if next_next_pos < N and S[next_next_pos] == current:
                         count += 1
-                    j = next_j
-                    p += 1
+                        # Continue extending
+                        while True:
+                            next_next_next_pos = next_next_pos * p
+                            if next_next_next_pos >= N:
+                                break
+                            if S[next_next_next_pos] == current:
+                                count += 1
+                            else:
+                                break
+                            next_next_pos = next_next_next_pos
+                else:
+                    break
+                p += 1
         
         print(count)
 

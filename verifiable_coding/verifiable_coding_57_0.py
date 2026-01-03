@@ -17,14 +17,9 @@ def solve():
         idx += n
         
         # Check if the array can be reduced to one element
-        # We can always reduce to one element if there is at least one increasing pair
-        # But we need to check if there's a way to remove elements such that we can keep going
-        # The key observation is that if there is at least one increasing pair, we can always reduce to one element
-        # Because we can always remove the larger element in an increasing pair
-        # So the answer is YES if there is at least one increasing pair
-        # Otherwise, it's NO
-        
-        # Check if there is at least one increasing pair
+        # The key observation is that if there is at least one pair (i, i+1) where a[i] < a[i+1], then it is possible
+        # because we can always remove one element from such a pair
+        # However, if the array is strictly decreasing, then no such pair exists, and it is impossible
         possible = False
         for i in range(n - 1):
             if a[i] < a[i + 1]:

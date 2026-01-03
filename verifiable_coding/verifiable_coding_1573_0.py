@@ -15,12 +15,11 @@ def solve():
         for i in range(N):
             row = ['0'] * N
             for j in range(N):
-                if i != j:
-                    if (i + j) % 2 == 0:
-                        row[j] = '1'
-                    else:
-                        row[j] = '0'
+                if i < j:
+                    row[j] = '1'
+                elif i > j:
+                    row[i] = '1'
             print(''.join(row))
-        
+            
 if __name__ == '__main__':
     solve()

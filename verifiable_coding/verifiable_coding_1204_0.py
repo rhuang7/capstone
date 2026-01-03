@@ -10,7 +10,7 @@ def solve():
     
     for _ in range(T):
         S = data[index]
-        R = data[index + 1]
+        R = data[index+1]
         index += 2
         
         N = len(S)
@@ -18,35 +18,35 @@ def solve():
             print(0)
             continue
         
-        # Find the positions where S[i] != R[i]
-        diff = [i for i in range(N) if S[i] != R[i]]
+        # Find the positions where S and R differ
+        diff = []
+        for i in range(N):
+            if S[i] != R[i]:
+                diff.append(i)
+        
+        # If there are no differences, output 0
         if not diff:
             print(0)
             continue
         
         # The minimum cost is achieved by making as few operations as possible
         # Each operation can cover a contiguous block of differing positions
-        # So we need to find the minimum number of operations needed to cover all differing positions
-        # and then compute the cost as (number of operations) * (total number of characters replaced)
+        # So we need to find the number of operations required to cover all differing positions
+        # This is equivalent to the number of "blocks" of differing positions
         
-        # We can use a greedy approach: cover as many differing positions as possible in each operation
-        # Start from the first differing position and cover as far as possible
-        cost = 0
-        i = 0
-        while i < len(diff):
-            # Start of the current operation
-            start = diff[i]
-            # End of the current operation
-            end = diff[i]
-            while end + 1 < len(diff) and diff[end + 1] == diff[end] + 1:
-                end += 1
-            # Number of operations is (end - start + 1)
-            # Total characters replaced is (end - start + 1)
-            # Cost is (number of operations) * (total characters replaced)
-            cost += (end - start + 1) * (end - start + 1)
-            i = end + 1
+        # Initialize the number of operations
+        k = 1
+        # Start from the first differing position
+        start = diff[0]
+        # Iterate through the differing positions
+        for i in range(1, len(diff)):
+            if diff[i] != diff[i-1] + 1:
+                k += 1
         
-        print(cost)
+        # The length of the operation is the number of differing positions
+        l = len(diff)
+        # The cost is k * l
+        print(k * l)
 
 if __name__ == '__main__':
     solve()

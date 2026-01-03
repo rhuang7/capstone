@@ -9,75 +9,74 @@ def solve():
     T = int(data[idx])
     idx += 1
     results = []
+    
     for _ in range(T):
         N, M = int(data[idx]), int(data[idx+1])
         idx += 2
         C = list(map(int, data[idx:idx+M]))
         idx += M
-        D = []
-        F = []
-        B = []
-        for _ in range(N):
-            d = int(data[idx])
-            f = int(data[idx+1])
-            b = int(data[idx+2])
-            D.append(d - 1)  # 0-based
-            F.append(f)
-            B.append(b)
+        
+        # Initialize flavor availability
+        flavor_available = [c for c in C]
+        # For each flavor, store the list of (F_i, B_i, customer index)
+        flavor_customers = [[] for _ in range(M)]
+        
+        for i in range(N):
+            D_i = int(data[idx]) - 1
+            F_i = int(data[idx+1])
+            B_i = int(data[idx+2])
             idx += 3
-        # Initialize available flavors
-        available = [i for i in range(M)]
-        # For each flavor, keep a priority queue of (B_i, F_i, D_i)
-        # We'll use a max-heap for B_i, but since Python has min-heap, we'll use negative B_i
-        flavor_pq = [[] for _ in range(M)]
-        for i in range(N):
-            d = D[i]
-            f = F[i]
-            b = B[i]
-            heapq.heappush(flavor_pq[d], (-b, -f, i))
-        # Track the number of available flavors for each flavor
-        count = [0] * M
-        # Track the chosen flavor for each customer
-        chosen = [0] * N
-        # Track the profit
+            flavor_customers[D_i].append((F_i, B_i, i))
+        
+        # For each flavor, sort customers by F_i in descending order
+        for i in range(M):
+            flavor_customers[i].sort(reverse=True)
+        
+        # For each flavor, keep a heap of (B_i, customer index)
+        flavor_bheap = [[] for _ in range(M)]
+        for i in range(M):
+            for f, b, idx_c in flavor_customers[i]:
+                heapq.heappush(flavor_bheap[i], (b, idx_c))
+        
+        # Process customers in order
         profit = 0
-        # Process each customer
+        flavor_choices = [0] * N
+        
         for i in range(N):
-            d = D[i]
-            # Check if we can satisfy the customer's favorite flavor
-            if count[d] < C[d]:
-                # We can give the favorite flavor
-                profit += F[i]
-                chosen[i] = d + 1  # 1-based
-                count[d] += 1
+            D_i = int(data[idx]) - 1
+            F_i = int(data[idx+1])
+            B_i = int(data[idx+2])
+            idx += 3
+            
+            # Check if we can give the favorite flavor
+            if flavor_available[D_i] > 0:
+                profit += F_i
+                flavor_choices[i] = D_i + 1
+                flavor_available[D_i] -= 1
             else:
-                # We need to choose another flavor
-                # Find the flavor with the highest B_i (or F_i if B_i is same)
+                # Choose the best possible flavor with available capacity
+                # Find the flavor with the highest B_i among available ones
                 max_b = -1
-                max_f = -1
                 best_flavor = -1
+                best_idx = -1
                 for j in range(M):
-                    if count[j] < C[j]:
-                        b, f, _ = flavor_pq[j][0] if flavor_pq[j] else (0, 0, 0)
-                        b = -b
-                        f = -f
-                        if b > max_b or (b == max_b and f > max_f):
+                    if flavor_available[j] > 0:
+                        b, idx_c = flavor_bheap[j][0]
+                        if b > max_b:
                             max_b = b
-                            max_f = f
                             best_flavor = j
+                            best_idx = idx_c
                 if best_flavor != -1:
-                    # Take the best available flavor
                     profit += max_b
-                    chosen[i] = best_flavor + 1
-                    count[best_flavor] += 1
-                    # Remove the best flavor from the heap
-                    heapq.heappop(flavor_pq[best_flavor])
-                    # Push the next best flavor for this flavor
-                    if flavor_pq[best_flavor]:
-                        b, f, _ = flavor_pq[best_flavor][0]
-                        b = -b
-                        f = -f
-                        heapq.heappush(flavor_pq[best_flavor], (-b, -f, i))
+                    flavor_choices[i] = best_flavor + 1
+                    # Remove the best B_i from the heap
+                    heapq.heappop(flavor_bheap[best_flavor])
+                    flavor_available[best_flavor] -= 1
+        
         results.append(str(profit))
-        results.append(' '.join(map(str, chosen)))
+        results.append(' '.join(map(str, flavor_choices)))
+    
     print('\n'.join(results))
+
+if __name__ == '__main__':
+    solve()

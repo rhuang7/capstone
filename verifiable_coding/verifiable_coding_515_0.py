@@ -22,13 +22,13 @@ def solve():
     cases = list(map(int, data[1:T+1]))
     
     for N in cases:
-        max_val = -1
+        max_ratio = -1
         best_i = 2
         for i in range(2, N+1):
             phi = compute_phi(i)
             ratio = phi / i
-            if ratio > max_val:
-                max_val = ratio
+            if ratio > max_ratio:
+                max_ratio = ratio
                 best_i = i
         print(best_i)
 

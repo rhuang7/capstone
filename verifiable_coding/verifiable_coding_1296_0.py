@@ -1,74 +1,63 @@
 import sys
 import math
-from collections import defaultdict, deque
-
+from sys import stdin
+input = sys.stdin.buffer.read
 MOD = 10**9 + 7
 
 def solve():
-    input = sys.stdin.buffer.read
     data = input().split()
     idx = 0
     T = int(data[idx])
     idx += 1
     results = []
-    
     for _ in range(T):
         N = int(data[idx])
         idx += 1
-        graph = defaultdict(list)
-        for _ in range(N-1):
+        adj = [[] for _ in range(N + 1)]
+        for _ in range(N - 1):
             u = int(data[idx])
-            v = int(data[idx+1])
-            graph[u].append(v)
-            graph[v].append(u)
+            v = int(data[idx + 1])
+            adj[u].append(v)
+            adj[v].append(u)
             idx += 2
         A = int(data[idx])
         idx += 1
         
-        # Build tree with A as root
-        tree = defaultdict(list)
-        visited = [False] * (N + 1)
-        q = deque()
-        q.append(A)
-        visited[A] = True
-        while q:
-            u = q.popleft()
-            for v in graph[u]:
-                if not visited[v]:
-                    visited[v] = True
-                    tree[u].append(v)
-                    q.append(v)
-        
-        # Compute the number of ways
+        # Compute the number of ways to traverse the tree
         # The tree is rooted at A, and we need to count the number of ways to traverse all nodes
-        # This is equivalent to the number of ways to traverse a tree in a specific order
-        # The answer is (number of ways to traverse the tree) = (product of (size of each subtree - 1)!) 
-        # But since we are starting at A, the answer is (product of (size of each subtree - 1)!) 
-        # Because for each subtree, we can choose the order in (size - 1)! ways
+        # This is equivalent to the number of linear extensions of the tree rooted at A
+        # The number of ways is (product of (size of each subtree - 1)!) 
+        # We use DFS to compute the sizes of subtrees and compute the product
         
-        # Compute sizes of all subtrees
-        sizes = [0] * (N + 1)
+        # Compute subtree sizes and factorials
+        fact = [1] * (N + 1)
+        for i in range(2, N + 1):
+            fact[i] = fact[i - 1] * i % MOD
         
+        visited = [False] * (N + 1)
         def dfs(u, parent):
+            visited[u] = True
             size = 1
-            for v in tree[u]:
-                if v != parent:
+            for v in adj[u]:
+                if v != parent and not visited[v]:
                     size += dfs(v, u)
-            sizes[u] = size
+            if u != A:
+                # Multiply by (size - 1)!
+                size -= 1
+                res = fact[size] % MOD
+                results.append(res)
             return size
         
         dfs(A, -1)
         
-        # Compute the product of (size of each subtree - 1)!
-        result = 1
-        for u in range(1, N + 1):
-            if sizes[u] > 1:
-                fact = 1
-                for i in range(1, sizes[u]):
-                    fact = fact * i % MOD
-                result = result * fact % MOD
-        
-        results.append(result)
+        # Multiply all the results
+        res = 1
+        for val in results:
+            res = res * val % MOD
+        results[-1] = res
     
     for res in results:
         print(res)
+
+if __name__ == '__main__':
+    solve()

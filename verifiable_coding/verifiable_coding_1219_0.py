@@ -11,16 +11,16 @@ def solve():
         M = int(data[index+1])
         index += 2
         
-        # Boxes at odd positions are full (1, 3, 5, ...)
-        # Boxes at even positions are empty (2, 4, 6, ...)
-        # We need to count the number of ways to fill the odd boxes with M types of jewels
-        # Each odd box has i partitions (i is the position), and each partition can hold one jewel
-        # So total number of positions to fill is sum_{i odd <= N} i = (ceil(N/2))^2
-        # So the total number of arrangements is M^(total_positions)
+        # Boxes at odd positions are filled, even are empty
+        # Total number of partitions to fill is sum of odd positions up to N
+        total_partitions = 0
+        for i in range(1, N+1, 2):
+            total_partitions += i
         
-        total_positions = ((N + 1) // 2) ** 2
-        ans = pow(M, total_positions, MOD)
-        print(ans)
+        # The number of ways to arrange M types of jewels in total_partitions partitions
+        # is M^total_partitions mod 10^9+7
+        result = pow(M, total_partitions, MOD)
+        print(result)
 
 if __name__ == '__main__':
     solve()

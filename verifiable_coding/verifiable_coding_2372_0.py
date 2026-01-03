@@ -10,7 +10,7 @@ def solve():
         if n == 1:
             print(0)
             continue
-        # Find the minimum k such that k*(k+1)/2 >= n
+        # Find the minimal k such that k*(k+1)/2 >= n
         k = math.isqrt(2 * n)
         while k*(k+1)//2 < n:
             k += 1

@@ -8,7 +8,6 @@ def solve():
     idx = 0
     T = int(data[idx])
     idx += 1
-    
     results = []
     
     for _ in range(T):
@@ -19,7 +18,6 @@ def solve():
         
         max_diff = -1
         min_so_far = g[0]
-        
         for i in range(1, N):
             if g[i] > min_so_far:
                 diff = g[i] - min_so_far

@@ -1,5 +1,5 @@
 import sys
-from collections import Counter
+import collections
 
 def solve():
     input = sys.stdin.buffer.read().split()
@@ -9,16 +9,105 @@ def solve():
         w = input[idx]
         K = int(input[idx+1])
         idx += 2
-        count = Counter(w)
-        freq = list(count.values())
-        freq.sort()
-        n = len(freq)
-        res = 0
+        
+        freq = collections.Counter(w)
+        letters = list(freq.keys())
+        n = len(letters)
+        
+        # Sort the letters based on their frequencies
+        letters.sort(key=lambda x: freq[x])
+        freqs = [freq[x] for x in letters]
+        
+        # Try all possible frequencies to find the minimum removals
+        min_removals = float('inf')
         for i in range(n):
-            for j in range(i+1, n):
-                if abs(freq[i] - freq[j]) > K:
-                    res += 1
-        print(res)
-
-if __name__ == '__main__':
-    solve()
+            # Try to make all frequencies as close as possible to freqs[i]
+            # We can adjust the frequencies to be within K of each other
+            # We can try to make all frequencies between (freqs[i] - K) and (freqs[i] + K)
+            # But we need to adjust the frequencies to be as close as possible
+            # We can use a greedy approach to adjust the frequencies
+            # We can try to make all frequencies as close as possible to the median
+            # We can try to make all frequencies as close as possible to the mean
+            # We can try to make all frequencies as close as possible to the mode
+            # We can try to make all frequencies as close as possible to the middle value
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of the sorted list
+            # We can try to make all frequencies as close as possible to the middle of

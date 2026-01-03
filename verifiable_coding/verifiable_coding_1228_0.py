@@ -41,4 +41,4 @@ def solve():
         
         results.append(f"{missing_x} {missing_y}")
     
-    print('\n'.join(results))
+    print("\n".join(results))

@@ -6,52 +6,61 @@ def solve():
     input = sys.stdin.buffer.read
     data = input().split()
     
-    N = int(data[0])
-    Q = int(data[1])
+    idx = 0
+    N = int(data[idx])
+    idx += 1
+    Q = int(data[idx])
+    idx += 1
     
-    idx = 2
     roadworks = []
     for _ in range(N):
         S = int(data[idx])
-        T = int(data[idx+1])
-        X = int(data[idx+2])
+        idx += 1
+        T = int(data[idx])
+        idx += 1
+        X = int(data[idx])
+        idx += 1
         roadworks.append((S, T, X))
-        idx += 3
     
-    D = list(map(int, data[idx:idx+Q]))
+    D = []
+    for _ in range(Q):
+        D.append(int(data[idx]))
+        idx += 1
     
     # Sort roadworks by start time
     roadworks.sort()
     
-    # Use a priority queue to track active roadworks
+    # Use a priority queue to keep track of active roadworks
     heap = []
-    res = []
+    # Use a pointer to track the current roadwork
+    ptr = 0
     
+    # For each person, determine the farthest point they can reach
     for d in D:
-        # Add all roadworks that start before or at d
-        while roadworks and roadworks[0][0] <= d:
-            S, T, X = roadworks.pop(0)
+        # Add all roadworks that start before or at the current person's start time
+        while ptr < N and roadworks[ptr][0] <= d:
+            S, T, X = roadworks[ptr]
             heapq.heappush(heap, (T, X))
+            ptr += 1
         
-        # If no active roadworks, the person walks forever
+        # If there are no active roadworks, the person walks forever
         if not heap:
-            res.append(-1)
+            print(-1)
             continue
         
         # Find the earliest ending roadwork
         T, X = heapq.heappop(heap)
         
-        # The person reaches X at time d + X
-        # If this time is before the roadwork ends, they get blocked
-        if d + X < T:
-            res.append(X)
+        # The person can reach X if they arrive at X at or before T
+        # The time to reach X is X (since they walk at speed 1)
+        # If X <= d, then they would have already passed this roadwork
+        # So we need to check if X > d
+        if X > d:
+            print(X)
         else:
-            # Put the roadwork back into the heap
+            # Reinsert the roadwork back into the heap
             heapq.heappush(heap, (T, X))
-            res.append(-1)
+            print(-1)
     
-    for r in res:
-        print(r)
-
 if __name__ == '__main__':
     solve()

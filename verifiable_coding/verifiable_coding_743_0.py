@@ -12,7 +12,7 @@ def solve():
     
     for _ in range(T):
         N = int(data[index])
-        K = int(data[index+1])
+        K = int(data[index + 1])
         index += 2
         
         if N // K == 1:

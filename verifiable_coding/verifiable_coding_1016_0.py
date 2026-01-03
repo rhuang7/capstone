@@ -1,20 +1,20 @@
 import sys
 
 def solve():
-    input = sys.stdin.buffer.read
-    data = input().split()
+    input = sys.stdin.buffer.read().split()
     idx = 0
-    T = int(data[idx])
+    T = int(input[idx])
     idx += 1
     for _ in range(T):
-        N = int(data[idx])
+        N = int(input[idx])
         idx += 1
         count = 0
         for _ in range(N):
-            S = int(data[idx])
-            J = int(data[idx + 1])
+            S = int(input[idx])
+            J = int(input[idx + 1])
             idx += 2
-            if J - S > 5:
+            delay = J - S
+            if delay > 5:
                 count += 1
         print(count)
 

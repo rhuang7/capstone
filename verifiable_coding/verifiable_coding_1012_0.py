@@ -1,16 +1,10 @@
 import sys
-import math
-
 MOD = 10**9 + 7
 
 def is_prime(n):
     if n <= 1:
         return False
-    if n == 2:
-        return True
-    if n % 2 == 0:
-        return False
-    for i in range(3, int(math.isqrt(n)) + 1, 2):
+    for i in range(2, int(n**0.5)+1):
         if n % i == 0:
             return False
     return True
@@ -19,17 +13,22 @@ def char_value(c):
     return ord(c) - ord('a')
 
 def solve():
-    input = sys.stdin.buffer.read().split()
-    T = int(input[0])
-    strings = input[1:T+1]
-
-    for S in strings:
-        n = len(S)
+    import sys
+    input = sys.stdin.buffer.read
+    data = input().split()
+    T = int(data[0])
+    strings = data[1:T+1]
+    
+    primes = [i for i in range(2, 100) if is_prime(i)]
+    
+    for s in strings:
+        n = len(s)
         prime_positions = [i for i in range(n) if is_prime(i+1)]
-        prime_sum = 0
-        for pos in prime_positions:
-            prime_sum += char_value(S[pos])
-        if is_prime(prime_sum):
+        total = 0
+        for i in range(n):
+            if is_prime(i+1):
+                total += char_value(s[i])
+        if is_prime(total):
             print(1)
         else:
             print(0)

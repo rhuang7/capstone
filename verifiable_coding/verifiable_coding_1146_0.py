@@ -7,7 +7,6 @@ def solve():
     N = int(data[0])
     D = int(data[1])
     L = list(map(int, data[2:2+N]))
-    
     L.sort()
     count = 0
     i = 0

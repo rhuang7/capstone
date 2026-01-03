@@ -7,12 +7,9 @@ def solve():
     data = input().split()
     T = int(data[0])
     cases = data[1:T+1]
-    
+
     for s in cases:
         n = len(s)
-        if n == 0:
-            print(0)
-            continue
         dp = [0] * (n + 1)
         dp[0] = 1
         dp[1] = 1

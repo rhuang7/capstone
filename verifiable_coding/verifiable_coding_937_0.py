@@ -22,19 +22,19 @@ def solve():
                     break
                 cook += 1
             elif c == 'E':
-                if eat > 0 or cook == 0:
+                if cook == 0 or eat > 0:
                     valid = False
                     break
                 eat += 1
             elif c == 'S':
-                if sleep > 0 or cook == 0 or eat == 0:
+                if cook == 0 or eat == 0 or sleep > 0:
                     valid = False
                     break
                 sleep += 1
         
         results.append("yes" if valid else "no")
     
-    print('\n'.join(results))
+    print("\n".join(results))
 
 if __name__ == '__main__':
     solve()

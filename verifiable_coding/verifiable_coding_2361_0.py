@@ -4,17 +4,14 @@ def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
-    
     t = int(data[0])
+    cases = list(map(int, data[1:t+1]))
+    
     results = []
     
-    idx = 1
-    for _ in range(t):
-        n = int(data[idx])
-        idx += 1
-        
+    for n in cases:
         a = [0] * n
-        for i in range(1, n + 1):
+        for i in range(1, n+1):
             l = 0
             r = n - 1
             while l <= r:
@@ -31,7 +28,6 @@ def solve():
             else:
                 pos = (l + r - 1) // 2
             a[pos] = i
-        
         results.append(' '.join(map(str, a)))
     
     print('\n'.join(results))

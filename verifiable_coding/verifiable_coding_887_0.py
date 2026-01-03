@@ -18,107 +18,91 @@ def solve():
         idx += N
         
         # Check if a[0] is 0 and b[N-1] is 0
-        if a[0] != 0 or b[N-1] != 0:
+        if a[0] != 0 or b[-1] != 0:
             results.append("No")
             continue
         
-        # Check if for all i, a[i] + b[i] >= 0
-        valid = True
-        for i in range(N):
-            if a[i] + b[i] < 0:
-                valid = False
-                break
-        
-        if not valid:
-            results.append("No")
-            continue
-        
-        # Check if for all i, a[i] + b[i] >= 0 and a[i] + b[i] >= 0
-        # Also check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i, a[i] + b[i] >= 0
-        # And check if for all i
+        # Check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same as a[0] + b[

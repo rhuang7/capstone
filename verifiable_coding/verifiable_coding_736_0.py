@@ -9,20 +9,18 @@ def solve():
     results = []
     
     for i in range(1, T + 1):
-        S = data[i].decode()
-        min_abs = float('inf')
+        S = data[i].strip()
+        if not S:
+            results.append(0)
+            continue
         
-        # Find the minimum ASCII value in the string
-        min_char = min(S)
-        min_val = ord(min_char)
+        # Calculate the total points for converting all characters to 'a'
+        total = 0
+        for c in S:
+            total += ord(c) - ord('a')
         
-        # Find the maximum ASCII value in the string
-        max_char = max(S)
-        max_val = ord(max_char)
-        
-        # Calculate the minimum absolute value of points
-        min_abs = min(max_val - min_val, min_val - max_val)
-        
+        # The minimum absolute value is the minimum between total and (25 - total)
+        min_abs = min(total, 25 - total)
         results.append(str(min_abs))
     
     print('\n'.join(results))

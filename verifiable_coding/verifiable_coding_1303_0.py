@@ -10,39 +10,43 @@ def solve():
     idx += 1
     results = []
     for _ in range(T):
-        N = int(data[idx])
-        K = int(data[idx+1])
-        M = int(data[idx+2])
+        N, K, M = map(int, data[idx:idx+3])
         idx += 3
         A = list(map(int, data[idx:idx+N]))
         idx += N
         
-        # For each position i (1-based), determine which residue mod M is allowed
-        # For position i, required residue is i % M
-        # So for each element in A, check if A[j] % M == (pos) % M, where pos is the position in the subsequence
-        # We need to count how many elements are valid for each position in the subsequence
+        # For each position i (1-based), compute A[i-1] % M
+        # And group elements by their (i % M) value
+        # We need to select K elements such that the i-th element in the subsequence satisfies A[i-1] % M == i % M
+        # So for position j in the subsequence (1-based), the element must satisfy A[i-1] % M == j % M
+        # So we can precompute for each position in the array, what (i % M) value it contributes to
+        # Then, for each possible j (1-based in the subsequence), we can count how many elements in the array have (i % M) == j % M
+        # Then, the problem reduces to choosing K elements such that for each position j in the subsequence, the j-th element in the subsequence comes from the group of elements with (i % M) == j % M
+        # This is a combinatorial problem: for each j in 1..K, we choose one element from the group of elements with (i % M) == j % M
+        # So we can precompute for each j in 1..K, the count of elements in the array with (i % M) == j % M
+        # Then, the answer is the product of these counts for each j in 1..K
+        # But we need to make sure that for each j, there are enough elements in the group to choose from
+        # So we can precompute for each j in 1..K, the count of elements in the array with (i % M) == j % M
+        # Then, the answer is the product of these counts for each j in 1..K
         
-        # We'll use dynamic programming to count the number of ways to form a subsequence of length k with the required residues
-        # dp[k][r] = number of subsequences of length k ending with residue r
-        
-        # Initialize dp[0][0] = 1 (empty subsequence)
-        dp = [{} for _ in range(K+1)]
-        dp[0][0] = 1
-        
+        # Precompute for each j in 1..K, the count of elements in the array with (i % M) == j % M
+        count = [0] * M
         for i in range(N):
-            a = A[i]
-            rem = a % M
-            for k in range(K, 0, -1):
-                # For each position k in the subsequence, we can add this element if it matches the required residue
-                required_rem = k % M
-                if rem == required_rem:
-                    # We can add this element to subsequences of length k-1 ending with any residue
-                    for r in dp[k-1]:
-                        dp[k][r] = (dp[k][r] + dp[k-1][r]) % MOD
+            rem = A[i] % M
+            count[rem] += 1
         
-        # Sum all possible residues for subsequences of length K
-        result = sum(dp[K].values()) % MOD
-        results.append(result)
+        # Now, for each j in 1..K, we need to select one element from the group with (i % M) == j % M
+        # So the answer is the product of count[j % M] for j in 1..K
+        # But we need to make sure that for each j, count[j % M] >= 1
+        # If any of them is zero, the answer is zero
+        ans = 1
+        for j in range(1, K+1):
+            rem = j % M
+            if count[rem] == 0:
+                ans = 0
+                break
+            ans = (ans * count[rem]) % MOD
+        results.append(ans)
     
     for res in results:
         print(res)

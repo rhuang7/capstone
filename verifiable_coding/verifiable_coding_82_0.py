@@ -16,22 +16,19 @@ def solve():
         p = list(map(int, data[idx:idx + n]))
         idx += n
         
+        # If n == 2, simply swap the two elements
         if n == 2:
             results.append(' '.join(map(str, [p[1], p[0]])))
             continue
         
         # For n >= 3, we can reverse the permutation
-        p_reversed = p[::-1]
-        if p_reversed != p:
-            results.append(' '.join(map(str, p_reversed)))
-            continue
-        
-        # If the permutation is already reversed, we need a different approach
-        # We can swap the first two elements
-        new_p = p.copy()
-        new_p[0], new_p[1] = new_p[1], new_p[0]
-        results.append(' '.join(map(str, new_p)))
-    
+        reversed_p = p[::-1]
+        if reversed_p != p:
+            results.append(' '.join(map(str, reversed_p)))
+        else:
+            # If the permutation is already symmetric, we can swap the first two elements
+            results.append(' '.join(map(str, [p[1], p[0]] + p[2:])))
+
     print('\n'.join(results))
 
 if __name__ == '__main__':

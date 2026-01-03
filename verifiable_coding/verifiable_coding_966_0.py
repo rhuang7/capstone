@@ -13,36 +13,24 @@ def solve():
         idx += 3
         H = list(map(int, data[idx:idx+N]))
         idx += N
-        can_use_parachute = False
-        current = 0
+        can_jump = [True] * N
+        for i in range(N-1):
+            if H[i+1] > H[i]:
+                if H[i+1] - H[i] > U:
+                    can_jump[i+1] = False
+            elif H[i+1] < H[i]:
+                if H[i+1] - H[i] < -D:
+                    can_jump[i+1] = False
+        max_reach = 1
+        can_use_parachute = True
         for i in range(1, N):
-            if H[i] == H[current]:
-                current = i
-                continue
-            if H[i] > H[current]:
-                if H[i] - H[current] <= U:
-                    current = i
-                else:
-                    results.append(current + 1)
-                    break
+            if can_jump[i]:
+                max_reach = i + 1
             else:
-                if H[i] < H[current]:
-                    if H[i] < H[current] - D:
-                        if not can_use_parachute:
-                            can_use_parachute = True
-                            current = i
-                        else:
-                            results.append(current + 1)
-                            break
-                    else:
-                        current = i
+                if can_use_parachute and H[i] < H[i-1]:
+                    can_use_parachute = False
+                    max_reach = i + 1
                 else:
-                    results.append(current + 1)
                     break
-        if current == N-1:
-            results.append(N)
-    for res in results:
-        print(res)
-
-if __name__ == '__main__':
-    solve()
+        results.append(str(max_reach))
+    print('\n'.join(results))

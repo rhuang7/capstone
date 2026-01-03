@@ -16,14 +16,18 @@ def solve():
         b = int(data[index+2])
         index += 3
         
-        # Sort the counts to simplify logic
+        # Sort the counts
         a, b, c = sorted([r, g, b])
         
-        # The maximum number of days is limited by two cases:
-        # 1. The sum of the two smaller piles minus the largest pile (if the largest is more than the sum of the other two)
-        # 2. The sum of all three piles divided by 2 (since each day eats two candies)
-        # The answer is the minimum of these two values
-        max_days = min((a + b - c), (a + b + c) // 2)
+        # The maximum number of days is determined by the sum of the two smaller piles
+        # minus the largest pile, but not less than the sum of the two smaller piles
+        # divided by 2 (since each day requires two candies)
+        max_days = (a + b) // 2
+        if a + b > c:
+            max_days = min(max_days, (a + b + c) // 2)
+        else:
+            max_days = min(max_days, (a + b + c) // 2)
+        
         results.append(str(max_days))
     
     print('\n'.join(results))

@@ -5,7 +5,7 @@ from collections import deque
 def is_prime(n):
     if n < 2:
         return False
-    for i in range(2, int(n**0.5)+1):
+    for i in range(2, int(n**0.5) + 1):
         if n % i == 0:
             return False
     return True
@@ -15,56 +15,49 @@ def get_state(board):
 
 def get_neighbors(state):
     neighbors = []
-    for i in range(3):
-        for j in range(3):
-            if state[i][j] == 0:
-                for dx, dy in [(-1,0),(1,0),(0,-1),(0,1)]:
-                    ni, nj = i + dx, j + dy
-                    if 0 <= ni < 3 and 0 <= nj < 3:
-                        new_state = [list(row) for row in state]
-                        new_state[i][j], new_state[ni][nj] = new_state[ni][nj], new_state[i][j]
-                        if is_prime(new_state[i][j] + new_state[ni][nj]):
-                            neighbors.append(tuple(tuple(row) for row in new_state))
-                break
+    state_list = list(state)
+    for i in range(9):
+        for j in range(9):
+            if i % 3 == 0 and j % 3 == 0:
+                continue
+            if abs(i - j) == 1 and (i // 3 == j // 3 or (i % 3 == j % 3)):
+                if is_prime(state_list[i] + state_list[j]):
+                    new_state = list(state_list)
+                    new_state[i], new_state[j] = new_state[j], new_state[i]
+                    neighbors.append(tuple(tuple(row) for row in new_state))
     return neighbors
 
 def solve():
-    import sys
     input = sys.stdin.buffer.read().split(b'\n')
-    cases = []
     idx = 0
-    while idx < len(input):
-        if input[idx].strip() == b'':
+    t = int(input[idx])
+    idx += 1
+    for _ in range(t):
+        while idx < len(input) and input[idx].strip() == b'':
             idx += 1
-            continue
-        case = []
+        if idx >= len(input):
+            break
+        board = []
         for i in range(3):
-            if idx >= len(input):
-                break
-            line = input[idx].strip().split()
-            if not line:
-                idx += 1
-                continue
-            case.append(list(map(int, line)))
+            row = list(map(int, input[idx].split()))
+            board.append(row)
             idx += 1
-        if case:
-            cases.append(case)
-    
-    target = (1, 2, 3, 4, 5, 6, 7, 8, 9)
-    for case in cases:
-        initial = get_state(case)
-        if initial == target:
+        while idx < len(input) and input[idx].strip() == b'':
+            idx += 1
+        goal = ((1, 2, 3), (4, 5, 6), (7, 8, 9))
+        start = get_state(board)
+        if start == goal:
             print(0)
             continue
         visited = set()
         queue = deque()
-        queue.append((initial, 0))
-        visited.add(initial)
+        queue.append((start, 0))
+        visited.add(start)
         found = False
         while queue:
-            state, steps = queue.popleft()
-            for neighbor in get_neighbors(state):
-                if neighbor == target:
+            current, steps = queue.popleft()
+            for neighbor in get_neighbors(current):
+                if neighbor == goal:
                     print(steps + 1)
                     found = True
                     break

@@ -11,13 +11,15 @@ def solve():
     for s in cases:
         freq = {}
         for c in s:
-            freq[c] = freq.get(c, 0) + 1
+            if c in freq:
+                freq[c] += 1
+            else:
+                freq[c] += 1
         total = len(s)
-        result = math.factorial(total)
+        res = math.factorial(total)
         for count in freq.values():
-            result //= math.factorial(count)
-            result %= MOD
-        print(result)
+            res //= math.factorial(count)
+        print(res % MOD)
 
 if __name__ == '__main__':
     solve()

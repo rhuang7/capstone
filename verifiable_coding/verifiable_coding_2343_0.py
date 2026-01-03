@@ -5,17 +5,21 @@ def solve():
     input = sys.stdin.buffer.read
     data = input().split()
     t = int(data[0])
-    idx = 1
+    index = 1
     results = []
     for _ in range(t):
-        d = int(data[idx])
-        m = int(data[idx+1])
-        idx += 2
-        # The number of valid arrays is equal to the sum of the first d numbers
-        # modulo m, because each array corresponds to a unique number from 1 to d
-        # and each number is a valid array of length 1
-        res = sum(range(1, d+1)) % m
-        results.append(res)
+        d = int(data[index])
+        m = int(data[index+1])
+        index += 2
+        # The answer is the sum of (d - 2^k + 1) for all k such that 2^k <= d
+        # This is because for each k, the number of valid arrays is (d - 2^k + 1)
+        # and we sum over all k where 2^k <= d
+        total = 0
+        power = 1
+        while power <= d:
+            total += (d - power + 1)
+            power <<= 1
+        results.append(total % m)
     for res in results:
         print(res)
 

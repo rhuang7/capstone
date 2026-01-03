@@ -8,6 +8,7 @@ def solve():
     idx = 0
     T = int(data[idx])
     idx += 1
+    
     results = []
     
     for _ in range(T):
@@ -17,48 +18,59 @@ def solve():
         S = data[idx]
         idx += 1
         
-        count_a = 0
-        count_b = 0
-        total_ab = 0
-        
+        # Precompute counts of 'a' and 'b' in S
+        a_count = 0
+        b_count = 0
         for c in S:
             if c == 'a':
-                count_a += 1
+                a_count += 1
             elif c == 'b':
-                total_ab += count_a
+                b_count += 1
         
-        # Now calculate the contribution from each repetition
-        # For each 'a' in the original string, it contributes to all 'b's in the next K-1 repetitions
-        # And also to all 'b's in the same repetition (but already counted in total_ab)
-        # So total_ab is the contribution from the same repetition
-        # The rest is from the other repetitions
+        # Total number of 'a's in the repeated string
+        total_a = a_count * K
         
-        # Total number of 'a's in the new string is count_a * K
-        # Total number of 'b's in the new string is count_b * K
-        # But we need to calculate how many 'a's are before each 'b' in the new string
+        # Total number of 'b's in the repeated string
+        total_b = b_count * K
         
-        # The number of 'a's before each 'b' in the original string is count_a
-        # But in the new string, each 'b' is repeated K times, and each 'a' is repeated K times
-        # So the total number of 'ab' pairs is:
-        # (number of 'a's in original string) * (number of 'b's in original string) * K * (K - 1) / 2
-        # But this is not correct, because the 'a's and 'b's are not necessarily in order
+        # Total number of 'ab' subsequences
+        # Each 'a' can pair with each 'b' that comes after it
+        # So total is (total_a * total_b) - (number of 'a's before 'b's in S * K)
+        # But since the string is repeated, we need to calculate how many 'a's are before each 'b' in S
         
-        # The correct way is to calculate the number of 'a's before each 'b' in the original string
-        # and multiply by K (for the number of repetitions)
-        # Also, each 'a' in the original string contributes to all 'b's in the next K-1 repetitions
+        # Precompute for each position in S, the number of 'a's before it
+        a_before = [0] * N
+        a_count_so_far = 0
+        for i in range(N):
+            if S[i] == 'a':
+                a_count_so_far += 1
+            a_before[i] = a_count_so_far
         
-        # So the total is:
-        # total_ab * K + count_a * count_b * (K - 1)
+        # Precompute for each position in S, the number of 'b's after it
+        b_after = [0] * N
+        b_count_so_far = 0
+        for i in range(N-1, -1, -1):
+            if S[i] == 'b':
+                b_count_so_far += 1
+            b_after[i] = b_count_so_far
         
-        # Because:
-        # - total_ab is the number of 'ab' pairs in the original string
-        # - each 'a' in the original string contributes to all 'b's in the next K-1 repetitions
-        #   which is count_a * count_b * (K - 1)
+        # Calculate total 'ab' pairs in one repetition of S
+        ab_in_one = 0
+        for i in range(N):
+            if S[i] == 'b':
+                ab_in_one += a_before[i]
         
-        total = total_ab * K + count_a * count_b * (K - 1)
-        results.append(str(total))
+        # Total 'ab' pairs in K repetitions
+        total_ab = ab_in_one * K
+        
+        # Also, each 'a' in one repetition can pair with each 'b' in other repetitions
+        # So add (total_a - a_count) * b_count * K
+        total_ab += (total_a - a_count) * b_count * K
+        
+        results.append(total_ab)
     
-    print('\n'.join(results))
+    for res in results:
+        print(res)
 
 if __name__ == '__main__':
     solve()

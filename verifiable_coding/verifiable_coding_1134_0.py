@@ -8,6 +8,7 @@ def solve():
     idx = 0
     T = int(data[idx])
     idx += 1
+    
     results = []
     
     for _ in range(T):
@@ -34,7 +35,7 @@ def solve():
         else:
             results.append("VICTORY")
     
-    print("\n".join(results))
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

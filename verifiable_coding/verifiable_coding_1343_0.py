@@ -9,26 +9,26 @@ def is_special(s):
     if s[:half] == s[half:]:
         return True
     # Check if removing one character can make it a double string
-    for i in range(half):
-        # Remove character at i from first half
-        if s[:i] + s[i+1:half] == s[half:]:
-            return True
-    for i in range(half, n):
-        # Remove character at i from second half
-        if s[:half] == s[i+1:]:
+    for i in range(n):
+        # Remove character at position i
+        new_s = s[:i] + s[i+1:]
+        if len(new_s) % 2 != 0:
+            continue
+        half_new = len(new_s) // 2
+        if new_s[:half_new] == new_s[half_new:]:
             return True
     return False
 
 def solve():
     import sys
-    input = sys.stdin.buffer.read
-    data = input().split()
-    D = int(data[0])
-    results = []
-    for i in range(1, D + 1):
-        s = data[i]
-        results.append("YES" if is_special(s) else "NO")
-    print("\n".join(results))
+    input = sys.stdin.buffer.read().split()
+    D = int(input[0])
+    strings = input[1:D+1]
+    for s in strings:
+        if is_special(s):
+            print("YES")
+        else:
+            print("NO")
 
 if __name__ == '__main__':
     solve()

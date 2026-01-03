@@ -2,34 +2,30 @@ import sys
 
 def solve():
     data = sys.stdin.buffer.read().decode().strip()
-    calories = 0
-    for ch in data:
-        if ch == 'D':
-            calories += 238
-        elif ch == 'T':
-            calories += 244
-        elif ch == 'M':
-            calories += 138
-        elif ch == 'B':
-            calories += 279
-        elif ch == 'C':
-            calories += 186
-
+    calorie_counts = {
+        'D': 238,
+        'T': 244,
+        'M': 138,
+        'B': 279,
+        'C': 186
+    }
+    total_calories = sum(calorie_counts[c] for c in data)
+    
     running = 0
     cycling = 0
     walking = 0
-
-    # Try to use running first
-    running = calories // 50
-    remaining = calories % 50
-
-    # Try to use cycling next
+    
+    # Prioritize running
+    running = total_calories // 50
+    remaining = total_calories % 50
+    
+    # Prioritize cycling
     cycling = remaining // 5
     remaining %= 5
-
-    # Use walking for the remaining
+    
+    # Remaining is for walking
     walking = remaining / 0.5
-
+    
     print(running)
     print(cycling)
     print(walking)

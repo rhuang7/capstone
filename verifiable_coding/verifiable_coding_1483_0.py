@@ -8,23 +8,27 @@ def solve():
     N = int(data[0])
     K = int(data[1])
     
-    caterpillars = list(map(int, data[2:2+K]))
+    lengths = list(map(int, data[2:2+K]))
     
-    # Set to store damaged leaves
+    # Initialize a set to keep track of damaged leaves
     damaged = set()
     
-    for length in caterpillars:
+    for l in lengths:
         # The caterpillar starts at position 1
-        # It eats leaves at positions 1, 1 + length, 1 + 2*length, ...
-        # But must not exceed N
-        pos = 1
-        while pos <= N:
+        # It eats leaves at positions 1, 1 + l, 1 + 2*l, ...
+        # So the positions are 1 + i*l for i >= 0
+        # We need to find all such positions <= N
+        i = 0
+        while True:
+            pos = 1 + i * l
+            if pos > N:
+                break
             damaged.add(pos)
-            pos += length
+            i += 1
     
-    # Count the number of undamaged leaves
-    undamaged = N - len(damaged)
-    print(undamaged)
+    # The total number of leaves is N
+    # The number of undamaged leaves is N - size of damaged set
+    print(N - len(damaged))
 
 if __name__ == '__main__':
     solve()

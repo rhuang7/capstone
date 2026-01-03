@@ -204,7 +204,7 @@ def run_many_py(folder: str | Path, pattern: str = "*.py", python_exe: str | Non
     folder = Path(folder)
     python_exe = python_exe or sys.executable
 
-    files = sorted(folder.rglob(pattern), key=utils.human_eval_id)
+    files = sorted(folder.rglob(pattern), key=utils.mbpp_id)
     if not files:
         print(f"No files matched: {folder} / {pattern}")
         return 0

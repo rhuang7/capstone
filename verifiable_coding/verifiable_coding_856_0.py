@@ -15,7 +15,7 @@ def solve():
             idx += 1
         if idx >= len(data):
             break
-        N = int(data[idx])
+        N = int(data[idx].strip())
         idx += 1
         count = {}
         for _ in range(N):
@@ -23,7 +23,7 @@ def solve():
                 idx += 1
             if idx >= len(data):
                 break
-            line = data[idx].split()
+            line = data[idx].strip().split()
             idx += 1
             w = line[0]
             s = int(line[1])

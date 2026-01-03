@@ -27,34 +27,24 @@ def solve():
                 first_unpaid = i
                 break
         
-        # If no unpaid month, then no fines
+        # If no unpaid months, then no fines
         if first_unpaid == -1:
             results.append(0)
             continue
         
-        # For each month, check if it was used to pay an unpaid month
-        # The first unpaid month is the one that will be paid by the first 1
-        # All 1s after that will be used to pay for the unpaid months after first_unpaid
-        # Each unpaid month (including first_unpaid) will have a fine of 100
-        # Each unpaid month will have a maintenance fee of 1000
-        # So total for each unpaid month is 1100
-        # But the first unpaid month is paid by the first 1, so no fine
-        # All other unpaid months will have a fine
-        
-        # Count the number of unpaid months
-        unpaid_count = 0
+        # Count the number of months where Chef paid after the first unpaid month
+        paid_after = 0
         for i in range(N):
-            if A[i] == 0:
-                unpaid_count += 1
+            if A[i] == 1:
+                paid_after += 1
         
-        # The first unpaid month is paid by the first 1
-        # So the first unpaid month has no fine
-        # The rest of the unpaid months have a fine
-        fines = (unpaid_count - 1) * 100
+        # Each unpaid month incurs a fine of 100
+        fines = (N - paid_after) * 100
         
-        # Total amount is (unpaid_count * 1000) + (fines)
-        total = unpaid_count * 1000 + fines
+        # Each unpaid month also incurs a maintenance fee of 1000
+        unpaid = (N - paid_after) * 1000
         
+        total = unpaid + fines
         results.append(total)
     
     for res in results:

@@ -1,55 +1,53 @@
 import sys
 import math
 
-def compute_gcd_list(arr):
-    if not arr:
-        return 0
-    current_gcd = arr[0]
+def compute_gcd(arr):
+    gcd_val = arr[0]
     for num in arr[1:]:
-        current_gcd = math.gcd(current_gcd, num)
-        if current_gcd == 1:
+        gcd_val = math.gcd(gcd_val, num)
+        if gcd_val == 1:
             break
-    return current_gcd
+    return gcd_val
 
 def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
-    
     idx = 0
     T = int(data[idx])
     idx += 1
     results = []
-    
     for _ in range(T):
-        N = int(data[idx])
-        K = int(data[idx+1])
+        N, K = int(data[idx]), int(data[idx+1])
         idx += 2
         arr = list(map(int, data[idx:idx+N]))
         idx += N
-        
-        # Precompute prefix gcds
+        # If K is 1, the sum is the GCD of the entire array
+        if K == 1:
+            results.append(compute_gcd(arr))
+            continue
+        # If K is greater than the number of elements, it's impossible
+        if K > N:
+            results.append(0)
+            continue
+        # Precompute prefix GCDs
         prefix_gcd = [0] * N
         prefix_gcd[0] = arr[0]
         for i in range(1, N):
             prefix_gcd[i] = math.gcd(prefix_gcd[i-1], arr[i])
-        
-        # DP table: dp[i][j] = max sum for first i elements divided into j parts
+        # dp[i][j] = maximum sum for first i elements divided into j parts
         dp = [[-1] * (K+1) for _ in range(N+1)]
         dp[0][0] = 0
-        
         for i in range(1, N+1):
             for j in range(1, K+1):
                 if j > i:
                     continue
                 # Try all possible positions to split
-                for k in range(j-1, i):
-                    if dp[k][j-1] != -1:
-                        current_gcd = compute_gcd_list(arr[k:i])
-                        dp[i][j] = max(dp[i][j], dp[k][j-1] + current_gcd)
-        
+                for m in range(j-1, i):
+                    if dp[m][j-1] != -1:
+                        current_gcd = compute_gcd(arr[m:i])
+                        dp[i][j] = max(dp[i][j], dp[m][j-1] + current_gcd)
         results.append(dp[N][K])
-    
     for res in results:
         print(res)
 

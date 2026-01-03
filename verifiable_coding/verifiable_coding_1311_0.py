@@ -16,7 +16,6 @@ def solve():
         # We need exactly K positions where the prefix sum is positive
         # One way is to make the first K elements positive and the rest negative
         # This ensures that the prefix sum is positive for the first K elements
-        # and becomes negative after that
         result = []
         for i in range(1, N+1):
             if i <= K:

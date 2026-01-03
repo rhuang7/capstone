@@ -14,7 +14,7 @@ def solve():
         # The game is a combination of two independent games: moving up and moving right
         # The Grundy number for moving up is (N - 1) % 4
         # The Grundy number for moving right is (M - 1) % 2
-        # The overall Grundy number is the XOR of the two
+        # The total Grundy number is the XOR of the two
         grundy_up = (N - 1) % 4
         grundy_right = (M - 1) % 2
         if grundy_up ^ grundy_right != 0:

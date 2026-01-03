@@ -18,29 +18,44 @@ def solve():
         count = collections.Counter(a)
         freq = sorted(count.items(), key=lambda x: x[1], reverse=True)
         
-        if freq[0][1] > (N + 1) // 2:
+        # Check if it's possible to rearrange
+        possible = True
+        for color, cnt in freq:
+            if cnt > (N + 1) // 2:
+                possible = False
+                break
+        
+        if not possible:
             results.append("No")
             continue
         
-        res = [0] * N
-        pos = 0
-        for color, _ in freq:
-            for _ in range(count[color]):
-                res[pos] = color
-                pos += 1
+        # Create a list of colors
+        colors = []
+        for color, cnt in freq:
+            colors.extend([color] * cnt)
         
-        # Check if any element is in the same position
+        # Try to rearrange
+        res = []
+        for i in range(N):
+            if i % 2 == 0:
+                res.append(colors[i // 2])
+            else:
+                res.append(colors[i // 2])
+        
+        # Check if it's valid
         valid = True
         for i in range(N):
             if res[i] == a[i]:
                 valid = False
                 break
         
-        if not valid:
+        if valid:
+            results.append("Yes")
+            results.append(" ".join(map(str, res)))
+        else:
             results.append("No")
-            continue
-        
-        results.append("Yes")
-        results.append(' '.join(map(str, res)))
     
-    print('\n'.join(results))
+    print("\n".join(results))
+
+if __name__ == '__main__':
+    solve()

@@ -14,33 +14,28 @@ def solve():
         A = list(map(int, data[idx:idx+N]))
         idx += N
         
-        # We need to determine if Vanja can force |V| >= K
-        # Since players play optimally, we can use dynamic programming
-        # dp[i][v] = True if the current player can force the absolute value to be >= K from position i with value v
-        # However, since N can be up to 3e4, we need a more efficient approach
+        # We need to determine if Vanja can force the absolute value of the expression to be >= K
+        # We use dynamic programming to track possible values of the expression
+        # dp[i][v] = True if it is possible to reach value v after i operations
+        # Since the maximum possible value is 1*sum(A) and minimum is -sum(A), we can use a set to track possible values
         
-        # We can use a greedy approach since the players are trying to maximize/minimize the absolute value
-        # The key observation is that the optimal play will always result in the maximum possible absolute value
-        # So we can simulate the game and track the possible values
+        sum_A = sum(A)
+        max_val = sum_A
+        min_val = -sum_A
         
-        # Initialize the possible values
-        possible = {0}
+        # Initialize dp
+        dp = [set() for _ in range(N+1)]
+        dp[0].add(0)
+        
         for i in range(N):
-            new_possible = set()
-            for val in possible:
-                # Add the current bit
-                new_val = val + A[i]
-                new_possible.add(new_val)
-                # Subtract the current bit
-                new_val = val - A[i]
-                new_possible.add(new_val)
-            possible = new_possible
+            for val in dp[i]:
+                # Current player can choose + or -
+                dp[i+1].add(val + A[i])
+                dp[i+1].add(val - A[i])
         
-        # Check if any value in possible has absolute value >= K
-        if any(abs(v) >= K for v in possible):
-            results.append(1)
-        else:
-            results.append(2)
+        # Check if any value in dp[N] has absolute value >= K
+        vanja_wins = any(abs(v) >= K for v in dp[N])
+        results.append(1 if vanja_wins else 2)
     
     for res in results:
         print(res)

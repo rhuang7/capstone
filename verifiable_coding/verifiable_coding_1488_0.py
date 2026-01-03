@@ -19,23 +19,27 @@ def solve():
         non_zeros = N - zeros
         missing = set(range(1, N+1)) - set(a)
         
-        # Generate all permutations of the missing numbers
+        # Generate all possible permutations of the missing numbers
         missing_list = list(missing)
-        for perm in itertools.permutations(missing_list):
+        permutations = itertools.permutations(missing_list)
+        
+        count = 0
+        for perm in permutations:
             new_a = a.copy()
-            pos = 0
             for i in range(N):
                 if new_a[i] == 0:
-                    new_a[i] = perm[pos]
-                    pos += 1
-            # Count the number of increasing positions
-            cnt = 0
-            for i in range(1, N):
-                if new_a[i] > new_a[i-1]:
-                    cnt += 1
-            if cnt == K:
-                results.append(1)
-        results.append(sum(results[-zeros:]))
+                    new_a[i] = perm[0]
+                    perm = perm[1:]
+            # Check if new_a is a permutation of 1..N
+            if set(new_a) == set(range(1, N+1)):
+                # Count the number of increasing positions
+                inc = 0
+                for i in range(1, N):
+                    if new_a[i] > new_a[i-1]:
+                        inc += 1
+                if inc == K:
+                    count += 1
+        results.append(count)
     
     for res in results:
         print(res)

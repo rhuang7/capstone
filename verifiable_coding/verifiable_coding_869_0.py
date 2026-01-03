@@ -1,8 +1,8 @@
 import sys
 
 def solve():
-    M = sys.stdin.buffer.readline().decode().strip()
-    S = sys.stdin.buffer.readline().decode().strip()
+    M = sys.stdin.buffer.read().split()[0]
+    S = sys.stdin.buffer.read().split()[0]
     if S in M:
         print('Y')
     else:

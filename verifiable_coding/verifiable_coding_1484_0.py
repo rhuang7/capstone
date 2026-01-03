@@ -19,34 +19,52 @@ def solve():
                     break
                 start, count = stack.pop()
                 sub = s[start:i]
-                num = 0
-                if count == 0:
-                    num = 1
-                else:
-                    num = int(s[i-count:i])
                 val = 0
                 j = 0
                 while j < len(sub):
                     if sub[j] == 'x':
-                        val += 2 * num
+                        val += 2
                         j += 1
                     elif sub[j] == 'y':
-                        val += 4 * num
+                        val += 4
                         j += 1
                     elif sub[j] == 'z':
-                        val += 10 * num
+                        val += 10
                         j += 1
+                    elif sub[j].isdigit():
+                        num = 0
+                        while j < len(sub) and sub[j].isdigit():
+                            num = num * 10 + int(sub[j])
+                            j += 1
+                        val *= num
                     else:
                         j += 1
-                stack.append((start, val))
+                if stack:
+                    stack[-1] = (stack[-1][0], stack[-1][1] + val)
+                else:
+                    return val
                 i += 1
             else:
+                if s[i] in 'xyz':
+                    val = 2 if s[i] == 'x' else 4 if s[i] == 'y' else 10
+                    if stack:
+                        stack[-1] = (stack[-1][0], stack[-1][1] + val)
+                    else:
+                        return val
+                elif s[i].isdigit():
+                    num = 0
+                    while i < len(s) and s[i].isdigit():
+                        num = num * 10 + int(s[i])
+                        i += 1
+                    if stack:
+                        stack[-1] = (stack[-1][0], stack[-1][1] * num)
+                    else:
+                        return num
                 i += 1
-        return stack[0][1]
+        return stack[-1][1] if stack else 0
     
-    for case in cases:
-        if case:
-            print(parse(case))
+    for s in cases:
+        print(parse(s))
 
 if __name__ == '__main__':
     solve()

@@ -25,10 +25,9 @@ def solve():
             if w >= half:
                 count += 1
         
-        results.append(count)
+        results.append(str(count))
     
-    for res in results:
-        print(res)
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

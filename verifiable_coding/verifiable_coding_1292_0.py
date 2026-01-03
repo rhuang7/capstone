@@ -27,22 +27,19 @@ def solve():
             if (i, j) in W or (i, j) in B:
                 continue
             # Ray starts from (i, j)
-            # Move right until stop
+            # Move right
             count_w = 0
-            stop = False
+            end = j
             for k in range(j, M + 1):
                 if (i, k) in B:
-                    total += (k - j + 1)
-                    stop = True
+                    end = k
                     break
                 if (i, k) in W:
                     count_w += 1
                     if count_w == 2:
-                        total += (k - j + 1)
-                        stop = True
+                        end = k
                         break
-            if not stop:
-                total += (M - j + 1)
+            total += end - j + 1
 
     print(total)
 

@@ -14,21 +14,19 @@ def solve():
         y = int(data[index+3])
         index += 4
         
-        # Calculate the maximum area without the dead pixel
-        # The dead pixel divides the screen into 4 regions
-        # We can take the maximum area from these regions
+        # Max area without the dead pixel
+        # The dead pixel divides the screen into four regions
+        # We compute the maximum area of each region and take the maximum
         max_area = 0
         # Left side
-        max_area = max(max_area, a * y)
+        max_area = max(max_area, x * b)
         # Right side
-        max_area = max(max_area, a * (b - y - 1))
-        # Top side
-        max_area = max(max_area, (x) * b)
-        # Bottom side
         max_area = max(max_area, (a - x - 1) * b)
-        
+        # Top side
+        max_area = max(max_area, a * y)
+        # Bottom side
+        max_area = max(max_area, a * (b - y - 1))
         results.append(str(max_area))
-    
     print('\n'.join(results))
 
 if __name__ == '__main__':

@@ -16,10 +16,10 @@ def solve():
     B = list(map(int, data[idx:idx+N]))
     idx += N
     
-    # Preprocess: for each brand, store the prices of phones of that brand
-    brand_prices = {i: [] for i in range(1, 7)}
+    from collections import defaultdict
+    brand_dict = defaultdict(list)
     for p, b in zip(P, B):
-        brand_prices[b].append(p)
+        brand_dict[b].append(p)
     
     results = []
     
@@ -31,16 +31,16 @@ def solve():
         subset = list(map(int, data[idx:idx+b]))
         idx += b
         
-        # Get all prices of phones in the subset
         prices = []
         for brand in subset:
-            prices.extend(brand_prices[brand])
+            prices.extend(brand_dict[brand])
         
-        # Sort in descending order
+        if not prices:
+            results.append("-1")
+            continue
+        
         prices.sort(reverse=True)
-        
-        # Check if there are at least K phones
-        if len(prices) < K:
+        if K > len(prices):
             results.append("-1")
         else:
             results.append(str(prices[K-1]))

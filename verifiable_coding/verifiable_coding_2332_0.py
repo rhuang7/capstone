@@ -1,6 +1,6 @@
 import sys
-import math
-from collections import deque, defaultdict
+import sys
+from collections import deque
 
 def solve():
     input = sys.stdin.buffer.read
@@ -17,92 +17,71 @@ def solve():
         b = int(data[idx+3])
         idx += 4
         
-        graph = defaultdict(list)
+        adj = [[] for _ in range(n+1)]
         for _ in range(m):
             u = int(data[idx])
             v = int(data[idx+1])
-            graph[u].append(v)
-            graph[v].append(u)
+            adj[u].append(v)
+            adj[v].append(u)
             idx += 2
         
-        # BFS to find the component containing a and b
-        visited = [False] * (n + 1)
+        # BFS to find the component that contains a and b
+        # and the component that contains a and b when a and b are removed
+        # We need to find the number of pairs (x,y) such that any path from x to y goes through a and b
+        # This is equivalent to finding the number of pairs (x,y) where x is in the component of a when b is removed
+        # and y is in the component of b when a is removed
+        
+        # First, find the component of a and b
+        visited = [False] * (n+1)
         q = deque()
         q.append(a)
         visited[a] = True
-        comp = []
+        comp_ab = []
         while q:
             u = q.popleft()
-            comp.append(u)
-            for v in graph[u]:
+            comp_ab.append(u)
+            for v in adj[u]:
                 if not visited[v]:
                     visited[v] = True
                     q.append(v)
         
-        # Check if a and b are in the same component
-        if b not in comp:
-            results.append(0)
-            continue
+        # Now, remove a and b and find the component of a and b
+        # We need to find the component of a when b is removed
+        # and the component of b when a is removed
+        # We can do this by running BFS twice
         
-        # Find the node that is the only common node between the two BFS traversals
-        # First BFS from a
-        visited_a = [False] * (n + 1)
+        # Find the component of a when b is removed
+        visited = [False] * (n+1)
         q = deque()
         q.append(a)
-        visited_a[a] = True
-        nodes_a = []
+        visited[a] = True
+        comp_a_without_b = []
         while q:
             u = q.popleft()
-            nodes_a.append(u)
-            for v in graph[u]:
-                if not visited_a[v]:
-                    visited_a[v] = True
+            comp_a_without_b.append(u)
+            for v in adj[u]:
+                if not visited[v] and v != b:
+                    visited[v] = True
                     q.append(v)
         
-        # Second BFS from b
-        visited_b = [False] * (n + 1)
+        # Find the component of b when a is removed
+        visited = [False] * (n+1)
         q = deque()
         q.append(b)
-        visited_b[b] = True
-        nodes_b = []
+        visited[b] = True
+        comp_b_without_a = []
         while q:
             u = q.popleft()
-            nodes_b.append(u)
-            for v in graph[u]:
-                if not visited_b[v]:
-                    visited_b[v] = True
+            comp_b_without_a.append(u)
+            for v in adj[u]:
+                if not visited[v] and v != a:
+                    visited[v] = True
                     q.append(v)
         
-        # Find the intersection of nodes_a and nodes_b
-        common = []
-        for u in nodes_a:
-            if u in nodes_b:
-                common.append(u)
-        
-        # The common node is the one that is in both BFS traversals
-        # It must be the only one, since a and b are in the same component
-        common_node = common[0]
-        
-        # BFS from common_node to find the number of nodes in the component
-        visited_common = [False] * (n + 1)
-        q = deque()
-        q.append(common_node)
-        visited_common[common_node] = True
-        count = 0
-        while q:
-            u = q.popleft()
-            count += 1
-            for v in graph[u]:
-                if not visited_common[v]:
-                    visited_common[v] = True
-                    q.append(v)
-        
-        # The answer is (count - 2) * (count - 3) // 2
-        if count < 2:
-            results.append(0)
-        else:
-            res = (count - 2) * (count - 3) // 2
-            results.append(res)
+        # The number of pairs is the product of the sizes of the two components
+        count_a = len(comp_a_without_b)
+        count_b = len(comp_b_without_a)
+        results.append(count_a * count_b)
     
     for res in results:
         print(res)

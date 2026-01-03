@@ -6,11 +6,11 @@ def is_better(a, b):
             return False
     return True
 
-def can_order(a, b, c):
-    # Check all permutations of the three people
-    orderings = [(a, b, c), (a, c, b), (b, a, c), (b, c, a), (c, a, b), (c, b, a)]
-    for order in orderings:
-        if is_better(order[0], order[1]) and is_better(order[1], order[2]):
+def can_order(team):
+    # Check all permutations of the three members
+    from itertools import permutations
+    for perm in permutations(team):
+        if is_better(perm[0], perm[1]) and is_better(perm[1], perm[2]):
             return True
     return False
 
@@ -20,6 +20,7 @@ def solve():
     idx = 0
     T = int(input[idx])
     idx += 1
+    results = []
     for _ in range(T):
         a = list(map(int, input[idx:idx+3]))
         idx += 3
@@ -27,10 +28,12 @@ def solve():
         idx += 3
         c = list(map(int, input[idx:idx+3]))
         idx += 3
-        if can_order(a, b, c):
-            print("yes")
+        team = [a, b, c]
+        if can_order(team):
+            results.append("yes")
         else:
-            print("no")
+            results.append("no")
+    print("\n".join(results))
 
 if __name__ == '__main__':
     solve()

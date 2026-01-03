@@ -8,29 +8,33 @@ def solve():
     T = int(data[idx])
     idx += 1
     results = []
+    
     for _ in range(T):
         N = int(data[idx])
         idx += 1
         A = list(map(int, data[idx:idx+N]))
         idx += N
-        people = [0] * N
-        people[0] = 1
-        day = 0
-        while sum(people) < N:
-            day += 1
-            new_people = 0
-            for i in range(N):
-                if people[i] == 1:
-                    new_people += A[i]
-            for i in range(N):
-                if people[i] == 1 and new_people > 0:
-                    people[i] = 2
-                    new_people -= 1
-            for i in range(N):
-                if people[i] == 2:
-                    people[i] = 1
-        results.append(str(day))
-    print('\n'.join(results))
+        
+        # The first person can start on day 1
+        days = 1
+        current = 1  # number of people who know the contest
+        # We need to reach N people
+        while current < N:
+            # The number of people who can tell others is current
+            # Each of them can tell up to A[i] people
+            # But we only need to tell (N - current) people
+            total = 0
+            for i in range(current):
+                total += A[i]
+                if total >= (N - current):
+                    break
+            days += 1
+            current += (N - current)
+        
+        results.append(days)
+    
+    for res in results:
+        print(res)
 
 if __name__ == '__main__':
     solve()

@@ -16,11 +16,9 @@ def solve():
         count = 0
         for l in range(1, n+1):
             for r in range(l, n+1):
-                left_4 = prefix_4[l-1]
-                left_7 = prefix_7[l-1]
-                right_4 = prefix_4[r] - prefix_4[l-1]
-                right_7 = prefix_7[r] - prefix_7[l-1]
-                if left_4 == right_7:
+                total_4 = prefix_4[r] - prefix_4[l-1]
+                total_7 = prefix_7[n] - prefix_7[r]
+                if total_4 == total_7:
                     count += 1
         return count
 

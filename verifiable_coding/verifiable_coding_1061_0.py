@@ -21,27 +21,32 @@ def solve():
             else:
                 ops.append(expr[i])
                 i += 1
-        nums = [int(n) for n in nums]
-        ops = [op for op in ops]
-        n = len(ops)
-        # Try all possible operator orders
-        from itertools import permutations
-        max_val = 0
-        for perm in permutations(ops):
-            # Apply the operators in the given order
-            # Start with the first number
-            res = nums[0]
-            for i in range(n):
-                op = perm[i]
-                next_num = nums[i + 1]
-                if op == '&':
-                    res &= next_num
-                elif op == '|':
-                    res |= next_num
-                elif op == '^':
-                    res ^= next_num
-            max_val = max(max_val, res)
-        print(max_val)
+        nums = [0] + nums
+        ops = ['&', '(', ')']  # Placeholder, will be replaced
+        # We need to evaluate all possible parenthesizations
+        # But since the number of operators is small (<=10), we can use dynamic programming
+        # Let's use a DP approach where dp[i][j] is the maximum value of the subexpression from i to j
+        n = len(nums) - 1
+        dp = [[0] * (n + 1) for _ in range(n + 1)]
+        for i in range(n + 1):
+            dp[i][i] = nums[i]
+        for length in range(2, n + 1):
+            for i in range(n - length + 2):
+                j = i + length - 1
+                dp[i][j] = -1
+                for k in range(i + 1, j):
+                    for op in ['&', '|', '^']:
+                        if ops[k - 1] == op:
+                            val = 0
+                            if op == '&':
+                                val = nums[i] & dp[k][j]
+                            elif op == '|':
+                                val = nums[i] | dp[k][j]
+                            elif op == '^':
+                                val = nums[i] ^ dp[k][j]
+                            if dp[i][j] == -1 or val > dp[i][j]:
+                                dp[i][j] = val
+        print(dp[0][n])
 
 if __name__ == '__main__':
     solve()

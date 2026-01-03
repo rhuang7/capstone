@@ -8,7 +8,6 @@ def solve():
     idx = 0
     T = int(data[idx])
     idx += 1
-    
     results = []
     
     for _ in range(T):
@@ -27,94 +26,24 @@ def solve():
         # Check if the bomb is on the direct path
         # If the bomb is on the direct path, we need to detour
         # Check if the bomb is between start and end
-        # For Manhattan path, the bomb is on the path if:
-        # (bx is between sx and ex) and (by is between sy and ey)
-        # or (by is between sy and ey) and (bx is between sx and ex)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is between sy and ey)
-        # or (bx is between sx and ex) and (by is
+        # If the bomb is on the direct path, the minimum moves is moves + 2
+        # Because Jerry has to go around the bomb (either up or down)
+        # But if the bomb is not on the direct path, the moves remain the same
+        
+        # Check if the bomb is on the direct path
+        # The direct path is from (sx, sy) to (ex, ey)
+        # If the bomb is on the same row or column and between the start and end
+        if (bx == sx and bx == ex and (sy <= by <= ey or ey <= by <= sy)) or \
+           (by == sy and by == ey and (sx <= bx <= ex or ex <= bx <= sx)) or \
+           (bx == ex and by == ey and (sx <= bx <= ex or ex <= bx <= sx)) or \
+           (bx == sx and by == sy and (ex <= bx <= sx or sx <= bx <= ex)):
+            # Bomb is on the direct path, need to detour
+            # The minimum detour is 2 moves (go around the bomb)
+            moves += 2
+        
+        results.append(str(moves))
+    
+    print('\n'.join(results))
+
+if __name__ == '__main__':
+    solve()

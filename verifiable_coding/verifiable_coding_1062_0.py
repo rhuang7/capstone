@@ -1,20 +1,23 @@
 import sys
 
 def solve():
+    import sys
     input = sys.stdin.buffer.read().decode().strip()
     n = int(input)
     
-    for i in range(7):
-        if i == 0 or i == 6:
-            print(' '.join(['4'] * 7))
-        else:
-            row = []
-            for j in range(7):
-                if j == 0 or j == 6:
-                    row.append('4')
-                else:
-                    row.append(str(abs(n - (i - 1) - (j - 1))))
-            print(' '.join(row))
+    if n == 0:
+        print("1")
+        return
     
+    for i in range(7):
+        row = []
+        for j in range(7):
+            if i == 0 or i == 6 or j == 0 or j == 6:
+                row.append(str(n))
+            else:
+                val = min(i, 6 - i, j, 6 - j)
+                row.append(str(val))
+        print(' '.join(row))
+
 if __name__ == '__main__':
     solve()

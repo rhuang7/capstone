@@ -4,10 +4,12 @@ def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
+    
     idx = 0
     T = int(data[idx])
     idx += 1
     results = []
+    
     for _ in range(T):
         N = int(data[idx])
         idx += 1
@@ -17,11 +19,13 @@ def solve():
             P_i = int(data[idx+1])
             V_i = int(data[idx+2])
             idx += 3
-            people_per_store = P_i // (S_i + 1)
-            profit = people_per_store * V_i
+            # Calculate the number of people who will buy from Chef
+            people = P_i // (S_i + 1)
+            profit = people * V_i
             if profit > max_profit:
                 max_profit = profit
         results.append(str(max_profit))
+    
     print('\n'.join(results))
 
 if __name__ == '__main__':

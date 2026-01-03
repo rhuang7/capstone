@@ -14,12 +14,12 @@ def solve():
         idx += 1
         voters = []
         for _ in range(n):
-            m_i = int(data[idx])
-            p_i = int(data[idx + 1])
-            voters.append((m_i, p_i))
+            m = int(data[idx])
+            p = int(data[idx+1])
+            voters.append((m, p))
             idx += 2
         
-        # Sort voters by m_i in descending order
+        # Sort voters by m in descending order
         voters.sort(reverse=True, key=lambda x: x[0])
         
         # Use a set to track the current voters
@@ -27,20 +27,18 @@ def solve():
         total_cost = 0
         
         for m, p in voters:
-            # If the voter is not already in the set, we need to buy them
-            if m not in current:
-                # Add the voter to the set
-                current.add(m)
-                # Add the cost
+            if m >= len(current):
+                # Need to buy this voter
                 total_cost += p
-                # Add all the m_i voters to the set
-                for _ in range(m):
-                    if _ not in current:
-                        current.add(_)
+                current.add(m)
+            else:
+                # This voter can be added through others
+                current.add(m)
         
-        results.append(str(total_cost))
+        results.append(total_cost)
     
-    print('\n'.join(results))
+    for res in results:
+        print(res)
 
 if __name__ == '__main__':
     solve()

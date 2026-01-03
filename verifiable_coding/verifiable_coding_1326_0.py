@@ -21,10 +21,9 @@ def solve():
                 total_distance += i
             else:
                 break
-            if current_gas > 0:
-                current_gas += f[i]
-        results.append(str(total_distance))
-    print('\n'.join(results))
+        results.append(total_distance)
+    for res in results:
+        print(res)
 
 if __name__ == '__main__':
     solve()

@@ -8,6 +8,7 @@ def solve():
     idx = 0
     T = int(data[idx])
     idx += 1
+    
     results = []
     
     for _ in range(T):
@@ -16,14 +17,14 @@ def solve():
         idx += 6
         
         total_work = sum(a * P for a in A)
-        max_weekday_work = 5 * 24
+        max_work_per_day = 24
         
-        if total_work > max_weekday_work:
+        if total_work > 5 * max_work_per_day:
             results.append("Yes")
         else:
             results.append("No")
     
-    print("\n".join(results))
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

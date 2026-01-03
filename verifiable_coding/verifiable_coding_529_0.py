@@ -10,25 +10,13 @@ def solve():
         total = N * N
         count = 0
         
-        for b in range(1, N+1):
-            for a in range(1, N+1):
+        for b in range(1, N + 1):
+            for a in range(1, N + 1):
                 if math.gcd(a, b) == b:
                     count += 1
         
-        gcd_count = 0
-        for b in range(1, N+1):
-            for a in range(1, N+1):
-                if math.gcd(a, b) == b:
-                    gcd_count += 1
-        
-        numerator = gcd_count
-        denominator = total
-        
-        g = math.gcd(numerator, denominator)
-        numerator //= g
-        denominator //= g
-        
-        print(f"{numerator}/{denominator}")
+        gcd = math.gcd(count, total)
+        print(f"{count//gcd}/{total//gcd}")
 
 if __name__ == '__main__':
     solve()

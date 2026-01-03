@@ -6,41 +6,24 @@ def solve():
     data = input().split()
     
     T = int(data[0])
-    idx = 1
+    index = 1
     
     for _ in range(T):
-        N = int(data[idx])
-        s = data[idx + 1]
-        idx += 2
+        N = int(data[index])
+        index += 1
+        s = data[index]
+        index += 1
         
         min_pal = None
         min_len = float('inf')
         
-        # Check all possible substrings of length 1
         for i in range(N):
-            if min_len > 1:
-                break
-            if min_pal is None or s[i] < min_pal:
-                min_pal = s[i]
-                min_len = 1
-        
-        # Check all possible substrings of length 2
-        for i in range(N - 1):
-            if min_len > 2:
-                break
-            if s[i] == s[i + 1]:
-                if min_pal is None or s[i:i+2] < min_pal:
-                    min_pal = s[i:i+2]
-                    min_len = 2
-        
-        # Check all possible substrings of length >= 3
-        for l in range(3, N + 1):
-            for i in range(N - l + 1):
-                substr = s[i:i+l]
-                if substr == substr[::-1]:
-                    if min_pal is None or len(substr) < min_len or (len(substr) == min_len and substr < min_pal):
-                        min_pal = substr
-                        min_len = len(substr)
+            for j in range(i, N):
+                substring = s[i:j+1]
+                if substring == substring[::-1]:
+                    if len(substring) < min_len or (len(substring) == min_len and substring < min_pal):
+                        min_pal = substring
+                        min_len = len(substring)
         
         print(min_pal)
 

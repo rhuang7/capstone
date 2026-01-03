@@ -25,11 +25,13 @@ def solve():
         
         product = 1
         for i in range(L-1, R):
-            product = (product * A[i]) % M
+            product *= A[i]
+            if product >= M:
+                product %= M
         
-        results.append(str(product))
+        results.append(product % M)
     
-    print('\n'.join(results))
+    sys.stdout.write('\n'.join(map(str, results)) + '\n')
 
 if __name__ == '__main__':
     solve()

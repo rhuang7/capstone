@@ -20,23 +20,23 @@ def solve():
             print("YES")
             continue
         
-        # Check if s and t can be made equal with the allowed operations
-        # The allowed operations allow us to reverse any substring of the same length in s and t
-        # This means we can perform any number of reverses on s and t, as long as the lengths are the same
-        # So, the problem reduces to whether s and t can be transformed into each other using any number of reverses
+        # Check if s and t have the same character counts
+        from collections import Counter
+        if Counter(s) != Counter(t):
+            print("NO")
+            continue
         
-        # Since any number of reverses can be done, the only thing that matters is whether s and t have the same multiset of characters
-        # But since the problem allows us to reverse any substring, we can rearrange the characters in s and t as needed
-        # So the answer is YES if s and t have the same characters (count of each character)
+        # Check if the first and last characters are the same
+        if s[0] != t[0] or s[-1] != t[-1]:
+            print("NO")
+            continue
         
-        # But wait, the operation is to reverse a substring of s and a substring of t of the same length
-        # So, the operation is not just any permutation of characters, but a specific type of transformation
-        # However, since we can perform any number of such operations, the key insight is that the parity of the number of character differences between s and t must be even
-        
-        # But this is not sufficient. The correct approach is to check if s and t are anagrams (same multiset of characters)
-        # Because with the allowed operations, we can perform any number of reverses on s and t, which allows us to rearrange the characters
-        
-        # So the correct condition is: s and t must be anagrams
+        # Check if the middle characters can be rearranged
+        # We can perform any number of reverses, so we can sort the middle part
+        # If the middle parts of s and t can be rearranged, then it's possible
+        # So we check if the sorted middle parts are equal
+        # But since we can reverse any substring, we can sort the entire string
+        # So we check if the sorted s and t are equal
         if sorted(s) == sorted(t):
             print("YES")
         else:

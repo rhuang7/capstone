@@ -4,83 +4,21 @@ def solve():
     import sys
     input = sys.stdin.buffer.read().split()
     T = int(input[0])
-    K_list = list(map(int, input[1:T+1]))
+    cases = list(map(int, input[1:T+1]))
     
-    for K in K_list:
-        if K == 0:
+    for k in cases:
+        if k == 0:
             print('a')
             continue
-        # Construct the string with exactly K "descents"
-        # The optimal way is to have a string like 'a...a' with one 'b' at the end
-        # For K descents, we need a string that decreases K times
-        # The minimal length is K + 1, and the lex smallest is 'a...a' with one 'b' at the end
-        # For example, K=1: 'ba', K=2: 'cba', K=3: 'dcb a', etc.
-        # So the string is 'a'*(K) + 'b' + 'a'*(K-1)
-        # Wait, no, that's not right. Let's think again.
-        # To have exactly K descents, we can use a string that is strictly decreasing.
-        # For example, for K=1, 'ba' has one descent (b > a).
-        # For K=2, 'cba' has two descents (c > b, b > a).
-        # For K=3, 'dcb a' has three descents (d > c, c > b, b > a).
-        # So the pattern is to have a string that is a sequence of decreasing letters, starting from 'a' + K and ending with 'a'.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # For example, K=1: 'ba', K=2: 'cba', K=3: 'dcb a', etc.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is 'a' + (K+1) letters, starting from 'a' + K and decreasing.
-        # So the string is '
+        # Construct the string with exactly k "drops"
+        # The minimal length is k + 1, and the lex smallest is 'a' followed by 'b'... 'a' (k times)
+        # But to have exactly k drops, we need a sequence that decreases at k positions
+        # The lex smallest such string is 'a' followed by 'b'... 'a' (k times)
+        # For example, for k=1: 'ba' (1 drop)
+        # For k=2: 'cba' (2 drops)
+        # So the string is 'a' followed by 'b'... 'a' (k times)
+        res = 'a' + 'b' * k
+        print(res)
+
+if __name__ == '__main__':
+    solve()

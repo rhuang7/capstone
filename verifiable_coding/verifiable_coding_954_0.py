@@ -7,7 +7,7 @@ def solve():
         N = int(input[i])
         series = [str(x) for x in range(1, N + 1)] + [str(x) for x in range(N - 1, 0, -1)]
         print(' '.join(series))
-        sum_cubes = sum(x**3 for x in range(1, N + 1) + [x for x in range(N - 1, 0, -1)])
+        sum_cubes = sum(x**3 for x in range(1, N + 1) + range(N - 1, 0, -1))
         print(sum_cubes)
 
 if __name__ == '__main__':

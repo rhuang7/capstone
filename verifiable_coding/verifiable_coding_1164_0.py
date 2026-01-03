@@ -21,23 +21,21 @@ def solve():
         
         # Sort subtasks by score
         sorted_subtasks = sorted(zip(sc, ns), key=lambda x: x[0])
-        sc_sorted = [x[0] for x in sorted_subtasks]
-        ns_sorted = [x[1] for x in sorted_subtasks]
         
         # Calculate n
         n = 0
         for k in range(S-1):
-            if ns_sorted[k] > ns_sorted[k+1]:
+            if sorted_subtasks[k][1] > sorted_subtasks[k+1][1]:
                 n += 1
         
-        problems.append((n, i+1))  # (n, problem index)
+        problems.append((n, i+1))  # i+1 is the problem index (1-based)
     
-    # Sort by difficulty (n, then problem index)
+    # Sort problems by difficulty (n, then index)
     problems.sort()
     
     # Output the problem indices in order
-    for p in problems:
-        print(p[1])
+    for prob in problems:
+        print(prob[1])
 
 if __name__ == '__main__':
     solve()

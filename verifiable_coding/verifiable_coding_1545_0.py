@@ -12,20 +12,15 @@ def solve():
         m = int(data[idx+1])
         idx += 2
         # Compute S(n, m) mod 2
-        # Using the recurrence relation mod 2
-        # S(n, m) mod 2 = (m * S(n-1, m) + S(n-1, m-1)) mod 2
-        # But since we are working mod 2, this simplifies to:
+        # Using the recurrence relation modulo 2
         # S(n, m) mod 2 = (m * S(n-1, m) + S(n-1, m-1)) mod 2
         # We can use dynamic programming with mod 2
-        # However, for large n and m, we need a smarter approach
-        # The parity of S(n, m) is equal to the binomial coefficient C(n-1, m-1) mod 2
-        # This is known as Lucas's theorem
-        # So we need to compute C(n-1, m-1) mod 2
-        # Using Lucas's theorem, we can compute this efficiently
-        # Lucas's theorem: C(n, m) mod 2 is 1 if and only if the binary representation of m is a subset of the binary representation of n
-        # So we need to check if the binary representation of m-1 is a subset of the binary representation of n-1
-        # This can be done by checking if (n-1) & (m-1) == m-1
-        if (n-1) & (m-1) == m-1:
+        # But since n can be up to 1e9, we need a smarter approach
+        # The parity of S(n, m) is 1 if and only if the binary representation of n and m satisfy certain conditions
+        # It turns out that S(n, m) mod 2 is 1 if and only if the binary representation of m is a subset of the binary representation of n
+        # This is known as the Lucas theorem for Stirling numbers
+        # So we check if m & (n ^ m) == 0
+        if (n & m) == m:
             results.append('1')
         else:
             results.append('0')

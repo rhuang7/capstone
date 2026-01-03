@@ -6,18 +6,22 @@ def solve():
     data = input().split()
     
     t = int(data[0])
-    records = data[1:]
+    a = []
+    b = []
+    idx = 1
+    for _ in range(t):
+        a.append(int(data[idx]))
+        b.append(int(data[idx+1]))
+        idx += 2
     
-    zebras = set()
+    positions = set(a)
     for i in range(t):
-        a = int(records[2*i])
-        b = int(records[2*i + 1])
-        target = a + b
-        if target in zebras:
-            print("YES")
-            return
-        zebras.add(a)
-    
+        target = a[i] + b[i]
+        if target in positions:
+            for j in range(t):
+                if a[j] == target and b[j] == -b[i]:
+                    print("YES")
+                    return
     print("NO")
 
 if __name__ == '__main__':

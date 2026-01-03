@@ -7,27 +7,38 @@ def solve():
     strings = input[1:N+1]
 
     for s in strings:
-        max_circles = 0
-        current_size = 0
-        is_square = True
-        for c in s:
-            if c == '1':
-                if not is_square:
-                    break
-                current_size += 1
-            else:
-                if is_square:
-                    if current_size % 2 == 0:
-                        max_circles += current_size // 2
-                    else:
-                        max_circles = 0
-                    is_square = False
+        if not s:
+            print(0)
+            continue
+        i = 0
+        square_size = 0
+        circle_diameter = 0
+        valid = True
+        while i < len(s):
+            if s[i] == '1':
+                if square_size == 0:
+                    square_size = 1
                 else:
-                    if current_size % 2 == 0:
-                        max_circles += current_size // 2
-                    else:
-                        max_circles = 0
-        print(max_circles)
+                    if square_size % 2 == 0:
+                        valid = False
+                        break
+                    square_size = square_size // 2
+            else:
+                if circle_diameter == 0:
+                    circle_diameter = 1
+                else:
+                    if circle_diameter % 2 == 0:
+                        valid = False
+                        break
+                    circle_diameter = circle_diameter // 2
+            i += 1
+        if not valid:
+            print(0)
+        else:
+            if square_size > 0 and circle_diameter > 0:
+                print(circle_diameter // 2)
+            else:
+                print(0)
 
 if __name__ == '__main__':
     solve()

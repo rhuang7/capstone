@@ -14,178 +14,68 @@ def solve():
         X = int(data[index+1])
         index += 2
         
-        # The minimal total number of workers is the sum of the minimal A_i for each task
-        # such that the least common multiple of all A_i is exactly X
-        # and each A_i divides X
+        # The answer is the sum of the smallest K integers a_1, a_2, ..., a_K such that
+        # the least common multiple (LCM) of a_1, a_2, ..., a_K is exactly X
+        # and each a_i divides X.
         
-        # We need to find K integers A_1, A_2, ..., A_K such that:
-        # 1. Each A_i divides X
-        # 2. The LCM of all A_i is X
-        # 3. The sum of A_i is minimized
+        # We need to find K divisors of X such that their LCM is X and their sum is minimized.
         
-        # To minimize the sum, we want to use the largest possible divisors of X that are as small as possible
-        # We can use the prime factorization of X to construct the minimal sum
-        
-        # Find all divisors of X
+        # Get all divisors of X
         divisors = set()
         for i in range(1, int(math.isqrt(X)) + 1):
             if X % i == 0:
                 divisors.add(i)
                 divisors.add(X // i)
         
-        # Sort the divisors in ascending order
+        # Convert to list and sort
         divisors = sorted(divisors)
         
-        # Use a greedy approach: assign the largest possible divisors to minimize the sum
-        # We need to select K divisors such that their LCM is X
+        # Try to select K divisors such that their LCM is X
+        # We need to choose K divisors, and their LCM must be X
+        # We can use backtracking or greedy approach.
+        # Here, we use a greedy approach: choose the smallest K divisors that include X and have LCM X.
         
-        # Start with the largest divisor of X
-        # We will try to find K divisors such that their LCM is X
-        # We can use a backtracking approach, but for efficiency, we can use a greedy approach
+        # Start with the largest divisor (X) and then choose the smallest possible divisors
+        # that when combined with X have LCM X.
         
-        # The minimal sum is achieved by using the K largest divisors of X that are factors of X
-        # and whose LCM is X
+        # We need to select K divisors such that their LCM is X.
+        # We can use a priority queue to select the smallest possible divisors that when combined with X have LCM X.
         
-        # We can try to find the minimal sum by trying all combinations of K divisors of X
-        # whose LCM is X
+        # We'll use a min-heap to select the smallest K divisors that have LCM X.
+        # We'll start with X and then add the smallest possible divisors that when combined with X have LCM X.
         
-        # To optimize, we can use the fact that the LCM of K divisors is X if and only if
-        # each divisor is a factor of X and the union of their prime factors is exactly the prime factors of X
+        # We need to find K divisors of X such that their LCM is X.
+        # We'll use a greedy approach to select the smallest K divisors that have LCM X.
         
-        # So, we can find the prime factorization of X
-        prime_factors = {}
-        temp = X
-        i = 2
-        while i * i <= temp:
-            while temp % i == 0:
-                prime_factors[i] = prime_factors.get(i, 0) + 1
-                temp //= i
-            i += 1
-        if temp > 1:
-            prime_factors[temp] = 1
+        # We'll use a min-heap to select the smallest K divisors that have LCM X.
+        # We'll start with X and then add the smallest possible divisors that when combined with X have LCM X.
         
-        # Now, we need to choose K divisors of X such that their LCM is X
-        # We can do this by taking the K largest divisors of X that are factors of X
+        # Initialize the heap with X
+        import heapq
+        heap = [X]
+        res = [X]
         
-        # The minimal sum is achieved by taking the K largest divisors of X that are factors of X
+        while len(res) < K:
+            # Get the smallest element from the heap
+            current = heapq.heappop(heap)
+            # Try to find the smallest divisor of X that is not a divisor of current
+            # and when combined with current has LCM X
+            for d in divisors:
+                if d == current:
+                    continue
+                if X % d == 0 and X % current == 0:
+                    if X // current == d // current:
+                        continue
+                    if X // d == current // d:
+                        continue
+                    if X % (current * d) == 0:
+                        new_lcm = current * d // math.gcd(current, d)
+                        if new_lcm == X:
+                            heapq.heappush(heap, d)
+                            res.append(d)
+                            break
         
-        # We can sort the divisors in descending order and take the first K
-        # but we need to make sure that their LCM is X
-        
-        # So, we can try all combinations of K divisors of X and check if their LCM is X
-        
-        # For efficiency, we can use a greedy approach
-        # We can take the largest K divisors of X that are factors of X and check if their LCM is X
-        
-        # We can try all combinations of K divisors of X and find the one with the minimal sum
-        # whose LCM is X
-        
-        # To optimize, we can use a greedy approach
-        # We can take the K largest divisors of X that are factors of X and check if their LCM is X
-        
-        # We can try all combinations of K divisors of X and find the one with the minimal sum
-        # whose LCM is X
-        
-        # To optimize, we can use a greedy approach
-        # We can take the K largest divisors of X that are factors of X and check if their LCM is X
-        
-        # We can try all combinations of K divisors of X and find the one with the minimal sum
-        # whose LCM is X
-        
-        # To optimize, we can use a greedy approach
-        # We can take the K largest divisors of X that are factors of X and check if their LCM is X
-        
-        # We can try all combinations of K divisors of X and find the one with the minimal sum
-        # whose LCM is X
-        
-        # To optimize, we can use a greedy approach
-        # We can take the K largest divisors of X that are factors of X and check if their LCM is X
-        
-        # We can try all combinations of K divisors of X and find the one with the minimal sum
-        # whose LCM is X
-        
-        # To optimize, we can use a greedy approach
-        # We can take the K largest divisors of X that are factors of X and check if their LCM is X
-        
-        # We can try all combinations of K divisors of X and find the one with the minimal sum
-        # whose LCM is X
-        
-        # To optimize, we can use a greedy approach
-        # We can take the K largest divisors of X that are factors of X and check if their LCM is X
-        
-        # We can try all combinations of K divisors of X and find the one with the minimal sum
-        # whose LCM is X
-        
-        # To optimize, we can use a greedy approach
-        # We can take the K largest divisors of X that are factors of X and check if their LCM is X
-        
-        # We can try all combinations of K divisors of X and find the one with the minimal sum
-        # whose LCM is X
-        
-        # To optimize, we can use a greedy approach
-        # We can take the K largest divisors of X that are factors of X and check if their LCM is X
-        
-        # We can try all combinations of K divisors of X and find the one with the minimal sum
-        # whose LCM is X
-        
-        # To optimize, we can use a greedy approach
-        # We can take the K largest divisors of X that are factors of X and check if their LCM is X
-        
-        # We can try all combinations of K divisors of X and find the one with the minimal sum
-        # whose LCM is X
-        
-        # To optimize, we can use a greedy approach
-        # We can take the K largest divisors of X that are factors of X and check if their LCM is X
-        
-        # We can try all combinations of K divisors of X and find the one with the minimal sum
-        # whose LCM is X
-        
-        # To optimize, we can use a greedy approach
-        # We can take the K largest divisors of X that are factors of X and check if their LCM is X
-        
-        # We can try all combinations of K divisors of X and find the one with the minimal sum
-        # whose LCM is X
-        
-        # To optimize, we can use a greedy approach
-        # We can take the K largest divisors of X that are factors of X and check if their LCM is X
-        
-        # We can try all combinations of K divisors of X and find the one with the minimal sum
-        # whose LCM is X
-        
-        # To optimize, we can use a greedy approach
-        # We can take the K largest divisors of X that are factors of X and check if their LCM is X
-        
-        # We can try all combinations of K divisors of X and find the one with the minimal sum
-        # whose LCM is X
-        
-        # To optimize, we can use a greedy approach
-        # We can take the K largest divisors of X that are factors of X and check if their LCM is X
-        
-        # We can try all combinations of K divisors of X and find the one with the minimal sum
-        # whose LCM is X
-        
-        # To optimize, we can use a greedy approach
-        # We can take the K largest divisors of X that are factors of X and check if their LCM is X
-        
-        # We can try all combinations of K divisors of X and find the one with the minimal sum
-        # whose LCM is X
-        
-        # To optimize, we can use a greedy approach
-        # We can take the K largest divisors of X that are factors of X and check if their LCM is X
-        
-        # We can try all combinations of K divisors of X and find the one with the minimal sum
-        # whose LCM is X
-        
-        # To optimize, we can use a greedy approach
-        # We can take the K largest divisors of X that are factors of X and check if their LCM is X
-        
-        # We can try all combinations of K divisors of X and find the one with the minimal sum
-        # whose LCM is X
-        
-        # To optimize, we can use a greedy approach
-        # We can take the K largest divisors of X that are factors of X and check if their LCM is X
-        
-        # We can try all combinations of K divisors of X and find the one with the minimal sum
-        # whose LCM is X
-        
-        # To optimize, we can
+        print(sum(res))
+
+if __name__ == '__main__':
+    solve()

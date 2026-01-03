@@ -14,10 +14,10 @@ def solve():
             continue
         if N < K:
             print(f"0 {N}")
-            continue
-        students = N // K
-        teacher = N % K
-        print(f"{students} {teacher}")
+        else:
+            students = N // K
+            teacher = N % K
+            print(f"{students} {teacher}")
 
 if __name__ == '__main__':
     solve()

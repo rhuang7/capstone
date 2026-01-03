@@ -4,26 +4,22 @@ def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
-    
     T = int(data[0])
-    index = 1
+    idx = 1
     results = []
-    
     for _ in range(T):
-        N = int(data[index])
-        K = int(data[index + 1])
-        index += 2
-        
+        N = int(data[idx])
+        K = int(data[idx+1])
+        idx += 2
         if K <= N:
             results.append(K)
         else:
             base = K // N
-            remainder = K % N
-            if remainder == 0:
+            rem = K % N
+            if rem == 0:
                 results.append(base)
             else:
                 results.append(base)
-    
     sys.stdout.write('\n'.join(map(str, results)) + '\n')
 
 if __name__ == '__main__':

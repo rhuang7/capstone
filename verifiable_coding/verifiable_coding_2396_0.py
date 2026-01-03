@@ -15,53 +15,54 @@ def solve():
         index += 1
         
         # Function to check if a substring is c-good
-        def is_c_good(s, c, start, end):
-            if start == end:
-                return s[start] == c
-            mid = (start + end) // 2
-            # Check condition 1: first half is c and second half is (c+1)-good
-            if all(s[i] == c for i in range(start, mid + 1)) and is_c_good(s, chr(ord(c) + 1), mid + 1, end):
+        def is_c_good(sub, c):
+            if len(sub) == 1:
+                return sub == c
+            mid = len(sub) // 2
+            first_half = sub[:mid]
+            second_half = sub[mid:]
+            # Check condition 2: first half is c and second is (c+1)-good
+            if first_half == c * mid and is_c_good(second_half, chr(ord(c) + 1)):
                 return True
-            # Check condition 2: second half is c and first half is (c+1)-good
-            if all(s[i] == c for i in range(mid + 1, end + 1)) and is_c_good(s, chr(ord(c) + 1), start, mid):
+            # Check condition 3: second half is c and first is (c+1)-good
+            if second_half == c * mid and is_c_good(first_half, chr(ord(c) + 1)):
                 return True
             return False
         
-        # Function to calculate minimum changes to make a substring c-good
-        def min_changes(s, c, start, end):
-            if start == end:
-                return 0 if s[start] == c else 1
-            mid = (start + end) // 2
-            # Check condition 1: first half is c and second half is (c+1)-good
-            if all(s[i] == c for i in range(start, mid + 1)):
-                changes = 0
-                for i in range(mid + 1, end + 1):
-                    if s[i] != chr(ord(c) + 1):
-                        changes += 1
-                changes += min_changes(s, chr(ord(c) + 1), mid + 1, end)
+        # Function to compute minimum changes to make a substring c-good
+        def min_changes(sub, c):
+            if len(sub) == 1:
+                return 0 if sub == c else 1
+            mid = len(sub) // 2
+            first_half = sub[:mid]
+            second_half = sub[mid:]
+            # Check condition 2: first half is c and second is (c+1)-good
+            if first_half == c * mid:
+                changes = min_changes(second_half, chr(ord(c) + 1))
                 return changes
-            # Check condition 2: second half is c and first half is (c+1)-good
-            if all(s[i] == c for i in range(mid + 1, end + 1)):
-                changes = 0
-                for i in range(start, mid + 1):
-                    if s[i] != chr(ord(c) + 1):
-                        changes += 1
-                changes += min_changes(s, chr(ord(c) + 1), start, mid)
+            # Check condition 3: second half is c and first is (c+1)-good
+            if second_half == c * mid:
+                changes = min_changes(first_half, chr(ord(c) + 1))
                 return changes
-            # If neither condition is satisfied, try both and return minimum
-            changes1 = 0
-            for i in range(start, mid + 1):
-                if s[i] != chr(ord(c) + 1):
-                    changes1 += 1
-            changes1 += min_changes(s, chr(ord(c) + 1), start, mid)
-            
-            changes2 = 0
-            for i in range(mid + 1, end + 1):
-                if s[i] != chr(ord(c) + 1):
-                    changes2 += 1
-            changes2 += min_changes(s, chr(ord(c) + 1), mid + 1, end)
-            
-            return min(changes1, changes2)
+            # Otherwise, try to make first half c and second (c+1)-good
+            changes_first = 0
+            for ch in first_half:
+                if ch != c:
+                    changes_first += 1
+            changes_second = min_changes(second_half, chr(ord(c) + 1))
+            total = changes_first + changes_second
+            # Try to make second half c and first (c+1)-good
+            changes_second2 = 0
+            for ch in second_half:
+                if ch != c:
+                    changes_second2 += 1
+            changes_first2 = min_changes(first_half, chr(ord(c) + 1))
+            total2 = changes_second2 + changes_first2
+            return min(total, total2)
         
-        result = min_changes(s, 'a', 0, n - 1)
+        # Compute the minimum changes for the entire string to be 'a'-good
+        result = min_changes(s, 'a')
         print(result)
+
+if __name__ == '__main__':
+    solve()

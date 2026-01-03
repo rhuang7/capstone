@@ -3,7 +3,6 @@ import math
 from collections import defaultdict
 
 def solve():
-    import sys
     input = sys.stdin.buffer.read
     data = input().split()
     idx = 0
@@ -30,8 +29,13 @@ def solve():
             # Check if p1 is a permutation of 1..l1
             if len(p1) != len(set(p1)) or any(x < 1 or x > l1 for x in p1):
                 continue
+            
             # Check if p2 is a permutation of 1..l2
             if len(p2) != len(set(p2)) or any(x < 1 or x > l2 for x in p2):
+                continue
+            
+            # Check if all elements in a are accounted for
+            if len(set(a)) != n:
                 continue
             
             valid_lengths.append((l1, l2))
@@ -40,7 +44,7 @@ def solve():
         for l1, l2 in valid_lengths:
             results.append(f"{l1} {l2}")
     
-    print('\n'.join(results))
+    print("\n".join(results))
 
 if __name__ == '__main__':
     solve()

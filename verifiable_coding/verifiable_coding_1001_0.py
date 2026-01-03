@@ -22,7 +22,7 @@ def solve():
             # Get the previous 5 days, but not before day 1
             start = max(0, i - 5)
             end = i
-            # Check if the current price is strictly smaller than all prices in the previous 5 days
+            # Check if the current price is strictly smaller than all previous 5 days
             is_good = True
             for j in range(start, end):
                 if P[i] >= P[j]:

@@ -13,12 +13,12 @@ def solve():
         m = int(data[idx+1])
         idx += 2
         grid = []
-        for _ in range(n):
+        for i in range(n):
             row = list(map(int, data[idx:idx+m]))
             grid.append(row)
             idx += m
-        # Find the number of available cells that can be claimed
-        # A cell can be claimed if it is 0 and its row and column are not used
+        # Count the number of available cells that can be selected
+        # A cell can be selected if it is 0 and its row and column are not already used
         used_rows = set()
         used_cols = set()
         count = 0
@@ -38,8 +38,7 @@ def solve():
                 results.append("Ashish")
             else:
                 results.append("Vivek")
-    for res in results:
-        print(res)
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

@@ -11,29 +11,37 @@ def solve():
         print(costs[0])
         return
 
-    # We need to find the minimum cost such that for every pair of adjacent knights, at least one gets dessert.
-    # This is equivalent to finding a vertex cover in a cycle graph.
-    # For a cycle graph, the minimum vertex cover can be found using dynamic programming.
+    # Convert to a circular array
+    costs = costs + costs
 
-    # Convert the cycle into a linear array by duplicating the first element at the end.
-    costs = costs + costs[:1]
+    # Dynamic programming approach
+    # dp[i][0] = min cost to cover first i knights, not selecting i-th
+    # dp[i][1] = min cost to cover first i knights, selecting i-th
+    dp = [[0] * 2 for _ in range(n)]
 
-    # dp[i][0] = minimum cost to cover the first i knights, with the i-th not selected
-    # dp[i][1] = minimum cost to cover the first i knights, with the i-th selected
-    dp = [[0] * 2 for _ in range(n + 1)]
+    dp[0][0] = 0
+    dp[0][1] = costs[0]
 
-    dp[1][0] = 0  # first knight not selected, but since it's a cycle, this is not valid
-    dp[1][1] = costs[0]
+    for i in range(1, n):
+        dp[i][0] = dp[i-1][1]
+        dp[i][1] = min(dp[i-1][0], dp[i-1][1]) + costs[i]
 
-    for i in range(2, n + 1):
-        dp[i][0] = dp[i - 1][1]  # i-th not selected, so i-1 must be selected
-        dp[i][1] = min(dp[i - 1][0], dp[i - 1][1]) + costs[i - 1]  # i-th selected
+    # Since the table is circular, we have to consider two cases:
+    # 1. Not selecting the first knight
+    # 2. Selecting the first knight
+    # For case 1, we can't select the last knight
+    # For case 2, we can't select the second last knight
+    # So we compute the minimum of both cases
 
-    # For a cycle, we cannot select both first and last knight
-    # So we consider two cases: first knight is not selected, last knight is selected
-    # and first knight is selected, last knight is not selected
-    result = min(dp[n][0], dp[n][1])
-    print(result)
+    # Case 1: Not selecting the first knight
+    # We can select the last knight
+    case1 = dp[n-1][0] + costs[-1]
+
+    # Case 2: Selecting the first knight
+    # We can't select the second last knight
+    case2 = dp[n-2][1]
+
+    print(min(case1, case2))
 
 if __name__ == '__main__':
     solve()

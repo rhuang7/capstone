@@ -18,18 +18,17 @@ def solve():
         if Y > N:
             results.append("Not Possible")
             continue
+        if Y == 0:
+            results.append("0")
+            continue
         if W < Y:
             results.append("Not Possible")
             continue
         costs.sort()
         min_cost = 0
         for i in range(Y):
-            if i >= len(costs):
-                results.append("Not Possible")
-                break
             min_cost += costs[i] * 1
-        else:
-            results.append(str(min_cost))
+        results.append(str(min_cost))
     print('\n'.join(results))
 
 if __name__ == '__main__':

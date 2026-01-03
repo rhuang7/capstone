@@ -25,37 +25,46 @@ def solve():
         
         # Precompute all possible numbers with up to M digits
         possible_numbers = []
-        for i in range(1, M+1):
-            for j in range(N - i + 1):
-                num_str = S[j:j+i]
-                if len(num_str) > 0:
-                    possible_numbers.append(int(num_str))
+        for i in range(N):
+            num = 0
+            for j in range(i, N):
+                num = num * 10 + int(S[j])
+                if j - i + 1 > M:
+                    break
+                possible_numbers.append(num)
         
-        # Try all possible GCD values
+        # Try all possible GCD candidates
         max_gcd = 0
-        for candidate in possible_numbers:
+        for candidate in set(possible_numbers):
             # Check if we can split the string into parts with this candidate as GCD
-            # We need to split the string into parts where each part is divisible by candidate
-            # And we need to use at least X and at most Y separators
-            # We can use binary search for this
-            # We'll try to find the maximum number of parts we can split into with this candidate
-            # and check if it's possible to use between X and Y separators
-            # We'll use a greedy approach to split the string into parts
-            # We'll try to split as much as possible
-            parts = []
-            current = 0
-            count = 0
-            for i in range(N):
-                current = current * 10 + int(S[i])
-                if current % candidate == 0:
-                    parts.append(current)
-                    current = 0
-                    count += 1
-            if count >= 1 and count <= N:
-                # We can split into count parts
-                # The number of separators is count - 1
-                if X <= (count - 1) <= Y:
+            # We need to split into at least X+1 parts (since X separators)
+            # And at most Y+1 parts (since Y separators)
+            # Also, all parts must be divisible by candidate
+            # And each part must have at most M digits
+            # We need to find if there's a way to split the string into parts with this candidate as GCD
+            # We can use dynamic programming to check if it's possible
+            # dp[i] = True if we can split the first i characters into parts with this candidate as GCD
+            dp = [False] * (N + 1)
+            dp[0] = True
+            for i in range(N + 1):
+                if not dp[i]:
+                    continue
+                for j in range(i + 1, min(i + M + 1, N + 1)):
+                    num = 0
+                    for k in range(i, j):
+                        num = num * 10 + int(S[k])
+                        if num % candidate != 0:
+                            break
+                    else:
+                        if dp[j]:
+                            continue
+                        if j - i <= M:
+                            dp[j] = True
+            # Check if we can split into at least X+1 parts and at most Y+1 parts
+            for i in range(N + 1):
+                if dp[i] and i >= X + 1 and i <= Y + 1:
                     max_gcd = max(max_gcd, candidate)
+                    break
         
         results.append(max_gcd)
     

@@ -1,18 +1,15 @@
 import sys
+import string
 
 def solve():
-    import sys
-    from collections import defaultdict
-
-    data = sys.stdin.buffer.read().split(b'\n')
+    data = sys.stdin.buffer.read().split()
     N = int(data[0])
     words = data[1:N+1]
-    result = data[N+1].decode().strip()
+    result = data[N+1]
 
     unique_chars = set()
     for word in words + [result]:
         unique_chars.update(word)
-    unique_chars = list(unique_chars)
     if len(unique_chars) > 10:
         print("false")
         return
@@ -20,62 +17,52 @@ def solve():
     char_to_digit = {}
     used_digits = set()
 
-    def is_valid(word, digit_map):
-        if len(word) > len(digit_map):
-            return False
-        for i in range(len(word)):
-            if word[i] in digit_map:
-                if digit_map[word[i]] != i:
-                    return False
-            else:
-                return False
-        return True
+    all_chars = list(unique_chars)
+    for c in all_chars:
+        if c in string.digits:
+            char_to_digit[c] = int(c)
+            used_digits.add(int(c))
 
-    def backtrack(index, used_digits, char_to_digit, unique_chars, words, result):
-        if index == len(unique_chars):
-            return check(words, result, char_to_digit)
-        char = unique_chars[index]
-        for d in range(10):
-            if d in used_digits:
+    for word in words + [result]:
+        for c in word:
+            if c in char_to_digit:
                 continue
-            char_to_digit[char] = d
-            used_digits.add(d)
-            if backtrack(index + 1, used_digits, char_to_digit, unique_chars, words, result):
-                return True
-            used_digits.remove(d)
-            del char_to_digit[char]
-        return False
+            if c in string.digits:
+                if int(c) in used_digits:
+                    print("false")
+                    return
+                char_to_digit[c] = int(c)
+                used_digits.add(int(c))
+            else:
+                pass
 
-    def check(words, result, char_to_digit):
-        for word in words:
-            if len(word) > len(char_to_digit):
-                return False
-            for c in word:
-                if c not in char_to_digit:
-                    return False
-        for c in result:
+    for word in words + [result]:
+        for c in word:
+            if c in string.digits:
+                continue
             if c not in char_to_digit:
-                return False
-        for word in words:
-            num = 0
-            for c in word:
-                num = num * 10 + char_to_digit[c]
-            if num < 0:
-                return False
-        res_num = 0
-        for c in result:
-            res_num = res_num * 10 + char_to_digit[c]
-        if res_num < 0:
-            return False
-        for word in words:
-            num = 0
-            for c in word:
-                num = num * 10 + char_to_digit[c]
-            if num < 0:
-                return False
-        return sum(num for word in words for num in [0] * len(word) for c in word for num in [0] * len(word)) == res_num
+                print("false")
+                return
 
-    if backtrack(0, set(), {}, unique_chars, words, result):
+    for word in words:
+        num = 0
+        for c in word:
+            num = num * 10 + char_to_digit[c]
+        if num < 0 or num > 10**10:
+            print("false")
+            return
+
+    total = 0
+    for word in words:
+        total += char_to_digit[word[0]] * (10 ** (len(word) - 1))
+        for c in word[1:]:
+            total += char_to_digit[c] * (10 ** (len(word) - 1 - word.index(c)))
+
+    result_num = 0
+    for c in result:
+        result_num = result_num * 10 + char_to_digit[c]
+
+    if total == result_num:
         print("true")
     else:
         print("false")

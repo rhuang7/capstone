@@ -20,30 +20,35 @@ def solve():
         idx += D
         
         # Convert string to list for easier manipulation
-        infected = list(map(int, s))
-        # Track which positions are blocked
+        arr = list(s)
+        # Track which positions are blocked (isolated)
         blocked = [False] * (N + 2)  # 1-based indexing
         
-        for day in range(D):
-            p = P[day]
-            # Block p-1 from affecting p
-            blocked[p-1] = True
+        for p in P:
             blocked[p] = True
         
-        # Simulate the spread
+        # Simulate the days
         for day in range(D):
-            new_infected = [False] * N
-            for i in range(N):
-                if infected[i]:
-                    if i + 1 < N and not blocked[i + 1]:
-                        new_infected[i + 1] = True
-                    if i - 1 >= 0 and not blocked[i - 1]:
-                        new_infected[i - 1] = True
-            for i in range(N):
-                if new_infected[i]:
-                    infected[i] = True
+            # Create a new array to store the next state
+            new_arr = arr[:]
+            # Iterate from left to right
+            for i in range(1, N + 1):
+                # Check if current position is blocked
+                if blocked[i]:
+                    continue
+                # Check if current position is infected
+                if new_arr[i - 1] == '1':
+                    if i < N and new_arr[i] == '0' and not blocked[i]:
+                        new_arr[i] = '1'
+                # Check if right neighbor is infected
+                if i < N and new_arr[i] == '1':
+                    if new_arr[i + 1] == '0' and not blocked[i + 1]:
+                        new_arr[i + 1] = '1'
+            arr = new_arr
         
-        results.append(sum(infected))
+        # Count the number of '1's
+        count = arr.count('1')
+        results.append(count)
     
     for res in results:
         print(res)

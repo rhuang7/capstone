@@ -8,31 +8,26 @@ def solve():
     idx = 0
     while True:
         line = data[idx].strip()
-        while line == '':
-            idx += 1
-            line = data[idx].strip()
+        idx += 1
+        if not line:
+            continue
         n, m = map(int, line.split())
         if n == 0 and m == 0:
             break
-        idx += 1
-        dna_sequences = []
+        counts = defaultdict(int)
         for _ in range(n):
-            while True:
-                line = data[idx].strip()
-                if line != '':
-                    break
+            while idx < len(data) and not data[idx].strip():
                 idx += 1
-            dna_sequences.append(line)
+            if idx >= len(data):
+                break
+            dna = data[idx].strip()
             idx += 1
-        count = defaultdict(int)
-        for seq in dna_sequences:
-            count[seq] += 1
+            counts[dna] += 1
         res = [0] * (n + 1)
-        for v in count.values():
-            res[v] += 1
+        for cnt in counts.values():
+            res[cnt] += 1
         for i in range(1, n + 1):
             print(res[i])
-        idx += 1
-
+            
 if __name__ == '__main__':
     solve()

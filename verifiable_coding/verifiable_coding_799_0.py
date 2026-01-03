@@ -10,7 +10,7 @@ def solve():
         b = data[index+1]
         c = data[index+2]
         index += 3
-        if a == b == 1 or a == c == 1 or b == c == 1:
+        if a == b == 1 or b == c == 1 or a == c == 1:
             count += 1
     print(count)
 

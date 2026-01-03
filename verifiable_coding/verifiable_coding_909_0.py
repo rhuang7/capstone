@@ -27,27 +27,31 @@ def solve():
             if b[i] <= g[j]:
                 results.append(b[i])
                 i += 1
-                alternated = True
             else:
                 results.append(g[j])
                 j += 1
-                alternated = False
-        
         while i < n:
             results.append(b[i])
             i += 1
-        
         while j < n:
             results.append(g[j])
             j += 1
         
-        if alternated and len(results) == 2 * n:
-            results = ["YES"]
+        valid = True
+        for k in range(len(results) - 1):
+            if results[k] > results[k + 1]:
+                valid = False
+                break
+            if (results[k] in b and results[k + 1] in b) or (results[k] in g and results[k + 1] in g):
+                valid = False
+                break
+        
+        if valid:
+            results.append("YES")
         else:
-            results = ["NO"]
+            results.append("NO")
     
-    for res in results:
-        print(res)
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

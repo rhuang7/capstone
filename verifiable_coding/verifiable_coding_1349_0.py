@@ -8,8 +8,7 @@ def solve():
     results = []
     for i in range(1, T + 1):
         N = data[i]
-        digits = list(map(int, str(N)))
-        sum_digits = sum(digits)
+        sum_digits = sum(int(d) for d in N)
         if sum_digits % 3 == 0:
             results.append('1')
         else:

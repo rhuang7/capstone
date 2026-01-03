@@ -12,10 +12,10 @@ def solve():
         else:
             pattern = []
             for i in range(1, K+1):
-                if i <= K // 2:
+                if i % 2 == 1:
                     pattern.append(str(i))
                 else:
-                    pattern.append(str(i + K - 1))
+                    pattern.append(str(i * 10))
             print(" ".join(pattern))
             
 if __name__ == '__main__':

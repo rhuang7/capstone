@@ -19,27 +19,52 @@ def solve():
         
         locked = [i for i in range(n) if l[i] == 1]
         unlocked = [i for i in range(n) if l[i] == 0]
-        unlock_values = [a[i] for i in unlocked]
+        unlocked_values = [a[i] for i in unlocked]
         
-        # If all positions are locked, do nothing
-        if len(locked) == n:
-            results.append(' '.join(map(str, a)))
-            continue
+        # We want to minimize k, which is the maximum j where prefix sum is negative
+        # To minimize k, we want to make the prefix sums as positive as possible early on
+        # So we sort the unlocked values in a way that makes the prefix sums as positive as possible
+        # We can try different sorting strategies and choose the one that gives the minimal k
         
-        # Sort unlocked values to minimize k
-        # We want to make prefix sums as large as possible early
-        # So sort unlocked values in non-decreasing order
-        unlock_values.sort()
+        # Try different sorting strategies
+        # Strategy 1: Sort unlocked values in ascending order
+        sorted_asc = sorted(unlocked_values)
+        # Strategy 2: Sort unlocked values in descending order
+        sorted_desc = sorted(unlocked_values, reverse=True)
+        # Strategy 3: Sort unlocked values with smallest negative first, then positives
+        # This is a heuristic to try to make prefix sums positive as early as possible
+        sorted_neg_then_pos = sorted(unlocked_values, key=lambda x: (x < 0, x))
         
-        # Prepare the result array
-        res = [0] * n
-        for i in range(n):
-            if l[i] == 1:
-                res[i] = a[i]
-            else:
-                res[i] = unlock_values.pop(0)
+        # Try each strategy and find the one with minimal k
+        best_k = n + 1
+        best_arr = a.copy()
         
-        results.append(' '.join(map(str, res)))
+        for sorted_vals in [sorted_asc, sorted_desc, sorted_neg_then_pos]:
+            new_a = a.copy()
+            for i, pos in enumerate(unlocked):
+                new_a[pos] = sorted_vals[i]
+            
+            # Compute prefix sums
+            prefix_sums = []
+            current_sum = 0
+            for val in new_a:
+                current_sum += val
+                prefix_sums.append(current_sum)
+            
+            # Find k
+            k = 0
+            for j in range(n):
+                if prefix_sums[j] < 0:
+                    k = j + 1
+                else:
+                    break  # Once a non-negative prefix sum is found, no need to check further
+            
+            if k < best_k:
+                best_k = k
+                best_arr = new_a
+        
+        # Output the best_arr
+        results.append(' '.join(map(str, best_arr)))
     
     print('\n'.join(results))
 

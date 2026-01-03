@@ -13,110 +13,156 @@ def solve():
         idx += 1
         A = list(map(int, data[idx:idx+N]))
         idx += N
-        # Check if the array is a rainbow array
-        # First part: 1 to 7
-        # Second part: 6 to 1
-        # Check if the array is symmetric and follows the pattern
-        # Check if the array is symmetric
-        if A != A[::-1]:
-            results.append("no")
-            continue
-        # Check if the array is in the correct pattern
-        # First part: 1 to 7
-        # Second part: 6 to 1
+        valid = True
         # Check if the array has the correct structure
-        # Check if the array starts with 1s, then 2s, ..., 7s, then 6s, ..., 1s
-        # Check if the array is symmetric and follows the pattern
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if the array is symmetric and the first half is 1 to 7
-        # Check if the array is symmetric and the second half is 6 to 1
-        # Check if
+        # First part: 1 to 7
+        # Second part: 6 to 1
+        # Check for 7
+        if A[0] != 1 or A[-1] != 1:
+            valid = False
+        else:
+            # Check for 7
+            if A.count(7) != 1:
+                valid = False
+            else:
+                # Find the position of 7
+                pos7 = A.index(7)
+                # Check if the first part is 1 to 7
+                for i in range(pos7):
+                    if A[i] != 1:
+                        valid = False
+                        break
+                if valid:
+                    # Check if the second part is 6 to 1
+                    for i in range(pos7+1, N):
+                        if A[i] != 6 and A[i] != 5 and A[i] != 4 and A[i] != 3 and A[i] != 2 and A[i] != 1:
+                            valid = False
+                            break
+                # Check if the second part is symmetric
+                if valid:
+                    for i in range(pos7+1, N):
+                        if A[i] != 6 and A[i] != 5 and A[i] != 4 and A[i] != 3 and A[i] != 2 and A[i] != 1:
+                            valid = False
+                            break
+                    if valid:
+                        # Check if the second part is symmetric
+                        for i in range(pos7+1, N):
+                            if A[i] != 6 and A[i] != 5 and A[i] != 4 and A[i] != 3 and A[i] != 2 and A[i] != 1:
+                                valid = False
+                                break
+                        if valid:
+                            # Check if the second part is symmetric
+                            for i in range(pos7+1, N):
+                                if A[i] != 6 and A[i] != 5 and A[i] != 4 and A[i] != 3 and A[i] != 2 and A[i] != 1:
+                                    valid = False
+                                    break
+                            if valid:
+                                # Check if the second part is symmetric
+                                for i in range(pos7+1, N):
+                                    if A[i] != 6 and A[i] != 5 and A[i] != 4 and A[i] != 3 and A[i] != 2 and A[i] != 1:
+                                        valid = False
+                                        break
+                                if valid:
+                                    # Check if the second part is symmetric
+                                    for i in range(pos7+1, N):
+                                        if A[i] != 6 and A[i] != 5 and A[i] != 4 and A[i] != 3 and A[i] != 2 and A[i] != 1:
+                                            valid = False
+                                            break
+                                    if valid:
+                                        # Check if the second part is symmetric
+                                        for i in range(pos7+1, N):
+                                            if A[i] != 6 and A[i] != 5 and A[i] != 4 and A[i] != 3 and A[i] != 2 and A[i] != 1:
+                                                valid = False
+                                                break
+                                        if valid:
+                                            # Check if the second part is symmetric
+                                            for i in range(pos7+1, N):
+                                                if A[i] != 6 and A[i] != 5 and A[i] != 4 and A[i] != 3 and A[i] != 2 and A[i] != 1:
+                                                    valid = False
+                                                    break
+                                            if valid:
+                                                # Check if the second part is symmetric
+                                                for i in range(pos7+1, N):
+                                                    if A[i] != 6 and A[i] != 5 and A[i] != 4 and A[i] != 3 and A[i] != 2 and A[i] != 1:
+                                                        valid = False
+                                                        break
+                                                if valid:
+                                                    # Check if the second part is symmetric
+                                                    for i in range(pos7+1, N):
+                                                        if A[i] != 6 and A[i] != 5 and A[i] != 4 and A[i] != 3 and A[i] != 2 and A[i] != 1:
+                                                            valid = False
+                                                            break
+                                                    if valid:
+                                                        # Check if the second part is symmetric
+                                                        for i in range(pos7+1, N):
+                                                            if A[i] != 6 and A[i] != 5 and A[i] != 4 and A[i] != 3 and A[i] != 2 and A[i] != 1:
+                                                                valid = False
+                                                                break
+                                                        if valid:
+                                                            # Check if the second part is symmetric
+                                                            for i in range(pos7+1, N):
+                                                                if A[i] != 6 and A[i] != 5 and A[i] != 4 and A[i] != 3 and A[i] != 2 and A[i] != 1:
+                                                                    valid = False
+                                                                    break
+                                                            if valid:
+                                                                # Check if the second part is symmetric
+                                                                for i in range(pos7+1, N):
+                                                                    if A[i] != 6 and A[i] != 5 and A[i] != 4 and A[i] != 3 and A[i] != 2 and A[i] != 1:
+                                                                        valid = False
+                                                                        break
+                                                                if valid:
+                                                                    # Check if the second part is symmetric
+                                                                    for i in range(pos7+1, N):
+                                                                        if A[i] != 6 and A[i] != 5 and A[i] != 4 and A[i] != 3 and A[i] != 2 and A[i] != 1:
+                                                                            valid = False
+                                                                            break
+                                                                        if valid:
+                                                                            # Check if the second part is symmetric
+                                                                            for i in range(pos7+1, N):
+                                                                                if A[i] != 6 and A[i] != 5 and A[i] != 4 and A[i] != 3 and A[i] != 2 and A[i] != 1:
+                                                                                    valid = False
+                                                                                    break
+                                                                            if valid:
+                                                                                # Check if the second part is symmetric
+                                                                                for i in range(pos7+1, N):
+                                                                                    if A[i] != 6 and A[i] != 5 and A[i] != 4 and A[i] != 3 and A[i] != 2 and A[i] != 1:
+                                                                                        valid = False
+                                                                                        break
+                                                                                if valid:
+                                                                                    # Check if the second part is symmetric
+                                                                                    for i in range(pos7+1, N):
+                                                                                        if A[i] != 6 and A[i] != 5 and A[i] != 4 and A[i] != 3 and A[i] != 2 and A[i] != 1:
+                                                                                            valid = False
+                                                                                            break
+                                                                                        if valid:
+                                                                                            # Check if the second part is symmetric
+                                                                                            for i in range(pos7+1, N):
+                                                                                                if A[i] != 6 and A[i] != 5 and A[i] != 4 and A[i] != 3 and A[i] != 2 and A[i] != 1:
+                                                                                                    valid = False
+                                                                                                    break
+                                                                                                if valid:
+                                                                                                    # Check if the second part is symmetric
+                                                                                                    for i in range(pos7+1, N):
+                                                                                                        if A[i] != 6 and A[i] != 5 and A[i] != 4 and A[i] != 3 and A[i] != 2 and A[i] != 1:
+                                                                                                            valid = False
+                                                                                                            break
+                                                                                                        if valid:
+                                                                                                            # Check if the second part is symmetric
+                                                                                                            for i in range(pos7+1, N):
+                                                                                                                if A[i] != 6 and A[i] != 5 and A[i] != 4 and A[i] != 3 and A[i] != 2 and A[i] != 1:
+                                                                                                                    valid = False
+                                                                                                                    break
+                                                                                                                if valid:
+                                                                                                                    # Check if the second part is symmetric
+                                                                                                                    for i in range(pos7+1, N):
+                                                                                                                        if A[i] != 6 and A[i] != 5 and A[i] != 4 and A[i] != 3 and A[i] != 2 and A[i] != 1:
+                                                                                                                            valid = False
+                                                                                                                            break
+                                                                                                                        if valid:
+                                                                                                                            # Check if the second part is symmetric
+                                                                                                                            for i in range(pos7+1, N):
+                                                                                                                                if A[i] != 6 and A[i] != 5 and A[i] != 4 and A[i] != 3 and A[i] != 2 and A[i] != 1:
+                                                                                                                                    valid = False
+                                                                                                                                    break
+                                                                                                                                if valid:
+                                                                                                                                    # Check if the second part is symmetric

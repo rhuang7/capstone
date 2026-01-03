@@ -17,20 +17,21 @@ def solve():
         idx += N
         
         from collections import Counter
-        cnt = Counter(A)
+        freq = Counter(A)
         
-        # Find the greatest common divisor of all elements
-        from math import gcd
-        from functools import reduce
-        g = reduce(gcd, A)
+        max_len = 0
+        min_cost = float('inf')
         
-        # The required length is the GCD
-        length = g
+        for length in freq:
+            total = 0
+            for a in A:
+                total += a // length
+            cost = total
+            if cost < min_cost or (cost == min_cost and length > max_len):
+                min_cost = cost
+                max_len = length
         
-        # Total cost is sum of (a_i / g) for all a_i
-        total_cost = sum(a // g for a in A)
-        
-        results.append(f"{length} {total_cost}")
+        results.append(f"{max_len} {min_cost}")
     
     print("\n".join(results))
 

@@ -1,13 +1,15 @@
 import sys
-import bisect
+import math
 
 def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
+    
     idx = 0
     t = int(data[idx])
     idx += 1
+    
     results = []
     
     for _ in range(t):
@@ -16,45 +18,62 @@ def solve():
         a = list(map(int, data[idx:idx + n]))
         idx += n
         
-        # Precompute the minimum prefix length to remove
-        # We need to find the smallest k such that the subarray a[k:] is good
-        # A subarray is good if we can arrange it into a non-decreasing sequence
-        # by taking elements from either end
+        # Precompute for each position the minimum number of elements to remove from the front
+        # to make the remaining array good
+        # We will use a greedy approach to check if a subarray is good
         
-        # For a subarray to be good, it must be possible to arrange it into a non-decreasing sequence
-        # by taking elements from either end. This is equivalent to the subarray being a "valid" sequence
-        # that can be rearranged into non-decreasing order by taking from ends
+        # For each possible prefix length k (0 <= k <= n), check if the subarray a[k:] is good
+        # We need to find the smallest k such that a[k:] is good
         
-        # We can use a greedy approach to check for each possible k
-        # We'll use a two-pointer approach to check if the subarray a[k:] is good
+        # To check if a subarray is good, we can simulate the process of building a non-decreasing array
+        # by taking elements from either end of the subarray
         
-        # Precompute for all possible k
-        # We'll use a sliding window approach to find the minimal k
-        # We'll use a deque to keep track of the elements in the subarray
-        # and check if it's possible to arrange them into non-decreasing order
+        # We can use a two-pointer approach to check if the subarray is good
+        # We will try to build a non-decreasing array by taking elements from either end
         
-        # Let's try to find the minimal k
-        min_k = n  # maximum possible value
+        # For each possible k, check if a[k:] is good
+        # We will use a binary search approach to find the minimal k
         
-        for k in range(n):
-            # Check if a[k:] is good
-            left = k
-            right = n - 1
-            dq = []
-            valid = True
+        # Precompute for each position the minimum k such that a[k:] is good
+        # We can use a sliding window approach
+        
+        # We will use a greedy approach to find the minimal k
+        # For each possible k, check if a[k:] is good
+        
+        # To check if a subarray is good, we can simulate the process of building a non-decreasing array
+        # by taking elements from either end of the subarray
+        
+        # Let's define a helper function to check if a subarray is good
+        def is_good(sub):
+            left = 0
+            right = len(sub) - 1
+            c = []
             while left <= right:
-                if not dq or dq[-1] <= a[left]:
-                    dq.append(a[left])
+                if not c or sub[left] <= c[-1]:
+                    c.append(sub[left])
                     left += 1
-                elif not dq or dq[-1] >= a[right]:
-                    dq.append(a[right])
+                elif not c or sub[right] <= c[-1]:
+                    c.append(sub[right])
                     right -= 1
                 else:
-                    valid = False
-                    break
-            if valid:
-                min_k = min(min_k, k)
+                    return False
+            return True
         
-        results.append(str(min_k))
+        # Now, for each possible k, check if a[k:] is good
+        # We can use binary search to find the minimal k
+        # We will try to find the minimal k such that a[k:] is good
+        
+        # Initialize the answer as n (meaning we need to remove all elements)
+        ans = n
+        
+        # Try all possible k from 0 to n
+        for k in range(n + 1):
+            if is_good(a[k:]):
+                ans = min(ans, k)
+        
+        results.append(str(ans))
     
     print('\n'.join(results))
+
+if __name__ == '__main__':
+    solve()

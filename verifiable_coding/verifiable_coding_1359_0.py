@@ -16,9 +16,8 @@ def solve():
         # Sort the array
         A.sort()
         # The minimum time is the sum of the differences between each element and the first element, divided by 2
-        # Because we can adjust any element to any other element in one second per unit difference
-        # But since we can add or subtract any odd number, we can adjust any difference in one second
-        # So the minimum time is the sum of the differences between each element and the first element
+        # Because each operation can change a temperature by an odd number, and we can adjust any temperature
+        # So the minimum time is the sum of the absolute differences between each element and the first element
         total = 0
         for i in range(1, N):
             total += abs(A[i] - A[0])

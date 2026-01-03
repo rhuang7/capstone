@@ -5,41 +5,53 @@ def solve():
     input = sys.stdin.buffer.read
     data = input().split()
     
-    q = int(data[0])
-    index = 1
+    idx = 0
+    q = int(data[idx])
+    idx += 1
+    
+    results = []
     
     for _ in range(q):
-        n = int(data[index])
-        index += 1
-        s = list(map(int, data[index:index + n]))
-        index += n
+        n = int(data[idx])
+        idx += 1
+        s = list(map(int, data[idx:idx+n]))
+        idx += n
         
-        # Count the frequency of each power of two
-        from collections import defaultdict
-        count = defaultdict(int)
+        count = {}
         for num in s:
-            count[num] += 1
+            if num in count:
+                count[num] += 1
+            else:
+                count[num] = 1
         
-        # We need to reach 2048, which is 2^11
-        # So we work backwards from 2048
-        # For each power of two, we check if we can combine pairs to reach the next higher power
-        current = 11  # 2^11 = 2048
-        while current >= 0:
-            # How many of this power do we have?
-            cnt = count[1 << current]
-            # How many pairs can we form?
-            pairs = cnt // 2
-            # Each pair can be combined into the next higher power
-            count[1 << (current + 1)] += pairs
-            # Update the count for this power
-            count[1 << current] -= pairs * 2
-            current -= 1
+        # Convert to exponents of 2
+        exp = {}
+        for num in count:
+            exp[num] = count[num]
         
-        # If we have at least one 2048, then it's possible
-        if count[2048] >= 1:
-            print("YES")
+        # Start from 1 (2^0) and go up to 2048 (2^11)
+        for i in range(1, 12):
+            if 2 ** i in exp:
+                exp[2 ** i] = exp[2 ** i]
+            else:
+                exp[2 ** i] = 0
+        
+        # Try to build up to 2048
+        for i in range(11, 0, -1):
+            if exp[2 ** i] > 0:
+                # Try to combine with lower exponents
+                while exp[2 ** i] > 0:
+                    exp[2 ** (i - 1)] += exp[2 ** i]
+                    exp[2 ** i] = 0
+                # Check if we have enough to make 2048
+                if exp[2 ** 11] >= 1:
+                    results.append("YES")
+                    break
         else:
-            print("NO")
+            results.append("NO")
+    
+    for res in results:
+        print(res)
 
 if __name__ == '__main__':
     solve()

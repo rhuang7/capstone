@@ -11,7 +11,7 @@ def solve():
     for num in arr[1:]:
         gcd_val = math.gcd(gcd_val, num)
     
-    # Find all divisors of gcd_val that are > 1
+    # Find all divisors of gcd_val that are >1
     divisors = set()
     for i in range(2, int(math.isqrt(gcd_val)) + 1):
         if gcd_val % i == 0:

@@ -17,27 +17,23 @@ def solve():
             if query_type == 1:
                 i = int(data[idx])
                 idx += 1
-                if (x >> (i-1)) & 1:
+                if (x >> (i - 1)) & 1:
                     print("ON")
                 else:
                     print("OFF")
             elif query_type == 2:
                 i = int(data[idx])
                 idx += 1
-                x |= (1 << (i-1))
+                x |= (1 << (i - 1))
             elif query_type == 3:
                 i = int(data[idx])
                 idx += 1
-                x &= ~(1 << (i-1))
+                x &= ~(1 << (i - 1))
             elif query_type == 4:
                 p = int(data[idx])
                 q = int(data[idx+1])
                 idx += 2
-                if p > 30:
-                    p = 30
-                if q > 30:
-                    q = 30
-                x ^= (1 << (p-1))
-                x ^= (1 << (q-1))
-                x ^= (1 << (p-1))
-                x ^= (1 << (q-1))
+                if (x >> (p - 1)) & 1:
+                    x ^= (1 << (p - 1))
+                if (x >> (q - 1)) & 1:
+                    x ^= (1 << (q - 1))

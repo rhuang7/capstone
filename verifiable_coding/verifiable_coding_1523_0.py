@@ -11,15 +11,15 @@ def solve():
         print(0)
         return
     
-    # dp[i] = maximum earnings up to ith match
+    # dp[i] represents the maximum earnings up to the i-th match
     dp = [0] * (N + 1)
-    dp[0] = 0
-    dp[1] = fees[0]
+    dp[0] = 0  # no matches, no earnings
+    dp[1] = fees[0]  # first match, can play it
     
     for i in range(2, N + 1):
-        # If we play the ith match, we cannot play (i-1)th match
-        # So take max of dp[i-2] + fees[i-1]
-        # If we don't play the ith match, take dp[i-1]
+        # If we play the i-th match, we cannot play the (i-1)-th match
+        # So take the maximum earnings up to (i-2)-th match and add current fee
+        # If we don't play the i-th match, take the maximum earnings up to (i-1)-th match
         dp[i] = max(dp[i-2] + fees[i-1], dp[i-1])
     
     print(dp[N])

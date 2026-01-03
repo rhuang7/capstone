@@ -17,117 +17,28 @@ def solve():
         b = list(map(int, data[idx:idx+m]))
         idx += m
         
-        # Create a map from present number to its position in the stack
+        # Create a dictionary to map present numbers to their positions in the stack
         pos = {present: i for i, present in enumerate(a)}
         
         # Preprocess the list of presents to send
-        b_pos = [pos[present] for present in b]
+        b_positions = [pos[present] for present in b]
         
-        # Find the positions of the presents in the stack
-        # We need to find the order in which they appear in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a pointer to track where we are in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
-        # We'll use a list to track the order of presents in the stack
+        # For each present in b, find the position in the stack and calculate time
+        time = 0
+        current_pos = -1
+        
+        for i in range(m):
+            target_pos = b_positions[i]
+            # The number of presents above the target is target_pos - current_pos - 1
+            k = target_pos - current_pos - 1
+            time += 2 * k + 1
+            # After taking the present, the current position is updated to the target position
+            current_pos = target_pos
+        
+        results.append(time)
+    
+    for res in results:
+        print(res)
+
+if __name__ == '__main__':
+    solve()

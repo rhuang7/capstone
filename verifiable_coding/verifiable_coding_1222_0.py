@@ -11,12 +11,9 @@ def solve():
         count = 0
         freq = Counter()
         for i in range(n):
-            freq[s[i]] += 1
-            for j in range(i+1, n+1):
-                key = tuple(sorted(s[i:j]))
-                freq[key] += 1
+            freq[tuple(sorted(s[i:]))] += 1
         for v in freq.values():
-            count += v // 2
+            count += v * (v - 1) // 2
         print(count)
 
 if __name__ == '__main__':

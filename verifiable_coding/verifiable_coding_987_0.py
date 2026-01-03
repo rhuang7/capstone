@@ -8,16 +8,16 @@ def solve():
     data = input().split()
     
     T = int(data[0])
-    index = 1
+    idx = 1
     
     results = []
     
     for _ in range(T):
-        finish = int(data[index])
-        distancetoBolt = int(data[index+1])
-        tigerAcceleration = int(data[index+2])
-        boltSpeed = int(data[index+3])
-        index += 4
+        finish = int(data[idx])
+        distancetoBolt = int(data[idx+1])
+        tigerAcceleration = int(data[idx+2])
+        boltSpeed = int(data[idx+3])
+        idx += 4
         
         # Distance for Bolt to finish
         bolt_distance = finish
@@ -28,13 +28,13 @@ def solve():
         # Distance for Tiger to finish
         tiger_distance = finish + distancetoBolt
         
-        # Solve for time when tiger reaches finish line
+        # Solve for time when tiger reaches finish
         # tiger_distance = 0.5 * tigerAcceleration * t^2
         # t^2 = (2 * tiger_distance) / tigerAcceleration
         # t = sqrt(2 * tiger_distance / tigerAcceleration)
         t_tiger = math.sqrt(2 * tiger_distance / tigerAcceleration)
         
-        if time_bolt < t_tiger:
+        if t_tiger > time_bolt:
             results.append("Bolt")
         else:
             results.append("Tiger")

@@ -18,119 +18,55 @@ def solve():
         a = list(map(int, data[idx:idx+n]))
         idx += n
         
-        # Precompute factorials modulo MOD
+        # Convert each number to a string to handle leading zeros
+        s = [str(x) for x in a]
+        
+        # Precompute the hash of each string
+        hash_map = defaultdict(int)
+        for num in s:
+            hash_map[num] += 1
+        
+        # Precompute the factorial for modulo purposes
         fact = [1] * (n + 1)
         for i in range(1, n + 1):
             fact[i] = fact[i - 1] * i % MOD
         
-        # Convert numbers to strings
-        s = [str(x) for x in a]
+        # Function to compute the hash of a number as a string
+        def get_hash(num_str):
+            h = 0
+            for c in num_str:
+                h = (h * 10 + int(c)) % MOD
+            return h
         
-        # Compute the number formed by concatenating the cards
-        # We need to find the number mod 11
-        # But since the number is very large, we can compute it mod 11
-        # Using the property that a number mod 11 is equal to the alternating sum of its digits mod 11
-        # But since the number is formed by concatenating strings, we can compute the mod 11 value
-        # by processing each string and updating the mod value
+        # Compute the total hash of all numbers
+        total_hash = 0
+        for num in s:
+            total_hash = (total_hash * 10 + int(num)) % MOD
         
-        # Compute the mod 11 value of the entire number
-        mod_11 = 0
-        for num_str in s:
-            num = int(num_str)
-            mod_11 = (mod_11 * 10 + num) % 11
+        # If total_hash is 0, then the number is divisible by 11
+        if total_hash % 11 == 0:
+            results.append(fact[n])
+            continue
         
-        # Now, we need to count the number of permutations of the cards such that the mod 11 of the concatenated number is 0
-        # We can use dynamic programming with memoization
+        # Use dynamic programming to count valid permutations
+        dp = [0] * 11
+        dp[0] = 1
         
-        # Memoization table: dp[i][j] = number of ways to arrange the first i cards such that the mod 11 is j
-        # We also need to track the count of each number to avoid overcounting
-        # Since the numbers are unique, but can have the same value, we need to count the permutations considering duplicates
-        
-        # First, count the frequency of each number
-        freq = defaultdict(int)
-        for num in a:
-            freq[num] += 1
-        
-        # Now, we need to generate all unique permutations of the numbers, considering duplicates
-        # But since n can be up to 2000, we need a more efficient approach
-        
-        # We can use dynamic programming with memoization
-        # dp[i][j] = number of ways to arrange the first i numbers such that the mod 11 is j
-        # We also need to track the count of each number
-        
-        # To handle the counts, we can use memoization with the current counts of each number
-        
-        # But since the numbers can be up to 1e9, we cannot use a simple memoization table
-        # So we need to use memoization with the current counts of each number
-        
-        # We can use memoization with a tuple of the current counts of each number
-        # But since the numbers can be up to 1e9, we need to map them to a unique identifier
-        
-        # So, we first map the numbers to unique identifiers
-        unique_numbers = list(freq.keys())
-        unique_numbers.sort()
-        num_to_id = {num: i for i, num in enumerate(unique_numbers)}
-        id_to_num = {i: num for i, num in enumerate(unique_numbers)}
-        
-        # Now, we can use memoization with the current counts of each number
-        # We can use a memoization dictionary that maps a tuple of counts to the number of ways to arrange the numbers
-        
-        # We also need to track the current mod 11 value
-        
-        # So, the memoization key is (current_counts, mod_11)
-        # But since the counts can be large, we need to use a tuple of counts for each number
-        
-        # We can use a memoization dictionary with the current counts and mod_11
-        
-        # We can also use a memoization function with lru_cache, but since the numbers can be up to 1e9, we need to use a unique identifier for each number
-        
-        # So, we can proceed with the following approach:
-        
-        # Use memoization with the current counts of each number and the current mod 11 value
-        
-        # The initial state is: all counts are zero, mod_11 is 0
-        
-        # We can use a recursive function with memoization
-        
-        from functools import lru_cache
-        
-        @lru_cache(maxsize=None)
-        def dp(counts, mod_11):
-            # counts is a tuple of the current counts of each number
-            # mod_11 is the current mod 11 value
-            # We need to return the number of ways to arrange the remaining numbers such that the final mod 11 is 0
-            
-            # If all counts are zero, we have a valid arrangement
-            if all(c == 0 for c in counts):
-                return 1 if mod_11 == 0 else 0
-            
-            total = 0
-            for i in range(len(unique_numbers)):
-                if counts[i] == 0:
+        for num in s:
+            new_dp = [0] * 11
+            num_hash = get_hash(num)
+            for rem in range(11):
+                if dp[rem] == 0:
                     continue
-                # Take one occurrence of this number
-                new_counts = list(counts)
-                new_counts[i] -= 1
-                new_counts = tuple(new_counts)
-                
-                # Compute the mod_11 contribution of this number
-                num = id_to_num[i]
-                num_val = int(str(num))
-                new_mod = (mod_11 * 10 + num_val) % 11
-                
-                # Recursively compute the number of ways
-                total += dp(new_counts, new_mod)
-                total %= MOD
-            
-            return total
+                # Add the current number at the end
+                new_rem = (rem * 10 + num_hash) % 11
+                new_dp[new_rem] = (new_dp[new_rem] + dp[rem]) % MOD
+                # Add the current number at the beginning
+                new_rem = (num_hash * 10 + rem) % 11
+                new_dp[new_rem] = (new_dp[new_rem] + dp[rem]) % MOD
+            dp = new_dp
         
-        # Initialize the counts with the frequencies of each number
-        initial_counts = tuple([freq[num] for num in unique_numbers])
-        
-        # Compute the answer
-        answer = dp(initial_counts, 0)
-        
-        results.append(answer)
+        results.append(dp[0] % MOD)
     
     for res in results:
         print(res)

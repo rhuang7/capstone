@@ -12,7 +12,7 @@ def solve():
     for _ in range(T):
         n = int(data[idx])
         idx += 1
-        words = data[idx:idx+n]
+        words = data[idx:idx + n]
         idx += n
         
         # Find the minimum length of the words
@@ -31,11 +31,11 @@ def solve():
             if all(substr in word for word in words):
                 common_substrings.append(substr)
         
-        # Sort by length (descending) and then lexicographically (ascending)
-        common_substrings.sort(key=lambda x: (-len(x), x))
-        
-        # Output the longest (and lex smallest in case of tie)
-        print(common_substrings[0])
+        # If there are common substrings, choose the smallest lexicographically
+        if common_substrings:
+            print(min(common_substrings))
+        else:
+            print("")
 
 if __name__ == '__main__':
     solve()

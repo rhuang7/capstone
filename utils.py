@@ -169,3 +169,23 @@ def extract_func_name(code: str):
 def human_eval_id(p):
     m = re.search(r'HumanEval_(\d+)\.py$', p.name)
     return int(m.group(1)) if m else float("inf")
+
+def mbpp_id(p):
+    m = re.search(r'mbpp_(\d+)\.py$', p.name)
+    return int(m.group(1)) if m else float("inf")
+
+def verifiable_coding_id(p):
+    m = re.search(r'verifiable_coding_(\d+)\.py$', p.name)
+    return int(m.group(1)) if m else float("inf")
+
+def key_name_update(the_name):
+    the_name_list = the_name.split('_')
+    out_name = ''
+    for n in the_name_list:
+        out_name = out_name + n
+        if n.isdigit():
+            out_name += '.py'
+            break
+        out_name += '_'
+    
+    return out_name

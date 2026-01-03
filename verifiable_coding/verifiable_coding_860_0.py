@@ -8,6 +8,7 @@ def solve():
     idx = 0
     T = int(data[idx])
     idx += 1
+    
     results = []
     
     for _ in range(T):
@@ -16,27 +17,25 @@ def solve():
         A = list(map(int, data[idx:idx+N]))
         idx += N
         
-        def can_finish(k):
+        # Binary search for the minimum K
+        left = 1
+        right = max(A)
+        answer = right
+        
+        while left <= right:
+            mid = (left + right) // 2
             hours = 0
             for a in A:
-                hours += a // k
-                if a % k != 0:
+                hours += a // mid
+                if a % mid != 0:
                     hours += 1
                 if hours > H:
-                    return False
-            return hours <= H
-        
-        low = 1
-        high = max(A)
-        answer = high
-        
-        while low <= high:
-            mid = (low + high) // 2
-            if can_finish(mid):
+                    break
+            if hours <= H:
                 answer = mid
-                high = mid - 1
+                right = mid - 1
             else:
-                low = mid + 1
+                left = mid + 1
         
         results.append(answer)
     

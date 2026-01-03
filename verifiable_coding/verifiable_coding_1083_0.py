@@ -4,8 +4,9 @@ def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
-    T = int(data[0])
-    idx = 1
+    idx = 0
+    T = int(data[idx])
+    idx += 1
     results = []
     for _ in range(T):
         N = int(data[idx])
@@ -19,31 +20,38 @@ def solve():
         # Total seats available
         total_seats = N * M
         
-        # Total armrests: each seat (except first and last) has one armrest between them
-        # First and last seat in a row have two armrests
-        # So total armrests = (M - 2) * N + 2 * N = M * N
-        total_armrests = N * M
+        # Total people that can be seated
+        # Each seat can be occupied by one person
+        max_people = total_seats
         
-        # Each 'B' uses 2 armrests (both left and right)
-        # Each 'L' uses 1 armrest (left)
-        # Each 'R' uses 1 armrest (right)
-        # 'Z' uses 0 armrests
+        # B people need both armrests, so they take one seat
+        # L people need left armrest, R need right
+        # Z need none
+        # We can seat all Z, L, R, B people as long as they fit in the seats
+        # But we need to make sure that the number of people that need armrests
+        # does not exceed the available armrests
         
-        # Maximum number of B that can be seated is min(B, total_armrests // 2)
-        max_B = min(B, total_armrests // 2)
-        B_used = min(B, total_armrests // 2)
-        remaining_armrests = total_armrests - 2 * B_used
+        # Calculate the number of armrests available
+        # Each seat has 1 armrest between two seats, and 2 at the ends
+        # So total armrests per row is M + 1
+        # Total armrests in the cinema: N * (M + 1)
+        total_armrests = N * (M + 1)
         
-        # After using B, we can seat L and R
-        # Each L uses 1 armrest (left), each R uses 1 armrest (right)
-        # So total armrests used by L and R is L + R
-        # But we can only use up to remaining_armrests
-        L_used = min(L, remaining_armrests)
-        R_used = min(R, remaining_armrests - L_used)
+        # B people need 2 armrests each
+        # L and R need 1 each
+        # Z need 0
+        # So total armrests needed is 2*B + L + R
+        required_armrests = 2 * B + L + R
         
-        # Total people is Z + L_used + R_used + B_used
-        total_people = Z + L_used + R_used + B_used
-        results.append(str(total_people))
+        # The maximum number of people is the minimum of:
+        # - total_seats (since each person needs one seat)
+        # - total_armrests (since each person needs armrests)
+        # - Z + L + R + B (total people)
+        # But we also have to consider that some people may not fit into the armrests
+        # So the answer is the minimum of these three values
+        max_people = min(total_seats, total_armrests, Z + L + R + B)
+        
+        results.append(str(max_people))
     
     print('\n'.join(results))
 

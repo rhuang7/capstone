@@ -1,13 +1,16 @@
 import sys
 import math
-from sys import stdin
-input = sys.stdin.buffer.read
+from collections import defaultdict, deque
+
 def solve():
+    import sys
+    input = sys.stdin.buffer.read
     data = input().split()
     idx = 0
     T = int(data[idx])
     idx += 1
     results = []
+    
     for _ in range(T):
         N, K = int(data[idx]), int(data[idx+1])
         idx += 2
@@ -21,36 +24,35 @@ def solve():
         A = list(map(int, data[idx:idx+N]))
         idx += N
         
-        # Build tree
-        from collections import deque
+        # Build tree and find leaves
         tree = [[] for _ in range(N+1)]
+        for u, v in zip(edges, edges):
+            tree[u].append(v)
+            tree[v].append(u)
+        
+        # BFS to find leaves
         visited = [False] * (N+1)
         q = deque()
         q.append(1)
         visited[1] = True
         while q:
             u = q.popleft()
-            for v in edges[u]:
+            for v in tree[u]:
                 if not visited[v]:
                     visited[v] = True
-                    tree[u].append(v)
                     q.append(v)
         
-        # Find all leaves
-        leaves = []
-        for i in range(1, N+1):
-            if len(tree[i]) == 0:
-                leaves.append(i)
+        leaves = [i for i in range(1, N+1) if not visited[i]]
         
-        # Try all leaves
+        # Check all paths from root to leaves
         possible = False
         for leaf in leaves:
-            # Find path from root to leaf
             path = []
             u = leaf
             while u != 1:
                 path.append(u)
                 u = 1
+                # Find parent of u
                 for v in tree[u]:
                     if v != 1:
                         u = v
@@ -58,104 +60,56 @@ def solve():
             path.append(1)
             path.reverse()
             
-            # Check if we can choose D values for this path
-            # and get K via XOR or AND
-            # For each node in path, D is in [2^(A[i]-1), 2^A[i})
-            # So for each node, D can be any value in that range
-            # We need to check if there exists a set of D's such that XOR or AND is K
+            # Check if it's possible to get K from this path
+            # For each node in path, choose D in [2^(A[i]-1), 2^A[i})
+            # Try XOR and AND
+            # Since the range is [2^(A[i]-1), 2^A[i}), the minimum is 2^(A[i]-1), maximum is 2^A[i) - 1
+            # So for each node, the D can be 2^(A[i]-1) or 2^A[i) - 1
+            # Try all combinations of these two options for each node
+            # But since A[i] can be up to 64, this is not feasible for large paths
+            # So we need a smarter approach
             
             # For XOR:
-            # We need to choose D_i in their ranges such that XOR of all D_i is K
+            # The XOR of all D's must be K
             # For AND:
-            # We need to choose D_i in their ranges such that AND of all D_i is K
+            # The AND of all D's must be K
             
-            # Let's try XOR first
+            # For each node, the D can be either 2^(A[i]-1) or 2^A[i) - 1
+            # So for XOR, we can try to find if there's a way to choose D's such that their XOR is K
+            # For AND, we can try to find if there's a way to choose D's such that their AND is K
+            
+            # Try XOR
             xor_val = 0
             for i in path:
                 a = A[i-1]
-                low = 1 << (a-1)
-                high = (1 << a) - 1
-                # Try to set the bit at position a-1 to 1
-                # If we can set it, then XOR can be adjusted
-                # But since we can choose any value in the range, we can try to set the bits
-                # We can try to find if it's possible to get K via XOR
-                # We can try to greedily set bits
-                # But since the ranges are [low, high], and low is 2^(a-1), high is 2^a - 1
-                # So for each node, the D_i can be any value in [low, high]
-                # We can try to find if there's a way to set the bits to get K
-                # Let's try to find if it's possible to get K via XOR
-                # We can try to greedily set bits
-                # Let's try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K via XOR
-                # We can try to find if it's possible to get K
+                min_d = 1 << (a-1)
+                max_d = (1 << a) - 1
+                if xor_val ^ min_d == K:
+                    xor_val = K
+                    break
+                if xor_val ^ max_d == K:
+                    xor_val = K
+                    break
+            if xor_val == K:
+                possible = True
+                break
+            
+            # Try AND
+            and_val = (1 << 64) - 1
+            for i in path:
+                a = A[i-1]
+                min_d = 1 << (a-1)
+                max_d = (1 << a) - 1
+                if and_val & min_d == K:
+                    and_val = K
+                    break
+                if and_val & max_d == K:
+                    and_val = K
+                    break
+            if and_val == K:
+                possible = True
+                break
+        
+        results.append("YES" if possible else "NO")
+    
+    print("\n".join(results))

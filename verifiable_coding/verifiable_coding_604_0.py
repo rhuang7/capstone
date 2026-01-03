@@ -23,12 +23,16 @@ def solve():
         for i in range(R):
             for j in range(C):
                 neighbors = 0
+                # Check up
                 if i > 0:
                     neighbors += 1
+                # Check down
                 if i < R - 1:
                     neighbors += 1
+                # Check left
                 if j > 0:
                     neighbors += 1
+                # Check right
                 if j < C - 1:
                     neighbors += 1
                 if neighbors <= grid[i][j]:
@@ -37,10 +41,13 @@ def solve():
             if not is_stable:
                 break
         
-        results.append("Stable" if is_stable else "Unstable")
+        if is_stable:
+            results.append("Stable")
+        else:
+            results.append("Unstable")
     
-    for res in results:
-        print(res)
+    for result in results:
+        print(result)
 
 if __name__ == '__main__':
     solve()

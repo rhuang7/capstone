@@ -4,63 +4,68 @@ def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
-    
     idx = 0
     T = int(data[idx])
     idx += 1
-    
     results = []
     
     for _ in range(T):
         n = int(data[idx])
         m = int(data[idx+1])
         idx += 2
-        
         grid = []
         for i in range(n):
             row = data[idx]
-            grid.append(row)
+            grid.append([c == '1' for c in row])
             idx += 1
-        
         S = data[idx]
         idx += 1
         
-        # Process forces
+        # Process each force
         for direction in S:
-            # Create a set of positions of particles
-            positions = set()
+            # Create a copy of the grid to track positions
+            new_grid = [[False for _ in range(m)] for _ in range(n)]
+            positions = []
+            
+            # Collect all positions with particles
             for i in range(n):
                 for j in range(m):
-                    if grid[i][j] == '1':
-                        positions.add((i, j))
+                    if grid[i][j]:
+                        positions.append((i, j))
             
             # Move particles in the given direction
-            new_positions = set()
-            for (i, j) in positions:
-                if direction == 'L':
-                    if j > 0 and grid[i][j-1] == '0':
-                        new_positions.add((i, j-1))
-                elif direction == 'R':
-                    if j < m-1 and grid[i][j+1] == '0':
-                        new_positions.add((i, j+1))
-                elif direction == 'U':
-                    if i > 0 and grid[i-1][j] == '0':
-                        new_positions.add((i-1, j))
-                elif direction == 'D':
-                    if i < n-1 and grid[i+1][j] == '0':
-                        new_positions.add((i+1, j))
+            if direction == 'L':
+                # Move left
+                for i, j in positions:
+                    if j > 0 and not grid[i][j-1]:
+                        new_grid[i][j-1] = True
+            elif direction == 'R':
+                # Move right
+                for i, j in positions:
+                    if j < m-1 and not grid[i][j+1]:
+                        new_grid[i][j+1] = True
+            elif direction == 'U':
+                # Move up
+                for i, j in positions:
+                    if i > 0 and not grid[i-1][j]:
+                        new_grid[i-1][j] = True
+            elif direction == 'D':
+                # Move down
+                for i, j in positions:
+                    if i < n-1 and not grid[i+1][j]:
+                        new_grid[i+1][j] = True
             
-            # Update grid
+            # Update the grid
             for i in range(n):
                 for j in range(m):
-                    if (i, j) in new_positions:
-                        grid[i] = grid[i][:j] + '1' + grid[i][j+1:]
-                    else:
-                        grid[i] = grid[i][:j] + '0' + grid[i][j+1:]
+                    grid[i][j] = new_grid[i][j]
         
-        # Prepare output
-        result = '\n'.join(grid)
-        results.append(result)
+        # Convert grid to binary strings
+        output = []
+        for i in range(n):
+            row = ''.join(['1' if grid[i][j] else '0' for j in range(m)])
+            output.append(row)
+        results.append('\n'.join(output))
     
     print('\n'.join(results))
 

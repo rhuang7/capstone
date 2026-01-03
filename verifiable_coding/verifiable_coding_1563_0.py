@@ -12,15 +12,11 @@ def solve():
         # Reverse the numbers
         a_rev = str(a)[::-1]
         b_rev = str(b)[::-1]
-        # Convert to integers
-        a_int = int(a_rev)
-        b_int = int(b_rev)
-        # Add them
-        sum_int = a_int + b_int
-        # Reverse the sum
-        sum_rev = str(sum_int)[::-1]
-        # Remove leading zeros
-        print(sum_rev.lstrip('0') or '0')
+        # Add the reversed numbers as integers
+        sum_rev = int(a_rev) + int(b_rev)
+        # Reverse the sum and remove leading zeros
+        result = str(sum_rev)[::-1].lstrip('0')
+        print(result)
 
 if __name__ == '__main__':
     solve()

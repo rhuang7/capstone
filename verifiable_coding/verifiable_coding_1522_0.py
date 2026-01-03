@@ -21,25 +21,48 @@ def solve():
             return 0
         if any(s[i] == '#' for i in range(p2+1, p3)):
             return 0
-        # Check if each segment has only one character
-        def check_segment(s, a, b):
-            if a >= b:
-                return False
-            c = s[a]
-            for i in range(a, b+1):
-                if s[i] != c:
-                    return False
-            return True
-        if not check_segment(s, 0, p1-1):
-            return 0
-        if not check_segment(s, p1+1, p2-1):
-            return 0
-        if not check_segment(s, p2+1, p3-1):
-            return 0
-        if not check_segment(s, p3+1, len(s)-1):
+        # Check if the parts between the '#' are all the same character
+        def get_part(s, a, b):
+            if a > b:
+                return ''
+            return s[a:b+1]
+        part1 = get_part(s, 0, p1-1)
+        part2 = get_part(s, p1+1, p2-1)
+        part3 = get_part(s, p2+1, p3-1)
+        part4 = get_part(s, p3+1, len(s)-1)
+        if len(part1) > 0 and len(part2) > 0 and len(part3) > 0 and len(part4) > 0:
+            if part1[0] != part2[0] or part2[0] != part3[0] or part3[0] != part4[0]:
+                return 0
+        elif len(part1) > 0 and len(part2) > 0 and len(part3) > 0:
+            if part1[0] != part2[0] or part2[0] != part3[0]:
+                return 0
+        elif len(part1) > 0 and len(part2) > 0 and len(part4) > 0:
+            if part1[0] != part2[0] or part2[0] != part4[0]:
+                return 0
+        elif len(part1) > 0 and len(part3) > 0 and len(part4) > 0:
+            if part1[0] != part3[0] or part3[0] != part4[0]:
+                return 0
+        elif len(part1) > 0 and len(part2) > 0:
+            if part1[0] != part2[0]:
+                return 0
+        elif len(part2) > 0 and len(part3) > 0:
+            if part2[0] != part3[0]:
+                return 0
+        elif len(part3) > 0 and len(part4) > 0:
+            if part3[0] != part4[0]:
+                return 0
+        elif len(part1) > 0:
+            return 1
+        elif len(part2) > 0:
+            return 1
+        elif len(part3) > 0:
+            return 1
+        elif len(part4) > 0:
+            return 1
+        else:
             return 0
         return len(s)
-
+    
     max_len = 0
     for s in cases:
         max_len = max(max_len, is_w_string(s))

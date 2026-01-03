@@ -13,26 +13,16 @@ def solve():
         queries.append((i, j))
         idx += 2
 
-    def get_ancestors(x):
-        ancestors = set()
-        while x > 0:
-            ancestors.add(x)
-            x = x // 2
-        return ancestors
-
     for i, j in queries:
-        ancestors_i = get_ancestors(i)
-        ancestors_j = get_ancestors(j)
-        common = ancestors_i & ancestors_j
-        if not common:
-            print(0)
-            continue
-        common = max(common)
-        depth_i = i.bit_length() - 1
-        depth_j = j.bit_length() - 1
-        depth_common = common.bit_length() - 1
-        distance = (depth_i - depth_common) + (depth_j - depth_common)
-        print(distance)
+        a, b = i, j
+        path = 0
+        while a != b:
+            if a > b:
+                a = a // 2
+            else:
+                b = b // 2
+            path += 1
+        print(path)
 
 if __name__ == '__main__':
     solve()

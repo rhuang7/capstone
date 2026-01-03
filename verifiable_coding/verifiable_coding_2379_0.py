@@ -8,6 +8,7 @@ def solve():
     idx = 0
     t = int(data[idx])
     idx += 1
+    
     results = []
     
     for _ in range(t):
@@ -18,48 +19,75 @@ def solve():
         
         # We need to assign each character to a subsequence such that no two adjacent characters are the same
         # We can track the last used pattern for each subsequence
-        # For each character, we try to assign it to the first subsequence that has the opposite last character
-        # If none, we start a new subsequence
+        # For each character, we try to assign it to a subsequence that ends with the opposite character
+        # If no such subsequence exists, we create a new one
         
-        # We'll keep track of the last character of each subsequence
-        # And the current number of subsequences
-        last_chars = []
-        k = 0
+        # We'll use a list to track the last character of each subsequence
+        # For example, if we have subsequences ending with '0' and '1', we can assign the next character to the appropriate one
+        last = []
         
         for c in s:
-            found = False
-            for i in range(len(last_chars)):
-                if last_chars[i] != c:
-                    last_chars[i] = c
-                    found = True
-                    break
-            if not found:
-                last_chars.append(c)
-                k += 1
-        
-        # Now we need to assign the indices to the subsequences
-        # We'll track for each subsequence the last character and the positions
-        # We'll use a list of lists to store the positions for each subsequence
-        # And then assign the indices accordingly
-        subseq_positions = [[] for _ in range(k)]
-        for i, c in enumerate(s):
-            for j in range(k):
-                if subseq_positions[j] and subseq_positions[j][-1] != c:
-                    subseq_positions[j].append(i)
-                    break
+            if c == '0':
+                # Try to find a subsequence ending with '1'
+                found = False
+                for i in range(len(last)):
+                    if last[i] == '1':
+                        last[i] = '0'
+                        found = True
+                        break
+                if not found:
+                    last.append('0')
             else:
-                subseq_positions[k-1].append(i)
+                # Try to find a subsequence ending with '0'
+                found = False
+                for i in range(len(last)):
+                    if last[i] == '0':
+                        last[i] = '1'
+                        found = True
+                        break
+                if not found:
+                    last.append('1')
         
-        # Now create the output list
-        output = [1] * n
-        for i in range(k):
-            for pos in subseq_positions[i]:
-                output[pos] = i + 1
+        # The number of subsequences is the length of 'last'
+        k = len(last)
+        # We need to record which subsequence each character belongs to
+        # We'll track the subsequence index for each character
+        res = []
+        # We'll track the last character of each subsequence
+        last_char = []
+        # We'll track the subsequence index for each character
+        subseq = []
         
-        results.append(f"{k}")
-        results.append(" ".join(map(str, output)))
+        for c in s:
+            if c == '0':
+                # Try to find a subsequence ending with '1'
+                found = False
+                for i in range(len(last_char)):
+                    if last_char[i] == '1':
+                        last_char[i] = '0'
+                        subseq.append(i + 1)
+                        found = True
+                        break
+                if not found:
+                    last_char.append('0')
+                    subseq.append(len(last_char))
+            else:
+                # Try to find a subsequence ending with '0'
+                found = False
+                for i in range(len(last_char)):
+                    if last_char[i] == '0':
+                        last_char[i] = '1'
+                        subseq.append(i + 1)
+                        found = True
+                        break
+                if not found:
+                    last_char.append('1')
+                    subseq.append(len(last_char))
+        
+        results.append(str(k))
+        results.append(' '.join(map(str, subseq)))
     
-    print("\n".join(results))
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

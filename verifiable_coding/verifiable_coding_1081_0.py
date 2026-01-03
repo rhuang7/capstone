@@ -1,24 +1,17 @@
 import sys
 
 def solve():
-    import sys
-    input = sys.stdin.buffer.read().split()
-    T = int(input[0])
-    cases = input[1:T+1]
-    
     key = [98, 57, 31, 45, 46]
-    
-    for s in cases:
-        encrypted = []
-        for i in range(len(s)):
-            msg_char = s[i]
-            msg_num = ord(msg_char) - ord('A')
-            key_num = key[i]
-            sum_val = msg_num + key_num
-            mod_val = sum_val % 26
-            encrypted_char = chr(mod_val + ord('A'))
-            encrypted.append(encrypted_char)
-        print(''.join(encrypted))
-        
+    data = sys.stdin.buffer.read().split()
+    T = int(data[0])
+    for i in range(1, T + 1):
+        S = data[i].decode()
+        encrypted = ""
+        for j in range(len(S)):
+            original = ord(S[j]) - ord('A')
+            sum_val = original + key[j]
+            encrypted += chr((sum_val % 26) + ord('A'))
+        print(encrypted)
+
 if __name__ == '__main__':
     solve()

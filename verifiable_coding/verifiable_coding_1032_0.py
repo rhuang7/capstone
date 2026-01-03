@@ -17,7 +17,7 @@ def solve():
             results.append(X % MOD)
             continue
         # The number of particles at time t is X * (t)^(t-1)
-        # But since t can be up to 1e18, we need to compute (N)^(N-1) mod MOD
+        # But since N can be up to 1e18, we need to compute (N)^(N-1) mod MOD
         # Using modular exponentiation
         power = pow(N, N-1, MOD)
         results.append((X * power) % MOD)

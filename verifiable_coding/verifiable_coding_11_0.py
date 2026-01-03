@@ -7,7 +7,7 @@ def solve():
     T = int(data[0])
     s_list = data[1:T+1]
 
-    def compute_grid(s):
+    def compute_grid_area(s):
         x = 0
         y = 0
         max_x = 0
@@ -32,12 +32,12 @@ def solve():
         return width * height
 
     for s in s_list:
-        original_area = compute_grid(s)
+        original_area = compute_grid_area(s)
         min_area = original_area
         for c in ['W', 'A', 'S', 'D']:
             for i in range(len(s) + 1):
                 new_s = s[:i] + c + s[i:]
-                area = compute_grid(new_s)
+                area = compute_grid_area(new_s)
                 if area < min_area:
                     min_area = area
         print(min_area)

@@ -2,35 +2,38 @@ import sys
 
 def solve():
     import sys
-    input = sys.stdin.buffer.read().split()
+    input = sys.stdin.buffer.read
+    data = input().split()
     idx = 0
-    S = int(input[idx])
+    S = int(data[idx])
     idx += 1
+    results = []
     for _ in range(S):
-        Ni = int(input[idx])
+        Ni = int(data[idx])
         idx += 1
-        H = list(map(int, input[idx:idx+Ni]))
+        H = list(map(int, data[idx:idx+Ni]))
         idx += Ni
         if H[0] != 1 or H[-1] != 1:
-            print("no")
+            results.append("no")
             continue
         center = Ni // 2
+        if Ni % 2 == 0:
+            results.append("no")
+            continue
         valid = True
         for i in range(center):
             if H[i] != H[i-1] + 1:
                 valid = False
                 break
         if not valid:
-            print("no")
+            results.append("no")
             continue
         for i in range(center+1, Ni):
             if H[i] != H[i-1] - 1:
                 valid = False
                 break
         if valid:
-            print("yes")
+            results.append("yes")
         else:
-            print("no")
-
-if __name__ == '__main__':
-    solve()
+            results.append("no")
+    print("\n".join(results))

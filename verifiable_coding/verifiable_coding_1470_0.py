@@ -5,9 +5,9 @@ def solve():
     input = sys.stdin.buffer.read
     data = input().split()
     T = int(data[0])
-    strings = data[1:T+1]
+    cases = data[1:T+1]
     
-    for s in strings:
+    for s in cases:
         count = 0
         n = len(s)
         for i in range(n):

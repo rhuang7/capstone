@@ -1,6 +1,6 @@
 import sys
 import math
-from collections import defaultdict
+from collections import defaultdict, deque
 
 def get_prime_factors(n):
     factors = set()
@@ -33,55 +33,76 @@ def solve():
     prime_to_index = {p: i for i, p in enumerate(K_factors)}
     num_primes = len(K_factors)
 
-    # Initialize segment tree
+    # Segment tree for range queries
     class SegmentTree:
         def __init__(self, size):
-            self.N = 1
-            while self.N < size:
-                self.N <<= 1
-            self.tree = [set() for _ in range(2 * self.N)]
-        
-        def update(self, l, r, x, node, node_l, node_r):
-            if r < node_l or l > node_r:
+            self.n = 1
+            while self.n < size:
+                self.n <<= 1
+            self.size = self.n
+            self.tree = [set() for _ in range(2 * self.n)]
+            self.lazy = [None] * (2 * self.n)
+
+        def push(self, node, l, r):
+            if self.lazy[node] is not None:
+                self.tree[node] = self.tree[node].union(self.lazy[node])
+                if l != r:
+                    self.lazy[2*node] = self.lazy[node].copy()
+                    self.lazy[2*node+1] = self.lazy[node].copy()
+                self.lazy[node] = None
+
+        def apply(self, node, l, r, val):
+            self.tree[node].add(val)
+            if l != r:
+                self.lazy[2*node] = self.lazy[2*node].copy() if self.lazy[2*node] is not None else set()
+                self.lazy[2*node].add(val)
+                self.lazy[2*node+1] = self.lazy[2*node+1].copy() if self.lazy[2*node+1] is not None else set()
+                self.lazy[2*node+1].add(val)
+
+        def update_range(self, a, b, val, node=1, l=0, r=None):
+            if r is None:
+                r = self.n - 1
+            self.push(node, l, r)
+            if a > r or b < l:
                 return
-            if l <= node_l and node_r <= r:
-                self.tree[node].add(x)
+            if a <= l and r <= b:
+                self.apply(node, l, r, val)
                 return
-            mid = (node_l + node_r) // 2
-            self.update(l, r, x, 2 * node, node_l, mid)
-            self.update(l, r, x, 2 * node + 1, mid + 1, node_r)
-            self.tree[node] = self.tree[2 * node] | self.tree[2 * node + 1]
-        
-        def query(self, l, r, node, node_l, node_r):
-            if r < node_l or l > node_r:
+            mid = (l + r) // 2
+            self.update_range(a, b, val, 2*node, l, mid)
+            self.update_range(a, b, val, 2*node+1, mid+1, r)
+            self.tree[node] = self.tree[2*node].union(self.tree[2*node+1])
+
+        def query_range(self, a, b, node=1, l=0, r=None):
+            if r is None:
+                r = self.n - 1
+            self.push(node, l, r)
+            if a > r or b < l:
                 return set()
-            if l <= node_l and node_r <= r:
+            if a <= l and r <= b:
                 return self.tree[node]
-            mid = (node_l + node_r) // 2
-            left = self.query(l, r, 2 * node, node_l, mid)
-            right = self.query(l, r, 2 * node + 1, mid + 1, node_r)
-            return left | right
+            mid = (l + r) // 2
+            left = self.query_range(a, b, 2*node, l, mid)
+            right = self.query_range(a, b, 2*node+1, mid+1, r)
+            return left.union(right)
 
     st = SegmentTree(10**5 + 2)
 
     for _ in range(Q):
         query_type = data[idx]
         idx += 1
-        l = int(data[idx])
+        l = int(data[idx]) - 1
         idx += 1
-        r = int(data[idx])
+        r = int(data[idx]) - 1
         idx += 1
         if query_type == '!':
             x = int(data[idx])
             idx += 1
-            st.update(l, r, x, 1, 1, st.N)
+            st.update_range(l, r, x)
         else:
-            res = st.query(l, r, 1, 1, st.N)
-            count = 0
+            primes_in_range = st.query_range(l, r)
+            result = 0
             for p in K_factors:
-                if p in res:
-                    count += 1
-            print(count)
-
-if __name__ == '__main__':
-    solve()
+                if p in primes_in_range:
+                    result += 1
+            print(result)

@@ -17,23 +17,37 @@ def solve():
         a = list(map(int, data[idx:idx+N]))
         idx += N
         
-        a.sort()
         min_diff = float('inf')
         count = 0
         
+        a.sort()
+        
         for i in range(N):
-            for j in range(i+1, N):
-                current_sum = a[i] + a[j]
+            left = i + 1
+            right = N - 1
+            target = K - a[i]
+            
+            while left <= right:
+                current_sum = a[left] + a[right]
                 diff = abs(current_sum - K)
+                
                 if diff < min_diff:
                     min_diff = diff
                     count = 1
                 elif diff == min_diff:
                     count += 1
+                
+                if current_sum == K:
+                    left += 1
+                    right -= 1
+                elif current_sum < K:
+                    left += 1
+                else:
+                    right -= 1
         
         results.append(f"{min_diff} {count}")
     
-    print("\n".join(results))
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

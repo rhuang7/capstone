@@ -20,16 +20,16 @@ def solve():
         idx += N
         
         # Calculate Alice's best possible sum
-        alice_total = sum(A)
-        alice_total -= min(A)
+        alice_sum = sum(A)
+        alice_sum -= min(A)
         
         # Calculate Bob's best possible sum
-        bob_total = sum(B)
-        bob_total -= min(B)
+        bob_sum = sum(B)
+        bob_sum -= min(B)
         
-        if alice_total < bob_total:
+        if alice_sum < bob_sum:
             results.append("Alice")
-        elif alice_total > bob_total:
+        elif alice_sum > bob_sum:
             results.append("Bob")
         else:
             results.append("Draw")

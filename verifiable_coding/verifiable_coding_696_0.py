@@ -1,5 +1,5 @@
 import sys
-import math
+import collections
 
 def solve():
     input = sys.stdin.buffer.read
@@ -22,16 +22,15 @@ def solve():
             idx += 2
         
         # Build graph of connected components
-        graph = [[] for _ in range(N+1)]  # 1-based
+        graph = collections.defaultdict(list)
         for L, R in intervals:
-            for i in range(L, R+1):
-                graph[i].append(i+1)
-                graph[i+1].append(i)
+            graph[L].append(R)
+            graph[R].append(L)
         
         # Find connected components
-        visited = [False] * (N+1)
+        visited = [False] * (N + 1)
         components = []
-        for i in range(1, N+1):
+        for i in range(1, N + 1):
             if not visited[i]:
                 stack = [i]
                 visited[i] = True
@@ -45,22 +44,18 @@ def solve():
                             stack.append(neighbor)
                 components.append(comp)
         
-        # Check if the target permutation is possible
+        # Check if the permutation can be achieved
         possible = True
         for comp in components:
-            # Get the positions in the component
-            positions = comp
-            # Get the values in the target permutation at these positions
-            values = [P[i-1] for i in positions]
-            # Check if the values can be rearranged within the component
-            # The values must be a permutation of the positions
-            if sorted(values) != sorted(positions):
+            # Get the positions in this component
+            pos = [i for i in range(1, N + 1) if i in comp]
+            # Get the values in this component of the target permutation
+            val = [P[i-1] for i in pos]
+            # Check if the values are a permutation of the positions
+            if sorted(val) != sorted(pos):
                 possible = False
                 break
         
         results.append("Possible" if possible else "Impossible")
     
-    sys.stdout.write('\n'.join(results) + '\n')
-
-if __name__ == '__main__':
-    solve()
+    print("\n".join(results))

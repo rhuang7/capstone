@@ -1,9 +1,9 @@
 import sys
 import sys
-from sys import stdin
-from collections import defaultdict, deque
+sys.setrecursionlimit(10000)
 
 def solve():
+    import sys
     input = sys.stdin.buffer.read
     data = input().split()
     idx = 0
@@ -15,7 +15,7 @@ def solve():
         N = int(data[idx])
         M = int(data[idx+1])
         idx += 2
-        adj = defaultdict(list)
+        adj = [[] for _ in range(N)]
         for _ in range(M):
             a = int(data[idx])
             b = int(data[idx+1])
@@ -26,17 +26,15 @@ def solve():
         visited = [False] * N
         count = 0
         
+        def dfs(u):
+            visited[u] = True
+            for v in adj[u]:
+                if not visited[v]:
+                    dfs(v)
+        
         for i in range(N):
             if not visited[i]:
-                queue = deque()
-                queue.append(i)
-                visited[i] = True
-                while queue:
-                    node = queue.popleft()
-                    for neighbor in adj[node]:
-                        if not visited[neighbor]:
-                            visited[neighbor] = True
-                            queue.append(neighbor)
+                dfs(i)
                 count += 1
         
         results.append(str(count))

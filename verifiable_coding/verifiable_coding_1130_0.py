@@ -17,7 +17,7 @@ def solve():
         ages = list(map(int, data[idx:idx+N]))
         idx += N
         
-        at_risk = sum(1 for a in ages if a <= 9 or a >= 80)
+        at_risk = sum(1 for age in ages if age <= 9 or age >= 80)
         non_risk = N - at_risk
         
         days = 0

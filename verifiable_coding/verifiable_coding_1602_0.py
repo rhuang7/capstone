@@ -21,26 +21,28 @@ def solve():
         
         A.sort()
         
-        days = 0
-        remaining = n
-        for day in range(1, 1501):
-            count = 0
-            for a in A:
-                if a > day:
-                    count += 1
-                else:
-                    break
-            if count < remaining:
-                break
-            remaining -= count
-            days += 1
-            if remaining == 0:
-                break
+        day = 1
+        count = 0
         
-        if remaining == 0:
-            results.append("Possible")
+        for exp in A:
+            if exp > day:
+                count += 1
+            else:
+                if count > 0:
+                    if count > x:
+                        results.append("Impossible")
+                        break
+                    count = 0
+                day += 1
+        
         else:
-            results.append("Impossible")
+            if count > 0:
+                if count > x:
+                    results.append("Impossible")
+                else:
+                    results.append("Possible")
+            else:
+                results.append("Possible")
     
     for res in results:
         print(res)

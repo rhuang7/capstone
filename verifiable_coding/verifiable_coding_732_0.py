@@ -8,6 +8,7 @@ def solve():
     T = int(data[idx])
     idx += 1
     results = []
+    
     for _ in range(T):
         N = int(data[idx])
         idx += 1
@@ -15,18 +16,27 @@ def solve():
         idx += N
         B = list(map(int, data[idx:idx+N]))
         idx += N
+        
         a_pos = 0
         b_pos = 0
         weird = 0
+        
         for i in range(N):
             a_speed = A[i]
             b_speed = B[i]
+            
             if a_speed == b_speed:
                 weird += a_speed
-            a_pos += a_speed
-            b_pos += b_speed
-        results.append(str(weird))
-    print('\n'.join(results))
+                a_pos += a_speed
+                b_pos += b_speed
+            else:
+                a_pos += a_speed
+                b_pos += b_speed
+        
+        results.append(weird)
+    
+    for res in results:
+        print(res)
 
 if __name__ == '__main__':
     solve()

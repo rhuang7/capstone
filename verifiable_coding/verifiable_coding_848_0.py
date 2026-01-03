@@ -20,9 +20,10 @@ def solve():
         max_sum = 0
         
         # Check all possible triplets in the circle
+        # Since it's a circle, we can consider all possible triplets by checking each position
+        # and considering the next two positions (wrapping around if needed)
         for i in range(N):
-            # Consider the current element and the next two elements
-            # Since it's a circle, wrap around
+            # Get the current, next, and next-next elements
             j = (i + 1) % N
             k = (i + 2) % N
             current_sum = X[i] + X[j] + X[k]

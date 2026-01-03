@@ -20,9 +20,9 @@ def solve():
             letter = 0
             for bit in bits:
                 letter = (letter << 1) | int(bit)
-            result += chr(ord('a') + letter)
+            result += chr(letter + ord('a'))
         
         print(result)
-        
+
 if __name__ == '__main__':
     solve()

@@ -5,7 +5,7 @@ def solve():
     input = sys.stdin.buffer.read
     data = input().split()
     N = int(data[0])
-    A = list(map(int, data[1:]))
+    A = list(map(int, data[1:N+1]))
     
     prefix_sum = 0
     sum_count = {}

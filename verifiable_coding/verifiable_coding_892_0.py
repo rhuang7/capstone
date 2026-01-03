@@ -16,50 +16,63 @@ def solve():
         A = list(map(int, data[idx:idx+N]))
         idx += N
         
-        # If K is 1, the monkey can only move to next cell if it's same parity
+        # If K is 1, the monkey can only move to the next cell
         if K == 1:
-            # Check if all cells have same parity
+            # Check if all cells have the same parity
             parity = A[0] % 2
-            possible = True
             for i in range(1, N):
                 if A[i] % 2 != parity:
-                    possible = False
+                    results.append(-1)
                     break
-            if possible:
-                results.append(str(N))
             else:
-                results.append("-1")
+                results.append(N)
             continue
         
-        # BFS approach
+        # Use BFS to find the minimum steps
         from collections import deque
         
-        # For each position, track the minimum steps to reach it
-        dist = [-1] * N
-        dist[0] = 1
+        # Each state is (position, steps, parity)
+        # We need to track visited positions and their parity
+        visited = [ [False]*2 for _ in range(N) ]
+        queue = deque()
+        # Start from position 0 (0-based), with 0 steps, and parity of A[0]
+        queue.append( (0, 0, A[0] % 2) )
+        visited[0][A[0] % 2] = True
         
-        # Use a priority queue (Dijkstra's algorithm) to process cells in order of steps
-        heap = [(1, 0)]  # (steps, position)
+        found = False
+        answer = -1
         
-        while heap:
-            steps, pos = heapq.heappop(heap)
-            if pos == N - 1:
-                results.append(str(steps))
-                break
-            if dist[pos] < steps:
+        while queue:
+            pos, steps, parity = queue.popleft()
+            
+            # If we are at the last cell, check if we can jump out
+            if pos == N-1:
+                # If distance from last cell is less than K, we can jump out
+                if N - pos <= K:
+                    answer = steps + 1
+                    found = True
+                    break
+                else:
+                    # Check if we can jump to the last cell
+                    if pos + 1 <= N-1 and (pos + 1 - pos) <= K and (A[pos] % 2 == A[pos+1] % 2):
+                        answer = steps + 1
+                        found = True
+                        break
                 continue
-            # Check if we can jump to the end
-            if N - pos - 1 < K:
-                results.append(str(steps + 1))
-                break
-            # Try to jump to cells j where j > pos, j - pos <= K, and A[pos] % 2 == A[j] % 2
-            parity = A[pos] % 2
-            for j in range(pos + 1, min(pos + K + 1, N)):
+            
+            # Try to jump to next cells
+            for j in range(pos+1, min(pos+K+1, N)):
+                if j - pos > K:
+                    continue
                 if A[j] % 2 == parity:
-                    if dist[j] == -1 or dist[j] > steps + 1:
-                        dist[j] = steps + 1
-                        heapq.heappush(heap, (steps + 1, j))
-        else:
-            results.append("-1")
+                    if not visited[j][A[j] % 2]:
+                        visited[j][A[j] % 2] = True
+                        queue.append( (j, steps + 1, A[j] % 2) )
+        
+        results.append(answer if found else -1)
     
-    print("\n".join(results))
+    for res in results:
+        print(res)
+
+if __name__ == '__main__':
+    solve()

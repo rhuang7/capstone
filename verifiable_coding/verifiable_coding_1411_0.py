@@ -17,74 +17,30 @@ def solve():
         B = int(data[index+3])
         index += 4
         
-        # Calculate the relative speed
-        relative_speed = abs(A - B)
+        # Calculate relative speed
+        rel_speed = abs(A - B)
         
-        # Calculate the number of meetings
-        # Each meeting happens when the faster one gains a full lap on the slower one
-        # So the number of meetings is the floor of (relative_speed * X) // (2 * pi * R)
-        # But since we are only interested in the number of times they meet before either completes X rounds,
-        # we can use the formula: min(X, (relative_speed * X) // (2 * pi * R))
-        # However, since the track is circular, the number of meetings is (relative_speed * X) // (2 * pi * R)
-        # But since we are dealing with integers, we can simplify it to (relative_speed * X) // (2 * pi * R)
-        # But since pi is not an integer, we can use the fact that the number of meetings is (relative_speed * X) // (2 * R)
-        # Because the circumference is 2 * pi * R, but since we are dealing with integer rounds, we can use 2 * R as a proxy
-        # for the circumference
-        # So the number of meetings is (relative_speed * X) // (2 * R)
-        # But since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # However, since the relative speed is positive, the number of meetings is (relative_speed * X) // (2 * R)
-        # But since we are dealing with integer rounds, the number of meetings is (relative_speed * X) // (2 * R)
-        # However, since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # But since the relative speed is positive, the number of meetings is (relative_speed * X) // (2 * R)
-        # But since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # However, since the relative speed is positive, the number of meetings is (relative_speed * X) // (2 * R)
-        # But since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # However, since the relative speed is positive, the number of meetings is (relative_speed * X) // (2 * R)
-        # But since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # However, since the relative speed is positive, the number of meetings is (relative_speed * X) // (2 * R)
-        # But since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # However, since the relative speed is positive, the number of meetings is (relative_speed * X) // (2 * R)
-        # But since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # However, since the relative speed is positive, the number of meetings is (relative_speed * X) // (2 * R)
-        # But since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # However, since the relative speed is positive, the number of meetings is (relative_speed * X) // (2 * R)
-        # But since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # However, since the relative speed is positive, the number of meetings is (relative_speed * X) // (2 * R)
-        # But since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # However, since the relative speed is positive, the number of meetings is (relative_speed * X) // (2 * R)
-        # But since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # However, since the relative speed is positive, the number of meetings is (relative_speed * X) // (2 * R)
-        # But since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # However, since the relative speed is positive, the number of meetings is (relative_speed * X) // (2 * R)
-        # But since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # However, since the relative speed is positive, the number of meetings is (relative_speed * X) // (2 * R)
-        # But since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # However, since the relative speed is positive, the number of meetings is (relative_speed * X) // (2 * R)
-        # But since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # However, since the relative speed is positive, the number of meetings is (relative_speed * X) // (2 * R)
-        # But since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # However, since the relative speed is positive, the number of meetings is (relative_speed * X) // (2 * R)
-        # But since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # However, since the relative speed is positive, the number of meetings is (relative_speed * X) // (2 * R)
-        # But since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # However, since the relative speed is positive, the number of meetings is (relative_speed * X) // (2 * R)
-        # But since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # However, since the relative speed is positive, the number of meetings is (relative_speed * X) // (2 * R)
-        # But since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # However, since the relative speed is positive, the number of meetings is (relative_speed * X) // (2 * R)
-        # But since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # However, since the relative speed is positive, the number of meetings is (relative_speed * X) // (2 * R)
-        # But since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # However, since the relative speed is positive, the number of meetings is (relative_speed * X) // (2 * R)
-        # But since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # However, since the relative speed is positive, the number of meetings is (relative_speed * X) // (2 * R)
-        # But since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # However, since the relative speed is positive, the number of meetings is (relative_speed * X) // (2 * R)
-        # But since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # However, since the relative speed is positive, the number of meetings is (relative_speed * X) // (2 * R)
-        # But since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # However, since the relative speed is positive, the number of meetings is (relative_speed * X) // (2 * R)
-        # But since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # However, since the relative speed is positive, the number of meetings is (relative_speed * X) // (2 * R)
-        # But since the problem says "before any of them finishes X rounds", we need to take the minimum of X and the number of meetings
-        # However, since the relative speed is positive, the number of meetings is (relative_speed *
+        # Calculate total distance covered by both in X rounds
+        # Since they are on a circular track, the number of meetings is determined by how many times the faster one laps the slower one
+        # The number of meetings is floor((A * X - B * X) / (A + B)) if A > B, else floor((B * X - A * X) / (A + B))
+        # But since they start at the same point, the first meeting is not counted if they start together
+        # So we use floor((A * X - B * X) / (A + B)) if A > B, else floor((B * X - A * X) / (A + B))
+        # But since they start together, we subtract 1 if the faster one laps the slower one at least once
+        if A > B:
+            meetings = (A * X - B * X) // (A + B)
+        else:
+            meetings = (B * X - A * X) // (A + B)
+        
+        # Subtract 1 if the faster one laps the slower one at least once
+        if A > B and (A * X - B * X) > 0:
+            meetings -= 1
+        elif B > A and (B * X - A * X) > 0:
+            meetings -= 1
+        
+        results.append(meetings)
+    
+    for res in results:
+        print(res)
+
+if __name__ == '__main__':
+    solve()

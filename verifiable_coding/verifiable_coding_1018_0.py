@@ -17,15 +17,28 @@ def solve():
         idx += N
         
         # Calculate the difference between each pair of consecutive plants
-        diffs = []
-        for i in range(N-1):
-            diff = A[i] - A[i+1]
-            diffs.append(diff)
+        diff = [A[i] - A[i+1] for i in range(N-1)]
         
-        # Find the minimum time when two plants have the same height
-        # For each pair, the time when they meet is (diff) / (i - (i+1)) = diff / (-1) = -diff
-        # But since we want the minimum positive time, we take the absolute value
-        min_time = min(abs(diff) for diff in diffs)
+        # Find the minimum time when any two plants have the same height
+        # The time for plant i and plant j (i < j) to have same height is (A[i] - A[j]) / (j - i)
+        # We need to find the minimum such time
+        min_time = float('inf')
+        
+        for i in range(N-1):
+            for j in range(i+1, N):
+                if diff[j - i - 1] == 0:
+                    min_time = 0
+                    break
+                if diff[j - i - 1] < 0:
+                    continue
+                time = diff[j - i - 1] // (j - i)
+                if diff[j - i - 1] % (j - i) != 0:
+                    time += 1
+                if time < min_time:
+                    min_time = time
+            if min_time == 0:
+                break
+        
         results.append(str(min_time))
     
     print('\n'.join(results))

@@ -8,6 +8,7 @@ def solve():
     idx = 0
     T = int(data[idx])
     idx += 1
+    
     results = []
     
     for _ in range(T):
@@ -32,145 +33,26 @@ def solve():
         time_walk = dist_walk * P
         
         # Time to take the train
-        # Check if the train is available at time Y
-        # Check if A is at C and B is at D
-        # Check if the train can be taken at C and arrive at D
-        # Check if the train starts at Y and can be boarded before Y
-        # Check if the train is on the correct route
-        # Check if the train is going from C to D (x[C] < x[D])
-        if xc < xd:
-            # Train is going from C to D
-            # Check if the train starts at Y and can be boarded before Y
-            # Check if the train can be boarded at C and leave at D
-            # Check if the train can be used to go from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
-            # Check if the train is going from C to D
-            # Check if the train is on the correct route
+        # Check if Guru can take the train at time Y
+        # Time to reach city C by walking
+        time_to_c = abs(xc - xa) * P
+        if time_to_c > Y:
+            time_train = float('inf')
+        else:
+            # Time to take the train from C to D
+            dist_train = abs(xd - xc)
+            time_train = dist_train * Q
+            # Time to reach D from D (0)
+            # Time to walk from D to B
+            time_from_d = abs(xb - xd) * P
+            total_time_train = time_train + time_from_d
+            time_train = total_time_train
+        
+        # Minimum time
+        min_time = min(time_walk, time_train)
+        results.append(str(min_time))
+    
+    print('\n'.join(results))
+
+if __name__ == '__main__':
+    solve()

@@ -17,30 +17,29 @@ def solve():
             b = int(data[idx + 1])
             idx += 2
             shares.append((a, b))
-        # Sort shares by a_i in ascending order and by b_i in descending order
+        # Sort shares by a_i in ascending order and then by b_i in descending order
         shares.sort(key=lambda x: (x[0], -x[1]))
         # Find the longest increasing subsequence of b_i
         # Since a_i is already sorted, we only need to check b_i
         # We can use a greedy algorithm with binary search
-        # This is similar to the Longest Increasing Subsequence problem
-        # But since we want the maximum number of shares, we can use a patience sorting approach
-        # We'll use a list to keep track of the smallest possible tail of all increasing subsequences
+        # to find the length of the longest increasing subsequence
+        # of b_i
+        # This is O(N log N) time
+        # Initialize a list to store the smallest possible tail of all increasing subsequences
         # with length i+1
         tails = []
         for a, b in shares:
-            # Find the first element in tails that is >= b
-            # Using binary search
-            left, right = 0, len(tails)
-            while left < right:
-                mid = (left + right) // 2
-                if tails[mid] >= b:
-                    right = mid
-                else:
-                    left = mid + 1
-            if left == len(tails):
+            # Use binary search to find the first element in tails >= b
+            # If found, replace it with b
+            # Otherwise, append b
+            # This is the standard LIS algorithm
+            # Using bisect_left
+            import bisect
+            idx_b = bisect.bisect_left(tails, b)
+            if idx_b == len(tails):
                 tails.append(b)
             else:
-                tails[left] = b
+                tails[idx_b] = b
         results.append(len(tails))
     for res in results:
         print(res)

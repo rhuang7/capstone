@@ -13,17 +13,16 @@ def solve():
     for _ in range(t):
         n = int(data[idx])
         idx += 1
-        s = list(map(int, data[idx:idx + n]))
+        s = list(map(int, data[idx:idx+n]))
         idx += n
         
         s.sort()
         min_diff = float('inf')
         
-        for i in range(n - 1):
-            # Split after i-th element
-            # Team A is first i+1 elements, team B is remaining
+        for i in range(n-1):
+            # Split at i: team A is first i+1 elements, team B is remaining
             max_a = s[i]
-            min_b = s[i + 1]
+            min_b = s[i+1]
             diff = abs(max_a - min_b)
             if diff < min_diff:
                 min_diff = diff

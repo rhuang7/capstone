@@ -2,8 +2,8 @@ import sys
 
 def solve():
     import sys
-    input = sys.stdin.buffer.read().decode().split()
-    s = input[0]
+    input = sys.stdin.buffer.read().split()
+    s = input[0].decode()
     n = len(s)
     res = 0
     for i in range(n):

@@ -18,6 +18,6 @@ def solve():
                 else:
                     res.append(i-1)
             print(' '.join(map(str, res)))
-
+    
 if __name__ == '__main__':
     solve()

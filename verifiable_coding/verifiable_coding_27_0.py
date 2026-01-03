@@ -1,4 +1,5 @@
 import sys
+import math
 
 def solve():
     import sys
@@ -13,24 +14,20 @@ def solve():
     for _ in range(t):
         n = int(data[idx])
         idx += 1
-        a = list(map(int, data[idx:idx+n]))
+        a = list(map(int, data[idx:idx + n]))
         idx += n
         
         count = 0
         freq = {}
-        
         for num in a:
-            current = num
-            while current % 2 == 0:
-                current //= 2
-                if current in freq:
-                    freq[current] += 1
+            while num % 2 == 0:
+                num //= 2
+                if num in freq:
+                    freq[num] += 1
                 else:
-                    freq[current] = 1
-        
+                    freq[num] = 1
         for key in freq:
             count += freq[key]
-        
         results.append(str(count))
     
     print('\n'.join(results))

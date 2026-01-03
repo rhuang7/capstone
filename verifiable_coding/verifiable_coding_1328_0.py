@@ -10,33 +10,21 @@ def solve():
         n = int(n_str)
         min_ops = float('inf')
 
-        # Generate all possible lucky numbers with length equal to len(n_str)
-        from itertools import product
-        for bits in product([0, 1], repeat=len(n_str)):
-            lucky = ''
-            for b in bits:
-                if b == 0:
-                    lucky += '4'
+        # Check all possible lucky numbers with the same length as n
+        for length in range(1, len(n_str)+1):
+            for lucky in ['4', '7'] * (length // 2) + ['4', '7'] * (length % 2):
+                lucky_num = int(''.join(lucky))
+                if lucky_num < n:
+                    ops = len(n_str) - len(str(lucky_num)) + (len(str(lucky_num)) - len(str(n)))
+                    min_ops = min(min_ops, ops)
                 else:
-                    lucky += '7'
-            ops = 0
-            for i in range(len(n_str)):
-                if lucky[i] != n_str[i]:
-                    ops += 1
-            min_ops = min(min_ops, ops)
+                    ops = len(n_str) - len(str(lucky_num)) + (len(str(lucky_num)) - len(str(n)))
+                    min_ops = min(min_ops, ops)
 
-        # Check all possible lucky numbers with length len(n_str) + 1
-        for bits in product([0, 1], repeat=len(n_str) + 1):
-            lucky = ''
-            for b in bits:
-                if b == 0:
-                    lucky += '4'
-                else:
-                    lucky += '7'
-            ops = 0
-            for i in range(len(n_str)):
-                if lucky[i] != n_str[i]:
-                    ops += 1
+        # Check all possible lucky numbers with length + 1
+        for lucky in ['4', '7'] * (len(n_str) // 2) + ['4', '7'] * (len(n_str) % 2):
+            lucky_num = int(''.join(lucky))
+            ops = len(n_str) + 1 - len(str(lucky_num)) + (len(str(lucky_num)) - len(str(n)))
             min_ops = min(min_ops, ops)
 
         return min_ops

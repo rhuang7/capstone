@@ -1,18 +1,16 @@
 import sys
+import sys
+sys.setrecursionlimit(1000000)
 
 def solve():
     import sys
-    sys.setrecursionlimit(1000000)
-    data = sys.stdin.buffer.read().split()
+    input = sys.stdin.buffer.read
+    data = input().split()
     idx = 0
     N = int(data[idx])
     idx += 1
     M = int(data[idx])
     idx += 1
-
-    if M != N - 1:
-        print("NO")
-        return
 
     from collections import defaultdict
     graph = defaultdict(list)
@@ -25,18 +23,24 @@ def solve():
         graph[v].append(u)
 
     visited = [False] * (N + 1)
+    parent = [0] * (N + 1)
 
-    def dfs(node):
+    def dfs(node, p):
         visited[node] = True
+        parent[node] = p
         for neighbor in graph[node]:
             if not visited[neighbor]:
-                if not dfs(neighbor):
-                    return False
-            else:
-                return False
-        return True
+                if dfs(neighbor, node):
+                    return True
+            elif neighbor != p:
+                return True
+        return False
 
-    if not dfs(1):
+    if M != N - 1:
+        print("NO")
+        return
+
+    if dfs(1, -1):
         print("NO")
     else:
         print("YES")

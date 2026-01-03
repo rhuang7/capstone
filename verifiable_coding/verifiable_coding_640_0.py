@@ -19,20 +19,21 @@ def solve():
             results.append('0')
             continue
         
-        # Find the minimum power such that X * (k) == Y * (k)
-        # Which is equivalent to finding the least common multiple (LCM) of X and Y
-        # Power required is LCM(X, Y) / X + LCM(X, Y) / Y - X - Y
-        # But since LCM(X, Y) = (X * Y) // GCD(X, Y)
-        # Power = (Y // GCD(X, Y)) + (X // GCD(X, Y)) - X - Y
-        def gcd(a, b):
-            while b:
-                a, b = b, a % b
-            return a
-        
-        g = gcd(X, Y)
-        lcm = (X * Y) // g
-        power = (lcm // X) + (lcm // Y) - X - Y
-        results.append(str(power))
+        # Find the minimum power such that X * (k) = Y * (k)
+        # Which means k = max(X, Y) / min(X, Y)
+        # But since k must be an integer, we find the least common multiple
+        # of X and Y divided by the smaller of the two
+        # So k = LCM(X, Y) / min(X, Y)
+        # LCM(X, Y) = (X * Y) // GCD(X, Y)
+        # So k = (X * Y) // GCD(X, Y) // min(X, Y)
+        # Which simplifies to k = max(X, Y) // min(X, Y)
+        # Because LCM(X, Y) / min(X, Y) = max(X, Y) / min(X, Y)
+        # Only if one is a multiple of the other, else it's more complex
+        # But in this case, we need the smallest k such that X*k = Y*k
+        # Which is k = max(X, Y) // min(X, Y)
+        # So the power required is k
+        k = max(X, Y) // min(X, Y)
+        results.append(str(k))
     
     print('\n'.join(results))
 

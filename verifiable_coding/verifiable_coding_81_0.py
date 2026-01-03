@@ -19,11 +19,29 @@ def solve():
             if a[i] != b[i]:
                 possible = False
                 break
-        
         if possible:
             print("YES")
-        else:
-            print("NO")
+            continue
+        
+        possible = True
+        for i in range(len(a)):
+            if a[i] != b[i]:
+                possible = False
+                break
+        if possible:
+            print("YES")
+            continue
+        
+        possible = True
+        for i in range(len(a)):
+            if a[i] != b[i]:
+                possible = False
+                break
+        if possible:
+            print("YES")
+            continue
+        
+        print("NO")
 
 if __name__ == '__main__':
     solve()

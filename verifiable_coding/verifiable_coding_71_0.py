@@ -11,17 +11,16 @@ def solve():
     for _ in range(t):
         n = int(data[idx])
         idx += 1
-        a = list(map(int, data[idx:idx+n]))
+        a = list(map(int, data[idx:idx + n]))
         idx += n
-        # Compute prefix sums
+        # Compute the prefix sums of the array
         prefix = [0] * (n + 1)
         for i in range(n):
-            prefix[i+1] = prefix[i] + a[i]
-        # Compute the required coins
+            prefix[i + 1] = prefix[i] + a[i]
+        # The coins needed is the sum of the absolute values of the prefix sums except the last one
         coins = 0
         for i in range(1, n):
-            if prefix[i] > 0:
-                coins += prefix[i]
+            coins += abs(prefix[i])
         results.append(str(coins))
     print('\n'.join(results))
 

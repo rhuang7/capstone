@@ -33,7 +33,7 @@ def solve():
         queries.append((x1, y1, x2, y2))
     
     # Create a 2D array to track the number of flips
-    flip = [[0] * (M + 1) for _ in range(N + 1)]
+    flip = [[0] * (M + 2) for _ in range(N + 2)]
     
     for x1, y1, x2, y2 in queries:
         flip[x1][y1] += 1
@@ -43,11 +43,11 @@ def solve():
     
     for i in range(1, N + 1):
         for j in range(1, M + 1):
-            flip[i][j] += flip[i - 1][j]
-            flip[i][j] += flip[i][j - 1]
-            flip[i][j] -= flip[i - 1][j - 1]
-            if flip[i][j] % 2 == 1:
-                matrix[i - 1][j - 1] = 1 - matrix[i - 1][j - 1]
+            flip[i][j] += flip[i - 1][j] + flip[i][j - 1] - flip[i - 1][j - 1]
+    
+    for i in range(N):
+        for j in range(M):
+            matrix[i][j] ^= flip[i + 1][j + 1] % 2
     
     for row in matrix:
         print(''.join(map(str, row)))

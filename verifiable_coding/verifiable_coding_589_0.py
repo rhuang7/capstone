@@ -6,36 +6,29 @@ def solve():
     data = input().split()
     
     T = int(data[0])
-    results = []
+    cases = data[1:T+1]
     
-    idx = 1
-    for _ in range(T):
-        P = data[idx]
-        idx += 1
-        
+    for P in cases:
         max_jump = 1
         days = 0
-        
         i = 0
-        while i < len(P):
+        n = len(P)
+        while i < n:
             if P[i] == '#':
                 i += 1
-                continue
-            # Find the next '#'
-            j = i + 1
-            while j < len(P) and P[j] == '.':
-                j += 1
-            if j >= len(P):
-                break
-            required = j - i
-            if required > max_jump:
-                days += 1
-                max_jump = required
-            i = j + 1
-        
-        results.append(str(days))
-    
-    print('\n'.join(results))
+            else:
+                # Find the next '#'
+                j = i + 1
+                while j < n and P[j] == '.':
+                    j += 1
+                if j >= n:
+                    break
+                required = j - i
+                if required > max_jump:
+                    days += 1
+                    max_jump = required
+                i = j + 1
+        print(days)
 
 if __name__ == '__main__':
     solve()

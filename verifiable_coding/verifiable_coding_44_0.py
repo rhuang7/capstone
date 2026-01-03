@@ -2,11 +2,9 @@ import sys
 import math
 
 def solve():
-    import sys
-    input = sys.stdin.buffer.read
-    data = input().split()
-    t = int(data[0])
-    cases = list(map(int, data[1:t+1]))
+    input = sys.stdin.buffer.read().split()
+    t = int(input[0])
+    cases = list(map(int, input[1:t+1]))
     
     for n in cases:
         res = []

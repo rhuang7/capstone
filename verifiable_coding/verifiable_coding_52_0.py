@@ -13,21 +13,18 @@ def solve():
     a.sort()
     
     # Use a min-heap for a and a max-heap for b
-    # Since Python only has a min-heap, we can invert the values for max-heap
-    a_heap = a
-    b_heap = [-x for x in a]
+    heapq.heapify(a)
     
-    # Heapify
-    heapq.heapify(a_heap)
-    heapq.heapify(b_heap)
+    # Create a max-heap for the second part
+    b = [-x for x in a]
+    heapq.heapify(b)
     
     total = 0
     for i in range(n):
-        # Get the smallest element from a
-        a_val = heapq.heappop(a_heap)
-        # Get the largest element from b (inverted)
-        b_val = -heapq.heappop(b_heap)
-        total += a_val * b_val
+        # Take the smallest from a and the largest from b
+        smallest = heapq.heappop(a)
+        largest = -heapq.heappop(b)
+        total += smallest * largest
         total %= MOD
     
     print(total % MOD)

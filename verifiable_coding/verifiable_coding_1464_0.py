@@ -1,7 +1,7 @@
 import sys
-import datetime
+import calendar
 
-def is_leap_year(year):
+def is_leap(year):
     if year % 4 != 0:
         return False
     elif year % 100 != 0:
@@ -9,11 +9,13 @@ def is_leap_year(year):
     else:
         return year % 400 == 0
 
-def get_next_date(date_str):
-    year, month, day = map(int, date_str.split(':'))
-    date = datetime.date(year, month, day)
-    next_date = date + datetime.timedelta(days=1)
-    return next_date.strftime("%Y:%m:%d")
+def days_in_month(year, month):
+    if month == 2:
+        return 29 if is_leap(year) else 28
+    elif month in [4, 6, 9, 11]:
+        return 30
+    else:
+        return 31
 
 def solve():
     import sys
@@ -22,26 +24,31 @@ def solve():
     cases = input[1:T+1]
     
     for case in cases:
-        date_str = case.decode('utf-8')
-        year, month, day = map(int, date_str.split(':'))
-        date = datetime.date(year, month, day)
-        next_date = date + datetime.timedelta(days=1)
-        next_date_str = next_date.strftime("%Y:%m:%d")
-        
-        # Check if next date is even or odd
-        day = int(date_str.split(':')[2])
-        if day % 2 == 0:
-            # Should take pill on even days
-            if int(next_date_str.split(':')[2]) % 2 != 0:
-                print(1)
-            else:
-                print(2)
+        y, m, d = map(int, case.split(':'))
+        if d % 2 == 1:
+            correct_day = 1
         else:
-            # Should take pill on odd days
-            if int(next_date_str.split(':')[2]) % 2 != 1:
-                print(1)
+            correct_day = 2
+        
+        count = 1
+        current_day = d
+        current_month = m
+        current_year = y
+        
+        while True:
+            current_day += 1
+            if current_day > days_in_month(current_year, current_month):
+                current_month += 1
+                if current_month > 12:
+                    current_year += 1
+                    current_month = 1
+                current_day = 1
+            if current_day % 2 == correct_day % 2:
+                count += 1
             else:
-                print(2)
+                break
+        
+        print(count)
 
 if __name__ == '__main__':
     solve()

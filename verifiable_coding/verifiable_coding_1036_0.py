@@ -22,7 +22,7 @@ def read_input():
     return results
 
 def get_cells(start, end):
-    x1, y1, x2, y2 = start, end
+    x1, y1, x2, y2 = start[0], start[1], end[0], end[1]
     cells = set()
     if x1 == x2:
         for y in range(min(y1, y2), max(y1, y2) + 1):
@@ -32,53 +32,49 @@ def get_cells(start, end):
             cells.add((x, y1))
     return cells
 
-def get_edges(cells):
-    edges = set()
-    for (x, y) in cells:
-        if x > 0:
-            edges.add(( (x-1, y), (x, y) ))
-        if x < 10**9:
-            edges.add(( (x+1, y), (x, y) ))
-        if y > 0:
-            edges.add(( (x, y-1), (x, y) ))
-        if y < 10**9:
-            edges.add(( (x, y+1), (x, y) ))
-    return edges
-
-def is_valid(cells):
-    edge_set = get_edges(cells)
-    adj = {}
-    for (x, y) in cells:
-        adj[(x, y)] = []
-    for a, b in edge_set:
-        adj[a].append(b)
-        adj[b].append(a)
-    for (x, y) in cells:
-        if len(adj[(x, y)]) > 2:
-            return False
-    return True
-
 def solve():
     data = read_input()
-    for x11, y11, x12, y12, x21, y21, x22, y22 in data:
-        cells1 = get_cells((x11, y11), (x12, y12))
-        cells2 = get_cells((x21, y21), (x22, y22))
-        union = cells1.union(cells2)
-        if not is_valid(union):
-            print("no")
-            continue
-        # Check if the union is connected
+    for case in data:
+        x11, y11, x12, y12, x21, y21, x22, y22 = case
+        snake1 = [(x11, y11), (x12, y12)]
+        snake2 = [(x21, y21), (x22, y22)]
+        cells1 = get_cells(snake1[0], snake1[1])
+        cells2 = get_cells(snake2[0], snake2[1])
+        all_cells = cells1.union(cells2)
+        adj = {}
+        for cell in all_cells:
+            adj[cell] = []
+        # Build adjacency based on snake1
+        for i in range(len(snake1) - 1):
+            curr = snake1[i]
+            next_ = snake1[i+1]
+            adj[curr].append(next_)
+            adj[next_].append(curr)
+        # Build adjacency based on snake2
+        for i in range(len(snake2) - 1):
+            curr = snake2[i]
+            next_ = snake2[i+1]
+            adj[curr].append(next_)
+            adj[next_].append(curr)
+        # Check if all cells are connected
         visited = set()
-        stack = [next(iter(union))]
-        visited.add(stack[0])
+        start_cell = next(iter(all_cells))
+        stack = [start_cell]
+        visited.add(start_cell)
         while stack:
-            node = stack.pop()
-            for neighbor in adj[node]:
+            curr = stack.pop()
+            for neighbor in adj[curr]:
                 if neighbor not in visited:
                     visited.add(neighbor)
                     stack.append(neighbor)
-        if len(visited) != len(union):
+        if len(visited) != len(all_cells):
             print("no")
+            continue
+        # Check if all degrees are <= 2
+        for cell in all_cells:
+            if len(adj[cell]) > 2:
+                print("no")
+                break
         else:
             print("yes")
 

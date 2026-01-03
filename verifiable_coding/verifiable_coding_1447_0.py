@@ -27,19 +27,15 @@ def solve():
             continue
         
         pos = {}
-        valid = True
         for i in range(N):
             num = A[i]
             if num in pos:
-                if pos[num] >= i:
-                    valid = False
-                    break
+                results.append("NO")
+                break
             pos[num] = i
         
-        if valid:
-            results.append("YES")
         else:
-            results.append("NO")
+            results.append("YES")
     
     print('\n'.join(results))
 

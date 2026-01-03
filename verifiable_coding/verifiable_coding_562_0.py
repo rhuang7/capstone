@@ -1,7 +1,7 @@
 import sys
-import math
+import bisect
 
-def solve():
+def main():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
@@ -12,138 +12,85 @@ def solve():
     M = int(data[idx])
     idx += 1
     
-    grid = []
+    board = []
     for _ in range(N):
         row = data[idx]
-        grid.append(row)
         idx += 1
+        board.append(row)
     
     Q = int(data[idx])
     idx += 1
-    
     c = list(map(int, data[idx:idx+Q]))
+    idx += Q
     
-    # Precompute for each possible square size the minimum number of flips needed
-    # for each possible top-left corner
-    # We'll use a 2D array for each possible square size
-    # For each square size k, we'll compute the minimum flips for all possible k x k squares
-    # We'll precompute for all possible k from 1 to min(N, M)
-    # Then for each query, we'll binary search the maximum k for which there exists a k x k square that can be fixed with <= c_i flips
+    # Precompute for each possible sub-board of size k x k
+    # We need to find for each possible k, the minimum number of inversions needed to make it correct
+    # There are two possible correct patterns for a k x k board:
+    # 1. (i + j) % 2 == 0 -> 0, else 1
+    # 2. (i + j) % 2 == 0 -> 1, else 0
     
-    max_k = min(N, M)
-    # Precompute for each possible k (1 to max_k) and for each possible top-left (i, j) the minimum flips needed to make a k x k square correct
-    # We'll use a 2D array for each k
-    # For each k, we'll store a 2D array of size (N - k + 1) x (M - k + 1)
-    # But since N and M are up to 200, and k can be up to 200, this is feasible
+    # For each possible k, compute the minimum number of inversions needed for both patterns
+    # and store it in a list min_inversions[k]
     
-    # We'll precompute for all possible k from 1 to max_k
-    # For each k, we'll compute the minimum flips needed for all possible k x k squares
-    # We'll store it in a 3D array: min_flips[k][i][j] = min flips needed to make the square starting at (i, j) of size k correct
+    # Precompute for all possible k
+    min_inversions = [float('inf')] * (min(N, M) + 1)
     
-    # We'll also precompute for each k the maximum possible size of a square that can be fixed with c_i flips
-    # We'll store for each k the list of possible square sizes that can be achieved with up to c_i flips
+    for k in range(1, min(N, M) + 1):
+        # For each possible top-left corner (i, j)
+        # Check if the sub-board of size k x k starting at (i, j) can be made correct
+        # with at most c_i inversions
+        # We need to compute for both patterns
+        
+        # Pattern 1: (i + j) % 2 == 0 -> 0, else 1
+        # Pattern 2: (i + j) % 2 == 0 -> 1, else 0
+        
+        # For each possible (i, j) where i + k <= N and j + k <= M
+        for i in range(N - k + 1):
+            for j in range(M - k + 1):
+                # Compute the number of inversions needed for both patterns
+                # Pattern 1
+                cnt1 = 0
+                for x in range(i, i + k):
+                    for y in range(j, j + k):
+                        if (x + y) % 2 == 0:
+                            if board[x][y] != '0':
+                                cnt1 += 1
+                        else:
+                            if board[x][y] != '1':
+                                cnt1 += 1
+                # Pattern 2
+                cnt2 = 0
+                for x in range(i, i + k):
+                    for y in range(j, j + k):
+                        if (x + y) % 2 == 0:
+                            if board[x][y] != '1':
+                                cnt2 += 1
+                        else:
+                            if board[x][y] != '0':
+                                cnt2 += 1
+                # Update min_inversions[k] with the minimum of cnt1 and cnt2
+                min_inversions[k] = min(min_inversions[k], cnt1, cnt2)
     
-    # First, precompute for each k from 1 to max_k, and for each possible square of size k, the minimum flips needed to make it correct
+    # For each query, find the maximum k such that min_inversions[k] <= c_i
+    # We can use binary search for this
+    results = []
+    for ci in c:
+        # Binary search for the maximum k where min_inversions[k] <= ci
+        low = 1
+        high = min(N, M)
+        best = 0
+        while low <= high:
+            mid = (low + high) // 2
+            if min_inversions[mid] <= ci:
+                best = mid
+                low = mid + 1
+            else:
+                high = mid - 1
+        results.append(best)
     
-    # To compute the minimum flips for a square of size k, we need to check if the square is already correct, or if we need to flip some cells
-    # For a square to be correct, it must alternate colors in a chessboard pattern
-    # There are two possible patterns for a square:
-    # 1. (i + j) % 2 == 0: cell is 0
-    # 2. (i + j) % 2 == 1: cell is 1
-    # So for each square, we can compute the number of flips needed for both patterns and take the minimum
-    
-    # Precompute for each possible square of size k, the minimum flips needed for both patterns
-    # We'll store it in a 3D array: min_flips[k][i][j] = min flips needed for square starting at (i, j) of size k
-    
-    # We'll also precompute for each k, the maximum possible square size that can be achieved with up to c_i flips
-    
-    # Precompute for each k from 1 to max_k
-    # For each k, we'll compute for all possible squares of size k the minimum flips needed
-    
-    # We'll use a 3D array: min_flips[k][i][j] = min flips needed for square starting at (i, j) of size k
-    
-    # But since N and M are up to 200, and k is up to 200, this is feasible
-    
-    # Precompute for each k from 1 to max_k
-    # For each k, we'll compute for all possible squares of size k the minimum flips needed
-    
-    # We'll use a 3D array: min_flips[k][i][j] = min flips needed for square starting at (i, j) of size k
-    
-    # To save space, we can compute for each k and store the minimum flips for each square of size k
-    
-    # We'll use a list of lists of lists: min_flips[k][i][j] = min flips needed for square starting at (i, j) of size k
-    
-    # We'll precompute for each k from 1 to max_k
-    # For each k, we'll compute for all possible squares of size k the minimum flips needed
-    
-    # We'll also precompute for each k, the maximum possible square size that can be achieved with up to c_i flips
-    
-    # Precompute for each k from 1 to max_k
-    # For each k, we'll compute for all possible squares of size k the minimum flips needed
-    
-    # We'll use a 3D array: min_flips[k][i][j] = min flips needed for square starting at (i, j) of size k
-    
-    # But since N and M are up to 200, and k is up to 200, this is feasible
-    
-    # We'll precompute for each k from 1 to max_k
-    # For each k, we'll compute for all possible squares of size k the minimum flips needed
-    
-    # We'll also precompute for each k, the maximum possible square size that can be achieved with up to c_i flips
-    
-    # Precompute for each k from 1 to max_k
-    # For each k, we'll compute for all possible squares of size k the minimum flips needed
-    
-    # We'll use a 3D array: min_flips[k][i][j] = min flips needed for square starting at (i, j) of size k
-    
-    # But since N and M are up to 200, and k is up to 200, this is feasible
-    
-    # We'll precompute for each k from 1 to max_k
-    # For each k, we'll compute for all possible squares of size k the minimum flips needed
-    
-    # We'll also precompute for each k, the maximum possible square size that can be achieved with up to c_i flips
-    
-    # Precompute for each k from 1 to max_k
-    # For each k, we'll compute for all possible squares of size k the minimum flips needed
-    
-    # We'll use a 3D array: min_flips[k][i][j] = min flips needed for square starting at (i, j) of size k
-    
-    # But since N and M are up to 200, and k is up to 200, this is feasible
-    
-    # We'll precompute for each k from 1 to max_k
-    # For each k, we'll compute for all possible squares of size k the minimum flips needed
-    
-    # We'll also precompute for each k, the maximum possible square size that can be achieved with up to c_i flips
-    
-    # Precompute for each k from 1 to max_k
-    # For each k, we'll compute for all possible squares of size k the minimum flips needed
-    
-    # We'll use a 3D array: min_flips[k][i][j] = min flips needed for square starting at (i, j) of size k
-    
-    # But since N and M are up to 200, and k is up to 200, this is feasible
-    
-    # We'll precompute for each k from 1 to max_k
-    # For each k, we'll compute for all possible squares of size k the minimum flips needed
-    
-    # We'll also precompute for each k, the maximum possible square size that can be achieved with up to c_i flips
-    
-    # Precompute for each k from 1 to max_k
-    # For each k, we'll compute for all possible squares of size k the minimum flips needed
-    
-    # We'll use a 3D array: min_flips[k][i][j] = min flips needed for square starting at (i, j) of size k
-    
-    # But since N and M are up to 200, and k is up to 200, this is feasible
-    
-    # We'll precompute for each k from 1 to max_k
-    # For each k, we'll compute for all possible squares of size k the minimum flips needed
-    
-    # We'll also precompute for each k, the maximum possible square size that can be achieved with up to c_i flips
-    
-    # Precompute for each k from 1 to max_k
-    # For each k, we'll compute for all possible squares of size k the minimum flips needed
-    
-    # We'll use a 3D array: min_flips[k][i][j] = min flips needed for square starting at (i, j) of size k
-    
-    # But since N and M are up to 200, and k is up to 200, this is feasible
-    
-    # We'll precompute for each k from 1 to max_k
-    # For each k, we'll compute for all possible squares of size k the minimum flips needed
+    # Output the results
+    for res in results:
+        print(res)
+
+if __name__ == '__main__':
+    main()

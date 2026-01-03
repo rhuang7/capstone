@@ -9,15 +9,18 @@ def solve():
         if K == 1:
             print("1")
         else:
-            # First part: K lines of K '1's
+            # First part: K rows of K 1's
             for _ in range(K):
                 print("1" * K)
-            # Second part: K-1 lines of patterns
+            # Second part: K-1 rows of alternating 1's and spaces
             for i in range(1, K):
-                line = ""
-                for j in range(i):
-                    line += "1" + " " * (2*(i-j-1)) + "1"
-                print(line)
+                row = ""
+                for j in range(K):
+                    if j % 2 == 0:
+                        row += "1"
+                    else:
+                        row += " "
+                print(row)
                 
 if __name__ == '__main__':
     solve()

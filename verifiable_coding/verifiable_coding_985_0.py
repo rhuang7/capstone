@@ -1,5 +1,5 @@
 import sys
-import math
+import bisect
 
 def solve():
     import sys
@@ -8,18 +8,14 @@ def solve():
     N = int(data[0])
     a = list(map(int, data[1:N+1]))
     
-    max_len = 0
-    dp = {}
-    
+    dp = []
     for num in a:
-        current_len = 1
-        for divisor in dp:
-            if num % divisor == 0:
-                current_len = max(current_len, dp[divisor] + 1)
-        dp[num] = current_len
-        max_len = max(max_len, current_len)
-    
-    print(max_len)
+        idx = bisect.bisect_right(dp, num)
+        if idx == 0:
+            dp.insert(0, num)
+        else:
+            dp[idx-1] = num
+    print(len(dp))
 
 if __name__ == '__main__':
     solve()

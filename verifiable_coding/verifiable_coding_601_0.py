@@ -18,14 +18,12 @@ def solve():
 
     # Greedy algorithm: select events that do not overlap and have at least one gap day
     count = 0
-    last_end = -1
+    last_end = 0
 
     for S, D in events:
-        start = S
-        end = S + D - 1  # end date of the event (inclusive)
-        if start > last_end + 1:
+        if S > last_end:
             count += 1
-            last_end = end
+            last_end = S + D
 
     print(count)
 

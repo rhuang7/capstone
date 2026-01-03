@@ -9,7 +9,7 @@ def solve():
     for case in range(1, T + 1):
         N = int(input[idx])
         idx += 1
-        words = input[idx:idx+N]
+        words = input[idx:idx + N]
         idx += N
         rhymes = {}
         for word in words:

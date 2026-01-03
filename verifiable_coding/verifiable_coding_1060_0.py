@@ -7,6 +7,7 @@ def solve():
     
     T = int(data[0])
     index = 1
+    results = []
     
     for _ in range(T):
         N = int(data[index])
@@ -27,7 +28,10 @@ def solve():
                 zero_count = 0
         
         count = zero_count * one_count
-        print(count)
+        results.append(count)
+    
+    for res in results:
+        print(res)
 
 if __name__ == '__main__':
     solve()

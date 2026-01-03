@@ -9,21 +9,21 @@ def solve():
     # Create a set to store the indices of potential killers
     killers = set()
     
-    # Create a frequency dictionary to count how many people report to each member
-    report_count = {}
+    # Create a set to store all reported members
+    reported = set()
     
     for i in range(N):
-        if R[i] != 0:
-            report_count[R[i]] = report_count.get(R[i], 0) + 1
-    
-    # Check which members are not reported by anyone
-    for i in range(N):
-        if R[i] != 0:
+        if R[i] == 0:
+            # This is the Don, he reports to nobody
             continue
-        if i + 1 not in report_count:
-            killers.add(i + 1)
+        reported.add(R[i])
     
-    # Convert the set to a sorted list and print as space-separated string
+    # All members not in reported are potential killers
+    for i in range(1, N+1):
+        if i not in reported:
+            killers.add(i)
+    
+    # Convert to sorted list and print
     print(' '.join(map(str, sorted(killers))))
 
 if __name__ == '__main__':

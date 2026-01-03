@@ -17,34 +17,24 @@ def solve():
                 print("OFF")
             continue
         
-        # For N > 1, the bulb is ON if the last machine is ON and the previous one is ON
-        # The last machine is ON if it was toggled an odd number of times
-        # The previous machine is ON if it was toggled an odd number of times and received power
-        # The previous machine receives power if the machine before it was ON
-        # This is a chain of toggles, where each machine is toggled once for each time it receives power
-        # The first machine is toggled once for each clap
-        # The second machine is toggled once for each time the first machine is ON
-        # The third machine is toggled once for each time the second machine is ON
-        # And so on
+        # For N > 1, the bulb is ON if the last machine is ON and the power is flowing through it
+        # The power flows through the chain of machines only if the first machine is ON and the power is on
+        # The first machine toggles every time it is clapped, but only when it is receiving power
+        # The first machine receives power when it is ON and the power source is on
+        # The power source is on when the first machine is ON and it has been clapped an odd number of times
         
-        # The number of times the i-th machine is toggled is equal to the number of times the (i-1)-th machine is ON
-        # The i-th machine is ON if it was toggled an odd number of times
+        # The first machine is ON when k is odd
+        # The power source is on when the first machine is ON
+        # So the power flows through the chain if the first machine is ON (k is odd)
         
-        # The first machine is toggled k times
-        # The second machine is toggled floor(k / 2) times
-        # The third machine is toggled floor(k / 4) times
-        # The fourth machine is toggled floor(k / 8) times
-        # ...
-        # The i-th machine is toggled floor(k / (2^(i-1))) times
+        # The last machine is ON if it has been toggled an odd number of times
+        # The number of times the last machine is toggled is equal to the number of times the first machine is ON
+        # Which is equal to the number of times the first machine is clapped and is ON, which is floor((k + 1) / 2)
         
-        # The last machine is ON if it was toggled an odd number of times
-        # The last machine is toggled floor(k / (2^(N-1))) times
-        # So, if floor(k / (2^(N-1))) is odd, the bulb is ON, else OFF
+        # So the last machine is ON if floor((k + 1) / 2) is odd
         
-        power = k
-        for i in range(1, N):
-            power = power // 2
-        if power % 2 == 1:
+        toggle_count = (k + 1) // 2
+        if toggle_count % 2 == 1:
             print("ON")
         else:
             print("OFF")

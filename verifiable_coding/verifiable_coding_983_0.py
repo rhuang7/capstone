@@ -8,46 +8,40 @@ def solve():
     N = int(data[0])
     S = data[1].decode()
     Q = int(data[2])
-    queries = []
-    idx = 3
-    for _ in range(Q):
-        R = int(data[idx])
-        C = data[idx+1].decode()
-        queries.append((R, C))
-        idx += 2
+    queries = data[3:]
     
     # Precompute the string for each row
-    # Since N can be up to 1e18, we can't precompute all rows
-    # Instead, for each query, compute the characters in the row
-    # and count the frequency of the character
+    # Since N can be up to 1e18, we cannot precompute all rows
+    # Instead, we compute on the fly for each query
     
-    def get_row_chars(R):
+    def get_row(R):
+        # Calculate the length of the row
+        row_length = 2 * (R - 1) + 1
+        # Calculate the starting index in the string
+        start = (R - 1) * (2 * R - 1)
         # Calculate the number of characters in the row
-        # The number of characters in row R is R
-        # But since the string is repeated, we need to calculate how many full cycles and partial cycle
-        total_chars = R
-        full_cycles = total_chars // len(S)
-        partial = total_chars % len(S)
-        
-        # Characters in the row
-        chars = []
-        for i in range(full_cycles):
-            chars.extend(S)
-        chars.extend(S[:partial])
-        
-        # Determine the direction of the row
-        if R % 3 == 0:
-            # Left to right
-            return chars
-        else:
-            # Right to left
-            return chars[::-1]
+        count = row_length
+        # Calculate the number of full cycles of the string
+        full_cycles = count // len(S)
+        # Calculate the remaining characters
+        rem = count % len(S)
+        # Get the characters in the row
+        row = []
+        for i in range(count):
+            pos = (start + i) % len(S)
+            row.append(S[pos])
+        return row
     
-    # Process each query
-    for R, C in queries:
-        row_chars = get_row_chars(R)
-        count = row_chars.count(C)
-        print(count)
+    # Process queries
+    output = []
+    for i in range(Q):
+        R = int(queries[2*i])
+        C = queries[2*i + 1]
+        row = get_row(R)
+        freq = row.count(C)
+        output.append(str(freq))
+    
+    print('\n'.join(output))
 
 if __name__ == '__main__':
     solve()

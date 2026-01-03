@@ -36,8 +36,7 @@ def solve():
         else:
             results.append("none")
     
-    for res in results:
-        print(res)
+    print("\n".join(results))
 
 if __name__ == '__main__':
     solve()

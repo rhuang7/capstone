@@ -17,20 +17,20 @@ def solve():
         ranges = []
         for _ in range(Y):
             l = int(data[idx])
-            r = int(data[idx+1])
+            r = int(data[idx + 1])
             ranges.append((l, r))
             idx += 2
         # Initialize capacities
-        capacity = [1] * N
+        capacities = [1] * N
         for l, r in ranges:
-            # Find minimum in range [l, r]
-            min_val = min(capacity[l:r+1])
+            # Find minimum in [l, r]
+            min_val = min(capacities[l:r+1])
             min_val %= MOD
-            # Update the range [l, r] with capacity += min_val
-            for i in range(l, r+1):
-                capacity[i] = (capacity[i] + min_val) % MOD
+            # Update the range [l, r]
+            for i in range(l, r + 1):
+                capacities[i] = (capacities[i] + min_val) % MOD
         # Find minimum capacity
-        min_cap = min(capacity)
+        min_cap = min(capacities)
         results.append(str(min_cap % MOD))
     print('\n'.join(results))
 

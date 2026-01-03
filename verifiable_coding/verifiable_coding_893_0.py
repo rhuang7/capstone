@@ -26,7 +26,7 @@ def solve():
     S = int(data[2])
     arr = list(map(int, data[3:3+N]))
     
-    max_special = -float('inf')
+    max_sum = -float('inf')
     
     for i in range(N):
         current_sum = 0
@@ -36,11 +36,10 @@ def solve():
             factors = get_prime_factors(arr[j])
             current_factors.update(factors)
             p = len(current_factors)
-            special = current_sum * (K - p * S)
-            if special > max_special:
-                max_special = special
-    
-    print(max_special)
+            special_sum = current_sum * (K - p * S)
+            if special_sum > max_sum:
+                max_sum = special_sum
+    print(max_sum)
 
 if __name__ == '__main__':
     solve()

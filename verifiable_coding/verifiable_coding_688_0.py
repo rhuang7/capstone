@@ -4,9 +4,9 @@ def solve():
     import sys
     input = sys.stdin.buffer.read().split()
     T = int(input[0])
-    strings = input[1:T+1]
+    cases = input[1:T+1]
 
-    for s in strings:
+    for s in cases:
         transitions = 0
         for i in range(8):
             if s[i] != s[(i + 1) % 8]:

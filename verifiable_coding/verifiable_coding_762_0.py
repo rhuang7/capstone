@@ -13,18 +13,17 @@ def solve():
             pattern = []
             for i in range(1, K+1):
                 if i % 2 == 1:
-                    line = "1" * i
+                    pattern.append("1" * i)
                 else:
-                    line = "0" * i
-                pattern.append(line)
+                    pattern.append("0" * i)
             for i in range(1, K+1):
                 if i % 2 == 1:
-                    line = "1" * i
+                    pattern.append("1" * i)
                 else:
-                    line = "0" * i
-                pattern.append(line)
-            result = " ".join(pattern)
-            print(result)
+                    pattern.append("0" * i)
+            for row in pattern:
+                print(row, end=' ')
+            print()
 
 if __name__ == '__main__':
     solve()

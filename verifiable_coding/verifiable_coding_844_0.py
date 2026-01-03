@@ -2,24 +2,31 @@ import sys
 
 def solve():
     import sys
-    input = sys.stdin.buffer.read().split()
+    input = sys.stdin.buffer.read
+    data = input().split()
+    
     idx = 0
-    N = int(input[idx])
+    N = int(data[idx])
     idx += 1
-    K = int(input[idx])
+    K = int(data[idx])
     idx += 1
-
+    
     open_tweets = [0] * N
+    output = []
+    
     for _ in range(K):
-        cmd = input[idx]
+        command = data[idx]
         idx += 1
-        if cmd == 'CLICK':
-            X = int(input[idx]) - 1
+        if command == 'CLICK':
+            X = int(data[idx]) - 1
             idx += 1
             open_tweets[X] = 1 - open_tweets[X]
-        elif cmd == 'CLOSEALL':
+            output.append(str(sum(open_tweets)))
+        elif command == 'CLOSEALL':
             open_tweets = [0] * N
-        print(sum(open_tweets))
+            output.append('0')
+    
+    print('\n'.join(output))
 
 if __name__ == '__main__':
     solve()

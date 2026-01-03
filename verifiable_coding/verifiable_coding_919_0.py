@@ -15,48 +15,44 @@ def solve():
         A = list(map(int, data[idx:idx+N]))
         idx += N
         
-        # Group consecutive equal elements
-        groups = []
-        prev = A[0]
+        # Group the sequence into runs of equal elements
+        runs = []
+        current_val = A[0]
         count = 1
         for i in range(1, N):
-            if A[i] == prev:
+            if A[i] == current_val:
                 count += 1
             else:
-                groups.append(count)
-                prev = A[i]
+                runs.append(count)
+                current_val = A[i]
                 count = 1
-        groups.append(count)
+        runs.append(count)
         
         # Find the minimum number of operations
         min_ops = float('inf')
-        for i in range(len(groups)):
-            # Try to make this group even by deleting or inserting
-            # If the group length is even, no operation is needed
-            if groups[i] % 2 == 0:
-                continue
-            # Try to delete one element from this group
-            # This will make it even if the group length is 1
-            if groups[i] == 1:
+        
+        # Try all possible ways to make the sequence even
+        # Case 1: All runs have even length
+        if all(x % 2 == 0 for x in runs):
+            min_ops = 0
+        
+        # Case 2: Change one run to even length
+        for i in range(len(runs)):
+            if runs[i] % 2 == 1:
+                # Change this run to even length (add 1)
+                new_len = runs[i] + 1
                 min_ops = min(min_ops, 1)
-            # Try to delete one element from the previous group
-            if i > 0:
-                if groups[i-1] % 2 == 0:
-                    min_ops = min(min_ops, 1)
-                else:
-                    min_ops = min(min_ops, 2)
-            # Try to delete one element from the next group
-            if i < len(groups) - 1:
-                if groups[i+1] % 2 == 0:
-                    min_ops = min(min_ops, 1)
-                else:
-                    min_ops = min(min_ops, 2)
-            # Try to insert one element into this group
-            min_ops = min(min_ops, 1)
+        
+        # Case 3: Remove one run (if it's odd)
+        for i in range(len(runs)):
+            if runs[i] % 2 == 1:
+                min_ops = min(min_ops, 1)
+        
+        # Case 4: Remove two runs (if both are odd)
+        odd_runs = [x for x in runs if x % 2 == 1]
+        if len(odd_runs) >= 2:
+            min_ops = min(min_ops, 2)
         
         results.append(str(min_ops))
     
     print('\n'.join(results))
-
-if __name__ == '__main__':
-    solve()

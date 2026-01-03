@@ -8,11 +8,11 @@ def solve():
     index = 1
     for _ in range(T):
         p = int(data[index])
-        idx = int(data[index + 1])
+        idx = int(data[index+1])
         index += 2
         
-        def power(x, y):
-            return x ** y
+        size = 1 << p  # 2^p
+        result = [0] * size
         
         def order(arr, i):
             if len(arr) <= 1:
@@ -20,10 +20,9 @@ def solve():
             l = []
             r = []
             n = len(arr) - 1
-            two_i_plus_1 = power(2, i + 1)
-            two_i = power(2, i)
+            power = 1 << i
             for j in range(len(arr)):
-                if (arr[j] % two_i_plus_1) < two_i:
+                if (arr[j] % (power << 1)) < power:
                     l.append(arr[j])
                 else:
                     r.append(arr[j])
@@ -31,9 +30,9 @@ def solve():
             r = order(r, i + 1)
             return l + r
         
-        a = list(range(2 ** p))
-        result = order(a, 0)
-        print(result[idx])
+        a = list(range(size))
+        final = order(a, 0)
+        print(final[idx])
 
 if __name__ == '__main__':
     solve()

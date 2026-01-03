@@ -2,88 +2,72 @@ import sys
 
 def solve():
     import sys
-    input = sys.stdin.buffer.read
-    data = input().split(b'\n')
-    idx = 0
-    
-    N = int(data[idx])
-    idx += 1
-    cities = data[idx].split()
-    idx += 1
-    
-    M = int(data[idx])
-    idx += 1
+    input = sys.stdin.buffer.read().split(b'\n')
+    ptr = 0
+
+    N = int(input[ptr])
+    ptr += 1
+    cities = input[ptr].split()
+    ptr += 1
+
+    M = int(input[ptr])
+    ptr += 1
+
     roads = {}
     for _ in range(M):
-        parts = data[idx].split()
-        idx += 1
+        parts = input[ptr].split()
+        ptr += 1
         c1 = parts[0]
         c2 = parts[1]
         d = int(parts[2])
         if c1 not in roads:
             roads[c1] = {}
         roads[c1][c2] = d
-    
-    T = int(data[idx])
-    idx += 1
-    results = []
-    
+
+    T = int(input[ptr])
+    ptr += 1
+
     for _ in range(T):
-        parts = data[idx].split()
-        idx += 1
+        parts = input[ptr].split()
+        ptr += 1
         K = int(parts[0])
         route = parts[1:]
-        
+
+        if len(route) != K:
+            print("ERROR")
+            continue
+
         # Check if all cities in route exist
-        valid = True
         for city in route:
             if city not in cities:
-                valid = False
+                print("ERROR")
                 break
-        
-        if not valid:
-            results.append("ERROR")
-            continue
-        
-        # Check if consecutive cities are different
-        for i in range(K-1):
-            if route[i] == route[i+1]:
-                valid = False
-                break
-        
-        if not valid:
-            results.append("ERROR")
-            continue
-        
-        # Check if any city is visited more than once
-        visited = set()
-        for city in route:
-            if city in visited:
-                valid = False
-                break
-            visited.add(city)
-        
-        if not valid:
-            results.append("ERROR")
-            continue
-        
-        # Calculate total length
-        total = 0
-        for i in range(K-1):
-            c1 = route[i]
-            c2 = route[i+1]
-            if c1 not in roads or c2 not in roads[c1]:
-                valid = False
-                break
-            total += roads[c1][c2]
-        
-        if valid:
-            results.append(str(total))
         else:
-            results.append("ERROR")
-    
-    for res in results:
-        print(res)
+            # Check for consecutive duplicates
+            for i in range(K - 1):
+                if route[i] == route[i + 1]:
+                    print("ERROR")
+                    break
+            else:
+                # Check for first and last city being same
+                if route[0] == route[-1]:
+                    print("ERROR")
+                    continue
+                # Check for valid path
+                total = 0
+                current = route[0]
+                valid = True
+                for i in range(1, K):
+                    if current not in roads or route[i] not in roads[current]:
+                        valid = False
+                        break
+                    total += roads[current][route[i]]
+                    current = route[i]
+                if valid:
+                    print(total)
+                else:
+                    print("ERROR")
+            continue
 
 if __name__ == '__main__':
     solve()

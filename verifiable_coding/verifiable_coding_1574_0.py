@@ -6,22 +6,23 @@ def solve():
     data = input().split()
     N = int(data[0])
     h = list(map(int, data[1:]))
-    
+
     from collections import defaultdict
 
     count = defaultdict(int)
-    for i in range(N - 1):
-        a = h[i]
-        b = h[i + 1]
-        start = min(a, b)
-        end = max(a, b)
-        for height in range(start, end + 1):
+    prev = h[0]
+    for i in range(1, N):
+        curr = h[i]
+        start = min(prev, curr)
+        end = max(prev, curr)
+        for height in range(start, end):
             count[height] += 1
-    
+        prev = curr
+
     max_k = 0
-    for v in count.values():
-        if v > max_k:
-            max_k = v
+    for k in count.values():
+        if k > max_k:
+            max_k = k
     print(max_k)
 
 if __name__ == '__main__':

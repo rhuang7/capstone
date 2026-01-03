@@ -15,8 +15,8 @@ def solve():
             break
         N = int(data[idx])
         idx += 1
-        name_to_num = {}
-        nums = []
+        name_to_ai = {}
+        ais = []
         for _ in range(N):
             while idx < len(data) and data[idx] == b'':
                 idx += 1
@@ -25,20 +25,20 @@ def solve():
             line = data[idx].split()
             idx += 1
             name = line[0].decode()
-            num = int(line[1].decode())
-            name_to_num[name] = num
-            nums.append(num)
+            ai = int(line[1].decode())
+            name_to_ai[name] = ai
+            ais.append(ai)
         count = {}
-        for num in nums:
-            count[num] = count.get(num, 0) + 1
+        for ai in ais:
+            count[ai] = count.get(ai, 0) + 1
         min_unique = None
-        for name, num in name_to_num.items():
-            if count[num] == 1:
-                if min_unique is None or num < min_unique:
-                    min_unique = num
+        for name, ai in name_to_ai.items():
+            if count[ai] == 1:
+                if min_unique is None or ai < min_unique:
+                    min_unique = ai
         if min_unique is not None:
-            for name, num in name_to_num.items():
-                if num == min_unique:
+            for name, ai in name_to_ai.items():
+                if ai == min_unique:
                     results.append(name)
                     break
         else:

@@ -16,12 +16,15 @@ def solve():
         W = list(map(int, data[idx:idx+N]))
         idx += N
         
-        vel = 0
-        for w in reversed(W):
-            if vel < w:
-                vel = w
-            vel -= 1
-        results.append(str(vel))
+        velocity = 0
+        current_velocity = 0
+        
+        for w in W:
+            if current_velocity < w:
+                velocity = max(velocity, w - current_velocity + 1)
+            current_velocity += 1
+        
+        results.append(str(velocity))
     
     print('\n'.join(results))
 

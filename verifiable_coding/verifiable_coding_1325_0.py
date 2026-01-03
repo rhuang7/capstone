@@ -10,16 +10,10 @@ def solve():
         c = int(input[idx+2])
         d = int(input[idx+3])
         idx += 4
-        # Solve the system of equations
-        # a + b = apples + mangoes
-        # b + c = mangoes + oranges
-        # c + a = oranges + apples
-        # a + b + c = d
-        # From the first three equations, we can find apples, mangoes, oranges
-        apples = (a + c - d) // 2
-        mangoes = (a + b - d) // 2
-        oranges = (b + c - d) // 2
-        print(apples, mangoes, oranges)
+        apple = (a + c - d) // 2
+        mango = (a + b - d) // 2
+        orange = (b + c - d) // 2
+        print(f"{apple} {mango} {orange}")
 
 if __name__ == '__main__':
     solve()

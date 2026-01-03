@@ -15,38 +15,39 @@ def solve():
         s = data[index]
         index += 1
         
-        # Check if it's possible to have exactly one occurrence of "abacaba"
+        # Try to find a way to have exactly one occurrence of "abacaba"
         found = False
-        possible = False
-        result_str = list(s)
+        result = None
         
-        # Try placing "abacaba" at each possible position
+        # Try each possible starting position for "abacaba"
         for i in range(n - 6):
-            # Check if the current position can be modified to "abacaba"
+            # Check if we can replace question marks to make "abacaba" start at i
             valid = True
             for j in range(7):
                 if s[i + j] != '?' and s[i + j] != "abacaba"[j]:
                     valid = False
                     break
             if valid:
-                # Try to replace the characters to "abacaba"
+                # Now check how many occurrences of "abacaba" are there in the string
+                # Replace the question marks with "abacaba"
                 temp = list(s)
                 for j in range(7):
                     temp[i + j] = "abacaba"[j]
-                # Check how many times "abacaba" appears in the new string
+                temp_str = ''.join(temp)
+                
+                # Count occurrences of "abacaba"
                 count = 0
                 for k in range(n - 6):
-                    if ''.join(temp[k:k+7]) == "abacaba":
+                    if temp_str[k:k+7] == "abacaba":
                         count += 1
                 if count == 1:
-                    possible = True
-                    result_str = temp
                     found = True
+                    result = temp_str
                     break
         
         if found:
             results.append("Yes")
-            results.append("".join(result_str))
+            results.append(result)
         else:
             results.append("No")
     

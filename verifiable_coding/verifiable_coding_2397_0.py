@@ -16,24 +16,25 @@ def solve():
         m = int(data[idx+1])
         idx += 2
         
-        forbidden = set()
+        banned = set()
         for _ in range(n):
             s = data[idx]
-            forbidden.add(s)
+            banned.add(s)
             idx += 1
         
         # Generate all binary strings of length m
         all_strs = []
         for i in range(2 ** m):
             binary = bin(i)[2:].zfill(m)
-            if binary not in forbidden:
+            if binary not in banned:
                 all_strs.append(binary)
         
         k = len(all_strs)
         median_idx = (k - 1) // 2
         results.append(all_strs[median_idx])
     
-    print('\n'.join(results))
+    for res in results:
+        print(res)
 
 if __name__ == '__main__':
     solve()

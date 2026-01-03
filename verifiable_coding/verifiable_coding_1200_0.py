@@ -14,6 +14,9 @@ def solve():
             continue
         valid = True
         for i in range(0, len(s), 2):
+            if s[i] == 'A' and i + 1 >= len(s) or s[i] == 'B' and i + 1 >= len(s):
+                valid = False
+                break
             if s[i] == s[i+1]:
                 valid = False
                 break

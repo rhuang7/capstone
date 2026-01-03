@@ -6,9 +6,9 @@ def solve():
     input = sys.stdin.buffer.read
     data = input().split()
     T = int(data[0])
-    M_list = list(map(int, data[1:T+1]))
+    Ms = list(map(int, data[1:T+1]))
     
-    for M in M_list:
+    for M in Ms:
         if M == 1:
             print(1)
             print(1)

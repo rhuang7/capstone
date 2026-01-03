@@ -15,37 +15,25 @@ def solve():
         index += 1
         
         # Check if the string is already alternating
-        is_01 = True
-        is_10 = True
-        for i in range(n - 1):
-            if s[i] == s[i + 1]:
-                is_01 = False
-                is_10 = False
-        if is_01 or is_10:
+        target1 = '01' * (n // 2)
+        target2 = '10' * (n // 2)
+        
+        if s == target1 or s == target2:
             print(0)
             continue
         
-        # Count the number of mismatches for the two possible alternating patterns
-        count_01 = 0
-        count_10 = 0
+        # Count the number of mismatches for both targets
+        count1 = 0
+        count2 = 0
         for i in range(n):
-            if i % 2 == 0:
-                expected = '0'
-            else:
-                expected = '1'
-            if s[i] != expected:
-                count_01 += 1
+            if s[i] != target1[i]:
+                count1 += 1
+            if s[i] != target2[i]:
+                count2 += 1
         
-        for i in range(n):
-            if i % 2 == 0:
-                expected = '1'
-            else:
-                expected = '0'
-            if s[i] != expected:
-                count_10 += 1
-        
-        # The minimum number of operations is the minimum of the two counts
-        print(min(count_01, count_10))
+        # The minimum number of operations is the minimum of the two counts divided by 2
+        # Because each operation can fix two mismatches
+        print(min(count1, count2) // 2)
 
 if __name__ == '__main__':
     solve()

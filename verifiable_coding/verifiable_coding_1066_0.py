@@ -11,12 +11,13 @@ def find_largest_nice(num):
     s = list(str(num))
     length = len(s)
     for i in range(length - 1, -1, -1):
-        if i > 0 and s[i] > s[i - 1]:
-            s[i] = '9'
-            for j in range(i - 1, -1, -1):
-                s[j] = '9'
-            s[i - 1] = str(int(s[i - 1]) - 1)
-            return int(''.join(s))
+        for j in range(i + 1, length):
+            if s[j] > s[i]:
+                # Swap and decrease the next digit
+                s[i], s[j] = s[j], s[i]
+                for k in range(i + 1, length):
+                    s[k] = '9'
+                return int(''.join(s))
     return 0
 
 def solve():

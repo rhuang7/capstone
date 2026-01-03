@@ -7,7 +7,7 @@ def solve():
         K = int(input[i])
         count = 1
         for j in range(K):
-            for k in range(j+1):
+            for _ in range(j+1):
                 print(count, end='')
                 count += 1
             print()

@@ -26,10 +26,10 @@ def solve():
         p4 = float(data[idx+3])
         idx += 4
         
-        # Expected profit for first tournament
+        # Calculate expected profit for first tournament
         expected_first = (p1 * (p2 * R1 + (1 - p2) * R2)) - F1
         
-        # Expected profit for second tournament
+        # Calculate expected profit for second tournament
         expected_second = (p3 * (p4 * R3 + (1 - p4) * R4)) - F2
         
         if expected_first > expected_second:

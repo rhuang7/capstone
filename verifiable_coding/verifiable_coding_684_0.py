@@ -13,7 +13,7 @@ def solve():
             continue
         # Check if N is even
         if N % 2 == 0:
-            # If N is even, you can subtract 1 to make it odd and win
+            # If N is even, subtract 1 to make it odd
             results.append("Me")
         else:
             # If N is odd, check if it's a prime
@@ -23,10 +23,11 @@ def solve():
                     is_prime = False
                     break
             if is_prime:
-                # If N is a prime, you can subtract 1 to make it even and win
+                # If N is a prime, subtract 1
                 results.append("Me")
             else:
-                # If N is odd and not prime, you can divide by an odd divisor > 1 and win
+                # If N is composite and odd, divide by an odd divisor > 1
+                # Since it's composite, it has at least one odd divisor > 1
                 results.append("Me")
     print("\n".join(results))
 

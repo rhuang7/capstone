@@ -1,16 +1,17 @@
 import sys
 
 def solve():
-    input = sys.stdin.buffer.read().split()
-    T = int(input[0])
-    cases = list(map(int, input[1:T+1]))
-    
-    for k in cases:
-        for i in range(1, k+1):
+    import sys
+    input = sys.stdin.buffer.read
+    data = input().split()
+    T = int(data[0])
+    for i in range(1, T + 1):
+        K = int(data[i])
+        for j in range(K):
             row = ''
-            for j in range(1, k+1):
-                row += str((i + j - 1) % k)
+            for k in range(K):
+                row += str((k + j) % K + 1)
             print(row)
-            
+
 if __name__ == '__main__':
     solve()

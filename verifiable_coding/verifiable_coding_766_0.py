@@ -28,7 +28,7 @@ def solve():
         
         results.append(f"{max_area} {min_area}")
     
-    print("\n".join(results))
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

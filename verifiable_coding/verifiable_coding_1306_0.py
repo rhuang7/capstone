@@ -1,30 +1,33 @@
 import sys
 
 def solve():
+    import sys
     input = sys.stdin.buffer.read
     data = input().split()
+    
     T = int(data[0])
     cases = data[1:T+1]
     
-    target_prefix = "LTIME"
-    target_suffix = "EMITL"
-    required_chars = {}
-    for c in target_prefix + target_suffix:
-        required_chars[c] = required_chars.get(c, 0) + 1
-    
-    for s in cases:
-        count = {}
-        for c in s:
-            count[c] = count.get(c, 0) + 1
-        valid = True
-        for char, required in required_chars.items():
-            if count.get(char, 0) < required:
-                valid = False
+    for S in cases:
+        count = [0] * 26
+        for c in S:
+            count[ord(c) - ord('A')] += 1
+        
+        # Check for "LTIME" and "EMITL"
+        required = [0] * 26
+        for c in "LTIME":
+            required[ord(c) - ord('A')] += 1
+        for c in "EMITL":
+            required[ord(c) - ord('A')] += 1
+        
+        # Check if counts are sufficient
+        possible = True
+        for i in range(26):
+            if count[i] < required[i]:
+                possible = False
                 break
-        if valid:
-            print("YES")
-        else:
-            print("NO")
+        
+        print("YES" if possible else "NO")
 
 if __name__ == '__main__':
     solve()

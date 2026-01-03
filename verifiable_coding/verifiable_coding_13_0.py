@@ -4,12 +4,9 @@ def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
-    
     T = int(data[0])
     index = 1
-    
     results = []
-    
     for _ in range(T):
         n = int(data[index])
         g = int(data[index+1])
@@ -18,27 +15,22 @@ def solve():
         
         required_high = (n + 1) // 2
         
-        # Calculate how many good days are needed to reach required_high
-        # Each good day can contribute 1 to high quality
-        # Each cycle is g + b days
-        full_cycles = required_high // g
-        remainder = required_high % g
+        # Calculate how many full cycles of (g + b) days are needed
+        full_cycles = required_high // (g + b)
+        remainder = required_high % (g + b)
         
-        # Total days needed for high quality
-        high_days = full_cycles * (g + b) + remainder
+        # Days needed for full cycles
+        days = full_cycles * (g + b)
         
-        # Total days needed for the whole highway
-        # We need to repair n units, so we need at least n days
-        # But we can do it in high_days days if high_days >= n
-        # Otherwise, we need to repair the remaining units in the next days
-        if high_days >= n:
-            results.append(high_days)
+        # Days needed for remainder
+        # If remainder <= g, then we can do it in remainder days
+        # Else, we need g days for the good part and (remainder - g) days for the bad part
+        if remainder <= g:
+            days += remainder
         else:
-            # We need to repair the remaining (n - high_days) units
-            # These can be done in the next (n - high_days) days
-            # But we have to make sure that we have enough days
-            # The total days is high_days + (n - high_days) = n
-            results.append(n)
+            days += g + (remainder - g)
+        
+        results.append(days)
     
     sys.stdout.write('\n'.join(map(str, results)) + '\n')
 

@@ -28,6 +28,3 @@ def solve():
         else:
             results.append("YES")
     print('\n'.join(results))
-
-if __name__ == '__main__':
-    solve()

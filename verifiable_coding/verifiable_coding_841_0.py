@@ -19,6 +19,6 @@ def solve():
             result = (result + num * power) % MOD
             power = (power * 10**n) % MOD
         print(result)
-        
+
 if __name__ == '__main__':
     solve()

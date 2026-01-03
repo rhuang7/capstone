@@ -15,7 +15,7 @@ def solve():
             if s[i-1:i+1] == '0':
                 continue
             dp[i+1] += dp[i]
-            if i >= 1 and (s[i-1:i+1] >= '10' and s[i-1:i+1] <= '26'):
+            if i >= 1 and s[i-1:i+1] != '00':
                 dp[i+1] += dp[i-1]
         return dp[n]
 

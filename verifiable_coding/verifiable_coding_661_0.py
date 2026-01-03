@@ -13,14 +13,11 @@ def solve():
     for i in range(T):
         N = N_list[i]
         X = X_list[i]
-        
         if N == 0:
             print("yes")
             continue
-        
         S = int(math.isqrt(N))
         diff = N - S * S
-        
         if diff <= 0.01 * X * N:
             print("yes")
         else:

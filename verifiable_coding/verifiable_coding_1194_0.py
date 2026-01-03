@@ -15,7 +15,7 @@ def solve():
         index += 1
         
         x, y = 0, 0
-        dest_x, dest_y = 0, 0
+        final_x, final_y = 0, 0
         
         for c in s:
             if c == 'U':
@@ -26,24 +26,24 @@ def solve():
                 x -= 1
             elif c == 'R':
                 x += 1
-        dest_x, dest_y = x, y
+        final_x, final_y = x, y
         
         x, y = 0, 0
         count = 0
         
         for c in s:
-            if c == 'U' and y < dest_y:
+            if c == 'U':
                 y += 1
-            elif c == 'D' and y > dest_y:
+            elif c == 'D':
                 y -= 1
-            elif c == 'L' and x > dest_x:
+            elif c == 'L':
                 x -= 1
-            elif c == 'R' and x < dest_x:
+            elif c == 'R':
                 x += 1
-            else:
+            if x == final_x and y == final_y:
                 count += 1
         
-        print(count)
+        print(N - count)
 
 if __name__ == '__main__':
     solve()

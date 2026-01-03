@@ -18,8 +18,11 @@ def solve():
         
         for i in range(N):
             if S[i] == '1':
-                for j in range(max(0, i-1), min(N, i+2)):
-                    destroyed[j] = True
+                if i - 1 >= 0:
+                    destroyed[i - 1] = True
+                destroyed[i] = True
+                if i + 1 < N:
+                    destroyed[i + 1] = True
         
         count = 0
         for i in range(N):

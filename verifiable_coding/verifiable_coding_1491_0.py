@@ -6,7 +6,7 @@ def solve():
 
     numbers = [a, b, c, d]
     for perm in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]:
-        x, y, z, w = numbers[perm//24], numbers[perm%24], numbers[perm//24 + 1], numbers[perm%24 + 1]
+        x, y, z, w = numbers[perm//24], numbers[perm%24//6], numbers[perm%6//2], numbers[perm%2]
         if x * w == y * z:
             print("Possible")
             return

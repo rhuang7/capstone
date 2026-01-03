@@ -15,10 +15,10 @@ def solve():
         G = int(data[index + 1])
         index += 2
         
-        # Each boy gives a rose to a girl and vice versa
-        # But if a person has already received a rose, they can't exchange again
-        # So the total number of roses is 2 * min(B, G)
-        results.append(str(2 * min(B, G)))
+        # Each boy gives a rose to a girl and each girl gives a rose to a boy
+        # But the exchange is only possible if at least one hasn't received a rose
+        # So the total number of roses is B * G * 2
+        results.append(str(B * G * 2))
     
     print('\n'.join(results))
 

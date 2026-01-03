@@ -21,23 +21,22 @@ def solve():
         max_val = 0
         
         for num in A:
-            max_val = max(max_val, num)
-        
-        # Use a frequency array for numbers up to max_val
-        freq_arr = [0] * (max_val + 1)
-        
-        for num in A:
-            # Count numbers divisible by num
+            # Update max_val
+            if num > max_val:
+                max_val = num
+            
+            # Count multiples of num in the current frequency map
             count = 0
             for multiple in range(num, max_val + 1, num):
-                count += freq_arr[multiple]
-            max_star = max(max_star, count)
-            # Update frequency array
-            freq_arr[num] += 1
+                count += freq[multiple]
+            
+            # Update max_star
+            if count > max_star:
+                max_star = count
+            
+            # Update frequency map
+            freq[num] += 1
         
         results.append(str(max_star))
     
     print('\n'.join(results))
-
-if __name__ == '__main__':
-    solve()

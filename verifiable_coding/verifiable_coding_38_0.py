@@ -22,11 +22,12 @@ def solve():
         b = list(map(int, data[idx:idx+k2]))
         idx += k2
         
-        # Sort both players' cards
         a.sort()
         b.sort()
         
-        # Check if the first player has the maximum card
+        # The player with the highest card can always win
+        # because they can always choose their highest card to beat the opponent's
+        # and keep playing with the remaining cards
         if a[-1] > b[-1]:
             results.append("YES")
         else:

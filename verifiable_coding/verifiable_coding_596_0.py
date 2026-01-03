@@ -7,50 +7,37 @@ def solve():
     input = sys.stdin.buffer.read
     data = input().split()
     T = int(data[0])
-    index = 1
+    idx = 1
     results = []
     
     for _ in range(T):
-        N = int(data[index])
-        K = int(data[index+1])
-        index += 2
+        N = int(data[idx])
+        K = int(data[idx+1])
+        idx += 2
         
         if N == 0:
             results.append(0)
             continue
         
         # For N to be visited K-th time
-        # Each round k, the maximum distance is k
-        # The number of times N is visited in round k is 2 if k > N, 1 if k == N, 0 if k < N
-        # So, the K-th occurrence of N is in round (N + (K-1) // 2)
-        # But we need to find the correct round and position in that round
+        # First occurrence is in round 1
+        # Second occurrence is in round 2
+        # ...
+        # K-th occurrence is in round K
+        # So the K-th time he reaches N is during the K-th round
         
-        # Find the round where the K-th occurrence of N happens
-        # Each round k >= N contributes 2 times to N (except when k = N)
-        # So, the number of rounds needed is ceil((K) / 2)
-        # But we need to find the exact round where the K-th occurrence is
-        # Let's think differently: for N, the first occurrence is in round N
-        # Then, for each round after that, it's visited twice
-        # So, the K-th occurrence is in round (N + (K-1) // 2)
-        # But if K is odd, it's the first occurrence in that round
-        # If K is even, it's the second occurrence in that round
+        # Time to reach N for the K-th time
+        # The K-th round is the round where he goes from 0 to K and back
+        # So the K-th time he reaches N is when he is going from K to K-1
+        # So the time is:
+        # Time to reach K in the K-th round: 2*K - 1
+        # Then he goes back from K to K-1, which takes 1 second per step
+        # So to reach N from K, he has to go back K - N steps
+        # So total time is (2*K - 1) + (K - N)
+        # Which is 3*K - N - 1
         
-        # So, the round is:
-        round_num = N + (K - 1) // 2
-        
-        # Now calculate the time to reach N for the K-th time
-        # Time to go from 0 to round_num: round_num * 2 - 1
-        # Then, for the K-th time, if K is odd, it's the first time in that round (going to N)
-        # If K is even, it's the second time in that round (coming back from N)
-        
-        # Time to reach N for the first time in round_num
-        time_to_N = round_num * 2 - 1
-        
-        # If K is even, it's the second time in that round (coming back from N)
-        if K % 2 == 0:
-            time_to_N = round_num * 2 - 1 + (round_num - N)
-        
-        results.append(time_to_N % MOD)
+        time = (3 * K - N - 1) % MOD
+        results.append(time)
     
     sys.stdout.write('\n'.join(map(str, results)) + '\n')
 

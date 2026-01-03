@@ -23,47 +23,51 @@ def solve():
         sergey_scores = list(map(int, data[idx:idx+E-1]))
         idx += E-1
         
-        # Calculate total scores for all students except Sergey
+        # Compute total scores of other students
         totals = []
-        for s in students:
-            total = sum(s)
+        for student in students:
+            total = sum(student)
             totals.append(total)
         
-        # Add Sergey's current total (without last exam)
-        sergey_total = sum(sergey_scores)
-        
-        # We need to find the minimum score x such that Sergey's total + x is among the top K
-        # We will try all possible x from 0 to M and check if it's possible
+        # Compute the current total of other students
+        # We need to find the minimum score Sergey needs in the last exam
+        # such that his total is strictly greater than at least (N-K) students' totals
         
         # Sort the totals
         totals.sort()
         
-        # Find the threshold for being in the top K
-        # The (N-K)th smallest total is the cutoff
-        cutoff = totals[N-K-1]
+        # We need to find the minimum score x such that:
+        # (sum of sergey's first E-1 scores + x) > totals[N-K-1]
+        # because there are N-K students that can have lower or equal totals
+        # and Sergey needs to be among the top K
         
-        # We need to find the minimum x such that sergey_total + x > cutoff
-        # If there are multiple students with total > cutoff, we need to ensure that Sergey's total is among the top K
+        # The minimum x is such that:
+        # sergey_total + x > totals[N-K-1]
+        # x > totals[N-K-1] - sergey_total
         
-        # Try all possible x from 0 to M
-        min_x = M + 1
-        for x in range(M + 1):
-            total = sergey_total + x
-            # Count how many students have total > cutoff
-            count = 0
-            for t in totals:
-                if t > cutoff:
-                    count += 1
-            if count + 1 >= K:
-                min_x = x
-                break
+        sergey_total = sum(sergey_scores)
+        if N-K == 0:
+            # All students are enrolled, Sergey needs to be among them
+            # So he needs to have the highest total
+            # But since he is not part of the students, we need to find the max total
+            # and see if he can have a higher one
+            max_total = max(totals)
+            required = max_total + 1
+            if required > M:
+                results.append("Impossible")
+            else:
+                results.append(str(required))
+            continue
         
-        if min_x <= M:
-            results.append(str(min_x))
-        else:
+        target = totals[N-K-1]
+        required = target - sergey_total + 1
+        if required > M:
             results.append("Impossible")
+        else:
+            results.append(str(required))
     
-    print('\n'.join(results))
+    for res in results:
+        print(res)
 
 if __name__ == '__main__':
     solve()

@@ -21,11 +21,12 @@ def solve():
         if d == -1:
             print(0)
             continue
-        m = 360 // d
-        if m == 0:
-            print(359)
+        g = 360 // d
+        if 360 % d == 0:
+            res = g - n
         else:
-            print(m - n)
+            res = g - n
+        print(res)
 
 if __name__ == '__main__':
     solve()

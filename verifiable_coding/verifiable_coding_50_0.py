@@ -19,39 +19,39 @@ def solve():
         total_s = a.count(1)
         total_b = a.count(2)
         
-        # The total number of jars is 2n
-        # We need to leave equal number of s and b jars
-        # So the number of jars to be eaten is (total_s + total_b) - 2 * left
-        # We need to find the maximum possible left such that left <= min(total_s, total_b)
+        if total_s == total_b:
+            results.append(0)
+            continue
         
-        max_left = min(total_s, total_b)
-        # We need to find the maximum possible left such that there exists a way to remove (total_s - left) s and (total_b - left) b jars
+        left = []
+        right = []
         
-        # We can use a two-pointer approach to find the maximum left
-        left = 0
-        right = 0
-        s_count = 0
-        b_count = 0
-        
-        while left < 2 * n and right < 2 * n:
-            if a[left] == 1:
-                s_count += 1
+        for i in range(2 * n):
+            if a[i] == 1:
+                left.append(1)
+                right.append(0)
             else:
-                b_count += 1
+                left.append(0)
+                right.append(1)
+        
+        s = 0
+        b = 0
+        min_jars = float('inf')
+        
+        for i in range(2 * n):
+            if i < n:
+                s += left[i]
+                b += right[i]
+            else:
+                s += right[i]
+                b += left[i]
             
-            if s_count == b_count:
-                left += 1
-                right = left
-            else:
-                right += 1
+            if s == b:
+                min_jars = min(min_jars, i + 1)
         
-        max_left = min(s_count, b_count)
-        
-        # The minimum number of jars to empty is (total_s + total_b) - 2 * max_left
-        res = (total_s + total_b) - 2 * max_left
-        results.append(str(res))
+        results.append(min_jars)
     
-    print('\n'.join(results))
+    sys.stdout.write('\n'.join(map(str, results)) + '\n')
 
 if __name__ == '__main__':
     solve()

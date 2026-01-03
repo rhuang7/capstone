@@ -17,14 +17,14 @@ def solve():
 
         count = Counter(A)
         max_count = -1
-        max_value = -1
+        max_element = -1
 
-        for key, val in count.items():
-            if val > max_count or (val == max_count and key < max_value):
-                max_count = val
-                max_value = key
+        for num, cnt in count.items():
+            if cnt > max_count or (cnt == max_count and num < max_element):
+                max_count = cnt
+                max_element = num
 
-        print(f"{max_value} {max_count}")
+        print(f"{max_element} {max_count}")
 
 if __name__ == '__main__':
     solve()

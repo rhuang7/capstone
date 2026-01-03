@@ -21,44 +21,39 @@ def solve():
                 idx += 1
             if idx >= len(data):
                 break
-            ci, pi = data[idx].split()
-            rules[ci] = pi
+            line = data[idx].split()
             idx += 1
+            ci = line[0].decode()
+            pi = line[1].decode()
+            rules[ci] = pi
         while idx < len(data) and data[idx] == b'':
             idx += 1
         if idx >= len(data):
             S = b''
         else:
-            S = data[idx]
+            S = data[idx].decode()
             idx += 1
         # Apply rules
         encrypted = S
         for ci in rules:
-            encrypted = encrypted.replace(ci, rules[ci].encode())
-        # Convert to string
-        s = encrypted.decode()
-        # Process the string as a number
+            encrypted = encrypted.replace(ci, rules[ci])
+        # Process the number
         # Split into integer and fractional parts
-        if '.' in s:
-            int_part, frac_part = s.split('.', 1)
-        else:
-            int_part = s
-            frac_part = ''
+        parts = encrypted.split('.')
+        integer_part = parts[0]
+        fractional_part = parts[1] if len(parts) > 1 else ''
         # Remove leading and trailing zeros
-        int_part = int_part.lstrip('0')
-        frac_part = frac_part.rstrip('0')
-        # Handle empty parts
-        if int_part == '':
-            int_part = '0'
-        if frac_part == '':
-            frac_part = ''
-        # Construct the result
-        if int_part == '0' and frac_part == '':
+        integer_part = integer_part.rstrip('0')
+        fractional_part = fractional_part.rstrip('0')
+        # Handle cases
+        if integer_part == '' and fractional_part == '':
             results.append('0')
-        elif int_part == '0':
-            results.append('.' + frac_part)
+        elif integer_part == '':
+            results.append('.' + fractional_part)
+        elif fractional_part == '':
+            results.append(integer_part)
         else:
-            results.append(int_part + ('.' + frac_part if frac_part else ''))
+            results.append(integer_part + '.' + fractional_part)
     for res in results:
         print(res)
 

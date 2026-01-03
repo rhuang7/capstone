@@ -1,23 +1,21 @@
 import sys
 
+def count_ones(x):
+    return bin(x).count('1')
+
 def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
     
-    index = 0
-    T = int(data[index])
-    index += 1
-    
-    results = []
+    T = int(data[0])
+    index = 1
     
     for _ in range(T):
         Q = int(data[index])
         index += 1
-        queries = []
-        for _ in range(Q):
-            queries.append(int(data[index]))
-            index += 1
+        queries = list(map(int, data[index:index+Q]))
+        index += Q
         
         S = set()
         E = 0
@@ -27,19 +25,19 @@ def solve():
             new_elements = set()
             for y in S:
                 new_elements.add(y ^ X)
-            new_elements.add(X)
-            for elem in new_elements:
-                if elem in S:
-                    continue
-                S.add(elem)
-                count = bin(elem).count('1')
-                if count % 2 == 0:
-                    E += 1
+            for y in new_elements:
+                if y not in S:
+                    S.add(y)
+            S.add(X)
+            
+            even = 0
+            odd = 0
+            for x in S:
+                if count_ones(x) % 2 == 0:
+                    even += 1
                 else:
-                    O += 1
-            results.append(f"{E} {O}")
-        
-    print("\n".join(results))
+                    odd += 1
+            print(even, odd)
 
 if __name__ == '__main__':
     solve()

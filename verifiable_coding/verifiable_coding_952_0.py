@@ -13,9 +13,9 @@ def solve():
     for s in data:
         for c in s:
             if c not in vowels:
-                # Find the minimum cost to convert this consonant to any vowel
+                # Find the minimum cost to change c to a vowel
                 min_cost = float('inf')
-                for vowel in vowel_values:
+                for vowel in vowels:
                     cost = abs(vowel_values[vowel] - vowel_values[c])
                     if cost < min_cost:
                         min_cost = cost

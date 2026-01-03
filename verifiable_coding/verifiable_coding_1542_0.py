@@ -23,13 +23,13 @@ def solve():
         
         for start in range(N - 7):
             end = start + 8
-            word = board[start:end]
+            letters = board[start:end]
             
             letter_modifiers = []
             word_modifiers = []
             
             for i in range(8):
-                modifier = word[i]
+                modifier = letters[i]
                 if modifier == 'd':
                     letter_modifiers.append(2)
                 elif modifier == 't':
@@ -39,13 +39,23 @@ def solve():
                 elif modifier == 'T':
                     word_modifiers.append(3)
             
-            letter_score = 0
+            # Apply letter modifiers
+            letter_scores = []
             for i in range(8):
-                letter_score += points[i] * letter_modifiers[i]
+                letter_score = points[i]
+                if letters[i] == 'd':
+                    letter_score *= 2
+                elif letters[i] == 't':
+                    letter_score *= 3
+                letter_scores.append(letter_score)
             
-            word_score = letter_score
-            for m in word_modifiers:
-                word_score *= m
+            # Apply word modifiers
+            word_score = sum(letter_scores)
+            for mod in word_modifiers:
+                if mod == 2:
+                    word_score *= 2
+                elif mod == 3:
+                    word_score *= 3
             
             max_score = max(max_score, word_score)
         

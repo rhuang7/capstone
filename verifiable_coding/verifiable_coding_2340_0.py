@@ -17,31 +17,43 @@ def solve():
         b = []
         i = 0
         j = 0
-        while len(a) < n and len(b) < n:
-            if i < len(p) and j < len(p):
-                if p[i] < p[j]:
-                    a.append(p[i])
+        k = 0
+        while k < 2 * n:
+            if i < n and j < n:
+                if p[k] == p[i]:
+                    a.append(p[k])
                     i += 1
-                else:
-                    b.append(p[j])
+                elif p[k] == p[j]:
+                    b.append(p[k])
                     j += 1
+                else:
+                    k += 1
+            elif i < n:
+                a.append(p[k])
+                i += 1
+                k += 1
             else:
-                break
+                b.append(p[k])
+                j += 1
+                k += 1
         if len(a) != n or len(b) != n:
             results.append("NO")
             continue
         valid = True
-        used = set()
-        for num in p:
-            if num in used:
+        for x in a:
+            if x in b:
                 valid = False
                 break
-            used.add(num)
+        if not valid:
+            results.append("NO")
+            continue
+        valid = True
+        for x in b:
+            if x in a:
+                valid = False
+                break
         if not valid:
             results.append("NO")
             continue
         results.append("YES")
     print('\n'.join(results))
-
-if __name__ == '__main__':
-    solve()

@@ -13,138 +13,70 @@ def solve():
     for _ in range(q):
         n = int(data[idx])
         idx += 1
-        type_count = collections.defaultdict(int)
-        type_f1 = collections.defaultdict(list)
-        type_f0 = collections.defaultdict(list)
+        type_count = collections.defaultdict(list)
+        f_count = collections.defaultdict(list)
         for _ in range(n):
             a = int(data[idx])
             f = int(data[idx + 1])
             idx += 2
-            type_count[a] += 1
-            if f == 1:
-                type_f1[a].append(1)
-            else:
-                type_f0[a].append(0)
+            type_count[a].append(f)
+            f_count[a].append(f)
         
-        # For each type, we have a list of f=1 and f=0 candies
-        # We need to select some of them such that counts are distinct
-        # We want to maximize the total number of candies, and then maximize f=1 count
+        # For each type, count how many f=1 and f=0 candies
+        type_f1 = {}
+        type_f0 = {}
+        for a in type_count:
+            type_f1[a] = sum(1 for f in type_count[a] if f == 1)
+            type_f0[a] = sum(1 for f in type_count[a] if f == 0)
         
-        # We'll try to assign as many as possible to f=1, then f=0
-        # We'll use a greedy approach with a priority queue
+        # We need to select for each type a number of candies (k) such that all k's are distinct
+        # We want to maximize the total number of candies, and among those, maximize the number of f=1 candies
         
-        # Sort types by the number of f=1 candies in descending order
-        types = sorted(type_count.items(), key=lambda x: len(x[1][0]), reverse=True)
+        # We'll try to assign as many as possible, starting from the types with more f=1 candies
+        # We'll use a priority queue to select the types with the most f=1 candies first
         
-        # For each type, we can take up to min(count, k) where k is the number of distinct counts
-        # We'll try to assign as many as possible to f=1, then f=0
+        # Create a list of (f1, f0, type) for each type
+        types = []
+        for a in type_count:
+            types.append((type_f1[a], type_f0[a], a))
         
-        # We'll use a max-heap to track the number of candies we can take of each type
-        # We'll also track the total count and f=1 count
+        # Sort types by f1 in descending order
+        types.sort(reverse=True)
         
-        total = 0
-        f1_count = 0
-        used = set()
-        max_count = 0
+        # We'll use a greedy approach to assign the maximum possible number of candies
+        # We'll use a set to track the counts we've already used
+        used_counts = set()
+        total_candies = 0
+        total_f1 = 0
         
-        for a, (f1_list, f0_list) in types:
-            # We can take up to min(len(f1_list), len(f0_list), ...) but we need to ensure distinct counts
-            # We'll try to take as many as possible from f1_list first
-            # We'll try to assign counts in a way that they are unique
-            
-            # Try to assign as many as possible from f1_list
-            # We'll try to assign counts from 1 to max_possible
-            # We'll try to assign as many as possible from f1_list
-            
-            # We'll try to assign as many as possible from f1_list
-            # We'll use a max-heap to track the possible counts
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
-            # We'll try to assign as many as possible from f1_list
+        for f1, f0, a in types:
+            # Try to assign as many as possible without repeating counts
+            # We'll try to assign the maximum possible count for this type
+            # The maximum possible count for this type is min(f1 + f0, max_count)
+            # We'll try to assign the largest possible count that hasn't been used yet
+            max_possible = min(f1 + f0, len(used_counts) + 1)
+            for k in range(max_possible, 0, -1):
+                if k not in used_counts:
+                    used_counts.add(k)
+                    total_candies += k
+                    total_f1 += k * (f1 / (f1 + f0))  # This is a simplification, we'll compute it properly later
+                    break
+        
+        # Now, we need to compute the exact number of f1 candies
+        # We'll recompute the total_f1 properly
+        total_f1 = 0
+        used_counts = set()
+        for f1, f0, a in types:
+            # Try to assign as many as possible without repeating counts
+            # We'll try to assign the largest possible count that hasn't been used yet
+            max_possible = min(f1 + f0, len(used_counts) + 1)
+            for k in range(max_possible, 0, -1):
+                if k not in used_counts:
+                    used_counts.add(k)
+                    total_candies += k
+                    total_f1 += min(k, f1)
+                    break
+        
+        results.append(f"{total_candies} {total_f1}")
+    
+    print("\n".join(results))

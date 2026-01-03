@@ -8,14 +8,20 @@ def solve():
     T = int(data[0])
     cases = list(map(int, data[1:T+1]))
     
+    results = []
+    
     for N in cases:
         count = 0
         i = 1
-        while i * i <= N:
-            if (i * (i + 1)) // 2 <= N:
+        while i <= N:
+            if i % 4 == 1:
                 count += 1
-            i += 1
-        print(count)
+            elif i % 4 == 3:
+                count += 1
+            i += 2
+        results.append(str(count))
+    
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

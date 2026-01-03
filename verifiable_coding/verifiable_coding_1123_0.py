@@ -6,37 +6,36 @@ def solve():
     idx = 0
     T = int(data[idx])
     idx += 1
-    results = []
     for _ in range(T):
         N = int(data[idx])
         M = int(data[idx+1])
         idx += 2
         graph = [set() for _ in range(N)]
         for _ in range(M):
-            A = int(data[idx])
-            B = int(data[idx+1])
+            a = int(data[idx])
+            b = int(data[idx+1])
+            graph[a].add(b)
+            graph[b].add(a)
             idx += 2
-            graph[A].add(B)
-            graph[B].add(A)
         Q = int(data[idx])
         idx += 1
         for _ in range(Q):
-            X = int(data[idx])
-            Y = int(data[idx+1])
+            x = int(data[idx])
+            y = int(data[idx+1])
             idx += 2
-            visited = set()
-            stack = [X]
-            visited.add(X)
+            visited = [False]*N
+            stack = [x]
+            visited[x] = True
             while stack:
                 current = stack.pop()
+                if current == y:
+                    print("YO")
+                    break
                 for neighbor in graph[current]:
-                    if neighbor not in visited:
-                        visited.add(neighbor)
+                    if not visited[neighbor]:
+                        visited[neighbor] = True
                         stack.append(neighbor)
-            if Y in visited:
-                results.append("YO")
             else:
-                results.append("NO")
-    print('\n'.join(results))
+                print("NO")
 if __name__ == '__main__':
     solve()

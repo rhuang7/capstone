@@ -15,21 +15,25 @@ def solve():
         N = int(data[index + 1])
         index += 2
         
-        # Number of coins needed for S
-        # If S is odd, we need at least one 1 coin
-        # Then, the rest can be covered by even coins
-        coins = 0
+        # Number of 1 coins needed
+        ones = S % 2
         
-        if S % 2 == 1:
+        # Remaining amount after using 1 coins
+        remaining = S - ones
+        
+        # Number of even coins needed
+        # Since N is even, we can use as many N as possible
+        coins = remaining // N
+        
+        # If there is a remainder, we need one more coin
+        if remaining % N != 0:
             coins += 1
-            S -= 1
         
-        # Now S is even, we can use the largest even coin (N) as much as possible
-        coins += S // N
-        
-        results.append(str(coins))
+        # Total coins is ones + coins
+        results.append(ones + coins)
     
-    print('\n'.join(results))
+    for res in results:
+        print(res)
 
 if __name__ == '__main__':
     solve()

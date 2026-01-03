@@ -26,6 +26,3 @@ def solve():
         results.append(str(max_candies))
     
     print('\n'.join(results))
-
-if __name__ == '__main__':
-    solve()

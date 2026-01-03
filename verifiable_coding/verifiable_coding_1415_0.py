@@ -4,29 +4,53 @@ def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
+    
     T = int(data[0])
-    cases = data[1:T+1]
-
-    def is_palindrome(s):
-        return s == s[::-1]
-
-    def can_be_palindrome(s):
+    results = []
+    
+    for i in range(1, T + 1):
+        s = data[i]
         n = len(s)
         left = 0
         right = n - 1
+        
+        # Find the first mismatch
         while left < right:
             if s[left] != s[right]:
                 # Check if deleting left or right character makes it a palindrome
-                return is_palindrome(s[left+1:right+1]) or is_palindrome(s[left:right])
+                # Check deleting left
+                flag1 = True
+                temp_left = left + 1
+                temp_right = right
+                while temp_left < temp_right:
+                    if s[temp_left] != s[temp_right]:
+                        flag1 = False
+                        break
+                    temp_left += 1
+                    temp_right -= 1
+                if flag1:
+                    results.append("YES")
+                    break
+                # Check deleting right
+                flag2 = True
+                temp_left = left
+                temp_right = right - 1
+                while temp_left < temp_right:
+                    if s[temp_left] != s[temp_right]:
+                        flag2 = False
+                        break
+                    temp_left += 1
+                    temp_right -= 1
+                if flag2:
+                    results.append("YES")
+                    break
+                # If neither works, it's not possible
+                results.append("NO")
+                break
             left += 1
             right -= 1
-        return True
-
-    for s in cases:
-        if can_be_palindrome(s):
-            print("YES")
         else:
-            print("NO")
-
-if __name__ == '__main__':
-    solve()
+            # If the entire string is a palindrome, deleting one character will still leave it a palindrome
+            results.append("YES")
+    
+    print('\n'.join(results))

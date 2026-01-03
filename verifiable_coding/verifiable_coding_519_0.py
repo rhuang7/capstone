@@ -19,42 +19,28 @@ def solve():
             close_brackets.append(b)
     
     # For each opening bracket, find the corresponding closing bracket
-    # We'll use a dictionary to map opening brackets to their corresponding closing brackets
+    # We'll use a dictionary to map opening brackets to their closing counterparts
     bracket_map = {i: i + k for i in range(1, k + 1)}
     
-    # We'll use dynamic programming to solve this problem
-    # dp[i][j] represents the maximum sum for the first i opening brackets and j closing brackets
-    # We'll use a 2D array for DP
-    # Since k can be up to 7, the maximum number of opening brackets is k, and the same for closing
-    # So the DP table size is (k+1) x (k+1)
-    dp = [[-float('inf')] * (k + 1) for _ in range(k + 1)]
-    dp[0][0] = 0  # Base case: no brackets used
+    # dp[i][j] = maximum sum for the first i opening brackets and j closing brackets
+    # We'll use a 2D array for dynamic programming
+    dp = [[-float('inf')] * (len(close_brackets) + 1) for _ in range(len(open_brackets) + 1)]
+    dp[0][0] = 0
     
-    for i in range(1, k + 1):
-        for j in range(1, k + 1):
-            # Try to match the i-th opening bracket with the j-th closing bracket
-            if bracket_map[i] == j:
-                # If this is a valid pair, we can take the value of this bracket
-                # And add it to the maximum sum from the previous state
-                dp[i][j] = max(dp[i][j], dp[i-1][j-1] + V[B.index(bracket_map[i])])
-            # Try to not use the i-th opening bracket
-            dp[i][j] = max(dp[i][j], dp[i-1][j])
-            # Try to not use the j-th closing bracket
-            dp[i][j] = max(dp[i][j], dp[i][j-1])
+    for i in range(len(open_brackets) + 1):
+        for j in range(len(close_brackets) + 1):
+            if i > 0:
+                dp[i][j] = max(dp[i][j], dp[i-1][j])
+            if j > 0:
+                dp[i][j] = max(dp[i][j], dp[i][j-1])
+            if i > 0 and j > 0:
+                # Check if the current opening bracket can pair with the current closing bracket
+                if bracket_map[open_brackets[i-1]] == close_brackets[j-1]:
+                    dp[i][j] = max(dp[i][j], dp[i-1][j-1] + V[B.index(open_brackets[i-1])])
     
-    # The answer is the maximum value in the dp table
-    # We need to consider all possible combinations of opening and closing brackets
-    # But we need to ensure that the brackets are used in a valid way
-    # So we need to consider all possible combinations of opening and closing brackets
-    # where the number of opening brackets is equal to the number of closing brackets
-    # and the brackets are matched in a valid way
-    max_sum = -float('inf')
-    for i in range(1, k + 1):
-        for j in range(1, k + 1):
-            if i == j:
-                max_sum = max(max_sum, dp[i][j])
-    
-    print(max_sum)
+    # The answer is the maximum value in the last row and last column
+    result = max(dp[len(open_brackets)][len(close_brackets)])
+    print(result if result != -float('inf') else 0)
 
 if __name__ == '__main__':
     solve()

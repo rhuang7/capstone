@@ -38,6 +38,7 @@ def solve():
             w_idx = bisect.bisect_left(W, E)
             if w_idx < len(W):
                 w_time = W[w_idx]
+
                 total_time = w_time - v_time + 1
                 if total_time < min_time:
                     min_time = total_time

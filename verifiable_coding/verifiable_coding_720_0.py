@@ -10,16 +10,15 @@ def solve():
         S = data[i]
         beauty = 0
         n = len(S)
-        for i in range(n):
-            cnt0 = 0
-            cnt1 = 0
-            for j in range(i, n):
-                if S[j] == '0':
-                    cnt0 += 1
-                else:
-                    cnt1 += 1
-                if cnt0 == cnt1 * cnt1:
-                    beauty += 1
+        cnt_0 = 0
+        cnt_1 = 0
+        for j in range(n):
+            if S[j] == '0':
+                cnt_0 += 1
+            else:
+                cnt_1 += 1
+            if cnt_0 == cnt_1 * cnt_1:
+                beauty += 1
         results.append(beauty)
     for res in results:
         print(res)

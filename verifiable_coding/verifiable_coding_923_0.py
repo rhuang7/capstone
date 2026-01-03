@@ -10,7 +10,7 @@ def solve():
             print(1)
         else:
             # The minimum time is the smallest integer k such that k*(k+1)/2 >= n
-            # This is equivalent to finding the smallest k where k^2 + k - 2n >= 0
+            # Solving k^2 +k - 2n >= 0
             k = math.ceil((-1 + math.sqrt(1 + 8 * n)) / 2)
             print(k)
 

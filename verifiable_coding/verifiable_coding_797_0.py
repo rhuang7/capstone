@@ -21,7 +21,7 @@ def solve():
         if s == e:
             possible = []
             for d in range(L, R+1):
-                if d % 7 == 0:
+                if (d - 1) % 7 == 0:
                     possible.append(d)
             if not possible:
                 print("impossible")
@@ -30,9 +30,10 @@ def solve():
             else:
                 print(possible[0])
         else:
+            min_days = (e - s + 7) % 7
             possible = []
             for d in range(L, R+1):
-                if (s + d) % 7 == e:
+                if (d - 1) % 7 == (min_days - 1) % 7:
                     possible.append(d)
             if not possible:
                 print("impossible")

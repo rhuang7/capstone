@@ -32,13 +32,13 @@ def solve():
         heap = [(0, start)]
         
         while heap:
-            cost, node = heapq.heappop(heap)
-            if cost > dist[node]:
+            current_dist, u = heapq.heappop(heap)
+            if current_dist > dist[u]:
                 continue
-            for neighbor, weight in graph[node]:
-                if dist[neighbor] > dist[node] + weight:
-                    dist[neighbor] = dist[node] + weight
-                    heapq.heappush(heap, (dist[neighbor], neighbor))
+            for v, p in graph[u]:
+                if dist[v] > dist[u] + p:
+                    dist[v] = dist[u] + p
+                    heapq.heappush(heap, (dist[v], v))
         
         max_cost = max(max_cost, dist[start])
     

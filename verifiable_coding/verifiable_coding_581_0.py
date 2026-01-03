@@ -21,7 +21,6 @@ def solve():
         idx += K
         
         total_age = sum(ages) + E
-        
         if total_age == 0:
             results.append("NO")
             continue

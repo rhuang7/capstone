@@ -7,7 +7,7 @@ def get_divisors(n):
         if n % i == 0:
             divisors.add(i)
             divisors.add(n // i)
-    return divisors
+    return sorted(divisors)
 
 def solve():
     import sys

@@ -20,9 +20,10 @@ def solve():
         for num in values:
             if num & 1 == 0:
                 total += num
-        results.append(str(total))
+        results.append(total)
     
-    print('\n'.join(results))
+    for res in results:
+        print(res)
 
 if __name__ == '__main__':
     solve()

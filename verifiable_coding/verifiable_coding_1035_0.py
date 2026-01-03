@@ -1,5 +1,5 @@
 import sys
-import heapq
+import math
 
 def solve():
     import sys
@@ -18,60 +18,66 @@ def solve():
         Sx = int(data[idx])
         Sy = int(data[idx+1])
         idx += 2
-        dx_list = list(map(int, data[idx:idx+N]))
+        
+        dx = list(map(int, data[idx:idx+N]))
         idx += N
-        dy_list = list(map(int, data[idx:idx+N]))
+        dy = list(map(int, data[idx:idx+N]))
         idx += N
+        
         grid = []
-        for r in range(R):
+        for i in range(R):
             row = list(map(int, data[idx:idx+C]))
             grid.append(row)
             idx += C
         
         # Dijkstra's algorithm with priority queue
-        # Each state is (total_value, x, y, used_pairs)
-        # Since N is small (<=9), we can represent used_pairs as a bitmask
-        # We use a priority queue to find the maximum value path
-        # We use a dictionary to keep track of the maximum value for each (x, y, used_pairs)
-        from collections import defaultdict
-        import heapq
+        from heapq import heappush, heappop
         
-        max_value = 0
+        # Each state is (current_value, x, y, used_tels)
+        # We use a priority queue to always expand the highest value path
+        # We use a dictionary to keep track of the maximum value for each (x, y, used_tels)
+        max_values = {}
         heap = []
-        heapq.heappush(heap, (-grid[Sx][Sy], Sx, Sy, 0))  # Use negative for max-heap
-        visited = defaultdict(lambda: defaultdict(lambda: -1))
-        visited[Sx][Sy][0] = grid[Sx][Sy]
+        heappush(heap, (-grid[Sx][Sy], Sx, Sy, 0))
+        max_values[(Sx, Sy, 0)] = grid[Sx][Sy]
         
         while heap:
-            neg_total, x, y, used = heapq.heappop(heap)
-            total = -neg_total
-            if total > max_value:
-                max_value = total
-            if used == N:
+            neg_val, x, y, used = heappop(heap)
+            val = -neg_val
+            if (x, y, used) in max_values and max_values[(x, y, used)] > val:
                 continue
-            # Try using the next tel-pair
-            for i in range(used, N):
-                dx = dx_list[i]
-                dy = dy_list[i]
-                # Try all possible cells reachable by this tel-pair
-                for dx2 in [-dx, dx]:
-                    for dy2 in [-dy, dy]:
-                        nx = x + dx2
-                        ny = y + dy2
-                        if 0 <= nx < R and 0 <= ny < C:
-                            new_total = total + grid[nx][ny]
-                            new_used = used + 1
-                            if new_total > visited[nx][ny][new_used]:
-                                visited[nx][ny][new_used] = new_total
-                                heapq.heappush(heap, (-new_total, nx, ny, new_used))
-            # Also consider staying in the same cell (no teleport)
-            if total > visited[x][y][used]:
-                visited[x][y][used] = total
-                heapq.heappush(heap, (-total, x, y, used))
+            if used == N:
+                results.append(val)
+                break
+            # Try using a tel-pair
+            for i in range(N):
+                if used > i:
+                    dx_i = dx[i]
+                    dy_i = dy[i]
+                    new_x = x + dx_i
+                    new_y = y + dy_i
+                    if 0 <= new_x < R and 0 <= new_y < C:
+                        new_val = val + grid[new_x][new_y]
+                        key = (new_x, new_y, used + 1)
+                        if key not in max_values or new_val > max_values[key]:
+                            max_values[key] = new_val
+                            heappush(heap, (-new_val, new_x, new_y, used + 1))
+            # Try not using a tel-pair
+            key = (x, y, used)
+            if key not in max_values or val > max_values[key]:
+                max_values[key] = val
+                heappush(heap, (-val, x, y, used))
         
-        results.append(str(max_value))
+        # If we didn't break out of the loop, then we have to check all possibilities
+        if len(results) == 0:
+            max_val = 0
+            for key in max_values:
+                if max_values[key] > max_val:
+                    max_val = max_values[key]
+            results.append(max_val)
     
-    print('\n'.join(results))
+    for res in results:
+        print(res)
 
 if __name__ == '__main__':
     solve()

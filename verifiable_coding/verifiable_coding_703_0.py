@@ -19,14 +19,12 @@ def solve():
     input = sys.stdin.buffer.read
     data = input().split()
     T = int(data[0])
-    results = []
     for i in range(1, T + 1):
         K = int(data[i])
         if is_beautiful(K):
-            results.append(str(K))
+            print(K)
         else:
-            results.append(str(find_previous_beautiful(K)))
-    print('\n'.join(results))
+            print(find_previous_beautiful(K))
 
 if __name__ == '__main__':
     solve()

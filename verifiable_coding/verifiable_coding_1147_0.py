@@ -25,9 +25,9 @@ def solve():
                 odd_count += 1
         
         if odd_count > 1:
-            results.append((N - (N - odd_count + 1)) // 2)
+            results.append((N - (N // 2) * 2) + 1)
         else:
-            results.append((N - (N - odd_count)) // 2)
+            results.append(N - (N // 2) * 2)
     
     for res in results:
         print(res)

@@ -25,26 +25,22 @@ def solve():
         for i in range(N):
             if A[i] != -1:
                 j = opposite[i]
-                if A[j] != -1 and A[i] != A[j]:
+                if A[j] == -1:
+                    valid = False
+                    break
+                if A[i] != A[j]:
                     valid = False
                     break
         if not valid:
             results.append("NO")
             continue
-        B = [0] * N
+        res = []
         for i in range(N):
             if A[i] == -1:
                 j = opposite[i]
-                if B[j] == 0:
-                    B[i] = 1
-                else:
-                    B[i] = B[j]
+                res.append(A[j])
             else:
-                B[i] = A[i]
-        total = sum(B)
-        if total == 0:
-            results.append("NO")
-            continue
+                res.append(A[i])
         results.append("YES")
-        results.append(' '.join(map(str, B)))
+        results.append(' '.join(map(str, res)))
     print('\n'.join(results))

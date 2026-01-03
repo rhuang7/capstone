@@ -20,11 +20,11 @@ def solve():
         total_squares = N * M
         valid_squares = total_squares - 1  # exclude Chef's position
         
-        # Total possible configurations (unordered pairs)
+        # Total possible configurations (unordered pairs of distinct squares)
         total_configurations = valid_squares * (valid_squares - 1) // 2
         
-        # Count configurations where the two queens can see each other
-        # Queens can see each other if they are in the same row, column, or diagonal and Chef is not between them
+        # Calculate number of configurations where queens can see each other
+        # Queens can see each other if they are in the same row, column, or diagonal and Chef is between them
         
         # Same row
         same_row = 0
@@ -40,28 +40,42 @@ def solve():
                 same_col += 1
         same_col = same_col * (same_col - 1) // 2
         
-        # Same diagonal (both positive and negative)
-        # Positive diagonal (r - c is constant)
-        diag_pos = 0
-        for r in range(1, N + 1):
-            for c in range(1, M + 1):
-                if r - c == X - Y and (r != X or c != Y):
-                    diag_pos += 1
-        diag_pos = diag_pos * (diag_pos - 1) // 2
+        # Same diagonal (both positive and negative slope)
+        # Positive slope (top-left to bottom-right)
+        same_diag_pos = 0
+        r, c = 1, 1
+        while r <= N and c <= M:
+            if r != X and c != Y:
+                same_diag_pos += 1
+            r += 1
+            c += 1
+        r, c = 1, M
+        while r <= N and c >= 1:
+            if r != X and c != Y:
+                same_diag_pos += 1
+            r += 1
+            c -= 1
         
-        # Negative diagonal (r + c is constant)
-        diag_neg = 0
-        for r in range(1, N + 1):
-            for c in range(1, M + 1):
-                if r + c == X + Y and (r != X or c != Y):
-                    diag_neg += 1
-        diag_neg = diag_neg * (diag_neg - 1) // 2
+        # Negative slope (top-right to bottom-left)
+        same_diag_neg = 0
+        r, c = 1, M
+        while r <= N and c >= 1:
+            if r != X and c != Y:
+                same_diag_neg += 1
+            r += 1
+            c -= 1
+        r, c = N, 1
+        while r >= 1 and c <= M:
+            if r != X and c != Y:
+                same_diag_neg += 1
+            r -= 1
+            c += 1
         
         # Total configurations where queens can see each other
-        total_see_each_other = same_row + same_col + diag_pos + diag_neg
+        total_seen = same_row + same_col + same_diag_pos + same_diag_neg
         
-        # Valid configurations are those where queens cannot see each other
-        valid_configurations = total_configurations - total_see_each_other
+        # Valid configurations are total - seen
+        valid_configurations = total_configurations - total_seen
         
         results.append(valid_configurations)
     

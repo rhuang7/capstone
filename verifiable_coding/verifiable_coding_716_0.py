@@ -39,8 +39,7 @@ def solve():
                 for i in range(L, R+1):
                     x = A[i]
                     lpd = least_prime_divisor(x)
-                    if lpd > res:
-                        res = lpd
+                    res = max(res, lpd)
                 output.append(str(res))
         results.append('\n' + ' '.join(output))
     print('\n'.join(results))

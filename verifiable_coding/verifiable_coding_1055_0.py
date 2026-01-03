@@ -8,22 +8,20 @@ def solve():
     N = int(data[1])
     A = list(map(int, data[2:2+M]))
     
-    total_slices = M  # Initially, each pizza is 1 slice
+    total = M
     remaining_cuts = N
     
-    # Sort pizzas by the maximum cuts they can take (Ai) in descending order
-    A.sort(reverse=True)
-    
-    for i in range(M):
-        # Maximum cuts we can make on this pizza
-        max_cuts = min(remaining_cuts, A[i])
-        # Each cut increases the number of slices by 1
-        total_slices += max_cuts
-        remaining_cuts -= max_cuts
-        if remaining_cuts == 0:
+    for a in A:
+        if remaining_cuts <= 0:
             break
+        if a > remaining_cuts:
+            total += remaining_cuts
+            remaining_cuts = 0
+        else:
+            total += a
+            remaining_cuts -= a
     
-    print(total_slices)
+    print(total)
 
 if __name__ == '__main__':
     solve()

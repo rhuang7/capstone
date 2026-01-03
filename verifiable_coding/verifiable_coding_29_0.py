@@ -14,151 +14,21 @@ def solve():
         a = list(map(int, data[idx:idx + n]))
         idx += n
         ans = [-1] * n
-        # For each possible k from 1 to n
-        for k in range(1, n + 1):
-            # Check if there is a number that appears in all subsegments of length k
-            # We can use sliding window and a frequency map
-            freq = collections.defaultdict(int)
-            # Initialize the first window
-            for i in range(k):
-                freq[a[i]] += 1
-            # Check if any number appears in all windows
-            found = False
-            for num in freq:
-                if freq[num] == k:
-                    found = True
-                    break
-            if not found:
-                ans[k - 1] = -1
-                continue
-            # Now find the number that appears in all windows
-            # We can use a sliding window and track the count of each number
-            # If any number's count drops below k, it's not the answer
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            # We can use a sliding window and a frequency map
-            # We need to find the number that appears in all windows
-            # So we can track the count of each number in the current window
-            # and check if it's at least k
-            #
+        freq = collections.defaultdict(int)
+        window = collections.defaultdict(int)
+        left = 0
+        for right in range(n):
+            num = a[right]
+            window[num] += 1
+            if window[num] == 1:
+                freq[num] = 1
+            while right - left + 1 > n - 1:
+                left_num = a[left]
+                window[left_num] -= 1
+                if window[left_num] == 0:
+                    del window[left_num]
+                left += 1
+            if len(window) == 1:
+                ans[n - 1 - (right - left + 1)] = list(window.keys())[0]
+        results.append(' '.join(map(str, ans)))
+    print('\n'.join(results))

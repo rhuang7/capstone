@@ -2,15 +2,22 @@ import sys
 
 def solve():
     import sys
-    input = sys.stdin.buffer.read().split()
-    t = int(input[0])
-    cases = input[1:t+1]
+    input = sys.stdin.buffer.read
+    data = input().split()
     
-    for n in cases:
+    t = int(data[0])
+    results = []
+    
+    for i in range(1, t + 1):
+        n = data[i]
         original = ""
         for ch in n:
-            original += str(int(ch) - 2)
-        print(original)
-        
+            digit = int(ch) - 2
+            original += str(digit)
+        results.append(original)
+    
+    for res in results:
+        print(res)
+
 if __name__ == '__main__':
     solve()

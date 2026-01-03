@@ -8,7 +8,6 @@ def solve():
     idx = 0
     T = int(data[idx])
     idx += 1
-    
     results = []
     
     for _ in range(T):
@@ -17,73 +16,59 @@ def solve():
         S = data[idx]
         idx += 1
         
-        # Preprocess the string to get positions of I, M, X, and count of : between positions
-        positions = {'I': [], 'M': [], 'X': []}
+        # Preprocess: record positions of I, M, X, and count sheets
+        I_pos = []
+        M_pos = []
+        X_pos = []
+        sheet_count = [0] * (N + 2)  # 1-based to N
+        
         for i in range(N):
             if S[i] == 'I':
-                positions['I'].append(i)
+                I_pos.append(i)
             elif S[i] == 'M':
-                positions['M'].append(i)
+                M_pos.append(i)
             elif S[i] == 'X':
-                positions['X'].append(i)
+                X_pos.append(i)
+            elif S[i] == ':':
+                sheet_count[i+1] += 1
         
-        # Precompute prefix sums of : to quickly calculate number of : between two positions
-        prefix = [0] * (N + 1)
-        for i in range(N):
-            prefix[i+1] = prefix[i] + (1 if S[i] == ':' else 0)
+        # Precompute prefix sums of sheets
+        prefix_sheets = [0] * (N + 2)
+        for i in range(1, N+1):
+            prefix_sheets[i] = prefix_sheets[i-1] + sheet_count[i]
         
-        # Function to calculate number of : between i and j
-        def count_sheets(i, j):
-            return prefix[j] - prefix[i]
+        # For each magnet, find possible iron pieces it can attract
+        # and count the maximum matching
+        # Use a greedy approach: for each magnet, try to match with the closest possible iron
+        # that is not yet matched and satisfies the condition
         
-        # For each magnet, find all possible irons it can attract
-        # And greedily assign irons to magnets
-        # We'll use a greedy approach: for each magnet, try to assign the closest possible iron
-        # that hasn't been assigned yet and satisfies the conditions
-        
-        # We'll use a list to keep track of which irons are already assigned
-        assigned = [False] * N
-        
+        matched = [False] * N
         count = 0
         
-        for m in positions['M']:
-            # Try to find the closest I to the left of m
-            for i in range(m-1, -1, -1):
-                if S[i] == 'I' and not assigned[i]:
-                    # Check if there are no X between i and m
-                    has_x = False
-                    for k in range(i+1, m):
-                        if S[k] == 'X':
-                            has_x = True
-                            break
-                    if not has_x:
-                        # Calculate attraction power
-                        dist = m - i
-                        sheets = count_sheets(i, m)
-                        power = K + 1 - dist - sheets
-                        if power > 0:
-                            assigned[i] = True
-                            count += 1
-                            break
-            # Try to find the closest I to the right of m
-            for i in range(m+1, N):
-                if S[i] == 'I' and not assigned[i]:
-                    # Check if there are no X between i and m
-                    has_x = False
-                    for k in range(m+1, i):
-                        if S[k] == 'X':
-                            has_x = True
-                            break
-                    if not has_x:
-                        # Calculate attraction power
-                        dist = i - m
-                        sheets = count_sheets(m, i)
-                        power = K + 1 - dist - sheets
-                        if power > 0:
-                            assigned[i] = True
-                            count += 1
-                            break
+        for m in M_pos:
+            for i in I_pos:
+                if i == m or matched[i]:
+                    continue
+                # Check if there are no X between m and i
+                has_x = False
+                for j in range(min(m, i)+1, max(m, i)):
+                    if S[j] == 'X':
+                        has_x = True
+                        break
+                if has_x:
+                    continue
+                # Compute distance and number of sheets between m and i
+                dist = abs(m - i)
+                sheets = prefix_sheets[max(m, i)] - prefix_sheets[min(m, i)]
+                power = K + 1 - dist - sheets
+                if power > 0:
+                    matched[i] = True
+                    count += 1
+                    break
         
         results.append(str(count))
     
     print('\n'.join(results))
+
+if __name__ == '__main__':
+    solve()

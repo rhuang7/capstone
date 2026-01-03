@@ -3,8 +3,7 @@ import math
 
 MOD = 10**9 + 7
 
-def main():
-    import sys
+def solve():
     input = sys.stdin.buffer.read
     data = input().split()
     idx = 0
@@ -16,16 +15,16 @@ def main():
         n, Q = int(data[idx]), int(data[idx+1])
         idx += 2
         
-        # Build the tree
-        adj = [[] for _ in range(n+1)]
+        # Build tree
+        tree = [[] for _ in range(n+1)]
         for _ in range(n-1):
             u = int(data[idx])
             v = int(data[idx+1])
-            adj[u].append(v)
-            adj[v].append(u)
+            tree[u].append(v)
+            tree[v].append(u)
             idx += 2
         
-        # Process conditions
+        # Process queries
         conditions = []
         for _ in range(Q):
             u = int(data[idx])
@@ -34,104 +33,139 @@ def main():
             conditions.append((u, v, x))
             idx += 3
         
-        # We need to find the number of valid assignments of 0/1 to edges
-        # such that for each condition, the sum of weights on the path from u to v is even or odd.
-        # This is a system of linear equations over GF(2)
+        # Use BFS to find parent and depth for each node
+        parent = [0]*(n+1)
+        depth = [0]*(n+1)
+        visited = [False]*(n+1)
+        from collections import deque
+        q = deque()
+        q.append(1)
+        visited[1] = True
+        while q:
+            u = q.popleft()
+            for v in tree[u]:
+                if not visited[v]:
+                    visited[v] = True
+                    parent[v] = u
+                    depth[v] = depth[u] + 1
+                    q.append(v)
         
-        # We will represent the edges as variables and build the system of equations
+        # Build equations
+        # Each edge is between parent and child
+        # For each condition, we need to find the XOR of the path from u to v
+        # We can represent the path as the XOR from root to u XOR root to v
+        # So we need to find the XOR from root to each node
+        # Let's compute that
+        xor_to_root = [0]*(n+1)
+        visited = [False]*(n+1)
+        q = deque()
+        q.append(1)
+        visited[1] = True
+        while q:
+            u = q.popleft()
+            for v in tree[u]:
+                if not visited[v]:
+                    visited[v] = True
+                    xor_to_root[v] = xor_to_root[u] ^ 1
+                    q.append(v)
         
-        # Assign each edge a unique index
-        edge_index = 0
-        edge_to_index = {}
-        for u in range(1, n+1):
-            for v in adj[u]:
-                if u < v:
-                    edge_to_index[(u, v)] = edge_index
-                    edge_index += 1
+        # Now, for each condition (u, v, x), the XOR of the path from u to v is xor_to_root[u] ^ xor_to_root[v]
+        # We need this XOR to be 0 if x is 0, 1 if x is 1
+        # So the equation is: xor_to_root[u] ^ xor_to_root[v] == x
+        # Which can be rewritten as: xor_to_root[u] ^ xor_to_root[v] ^ x == 0
+        # This is a linear equation in GF(2)
+        # We need to form a system of linear equations over GF(2)
+        # The variables are the edges, which can be represented as the XOR from parent to child
+        # For each edge between parent and child, we can represent it as a variable
+        # So, for each node (except root), we have an edge from parent to node
+        # Let's assign variables to edges
+        # Let's create a list of variables, where variable[i] is the edge from parent[i] to i
+        # Then, for each condition, we can find the XOR of the path from u to v
+        # Which is the XOR of the variables along the path
+        # So, we can represent this as a linear equation in GF(2)
+        # We need to find the number of solutions to this system of equations
+        # The number of solutions is 2^(number of free variables)
+        # So, we need to find the rank of the system and the number of free variables
         
-        # Build the system of equations
-        # Each equation is of the form: sum of variables (edges on path) ≡ x (mod 2)
-        # We will represent this as a matrix where each row is an equation
+        # Let's create the system of equations
+        # Each equation is a row in a matrix
+        # Each variable is a column in the matrix
+        # The variables are the edges from parent to child
+        # So, for each node i (except root), we have a variable
+        # So, total variables is n-1
+        # Let's create a list of variables, where variable[i] is the edge from parent[i] to i
+        # So, for each node i (except root), variable[i] is the edge between parent[i] and i
+        # Now, for each condition (u, v, x), we need to find the XOR of the path from u to v
+        # Which is the XOR of the variables along the path from u to v
+        # So, we can represent this as a linear equation
+        # Let's find the XOR of the path from u to v
+        # This can be done by finding the XOR of the path from root to u and root to v
+        # So, the XOR of the path from u to v is xor_to_root[u] ^ xor_to_root[v]
+        # So, the equation is: xor_to_root[u] ^ xor_to_root[v] ^ x == 0
+        # Which is equivalent to: xor_to_root[u] ^ xor_to_root[v] == x
+        # This is a linear equation in GF(2)
+        # So, for each condition, we can create an equation
+        # Now, we need to build the system of equations and find the number of solutions
         
-        # To solve this, we can use Gaussian elimination over GF(2)
-        # We will represent the system as a matrix of size (Q x (n-1))
-        # Each row is an equation, each column is a variable (edge)
+        # Let's create a list of equations
+        # Each equation is a list of coefficients (0 or 1), and a constant (0 or 1)
+        # The coefficients represent the variables in the equation
+        # The constant is the right-hand side of the equation
+        # We can represent this as a matrix, where each row is an equation
         
-        # We'll also need to track the rank of the system and the number of free variables
-        # The number of solutions is 2^k, where k is the number of free variables
+        # Let's create a list of equations
+        equations = []
+        # Also, we need to find the variables (edges) that are involved in each equation
+        # For each condition (u, v, x), we need to find the path from u to v and create an equation
+        # Let's find the path from u to v
+        # We can find the LCA (lowest common ancestor) of u and v
+        # Then, the path from u to v is u to LCA, then LCA to v
+        # But for the purpose of building the equations, we can just find the XOR of the path
+        # Which is xor_to_root[u] ^ xor_to_root[v]
+        # So, the equation is: xor_to_root[u] ^ xor_to_root[v] == x
+        # Which is equivalent to: xor_to_root[u] ^ xor_to_root[v] ^ x == 0
+        # So, we can represent this as a linear equation
         
-        # Build the matrix
-        matrix = []
+        # Now, let's create the equations
         for u, v, x in conditions:
-            # Find the path from u to v
-            # We'll use BFS to find the path
-            # But since it's a tree, there's exactly one path
-            # We can use DFS or BFS to find the path
-            # We'll use BFS
-            path = []
-            visited = [False] * (n+1)
-            queue = [(u, [u])]
-            while queue:
-                node, path_so_far = queue.pop(0)
-                if node == v:
-                    path = path_so_far
+            # The XOR of the path from u to v is xor_to_root[u] ^ xor_to_root[v]
+            # The equation is: xor_to_root[u] ^ xor_to_root[v] == x
+            # Which is equivalent to: xor_to_root[u] ^ xor_to_root[v] ^ x == 0
+            # So, we need to create an equation with coefficients for the variables
+            # The variables are the edges from parent to child
+            # So, we need to find the path from u to v and find which edges are involved
+            # For each edge in the path, we have a variable
+            # Let's find the path from u to v
+            # We can do this by finding the LCA of u and v
+            # But for this problem, we can find the path by moving up from u and v to their common ancestor
+            # Let's find the path from u to v
+            # We can do this by moving up from u and v until they meet
+            # Let's find the path
+            path_u = []
+            path_v = []
+            # Move u up to root
+            while u != 1:
+                path_u.append(u)
+                u = parent[u]
+            # Move v up to root
+            while v != 1:
+                path_v.append(v)
+                v = parent[v]
+            # Now, find the common ancestor
+            # We can reverse the path_v and compare with path_u
+            # Let's find the LCA
+            lca = 1
+            for i in range(len(path_u)):
+                if path_u[i] in path_v:
+                    lca = path_u[i]
                     break
-                for neighbor in adj[node]:
-                    if not visited[neighbor]:
-                        visited[neighbor] = True
-                        queue.append((neighbor, path_so_far + [neighbor]))
-            # Now, path is the list of nodes from u to v
-            # We need to find the edges on this path
-            # Each consecutive pair in the path is an edge
-            equation = [0] * (n-1)
-            for i in range(len(path)-1):
-                a, b = path[i], path[i+1]
-                if a < b:
-                    edge = (a, b)
-                else:
-                    edge = (b, a)
-                equation[edge_to_index[edge]] = 1
-            # The equation is sum(equation[i] * x_i) ≡ x (mod 2)
-            # So we add this row to the matrix
-            matrix.append(equation + [x])
-        
-        # Now perform Gaussian elimination over GF(2)
-        rank = 0
-        rows = len(matrix)
-        cols = len(matrix[0]) - 1  # number of variables
-        
-        for col in range(cols):
-            # Find a row with a 1 in this column
-            pivot_row = -1
-            for r in range(rank, rows):
-                if matrix[r][col] == 1:
-                    pivot_row = r
-                    break
-            if pivot_row == -1:
-                continue  # no pivot, move to next column
-            
-            # Swap the pivot row with the current rank row
-            matrix[rank], matrix[pivot_row] = matrix[pivot_row], matrix[rank]
-            
-            # Eliminate all other rows with a 1 in this column
-            for r in range(rows):
-                if r != rank and matrix[r][col] == 1:
-                    # XOR the current row with the pivot row
-                    for c in range(col, cols+1):
-                        matrix[r][c] ^= matrix[rank][c]
-            rank += 1
-        
-        # The number of free variables is (number of variables - rank)
-        free_vars = cols - rank
-        # The number of solutions is 2^free_vars
-        if free_vars < 0:
-            # Inconsistent system, no solution
-            results.append(0)
-        else:
-            results.append(pow(2, free_vars, MOD))
-    
-    for res in results:
-        print(res)
-
-if __name__ == '__main__':
-    main()
+            # Now, the path from u to v is u to lca, then lca to v
+            # But for the purpose of building the equations, we need to find which edges are in the path
+            # So, for each node in the path from u to lca, we have an edge from parent to node
+            # Similarly for the path from v to lca
+            # So, for the path from u to lca, we can add the edges
+            # For the path from v to lca, we can add the edges
+            # So, the total edges in the path are the edges from u to lca and from v to lca
+            # But since lca is the common ancestor, we can find the edges in the path
+            # Let's find the edges in the path from u to v
+            # We can do this by traversing from

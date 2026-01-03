@@ -26,19 +26,313 @@ def solve():
         max_sum = 0
         
         for i in range(N):
-            for j in range(N):
+            for j in range(i, N):
                 if X[i] == X[j]:
                     continue
-                for k in range(N):
-                    if X[j] == X[k] or X[k] == X[i]:
-                        continue
-                    current_sum = Y[i] + Y[j] + Y[k]
-                    if current_sum > max_sum:
-                        max_sum = current_sum
-        
-        results.append(str(max_sum))
-    
-    print('\n'.join(results))
-
-if __name__ == '__main__':
-    solve()
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if X[i] == X[j]:
+                    continue
+                if X[j] == X[i]:
+                    continue
+                if

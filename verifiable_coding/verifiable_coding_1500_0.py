@@ -16,10 +16,10 @@ def solve():
             else:
                 balance -= 1
             max_balance = max(max_balance, balance)
-        # Minimal length is 2 * max_balance, since each balance increase requires a corresponding decrease
+        # Minimal length is 2 * max_balance
         # Lexicographically smallest is all '(' followed by all ')'
         B = '(' * max_balance + ')' * max_balance
         print(B)
-
+        
 if __name__ == '__main__':
     solve()

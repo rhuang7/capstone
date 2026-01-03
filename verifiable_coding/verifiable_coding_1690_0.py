@@ -17,33 +17,35 @@ def solve():
     for _ in range(N):
         p = int(data[idx])
         idx += 1
-        id_set = set(map(int, data[idx:idx + p]))
+        id = set(map(int, data[idx:idx + p]))
         idx += p
-        people.append(id_set)
+        people.append(id)
         if _ == 0:
-            president_id = id_set
+            president_id = id
     
-    # Create a map from each element to the set of people it appears in
+    # Build a map from element to list of people (indices)
     element_to_people = defaultdict(list)
-    for i, pid in enumerate(people):
-        for elem in pid:
-            element_to_people[elem].append(i)
+    for i, id in enumerate(people):
+        for num in id:
+            element_to_people[num].append(i)
     
     # BFS to find all people in the extended family
-    visited = set()
+    visited = [False] * N
     queue = deque()
     queue.append(0)
-    visited.add(0)
+    visited[0] = True
+    count = 0
     
     while queue:
-        person = queue.popleft()
-        for elem in people[person]:
-            for other in element_to_people[elem]:
-                if other not in visited:
-                    visited.add(other)
-                    queue.append(other)
+        current = queue.popleft()
+        count += 1
+        for num in people[current]:
+            for neighbor in element_to_people[num]:
+                if not visited[neighbor]:
+                    visited[neighbor] = True
+                    queue.append(neighbor)
     
-    print(len(visited))
+    print(count)
 
 if __name__ == '__main__':
     solve()

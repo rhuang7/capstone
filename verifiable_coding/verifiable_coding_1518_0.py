@@ -1,18 +1,17 @@
 import sys
+import math
 
 def solve():
-    import sys
     input = sys.stdin.buffer.read
     data = input().split()
     
     T = int(data[0])
     index = 1
     
-    # Precompute primes up to 1e5 using Sieve of Eratosthenes
     max_n = 100000
     is_prime = [True] * (max_n + 1)
     is_prime[0] = is_prime[1] = False
-    for i in range(2, int(max_n**0.5) + 1):
+    for i in range(2, int(math.sqrt(max_n)) + 1):
         if is_prime[i]:
             for j in range(i*i, max_n + 1, i):
                 is_prime[j] = False
@@ -24,7 +23,6 @@ def solve():
         K = int(data[index + 1])
         index += 2
         
-        # Edge cases
         if K == 1:
             if is_prime[N]:
                 results.append('1')
@@ -36,12 +34,18 @@ def solve():
             results.append('0')
             continue
         
-        # For K >= 2, check if N - (K-1) is >= 2 and is prime
-        # Because we can use (K-1) 2's and one prime
-        if N - (K - 1) >= 2 and is_prime[N - (K - 1)]:
-            results.append('1')
-        else:
-            results.append('0')
+        if K == 2:
+            if N >= 2 and is_prime[N - 2]:
+                results.append('1')
+            else:
+                results.append('0')
+            continue
+        
+        if K >= 3:
+            if N >= 2 * K:
+                results.append('1')
+            else:
+                results.append('0')
     
     print('\n'.join(results))
 

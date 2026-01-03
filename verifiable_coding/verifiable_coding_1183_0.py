@@ -51,6 +51,7 @@ def solve():
                 dp[from_idx] = dp_count(key, from_idx + 1)
             return dp[from_idx]
         
+        # Process queries
         for a in queries:
             brute_count = 0
             brute_calls = 0

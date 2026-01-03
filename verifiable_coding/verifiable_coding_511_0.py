@@ -14,7 +14,7 @@ def solve():
     result = []
     for num in a:
         result.append(total_xor ^ num)
-    
+
     print(' '.join(map(str, result)))
 
 if __name__ == '__main__':

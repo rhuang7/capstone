@@ -16,18 +16,14 @@ def solve():
     for _ in range(Q):
         op = data[idx]
         idx += 1
+        r = int(data[idx])
+        idx += 1
+        x = int(data[idx])
+        idx += 1
         if op == 'RowAdd':
-            R = int(data[idx])
-            idx += 1
-            X = int(data[idx])
-            idx += 1
-            row_add[R] += X
+            row_add[r] += x
         else:
-            C = int(data[idx])
-            idx += 1
-            X = int(data[idx])
-            idx += 1
-            col_add[C] += X
+            col_add[r] += x
 
     max_val = 0
     for i in range(1, N + 1):

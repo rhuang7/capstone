@@ -25,8 +25,7 @@ def solve():
             for d in dinosaurs:
                 total += abs(v - d)
         results.append(total // 2)
-    for res in results:
-        print(res)
+    sys.stdout.write('\n'.join(map(str, results)) + '\n')
 
 if __name__ == '__main__':
     solve()

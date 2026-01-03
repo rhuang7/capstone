@@ -18,23 +18,15 @@ def solve():
         
         max_sum = -float('inf')
         current_sum = 0
-        start = 0
-        end = 0
-        min_length = N
+        min_length = float('inf')
         
         for i in range(N):
             current_sum += A[i]
             if current_sum > max_sum:
                 max_sum = current_sum
-                start = i - 1
-                end = i
-                min_length = end - start + 1
+                min_length = i + 1
             elif current_sum == max_sum:
-                length = end - start + 1
-                if length < min_length:
-                    min_length = length
-                    start = i - 1
-                    end = i
+                min_length = min(min_length, i + 1)
         
         results.append(str(min_length))
     

@@ -11,9 +11,10 @@ def solve():
     for i in range(1, T + 1):
         s = data[i]
         unique_chars = set(s)
-        results.append(str(len(unique_chars)))
+        results.append(len(unique_chars))
     
-    print('\n'.join(results))
+    for res in results:
+        print(res)
 
 if __name__ == '__main__':
     solve()

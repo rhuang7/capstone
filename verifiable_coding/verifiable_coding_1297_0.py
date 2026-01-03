@@ -8,10 +8,10 @@ def solve():
         A = int(input[idx])
         B = int(input[idx+1])
         idx += 2
-        if A < B:
-            print('<')
-        elif A > B:
+        if A > B:
             print('>')
+        elif A < B:
+            print('<')
         else:
             print('=')
 

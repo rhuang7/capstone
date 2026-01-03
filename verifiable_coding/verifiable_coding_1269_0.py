@@ -17,10 +17,10 @@ def solve():
         idx += N
         A.sort()
         B.sort()
-        S = 0
+        total = 0
         for i in range(N):
-            S += 2 * min(A[i], B[i])
-        results.append(S)
+            total += 2 * min(A[i], B[i])
+        results.append(total)
     for res in results:
         print(res)
 

@@ -5,43 +5,41 @@ def solve():
     input = sys.stdin.buffer.read
     data = input().split()
     N = int(data[0])
-    brackets = data[1:]
+    brackets = list(map(int, data[1:]))
 
     stack = []
+    alt_depth = 0
+    max_paren = 0
+    max_bracket = 0
     depth = 0
-    max_depth = 0
-    max_len_paren = 0
-    max_len_brace = 0
+    current_alt = 0
 
     for i in range(N):
-        if brackets[i] == 1 or brackets[i] == 3:
+        if brackets[i] in [1, 3]:
             stack.append((brackets[i], i))
+            depth += 1
+            current_alt = 0
         else:
             if not stack:
                 continue
             top = stack[-1]
-            if (top[0] == 1 and brackets[i] == 2) or (top[0] == 3 and brackets[i] == 4):
-                # Match found
-                start = top[1]
-                end = i
-                length = end - start + 1
-                if top[0] == 1:
-                    if length > max_len_paren:
-                        max_len_paren = length
-                else:
-                    if length > max_len_brace:
-                        max_len_brace = length
-                stack.pop()
-                current_depth = 0
-                if stack:
-                    current_depth = 1
-                if current_depth > max_depth:
-                    max_depth += 1
-            else:
-                # Mismatch, but input is guaranteed to be well-bracketed
-                pass
+            if top[0] == 1 and brackets[i] == 2:
+                if depth > 1:
+                    current_alt = max(current_alt, 1)
+                if i - top[1] + 1 > max_paren:
+                    max_paren = i - top[1] + 1
+            elif top[0] == 3 and brackets[i] == 4:
+                if depth > 1:
+                    current_alt = max(current_alt, 1)
+                if i - top[1] + 1 > max_bracket:
+                    max_bracket = i - top[1] + 1
+            stack.pop()
+            depth -= 1
+            if depth > 0:
+                current_alt = max(current_alt, 1)
+            alt_depth = max(alt_depth, current_alt)
 
-    print(max_depth, max_len_paren, max_len_brace)
+    print(alt_depth, max_paren, max_bracket)
 
 if __name__ == '__main__':
     solve()

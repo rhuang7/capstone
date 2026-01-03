@@ -14,10 +14,11 @@ def solve():
                 balance += 1
             else:
                 balance -= 1
-            if balance < 0:
+            if balance >= 0:
+                max_len = i + 1
+            else:
                 break
-            max_len = i + 1
         print(max_len)
-
+        
 if __name__ == '__main__':
     solve()

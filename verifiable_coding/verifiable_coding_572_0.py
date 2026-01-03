@@ -14,15 +14,11 @@ def solve():
         K = int(data[index+2])
         index += 3
         
-        # Calculate the initial difference
         diff = abs(N - M)
-        
-        # Use the coins to reduce the difference
-        # The maximum possible reduction is min(K, diff)
-        reduce_by = min(K, diff)
-        diff -= reduce_by
-        
-        print(diff)
-
+        if K >= diff:
+            print(0)
+        else:
+            print(diff)
+            
 if __name__ == '__main__':
     solve()

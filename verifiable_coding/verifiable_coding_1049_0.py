@@ -5,38 +5,32 @@ def solve():
     input = sys.stdin.buffer.read
     data = input().split()
     
-    idx = 0
-    t = int(data[idx])
-    idx += 1
+    T = int(data[0])
+    index = 1
     
-    for _ in range(t):
-        n, k = int(data[idx]), int(data[idx+1])
-        idx += 2
-        arr = list(map(int, data[idx:idx+n]))
-        idx += n
+    for _ in range(T):
+        n, k = int(data[index]), int(data[index+1])
+        index += 2
+        arr = list(map(int, data[index:index+n]))
+        index += n
         
-        max_sum = -1
+        max_sum = -float('inf')
         seen = set()
-        current_sum = 0
         
-        for i in range(k):
-            current_sum += arr[i]
-            seen.add(arr[i])
-        
-        max_sum = current_sum
-        
-        for i in range(k, n):
-            current_sum += arr[i]
-            seen.add(arr[i])
-            if len(seen) < k:
-                current_sum -= arr[i - k]
-                seen.remove(arr[i - k])
-            else:
-                current_sum -= arr[i - k]
-                seen.remove(arr[i - k])
-                current_sum += arr[i]
-                seen.add(arr[i])
-            max_sum = max(max_sum, current_sum)
+        for i in range(n - k + 1):
+            window = arr[i:i+k]
+            seen.clear()
+            current_sum = 0
+            distinct = True
+            for num in window:
+                if num in seen:
+                    distinct = False
+                    break
+                seen.add(num)
+                current_sum += num
+            if distinct:
+                if current_sum > max_sum:
+                    max_sum = current_sum
         
         print(max_sum)
 

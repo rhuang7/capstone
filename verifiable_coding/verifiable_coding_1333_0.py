@@ -8,7 +8,6 @@ def solve():
     T = int(data[idx])
     idx += 1
     results = []
-    
     for _ in range(T):
         N = int(data[idx])
         idx += 1
@@ -24,12 +23,11 @@ def solve():
             if i > 0 and (B[i] & B[i-1]) != B[i-1]:
                 valid = False
                 break
-        
         if not valid:
             results.append(0)
             continue
         
-        # Compute the number of valid sequences A
+        # Calculate the number of valid sequences A
         res = 1
         prev = 0
         for i in range(N):
@@ -40,12 +38,11 @@ def solve():
                     res = 0
                     break
                 prev = B[i]
-            # For each position i, the number of choices is the number of bits that can be set in A[i]
-            # that do not affect the OR up to i
-            # This is equal to the number of bits that are set in B[i] but not in B[i-1]
+            # The number of ways to choose A[i] is the number of bits that can be set in B[i] but not in B[i-1]
+            # So we calculate the number of bits that can be set in B[i] but not in B[i-1]
             diff = B[i] ^ B[i-1]
-            res = (res * (diff + 1)) % MOD
-        
+            cnt = bin(diff).count('1')
+            res = (res * cnt) % MOD
         results.append(res)
     
     for result in results:

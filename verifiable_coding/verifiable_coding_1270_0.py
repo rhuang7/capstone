@@ -8,40 +8,27 @@ def solve():
     T = int(data[idx])
     idx += 1
     results = []
-    
     for _ in range(T):
         N, K = int(data[idx]), int(data[idx+1])
         idx += 2
         H = list(map(int, data[idx:idx+N]))
         idx += N
-        
         H.sort(reverse=True)
-        total = sum(H)
-        if total < 2 * K:
-            results.append(-1)
-            continue
-        
         min_boxes = float('inf')
-        for i in range(N):
-            if H[i] >= K:
-                min_boxes = min(min_boxes, 1 + i + 1)
-                break
-        if min_boxes == float('inf'):
-            results.append(-1)
-            continue
-        
-        for i in range(N):
-            for j in range(i + 1, N):
-                if H[i] + H[j] >= K:
-                    min_boxes = min(min_boxes, 2)
-                    break
-            if min_boxes == 2:
-                break
-        
-        results.append(min_boxes)
-    
-    for res in results:
-        print(res)
+        # Check all possible splits of the top boxes
+        for i in range(1, N):
+            # First tower is sum of first i boxes
+            # Second tower is sum of remaining boxes
+            sum1 = sum(H[:i])
+            sum2 = sum(H[i:])
+            if sum1 >= K and sum2 >= K:
+                min_boxes = min(min_boxes, i + (N - i))
+        # Check if it's possible to form two towers
+        if min_boxes != float('inf'):
+            results.append(str(min_boxes))
+        else:
+            results.append('-1')
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

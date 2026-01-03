@@ -11,7 +11,7 @@ def solve():
         current = 1
         for i in range(K):
             line = ""
-            for j in range(i+1):
+            for j in range(i + 1):
                 line += str(current) + " "
                 current += 1
             print(line.strip())

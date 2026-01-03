@@ -13,7 +13,7 @@ def solve():
         R = int(data[idx+1])
         X_size = int(data[idx+2])
         Y_size = int(data[idx+3])
-        idx +=4
+        idx += 4
         X = set()
         if X_size > 0:
             X = set(map(int, data[idx:idx+X_size]))

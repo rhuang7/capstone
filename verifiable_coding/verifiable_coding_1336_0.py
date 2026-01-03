@@ -19,9 +19,7 @@ def solve():
                 counts[int(c)] += 1
         result = "Case {}: ".format(case_num)
         for i in range(10):
-            result += "{}:{}".format(i, counts[i])
-            if i < 9:
-                result += " "
+            result += "{}:{} ".format(i, counts[i])
         results.append(result)
         case_num += 1
     for res in results:

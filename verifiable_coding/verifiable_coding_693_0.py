@@ -8,10 +8,10 @@ def solve():
     results = []
     for i in range(1, T + 1):
         N = int(data[i])
-        fact = 1
+        factorial = 1
         for j in range(1, N + 1):
-            fact *= j
-        results.append(fact)
+            factorial *= j
+        results.append(factorial)
     for res in results:
         print(res)
 

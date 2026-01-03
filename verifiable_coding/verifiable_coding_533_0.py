@@ -31,7 +31,7 @@ def solve():
         if first == -1:
             results.append("0")
         else:
-            results.append(str(last - first))
+            results.append(f"{first} {last}")
     
     print("\n".join(results))
 

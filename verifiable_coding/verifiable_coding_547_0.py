@@ -5,36 +5,34 @@ def solve():
     input = sys.stdin.buffer.read
     data = input().split()
     
-    index = 0
-    T = int(data[index])
-    index += 1
+    idx = 0
+    T = int(data[idx])
+    idx += 1
     
     for _ in range(T):
-        N = int(data[index])
-        index += 1
+        N = int(data[idx])
+        idx += 1
         pairs = []
         for _ in range(N):
-            a = int(data[index])
-            b = int(data[index + 1])
-            index += 2
+            a = int(data[idx])
+            b = int(data[idx+1])
+            idx += 2
             pairs.append((a, b))
         
         # Compute Grundy numbers for each pair
         grundy = []
         for a, b in pairs:
             # Compute the Grundy number for the pair (a, b)
-            # This is equivalent to the game of Nimbers for the Euclidean algorithm
+            # This is equivalent to the game of Nimbers for the pair (a, b)
             # The Grundy number is the number of times you can subtract the smaller from the larger
-            # until they are equal
+            # until they become equal
             x, y = a, b
             if x > y:
                 x, y = y, x
             g = 0
-            while y != x:
-                if x > y:
-                    x, y = y, x
+            while x != y:
+                x, y = y % x, x
                 g += 1
-                y %= x
             grundy.append(g)
         
         # XOR all Grundy numbers

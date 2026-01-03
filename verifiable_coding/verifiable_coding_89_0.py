@@ -16,126 +16,25 @@ def solve():
         a = list(map(int, data[idx:idx + n]))
         idx += n
         
-        # Build the BFS order tree
-        # The BFS order is given as a, so we can reconstruct the tree
-        # The tree must be such that children of each node are in ascending order
-        # We need to find the minimum height tree that satisfies the BFS order
+        # Build the BFS order and track the level of each node
+        level = [0] * (n + 1)
+        q = deque()
+        q.append(1)
+        level[1] = 0
+        current_level = 0
+        next_level = 0
         
-        # We can use the BFS order to determine the parent of each node
-        # The first node is root (1)
-        # For each node in a[1:], its parent is the previous node in the BFS order that is in the same level
-        # We can track levels using a queue
+        while q:
+            u = q.popleft()
+            for v in a:
+                if level[v] == 0 and v != 1:
+                    level[v] = level[u] + 1
+                    q.append(v)
+                    next_level += 1
+            current_level = next_level
+            next_level = 0
         
-        # Build the tree structure
-        tree = {}
-        for i in range(n):
-            if i == 0:
-                tree[a[i]] = []
-            else:
-                # Find the parent of a[i]
-                # The parent is the first node in the BFS order that is in the same level
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order that is in the same level
-                # We can track the level of each node
-                # We can use a queue to track the nodes at each level
-                # The parent of a[i] is the first node in the BFS order
+        max_height = max(level[1:])
+        results.append(str(max_height))
+    
+    print('\n'.join(results))

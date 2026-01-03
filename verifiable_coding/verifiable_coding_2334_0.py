@@ -9,11 +9,13 @@ def solve():
     
     for s in cases:
         stack = []
-        for char in s:
-            if stack and (stack[-1] == 'A' and char == 'B' or stack[-1] == 'B' and char == 'B'):
+        for c in s:
+            if stack and stack[-1] == 'B' and c == 'B':
+                stack.pop()
+            elif stack and stack[-1] == 'A' and c == 'B':
                 stack.pop()
             else:
-                stack.append(char)
+                stack.append(c)
         print(len(stack))
 
 if __name__ == '__main__':

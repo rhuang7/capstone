@@ -18,11 +18,11 @@ def solve():
         
         prefix_xor = [0] * (N + 1)
         for i in range(N):
-            prefix_xor[i + 1] = prefix_xor[i] ^ A[i]
+            prefix_xor[i+1] = prefix_xor[i] ^ A[i]
         
         count = 0
         freq = {}
-        for j in range(N + 1):
+        for j in range(N+1):
             x = prefix_xor[j]
             if x in freq:
                 count += freq[x]

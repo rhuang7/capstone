@@ -10,18 +10,20 @@ def is_prime(num):
 
 def solve():
     import sys
-    input = sys.stdin.buffer.read
-    data = input().split()
-    t = int(data[0])
-    results = []
-    for i in range(1, t + 1):
-        n = int(data[i])
-        total = 0
-        for j in range(2, n + 1):
-            if is_prime(j):
-                total += j
-        results.append(str(total % 10))
-    print('\n'.join(results))
+    input = sys.stdin.buffer.read().split()
+    t = int(input[0])
+    cases = list(map(int, input[1:t+1]))
+    
+    primes_sum = [0] * (10**6 + 1)
+    prime = 2
+    while prime <= 10**6:
+        primes_sum[prime] = primes_sum[prime - 1] + prime
+        for i in range(prime * 2, 10**6 + 1, prime):
+            primes_sum[i] = primes_sum[i - 1] + prime
+        prime = primes_sum.index(prime + 1, prime + 1) + 1
+    
+    for n in cases:
+        print(primes_sum[n] % 10)
 
 if __name__ == '__main__':
     solve()

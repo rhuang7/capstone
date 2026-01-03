@@ -6,37 +6,27 @@ def solve():
     input = sys.stdin.buffer.read
     data = input().split()
     
-    idx = 0
-    N = int(data[idx])
-    M = int(data[idx+1])
-    idx += 2
+    N = int(data[0])
+    M = int(data[1])
     
-    events = []
-    for _ in range(N + M):
-        events.append(int(data[idx]))
-        idx += 1
+    events = data[2:]
     
-    # We need to track alive people and find the max each time the king comes
-    # We can use a max-heap, but since Python only has min-heap, we store negative values
-    # Also, we need to track which people are alive
-    alive = set()
+    people = []
     max_heap = []
-    
-    output = []
+    result = []
     
     for event in events:
-        if event == -1:
-            # King comes, find the max alive
+        if event == '-1':
+            # King visits, find the richest alive person
             if max_heap:
-                # Pop the max (store as negative)
-                max_val = -heapq.heappop(max_heap)
-                output.append(str(max_val))
+                richest = -heapq.heappop(max_heap)
+                result.append(str(richest))
         else:
-            # Citizen comes, add to heap and alive set
-            heapq.heappush(max_heap, -event)
-            alive.add(event)
+            # Citizen arrives
+            wealth = int(event)
+            heapq.heappush(max_heap, -wealth)
     
-    for line in output:
+    for line in result:
         print(line)
 
 if __name__ == '__main__':

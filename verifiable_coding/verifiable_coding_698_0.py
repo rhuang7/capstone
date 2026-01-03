@@ -12,10 +12,9 @@ def solve():
         B = int(data[index+1])
         index += 2
         g = math.gcd(A, B)
-        A //= g
-        B //= g
-        results.append(B - 1)
-    print('\n'.join(map(str, results)))
+        passcode = (B // g) - 1
+        results.append(str(passcode))
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

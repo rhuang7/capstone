@@ -7,38 +7,40 @@ def solve():
     n = int(data[0])
     a = list(map(int, data[1:]))
 
-    from collections import deque
+    from collections import defaultdict
 
-    # Build a graph of possible transitions
-    graph = {}
+    # Count the frequency of each number
+    count = defaultdict(int)
     for num in a:
-        graph[num] = []
+        count[num] += 1
 
+    # Build the sequence
+    result = []
+    # Start with the number that is not divisible by 3
+    # Because the first number cannot be divided by 3
     for num in a:
-        if num * 2 in graph:
-            graph[num].append(num * 2)
-        if num % 3 == 0:
-            graph[num].append(num // 3)
-
-    # Find the starting number (the one with no incoming edges)
-    start = None
-    for num in a:
-        if num not in graph or len(graph[num]) == 0:
-            start = num
+        if count[num] > 0 and num % 3 != 0:
+            result.append(num)
+            count[num] -= 1
             break
 
-    # Perform BFS to find the correct order
-    visited = set()
-    queue = deque([start])
-    result = []
+    # Now build the sequence from the starting number
+    # We use a queue to process the numbers
+    from collections import deque
+    queue = deque()
+    queue.append(result[-1])
 
     while queue:
         current = queue.popleft()
         result.append(current)
-        visited.add(current)
-        for neighbor in graph[current]:
-            if neighbor not in visited:
-                queue.append(neighbor)
+        count[current] -= 1
+
+        # Check if current can be multiplied by 2
+        if count[current * 2] > 0:
+            queue.append(current * 2)
+        # Check if current can be divided by 3
+        if current % 3 == 0 and count[current // 3] > 0:
+            queue.append(current // 3)
 
     print(' '.join(map(str, result)))
 

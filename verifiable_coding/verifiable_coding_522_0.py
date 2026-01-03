@@ -9,7 +9,7 @@ def solve():
     for x in range(1, N):
         for y in range(1, N):
             z = N - y * x
-            if z >= 1 and z <= N:
+            if z > 0 and z <= N:
                 count += 1
     print(count)
 

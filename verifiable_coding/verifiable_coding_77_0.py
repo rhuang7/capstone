@@ -4,11 +4,9 @@ def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
-    
     idx = 0
     q = int(data[idx])
     idx += 1
-    
     results = []
     
     for _ in range(q):
@@ -17,50 +15,35 @@ def solve():
         boards = []
         for _ in range(n):
             a = int(data[idx])
-            b = int(data[idx + 1])
+            b = int(data[idx+1])
             boards.append((a, b))
             idx += 2
         
-        # If there's only one board, no changes needed
-        if n == 1:
-            results.append(0)
-            continue
+        # For each board, we can choose to increase it 0, 1, or 2 times
+        # We need to ensure that adjacent boards have different heights
+        # We'll use dynamic programming to track the minimum cost for each possible height
         
-        # For each board, keep track of the possible heights and their costs
-        # We'll use a dynamic programming approach where dp[i][h] represents the minimum cost to make the first i boards great with the i-th board having height h
-        # Since each board can be increased by any number of times, we can consider only the three possible heights for each board: original, original + 1, original + 2
-        # Because if two adjacent boards have the same height, we need to change one of them, and changing by more than 2 is unnecessary as we can always adjust to a height that is different from the previous one
+        # For each board, we'll track the minimum cost if the board has height 0, 1, or 2 more than original
+        # But since we can increase it any number of times, we can only consider the next two possible heights
+        # Because if we increase it more than 2 times, it will be equal to the next board's height (if not increased)
         
-        # Initialize dp array
-        dp = [{} for _ in range(n)]
+        # Initialize dp for the first board
+        dp = [0] * 3
+        for i in range(3):
+            dp[i] = boards[0][1] * i
         
-        # First board
-        a, b = boards[0]
-        dp[0][a] = 0
-        dp[0][a + 1] = b
-        dp[0][a + 2] = 2 * b
-        
-        # Fill dp for the rest of the boards
         for i in range(1, n):
+            new_dp = [float('inf')] * 3
             a_i, b_i = boards[i]
-            prev = dp[i - 1]
-            curr = {}
-            
-            # For each possible height of the current board
-            for h in [a_i, a_i + 1, a_i + 2]:
-                cost = 0
-                # Try to make the current board's height different from the previous board's height
-                for prev_h in prev:
-                    if prev_h != h:
-                        cost = prev[prev_h] + (h - a_i) * b_i
-                        if h in curr:
-                            curr[h] = min(curr[h], cost)
-                        else:
-                            curr[h] = cost
-            dp[i] = curr
+            for prev in range(3):
+                for curr in range(3):
+                    if prev != curr:
+                        cost = dp[prev] + b_i * (curr - a_i)
+                        if cost < new_dp[curr]:
+                            new_dp[curr] = cost
+            dp = new_dp
         
-        # The answer is the minimum value in the last dp entry
-        results.append(min(dp[n - 1].values()))
+        results.append(min(dp))
     
     sys.stdout.write('\n'.join(map(str, results)) + '\n')
 

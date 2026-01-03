@@ -14,12 +14,12 @@ def solve():
         n = len(s)
         
         for l in range(n):
-            value = 0
+            val = 0
             for r in range(l, n):
-                value = (value << 1) | int(s[r])
-                if value == r - l + 1:
+                val = (val << 1) | int(s[r])
+                if val <= n - l:
                     count += 1
-                if value > 10**6:  # To avoid overflow and unnecessary computation
+                else:
                     break
         
         results.append(str(count))

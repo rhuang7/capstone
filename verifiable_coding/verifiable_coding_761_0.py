@@ -30,42 +30,39 @@ def solve():
         # Sort black buttons in descending order
         D.sort(reverse=True)
         
-        # Use a max-heap for white buttons (simulated with negative values)
-        white_heap = [-x for x in C]
-        heapq.heapify(white_heap)
+        # Use a priority queue (max heap) for white buttons
+        white_heap = C
+        # Use a priority queue (max heap) for black buttons
+        black_heap = D
         
-        # Use a max-heap for black buttons (simulated with negative values)
-        black_heap = [-x for x in D]
-        heapq.heapify(black_heap)
-        
-        # For each day, try to apply the best possible button
-        total_uncompleted = 0
+        # Use a priority queue (max heap) for diff
+        diff_heap = []
         for i in range(N):
-            # Try to apply a white button if possible
-            if white_heap:
-                x = -heapq.heappop(white_heap)
-                if A[i] >= x:
-                    # Apply the white button
-                    A[i] -= x
-                    total_uncompleted += (A[i] - B[i])
-                else:
-                    # Put the button back
-                    heapq.heappush(white_heap, -x)
-            # Try to apply a black button if possible
-            if black_heap:
-                x = -heapq.heappop(black_heap)
-                if B[i] + x <= A[i]:
-                    # Apply the black button
-                    B[i] += x
-                    total_uncompleted += (A[i] - B[i])
-                else:
-                    # Put the button back
-                    heapq.heappush(black_heap, -x)
+            heapq.heappush(diff_heap, -diff[i])
         
-        results.append(total_uncompleted)
+        # Process the buttons
+        white_ptr = 0
+        black_ptr = 0
+        
+        for i in range(N):
+            # Try to use a white button if possible
+            if white_ptr < K and diff[i] >= C[white_ptr]:
+                # Use the white button
+                diff[i] -= C[white_ptr]
+                white_ptr += 1
+                # Update the diff heap
+                heapq.heappush(diff_heap, -diff[i])
+            
+            # Try to use a black button if possible
+            if black_ptr < M and B[i] + D[black_ptr] <= A[i]:
+                # Use the black button
+                B[i] += D[black_ptr]
+                black_ptr += 1
+                # Update the diff heap
+                heapq.heappush(diff_heap, -diff[i])
+        
+        # Calculate the total uncompleted tasks
+        total = sum(-x for x in diff_heap)
+        results.append(str(total))
     
-    for res in results:
-        print(res)
-
-if __name__ == '__main__':
-    solve()
+    print('\n'.join(results))

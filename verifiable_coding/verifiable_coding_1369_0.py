@@ -10,32 +10,29 @@ def sieve(n):
                 is_prime[j] = False
     return is_prime
 
-def compute_primes_sum(n):
-    if n < 2:
-        return 0
-    is_prime = sieve(n)
-    total = 0
-    for i in range(2, n + 1):
-        if is_prime[i]:
-            total += i
-    return total
+def precompute_primes_sum(max_n):
+    primes = sieve(max_n)
+    prime_sum = [0] * (max_n + 1)
+    current_sum = 0
+    for i in range(max_n + 1):
+        if primes[i]:
+            current_sum += i
+        prime_sum[i] = current_sum
+    return prime_sum
 
 def solve():
-    import sys
     input = sys.stdin.buffer.read
     data = input().split()
     T = int(data[0])
-    cases = list(map(int, data[1:T+1]))
-    max_n = max(cases) if cases else 0
-    is_prime = sieve(max_n)
-    prime_sums = [0] * (max_n + 1)
-    current_sum = 0
-    for i in range(2, max_n + 1):
-        if is_prime[i]:
-            current_sum += i
-        prime_sums[i] = current_sum
-    for n in cases:
-        print(prime_sums[n])
+    test_cases = list(map(int, data[1:T+1]))
+    max_n = max(test_cases) if test_cases else 0
+    if max_n < 2:
+        for _ in test_cases:
+            print(0)
+        return
+    prime_sum = precompute_primes_sum(max_n)
+    for n in test_cases:
+        print(prime_sum[n])
 
 if __name__ == '__main__':
     solve()

@@ -26,13 +26,14 @@ def solve():
             if coin == 5:
                 five += 1
             elif coin == 10:
-                if five == 0:
+                if five > 0:
+                    five -= 1
+                    ten += 1
+                else:
                     possible = False
                     break
-                five -= 1
-                ten += 1
             elif coin == 15:
-                if five >= 1 and ten >= 1:
+                if five > 0 and ten > 0:
                     five -= 1
                     ten -= 1
                     fifteen += 1
@@ -45,7 +46,7 @@ def solve():
         else:
             results.append("NO")
     
-    print('\n'.join(results)) 
+    print("\n".join(results)) 
 
 if __name__ == '__main__':
     solve()

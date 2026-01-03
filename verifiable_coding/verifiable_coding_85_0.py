@@ -25,21 +25,20 @@ def solve():
                 # Check if w[i + x] is 1 (i + x <= n)
                 if i + x < n and w[i + x] == '1':
                     continue
-                # If neither, then we need to set w[i] to 1
+                # If neither, set w[i] to 1
                 w[i] = '1'
         
         # Check if the constructed w produces the given s
         valid = True
         for i in range(n):
-            s_i = s[i]
-            if s_i == '1':
+            if s[i] == '1':
                 # Check if w[i - x] is 1 (i > x)
                 if i > x and w[i - x] == '1':
                     continue
                 # Check if w[i + x] is 1 (i + x <= n)
                 if i + x < n and w[i + x] == '1':
                     continue
-                # If neither, then it's invalid
+                # If neither, it's invalid
                 valid = False
                 break
             else:

@@ -20,133 +20,79 @@ def solve():
             results.append("NO")
             continue
         
-        # For a k-balanced string, every k-length substring must have exactly k/2 0s and 1s
-        # So, the entire string must have exactly n/k * k/2 0s and 1s
-        # But since k is even, n must be a multiple of k for this to be possible
-        if n % k != 0:
-            results.append("NO")
-            continue
+        # For a k-balanced string, every substring of length k must have exactly k/2 0s and 1s
+        # So, the entire string must have exactly n/2 0s and 1s (since each k-length window has k/2 of each)
+        # But this is not sufficient, we need to check the constraints on the string
         
-        # Check if the string can be transformed into a k-balanced string
-        # The string must have exactly (n/k) * (k/2) 0s and 1s
-        # But since the string is of length n, and k is even, n must be a multiple of k
-        # So, the total number of 0s and 1s in the string must be exactly (n/k) * (k/2) each
-        # But since the string can have '?', we need to count the number of 0s and 1s and see if they can be adjusted
-        
+        # Check if the total number of 0s and 1s in the string can be adjusted to n/2 each
         count_0 = s.count('0')
         count_1 = s.count('1')
         count_q = s.count('?')
         
-        required_0 = (n // k) * (k // 2)
-        required_1 = required_0
-        
-        # The number of 0s and 1s must be such that they can be adjusted with '?'
-        # For example, if current 0s are less than required, we need to replace some '?' with 0
-        # Similarly for 1s
-        
-        # Check if it's possible to adjust the counts
-        if count_0 > required_0 or count_1 > required_1:
+        if (count_0 + count_1 + count_q) != n:
             results.append("NO")
             continue
         
-        # Check if the number of '?' is sufficient to fill the required difference
-        needed_0 = required_0 - count_0
-        needed_1 = required_1 - count_1
+        # The total number of 0s and 1s must be exactly n/2 each
+        total_0 = count_0 + count_q
+        total_1 = count_1 + count_q
         
-        if needed_0 < 0 or needed_1 < 0:
+        if (total_0 + total_1) != n or total_0 != total_1:
             results.append("NO")
             continue
         
-        if needed_0 + needed_1 > count_q:
+        # Now, check if the string can be made k-balanced
+        # For a k-balanced string, the difference between the number of 0s and 1s in any k-length window must be 0
+        # So, the string must be periodic with period k/2, alternating 0 and 1
+        # But since we can replace '?', we can try to assign 0 and 1 in a pattern that satisfies the constraints
+        
+        # We can try to assign 0 and 1 in a pattern that alternates every k/2 characters
+        # Let's try to build the string based on this pattern
+        
+        # We can try two possibilities for the first character (0 or 1)
+        # and see if either works
+        
+        def is_valid(pattern):
+            # pattern is a list of 0s and 1s of length k
+            # check if the string can be made k-balanced with this pattern
+            # for each position i, the character must be equal to pattern[i % k]
+            # and the number of 0s and 1s in every k-length window must be equal
+            # since the pattern is periodic, this will be satisfied
+            # but we need to check if the given string can be adjusted to match the pattern
+            
+            for i in range(n):
+                if s[i] != '?' and s[i] != pattern[i % k]:
+                    return False
+            return True
+        
+        # Try both possible patterns for the first k characters
+        # Since the pattern must be alternating, we can try starting with 0 or 1
+        # and then repeat it every k/2 characters
+        
+        # Try pattern 1: 0, 1, 0, 1, ... for k characters
+        # This will ensure that every k-length window has exactly k/2 0s and 1s
+        # So the pattern must be a repeating sequence of 0 and 1, with length k
+        # For example, if k=4, the pattern could be 0,1,0,1 or 1,0,1,0
+        
+        # Try pattern 1: 0,1,0,1,... for k characters
+        pattern1 = []
+        for i in range(k):
+            if i % 2 == 0:
+                pattern1.append('0')
+            else:
+                pattern1.append('1')
+        
+        # Try pattern 2: 1,0,1,0,... for k characters
+        pattern2 = []
+        for i in range(k):
+            if i % 2 == 0:
+                pattern2.append('1')
+            else:
+                pattern2.append('0')
+        
+        if is_valid(pattern1) or is_valid(pattern2):
+            results.append("YES")
+        else:
             results.append("NO")
-            continue
-        
-        # Now check if the string can be made k-balanced
-        # For a k-balanced string, every k-length substring must have exactly k/2 0s and 1s
-        # So, the string must be periodic with period k, and each position i must have the same character as i + k
-        # So, we can check if the string is periodic with period k, and if so, check if it satisfies the k-balanced condition
-        
-        # Check if the string is periodic with period k
-        # For each position i, the character at i must be the same as at i + k
-        # But since the string is of length n, and k is even, this may not be possible
-        # So, we need to check if the string can be transformed into a periodic string with period k
-        
-        # Check if the string can be made periodic with period k
-        # For each position i, the character at i must be the same as at i + k
-        # But since the string is of length n, and k is even, this may not be possible
-        # So, we need to check if the string can be transformed into a periodic string with period k
-        
-        # Check if the string can be made periodic with period k
-        # For each position i, the character at i must be the same as at i + k
-        # But since the string is of length n, and k is even, this may not be possible
-        # So, we need to check if the string can be transformed into a periodic string with period k
-        
-        # Check if the string can be made periodic with period k
-        # For each position i, the character at i must be the same as at i + k
-        # But since the string is of length n, and k is even, this may not be possible
-        # So, we need to check if the string can be transformed into a periodic string with period k
-        
-        # Check if the string can be made periodic with period k
-        # For each position i, the character at i must be the same as at i + k
-        # But since the string is of length n, and k is even, this may not be possible
-        # So, we need to check if the string can be transformed into a periodic string with period k
-        
-        # Check if the string can be made periodic with period k
-        # For each position i, the character at i must be the same as at i + k
-        # But since the string is of length n, and k is even, this may not be possible
-        # So, we need to check if the string can be transformed into a periodic string with period k
-        
-        # Check if the string can be made periodic with period k
-        # For each position i, the character at i must be the same as at i + k
-        # But since the string is of length n, and k is even, this may not be possible
-        # So, we need to check if the string can be transformed into a periodic string with period k
-        
-        # Check if the string can be made periodic with period k
-        # For each position i, the character at i must be the same as at i + k
-        # But since the string is of length n, and k is even, this may not be possible
-        # So, we need to check if the string can be transformed into a periodic string with period k
-        
-        # Check if the string can be made periodic with period k
-        # For each position i, the character at i must be the same as at i + k
-        # But since the string is of length n, and k is even, this may not be possible
-        # So, we need to check if the string can be transformed into a periodic string with period k
-        
-        # Check if the string can be made periodic with period k
-        # For each position i, the character at i must be the same as at i + k
-        # But since the string is of length n, and k is even, this may not be possible
-        # So, we need to check if the string can be transformed into a periodic string with period k
-        
-        # Check if the string can be made periodic with period k
-        # For each position i, the character at i must be the same as at i + k
-        # But since the string is of length n, and k is even, this may not be possible
-        # So, we need to check if the string can be transformed into a periodic string with period k
-        
-        # Check if the string can be made periodic with period k
-        # For each position i, the character at i must be the same as at i + k
-        # But since the string is of length n, and k is even, this may not be possible
-        # So, we need to check if the string can be transformed into a periodic string with period k
-        
-        # Check if the string can be made periodic with period k
-        # For each position i, the character at i must be the same as at i + k
-        # But since the string is of length n, and k is even, this may not be possible
-        # So, we need to check if the string can be transformed into a periodic string with period k
-        
-        # Check if the string can be made periodic with period k
-        # For each position i, the character at i must be the same as at i + k
-        # But since the string is of length n, and k is even, this may not be possible
-        # So, we need to check if the string can be transformed into a periodic string with period k
-        
-        # Check if the string can be made periodic with period k
-        # For each position i, the character at i must be the same as at i + k
-        # But since the string is of length n, and k is even, this may not be possible
-        # So, we need to check if the string can be transformed into a periodic string with period k
-        
-        # Check if the string can be made periodic with period k
-        # For each position i, the character at i must be the same as at i + k
-        # But since the string is of length n, and k is even, this may not be possible
-        # So, we need to check if the string can be transformed into a periodic string with period k
-        
-        # Check if the string can be made periodic with period k
-        # For each position i, the character at i must be the same as at i + k
-        # But since the string is of length n, and k is even, this may not be possible
-        # So, we need to check if the string can be transformed into
+    
+    print("\n".join(results))

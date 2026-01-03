@@ -1,4 +1,6 @@
 import sys
+import math
+from collections import defaultdict
 
 def largest_prime_factor(n):
     if n == 1:
@@ -8,10 +10,12 @@ def largest_prime_factor(n):
         largest = 2
         n //= 2
     i = 3
-    while i * i <= n:
+    max_factor = math.isqrt(n) + 1
+    while i <= max_factor and n > 1:
         while n % i == 0:
             largest = i
             n //= i
+            max_factor = math.isqrt(n) + 1
         i += 2
     if n > 1:
         largest = n
@@ -30,18 +34,16 @@ def solve():
         idx += 1
         A = list(map(int, data[idx:idx+N]))
         idx += N
-        lpf_list = []
+        lpf_counts = defaultdict(int)
         for num in A:
             lpf = largest_prime_factor(num)
-            lpf_list.append(lpf)
+            lpf_counts[lpf] += 1
         max_count = -1
-        result = -1
-        for lp in lpf_list:
-            if lpf_list.count(lp) > max_count:
-                max_count = lpf_list.count(lp)
-                result = lp
-            elif lpf_list.count(lp) == max_count and lp > result:
-                result = lp
+        result = 1
+        for key in lpf_counts:
+            if lpf_counts[key] > max_count or (lpf_counts[key] == max_count and key > result):
+                max_count = lpf_counts[key]
+                result = key
         results.append(str(result))
     print('\n'.join(results))
 

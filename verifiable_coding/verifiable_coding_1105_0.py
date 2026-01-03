@@ -1,53 +1,45 @@
 import sys
 
 def solve():
-    import sys
-    input = sys.stdin.buffer.read
-    data = input().split()
-    
+    import itertools
+    input = sys.stdin.buffer.read().split()
     idx = 0
-    T = int(data[idx])
+    T = int(input[idx])
     idx += 1
     results = []
-    
     for _ in range(T):
-        N = int(data[idx])
+        N = int(input[idx])
         idx += 1
-        C = list(map(int, data[idx:idx+N]))
+        C = list(map(int, input[idx:idx+N]))
         idx += N
-        
         if N == 0:
             results.append(0)
             continue
-        
-        # For small N (up to 4), we can try all permutations
-        from itertools import permutations
-        
+        if N == 1:
+            results.append(C[0])
+            continue
+        if N == 2:
+            results.append(max(C))
+            continue
+        # For N = 3 or 4, try all possible ways to split into two burners
+        # We need to find the minimum time such that the sum of times on each burner is minimized
+        # We can try all possible partitions of the dishes into two groups
         min_time = float('inf')
-        
-        # Try all possible ways to assign dishes to two burners
-        # Each assignment is a tuple of two lists (burner1, burner2)
-        # We generate all possible partitions of the dishes into two groups
-        from itertools import combinations
-        
-        for k in range(0, N+1):
-            for subset in combinations(range(N), k):
-                burner1 = list(C[i] for i in subset)
-                burner2 = list(C[i] for i in range(N) if i not in subset)
-                
-                # Calculate the time for each burner
-                time1 = sum(burner1)
-                time2 = sum(burner2)
-                
-                # The total time is the maximum of the two times
-                total_time = max(time1, time2)
-                
-                if total_time < min_time:
-                    min_time = total_time
-        
-        results.append(str(min_time))
-    
-    print('\n'.join(results))
+        # Generate all possible ways to split the dishes into two groups
+        for mask in range(1, 1 << N):
+            group1 = []
+            group2 = []
+            for i in range(N):
+                if (mask >> i) & 1:
+                    group1.append(C[i])
+                else:
+                    group2.append(C[i])
+            time1 = sum(group1)
+            time2 = sum(group2)
+            min_time = min(min_time, max(time1, time2))
+        results.append(min_time)
+    for res in results:
+        print(res)
 
 if __name__ == '__main__':
     solve()

@@ -13,10 +13,13 @@ def solve():
             print(0)
         else:
             # The answer is 2^(N-1) - 2
-            # Because we need to count permutations with exactly one peak
-            # and subtract the cases where the peak is at the ends
-            ans = (pow(2, N-1, MOD) - 2) % MOD
-            print(ans)
+            # Because we need to count permutations that have exactly one peak
+            # And the number of such permutations is 2^(N-1) - 2
+            # But for N >= 3, the answer is 2^(N-1) - 2
+            # However, for N=3, 2^(3-1) - 2 = 4 - 2 = 2 which matches the example
+            # So the formula is correct
+            ans = pow(2, N-1, MOD) - 2
+            print(ans % MOD)
 
 if __name__ == '__main__':
     solve()

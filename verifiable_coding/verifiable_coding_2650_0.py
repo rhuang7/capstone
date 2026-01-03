@@ -7,11 +7,10 @@ def solve():
     L = int(data[1])
     strings = data[2:2+N]
     
-    # Sort the strings using custom comparator
-    # For lex order, compare strings directly as they are already of same length
+    # Sort the strings using lex order
     strings.sort()
     
-    # Concatenate the sorted strings
+    # Concatenate them
     result = ''.join(strings)
     print(result)
 

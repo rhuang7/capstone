@@ -1,8 +1,9 @@
 import sys
 import math
-from collections import deque, defaultdict
+from collections import defaultdict, deque
 
 def solve():
+    import sys
     input = sys.stdin.buffer.read
     data = input().split()
     idx = 0
@@ -16,21 +17,16 @@ def solve():
         K = int(data[idx+2])
         idx += 3
         
-        roads = []
+        graph = defaultdict(list)
         for _ in range(M):
             u = int(data[idx])
             v = int(data[idx+1])
-            roads.append((u, v))
+            graph[u].append(v)
+            graph[v].append(u)
             idx += 2
         
         museums = list(map(int, data[idx:idx+N]))
         idx += N
-        
-        # Build graph
-        graph = defaultdict(list)
-        for u, v in roads:
-            graph[u].append(v)
-            graph[v].append(u)
         
         # Precompute connected components
         visited = [False] * (N + 1)
@@ -40,79 +36,63 @@ def solve():
                 q = deque()
                 q.append(i)
                 visited[i] = True
-                comp = []
+                component = []
                 while q:
                     node = q.popleft()
-                    comp.append(node)
+                    component.append(node)
                     for neighbor in graph[node]:
                         if not visited[neighbor]:
                             visited[neighbor] = True
                             q.append(neighbor)
-                components.append(comp)
+                components.append(component)
         
         # Precompute component sizes and museum counts
-        comp_info = []
+        comp_size = []
+        comp_museum = []
         for comp in components:
-            comp_museums = sum(museums[node - 1] for node in comp)
-            comp_size = len(comp)
-            comp_info.append((comp_museums, comp_size))
+            size = len(comp)
+            total = sum(museums[node - 1] for node in comp)
+            comp_size.append(size)
+            comp_museum.append(total)
         
-        # If K is larger than number of components, output -1
-        if K > len(components):
+        # If there are not enough components for K months, output -1
+        if len(components) < K:
             results.append("-1")
             continue
         
-        # Initialize variables
-        total = 0
+        # Simulate the K months
+        total_museums = 0
         visited_cities = set()
         remaining_months = K
         current_component = 0
         
-        # First month: Lavanya chooses the component with maximum museums
-        max_museums = -1
-        best_component = 0
-        for i in range(len(comp_info)):
-            if comp_info[i][0] > max_museums:
-                max_museums = comp_info[i][0]
-                best_component = i
-        
-        # Add the best component
-        total += max_museums
-        visited_cities.update(components[best_component])
-        remaining_months -= 1
-        current_component = best_component
-        
-        # Remaining months: alternate between Nikhil and Lavanya
-        # Nikhil chooses the component with minimum museums
-        # Lavanya chooses the component with maximum museums
         while remaining_months > 0:
-            # Nikhil's turn: choose component with minimum museums
-            min_museums = float('inf')
-            best_nikhil = -1
-            for i in range(len(comp_info)):
+            # Lavanya chooses the component with maximum museums
+            max_museum = -1
+            best_comp = -1
+            for i in range(len(components)):
                 if i not in visited_cities:
-                    if comp_info[i][0] < min_museums:
-                        min_museums = comp_info[i][0]
-                        best_nikhil = i
-            
-            if best_nikhil == -1:
-                # No unvisited components
-                results.append("-1")
+                    if comp_museum[i] > max_museum:
+                        max_museum = comp_museum[i]
+                        best_comp = i
+            if best_comp == -1:
+                # No unvisited components, break
                 break
-            
-            total += min_museums
-            visited_cities.update(components[best_nikhil])
+            # Add this component's museums
+            total_museums += comp_museum[best_comp]
+            # Mark all cities in this component as visited
+            for city in components[best_comp]:
+                visited_cities.add(city)
+            # Remove this component from the list
+            components.pop(best_comp)
+            comp_size.pop(best_comp)
+            comp_museum.pop(best_comp)
             remaining_months -= 1
-            current_component = best_nikhil
         
-        # If we have completed all months
-        if remaining_months == 0:
-            results.append(str(total))
-        else:
+        # Check if we have enough components for K months
+        if len(components) < K:
             results.append("-1")
+        else:
+            results.append(str(total_museums))
     
-    for res in results:
-        print(res)
-
-if __name__ == '__main__':
-    solve()
+    print('\n'.join(results))

@@ -12,9 +12,9 @@ def solve():
         if n % 2 != 0:
             print(-1)
             continue
-        count_0 = s.count('0')
-        count_1 = s.count('1')
-        if count_0 != count_1:
+        count0 = s.count('0')
+        count1 = s.count('1')
+        if count0 != count1:
             print(-1)
             continue
         print(0)

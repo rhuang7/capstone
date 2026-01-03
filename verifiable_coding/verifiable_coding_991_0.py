@@ -1,7 +1,8 @@
 import sys
 import math
+import random
 
-def solve():
+def main():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
@@ -36,15 +37,15 @@ def solve():
     A[1] = A1
 
     for x in range(2, N + 1):
-        t_pow_x = pow(t, x)
-        if (t_pow_x % s) <= r:
+        t_power_x = pow(t, x)
+        if (t_power_x % s) <= r:
             A[x] = (a * A[x-1] * A[x-1] + b * A[x-1] + c) % m
         else:
             A[x] = (d * A[x-1] * A[x-1] + e * A[x-1] + f) % m
 
     sum_qualities = 0
     product_qualities = 1
-    mod = 10**9 + 7
+    MOD = 10**9 + 7
 
     for _ in range(Q):
         L1 = (La * L1 + Lc) % Lm
@@ -57,6 +58,9 @@ def solve():
             if A[i] < min_val:
                 min_val = A[i]
         sum_qualities += min_val
-        product_qualities = (product_qualities * min_val) % mod
+        product_qualities = (product_qualities * min_val) % MOD
 
     print(sum_qualities, product_qualities)
+
+if __name__ == '__main__':
+    main()

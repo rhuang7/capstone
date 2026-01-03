@@ -10,7 +10,7 @@ def solve():
     
     for _ in range(q):
         n = int(data[index])
-        m = int(data[index+1])
+        m = int(data[index + 1])
         index += 2
         
         if m == 0:
@@ -18,7 +18,7 @@ def solve():
             continue
         
         total = 0
-        for i in range(1, n+1, m):
+        for i in range(1, n + 1, m):
             last_digit = i % 10
             total += last_digit
         

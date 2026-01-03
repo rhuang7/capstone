@@ -19,14 +19,14 @@ def solve():
         hour_angle = 30 * hours + 0.5 * minutes  # 30 degrees per hour, 0.5 per minute
         
         # Calculate the absolute difference
-        diff = abs(hour_angle - minute_angle)
+        diff = abs(minute_angle - hour_angle)
         
         # Minimum angle is the smaller of diff and 360 - diff
         min_angle = min(diff, 360 - diff)
         
-        results.append(f"{int(min_angle)} degree")
+        results.append(f"{min_angle} degree")
     
-    print('\n'.join(results))
+    print("\n".join(results))
 
 if __name__ == '__main__':
     solve()

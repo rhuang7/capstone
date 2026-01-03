@@ -5,25 +5,25 @@ def solve():
     input = sys.stdin.buffer.read
     data = input().split()
     
-    idx = 0
-    T = int(data[idx])
-    idx += 1
+    index = 0
+    T = int(data[index])
+    index += 1
     results = []
     
     for _ in range(T):
-        n = int(data[idx])
-        idx += 1
-        l = list(map(int, data[idx:idx+n]))
-        idx += n
+        n = int(data[index])
+        index += 1
+        l = list(map(int, data[index:index + n]))
+        index += n
         
         count = {}
         for length in l:
             count[length] = count.get(length, 0) + 1
         
         frames = 0
-        for key in count:
-            if count[key] >= 2:
-                frames += count[key] // 2
+        for length in count:
+            if count[length] >= 2:
+                frames += count[length] // 2
         results.append(frames)
     
     for res in results:

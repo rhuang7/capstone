@@ -13,33 +13,24 @@ def solve():
         idx += 2
         A = list(map(int, data[idx:idx+N]))
         idx += N
-        
         prefix = [0] * (N + 1)
         for i in range(N):
             prefix[i+1] = (prefix[i] + A[i]) % P
-        
         max_score = 0
         count = 0
-        
         from collections import defaultdict
         freq = defaultdict(int)
         freq[0] = 1
-        
-        for i in range(N):
+        for i in range(N+1):
             current = prefix[i]
-            target = (current - max_score) % P
-            if target in freq:
-                count += freq[target]
             if current > max_score:
                 max_score = current
-                freq = defaultdict(int)
-                freq[current] = 1
-            else:
-                freq[current] += 1
-        
+                count = freq[current]
+            elif current == max_score:
+                count += freq[current]
+            freq[current] += 1
         results.append(f"{max_score} {count}")
-    
-    print('\n'.join(results))
+    print("\n".join(results))
 
 if __name__ == '__main__':
     solve()

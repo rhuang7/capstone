@@ -7,6 +7,7 @@ def solve():
     n = int(data[0])
     k = int(data[1])
     a = list(map(int, data[2:2+n]))
+    
     a.sort()
     total = 0
     for i in range(n):

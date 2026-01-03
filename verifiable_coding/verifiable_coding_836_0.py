@@ -20,16 +20,16 @@ def solve():
         
         max_product = -1
         max_rating = -1
-        best_index = -1
+        selected_index = -1
         
         for i in range(n):
             product = L[i] * R[i]
-            if product > max_product or (product == max_product and R[i] > max_rating) or (product == max_product and R[i] == max_rating and i < best_index):
+            if product > max_product or (product == max_product and R[i] > max_rating) or (product == max_product and R[i] == max_rating and i < selected_index):
                 max_product = product
                 max_rating = R[i]
-                best_index = i + 1  # 1-based index
+                selected_index = i + 1  # 1-based index
         
-        results.append(str(best_index))
+        results.append(str(selected_index))
     
     print('\n'.join(results))
 

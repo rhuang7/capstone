@@ -19,9 +19,9 @@ def solve():
                 else:
                     chambers[i] = 0
                     chambers[i + 1] += 1
-                    i += 1
+                i = 0
             else:
-                break
+                i += 1
     
     print(' '.join(map(str, chambers)))
 

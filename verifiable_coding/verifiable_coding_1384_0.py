@@ -8,6 +8,7 @@ def solve():
     idx = 0
     T = int(data[idx])
     idx += 1
+    
     results = []
     
     for _ in range(T):
@@ -23,135 +24,33 @@ def solve():
                 zeros.append(i)
         
         max_pizza_time = 0
-        # Sliding window over the zeros
-        left = 0
-        for right in range(len(zeros)):
-            # If the current zero is more than K away from the left, move left
-            if zeros[right] - zeros[left] > K:
-                left = right
-            # Check the maximum consecutive 1s including the current zero
-            # The window is from left to right, and we can flip K zeros in this window
-            # So the maximum pizza time is the number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire segment from start to end
-            # So we need to check the entire segment from the start of the string to the end
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            # But we need to consider the entire string
-            # So we can use a sliding window approach on the zeros
-            # The maximum pizza time is the maximum number of 1s between zeros[left] and zeros[right]
-            # Plus 1 for the flipped zero
-            #
+        # Try each window of K consecutive 0s
+        for i in range(len(zeros)):
+            # Check if there are at least K zeros starting from i
+            if i + K <= len(zeros):
+                # The window starts at zeros[i] and ends at zeros[i + K - 1]
+                start = zeros[i]
+                end = zeros[i + K - 1]
+                
+                # Find the maximum consecutive 1s around this window
+                # Check left side
+                left = start
+                while left >= 0 and A[left] == '1':
+                    left -= 1
+                left += 1
+                
+                # Check right side
+                right = end
+                while right < N and A[right] == '1':
+                    right += 1
+                right -= 1
+                
+                # The maximum pizza time is right - left + 1
+                max_pizza_time = max(max_pizza_time, right - left + 1)
+        
+        results.append(str(max_pizza_time))
+    
+    print('\n'.join(results))
+
+if __name__ == '__main__':
+    solve()

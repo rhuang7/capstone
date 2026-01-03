@@ -1,5 +1,6 @@
 import sys
-import itertools
+import math
+from collections import defaultdict
 
 def solve():
     import sys
@@ -15,39 +16,64 @@ def solve():
         idx += 2
         C = list(map(int, data[idx:idx+N]))
         idx += N
-        meal_sets = []
+        sets = []
         for _ in range(M):
             Pi = int(data[idx])
             Qi = int(data[idx+1])
             idx += 2
             Ai = list(map(int, data[idx:idx+Qi]))
             idx += Qi
-            meal_sets.append((Pi, Ai))
+            sets.append((Pi, Ai))
+        
+        # Preprocess: for each meal, store its cost
+        meal_cost = [0] * (N + 1)  # 1-based indexing
+        for i in range(N):
+            meal_cost[i + 1] = C[i]
+        
+        # Preprocess: for each meal set, store the meals it contains
+        # and the cost
+        set_meals = []
+        for Pi, Ai in sets:
+            set_meals.append((Pi, Ai))
         
         # Create a set of all meals
-        all_meals = set(range(1, N+1))
+        all_meals = set(range(1, N + 1))
         
-        # Precompute the cost of buying all meals separately
-        separate_cost = sum(C)
+        # Use bitmask DP
+        # dp[mask] = minimum cost to get all meals in mask
+        # mask is a bitmask of N bits
+        # max_mask = 1 << N
+        max_mask = 1 << N
+        dp = [float('inf')] * max_mask
+        dp[0] = 0
         
-        # Try all possible combinations of meal sets
-        # Use bitmask to represent which sets are chosen
-        min_cost = separate_cost
-        for mask in range(1 << M):
-            selected_sets = []
-            total_meals = set()
-            total_cost = 0
-            for i in range(M):
-                if (mask >> i) & 1:
-                    selected_sets.append(meal_sets[i])
-                    total_cost += meal_sets[i][0]
-                    for meal in meal_sets[i][1]:
-                        total_meals.add(meal)
-            # Check if all meals are covered
-            if len(total_meals) == N:
-                if total_cost < min_cost:
-                    min_cost = total_cost
+        for mask in range(max_mask):
+            if dp[mask] == float('inf'):
+                continue
+            # Try all meal sets
+            for Pi, Ai in set_meals:
+                # Check if the set contains any of the meals not yet in the mask
+                # Compute the new mask
+                new_mask = mask
+                for meal in Ai:
+                    if not (mask & (1 << (meal - 1))):
+                        new_mask |= (1 << (meal - 1))
+                # Update dp
+                if dp[new_mask] > dp[mask] + Pi:
+                    dp[new_mask] = dp[mask] + Pi
         
-        results.append(str(min_cost))
+        # Also consider buying individual meals
+        for mask in range(max_mask):
+            if dp[mask] == float('inf'):
+                continue
+            # Add the cost of individual meals not in the mask
+            cost = 0
+            for i in range(N):
+                if not (mask & (1 << i)):
+                    cost += meal_cost[i + 1]
+            if dp[mask] + cost < dp[all_meals]:
+                dp[all_meals] = dp[mask] + cost
+        
+        results.append(str(dp[all_meals]))
     
     print('\n'.join(results))

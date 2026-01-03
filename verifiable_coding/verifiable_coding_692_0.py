@@ -1,7 +1,7 @@
 import sys
 import math
 
-def solve():
+def main():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
@@ -36,10 +36,10 @@ def solve():
                 self.second_min_tree[self.size + i] = float('inf')
                 self.second_max_tree[self.size + i] = -float('inf')
             for i in range(self.size - 1, 0, -1):
-                self.min_tree[i] = min(self.min_tree[2 * i], self.min_tree[2 * i + 1])
-                self.max_tree[i] = max(self.max_tree[2 * i], self.max_tree[2 * i + 1])
-                self.second_min_tree[i] = min(self.second_min_tree[2 * i], self.second_min_tree[2 * i + 1])
-                self.second_max_tree[i] = max(self.second_max_tree[2 * i], self.second_max_tree[2 * i + 1])
+                self.min_tree[i] = min(self.min_tree[2*i], self.min_tree[2*i+1])
+                self.max_tree[i] = max(self.max_tree[2*i], self.max_tree[2*i+1])
+                self.second_min_tree[i] = min(self.second_min_tree[2*i], self.second_min_tree[2*i+1])
+                self.second_max_tree[i] = max(self.second_max_tree[2*i], self.second_max_tree[2*i+1])
 
         def update(self, pos, value):
             pos += self.size
@@ -120,21 +120,27 @@ def solve():
     st = SegmentTree(arr)
 
     for T, L, R in queries:
-        if T == 'A':
+        if T == 'U':
+            pos = L - 1
+            val = R
+            st.update(pos, val)
+        elif T == 'A':
             res = st.get_min(L-1, R-1)
             print(res)
         elif T == 'M':
             res = st.get_max(L-1, R-1)
             print(res)
         elif T == 'm':
-            res = st.get_second_min(L-1, R-1)
+            res = st.get_min(L-1, R-1)
             print(res)
         elif T == 'S':
             res = st.get_second_max(L-1, R-1)
             print(res)
-        elif T == 'U':
-            pos = L-1
-            value = R
-            st.update(pos, value)
+        elif T == 's':
+            res = st.get_second_min(L-1, R-1)
+            print(res)
         else:
             print("!!!")
+
+if __name__ == '__main__':
+    main()

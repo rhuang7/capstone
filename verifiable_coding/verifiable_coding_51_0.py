@@ -4,10 +4,8 @@ def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
-    
     t = int(data[0])
     index = 1
-    
     results = []
     
     for _ in range(t):
@@ -17,73 +15,90 @@ def solve():
         d2 = int(data[index+3])
         index += 4
         
-        # Total wins needed for each team
-        total = n
-        
-        # Let x, y, z be the number of wins of teams 1, 2, 3
-        # x - y = d1, y - z = d2
-        # x + y + z = total
-        # Also, x, y, z must be non-negative integers
-        
-        # From the equations:
-        # x = y + d1
-        # z = y - d2
-        # Substituting into x + y + z = total:
-        # (y + d1) + y + (y - d2) = total
-        # 3y + d1 - d2 = total
-        # y = (total - d1 + d2) / 3
-        
-        # Check if (total - d1 + d2) is divisible by 3
-        if (total - d1 + d2) % 3 != 0:
+        # Total wins after all games must be equal for all teams
+        # Let x be the number of wins for each team
+        # Total wins = 3x = n => n must be divisible by 3
+        if n % 3 != 0:
             results.append("no")
             continue
         
-        y = (total - d1 + d2) // 3
-        x = y + d1
-        z = y - d2
+        x = n // 3
         
-        # Check if x, y, z are non-negative and their sum is total
-        if x < 0 or y < 0 or z < 0 or x + y + z != total:
-            results.append("no")
-            continue
+        # Current wins for teams: a, b, c
+        # We have |a - b| = d1, |b - c| = d2
+        # Also, a + b + c = k
+        # After remaining (n - k) games, total wins will be n, so a + b + c + (n - k) = n => a + b + c = k (already known)
         
-        # Check if the current number of games played (k) is consistent with the wins
-        # Let's assume that the current wins are a, b, c
-        # Then, a + b + c = k
-        # Also, |a - b| = d1, |b - c| = d2
-        # We need to find a, b, c such that they are non-negative integers and satisfy the above
+        # Possible configurations:
+        # Case 1: a = b + d1, b = c + d2
+        # Then a = c + d2 + d1, b = c + d2
+        # a + b + c = 3c + d1 + 2d2 = k
+        # 3c = k - d1 - 2d2
+        # c = (k - d1 - 2d2) / 3
+        # Must be integer and non-negative
         
-        # Let's try to find such a, b, c
-        # Try all possible combinations of a, b, c that satisfy the conditions
+        # Case 2: a = b - d1, b = c + d2
+        # Then a = c + d2 - d1, b = c + d2
+        # a + b + c = 3c + 2d2 - d1 = k
+        # 3c = k - 2d2 + d1
+        # c = (k - 2d2 + d1) / 3
+        # Must be integer and non-negative
         
-        # Try to find a, b, c such that:
-        # a + b + c = k
-        # |a - b| = d1
-        # |b - c| = d2
-        # a, b, c >= 0
+        # Case 3: a = b + d1, b = c - d2
+        # Then a = c - d2 + d1, b = c - d2
+        # a + b + c = 3c - d2 + d1 = k
+        # 3c = k + d2 - d1
+        # c = (k + d2 - d1) / 3
+        # Must be integer and non-negative
         
-        # Try all possible combinations of a, b, c that satisfy the above conditions
-        # We can try to find a, b, c by checking all possible values of b
-        found = False
-        for b in range(0, k + 1):
-            # Try a = b + d1
-            a = b + d1
-            if a < 0 or a > k:
-                continue
-            # Try c = b - d2
-            c = b - d2
-            if c < 0 or c > k:
-                continue
-            if a + b + c == k:
-                found = True
-                break
+        # Case 4: a = b - d1, b = c - d2
+        # Then a = c - d2 - d1, b = c - d2
+        # a + b + c = 3c - 2d2 - d1 = k
+        # 3c = k + 2d2 + d1
+        # c = (k + 2d2 + d1) / 3
+        # Must be integer and non-negative
         
-        if found:
-            results.append("yes")
-        else:
-            results.append("no")
+        valid = False
+        
+        # Check case 1
+        if (k - d1 - 2 * d2) % 3 == 0:
+            c = (k - d1 - 2 * d2) // 3
+            if c >= 0:
+                a = c + d1 + d2
+                b = c + d2
+                if a + b + c == k and a <= x and b <= x and c <= x:
+                    valid = True
+        
+        # Check case 2
+        if (k - 2 * d2 + d1) % 3 == 0:
+            c = (k - 2 * d2 + d1) // 3
+            if c >= 0:
+                a = c + d2 - d1
+                b = c + d2
+                if a + b + c == k and a <= x and b <= x and c <= x:
+                    valid = True
+        
+        # Check case 3
+        if (k + d2 - d1) % 3 == 0:
+            c = (k + d2 - d1) // 3
+            if c >= 0:
+                a = c - d2 + d1
+                b = c - d2
+                if a + b + c == k and a <= x and b <= x and c <= x:
+                    valid = True
+        
+        # Check case 4
+        if (k + 2 * d2 + d1) % 3 == 0:
+            c = (k + 2 * d2 + d1) // 3
+            if c >= 0:
+                a = c - d2 - d1
+                b = c - d2
+                if a + b + c == k and a <= x and b <= x and c <= x:
+                    valid = True
+        
+        results.append("yes" if valid else "no")
     
-    print('\n'.join(results))
+    print("\n".join(results))
 
 if __name__ == '__main__':
     solve()

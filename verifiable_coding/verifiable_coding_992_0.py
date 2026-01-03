@@ -20,7 +20,6 @@ def solve():
     T = int(data[idx])
     idx += 1
     results = []
-    
     for _ in range(T):
         N = int(data[idx])
         idx += 1
@@ -38,26 +37,22 @@ def solve():
             C = int(data[idx + 1])
             stripes.append((L, C))
             idx += 2
-        
         perimeter = compute_perimeter(polygon)
         # Sort stripes by cost per unit length
-        stripes.sort(key=lambda x: x[1]/x[0] if x[0] > 0 else 0)
-        
-        # Find the minimum cost
-        min_cost = 0
+        stripes.sort(key=lambda x: x[1] / x[0])
+        # Use greedy approach: use as many as possible of the cheapest stripe
+        total_cost = 0
         remaining = perimeter
         for L, C in stripes:
             if remaining <= 0:
                 break
             if L >= remaining:
-                min_cost += math.ceil(remaining / L) * C
+                total_cost += math.ceil(remaining / L) * C
                 remaining = 0
             else:
-                min_cost += C
+                total_cost += C
                 remaining -= L
-        
-        results.append(str(min_cost))
-    
+        results.append(str(total_cost))
     print('\n'.join(results))
 
 if __name__ == '__main__':

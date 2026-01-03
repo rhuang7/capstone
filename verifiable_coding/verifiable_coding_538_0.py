@@ -8,8 +8,6 @@ def solve():
     T = int(data[0])
     index = 1
     
-    results = []
-    
     for _ in range(T):
         S = int(data[index])
         SG = int(data[index+1])
@@ -18,32 +16,30 @@ def solve():
         T_val = int(data[index+4])
         index += 5
         
-        # Calculate distance between the cars after T seconds
+        # Distance between the cars after T seconds
         distance = D * 50  # in meters
         distance_km = distance / 1000  # convert to km
         
         # Time in hours
         time_h = T_val / 3600
         
-        # Calculate the speed difference
-        speed_diff = (distance_km) / time_h
+        # Speed difference
+        speed_diff = distance_km / time_h
         
-        # Real speed of the other car
+        # Real speed of other car
         real_speed = S + speed_diff
         
         # Calculate absolute differences
         diff_sebi = abs(real_speed - SG)
         diff_father = abs(real_speed - FG)
         
-        # Determine the result
+        # Determine result
         if diff_sebi < diff_father:
-            results.append("SEBI")
+            print("SEBI")
         elif diff_sebi > diff_father:
-            results.append("FATHER")
+            print("FATHER")
         else:
-            results.append("DRAW")
-    
-    print('\n'.join(results))
+            print("DRAW")
 
 if __name__ == '__main__':
     solve()

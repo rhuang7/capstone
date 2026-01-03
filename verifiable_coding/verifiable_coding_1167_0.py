@@ -7,11 +7,12 @@ def solve():
     for char in S:
         if char in vowels:
             continue
-        # Convert to lowercase
-        lower_char = char.lower()
-        # Add '.' before the consonant
-        result.append(f".{lower_char}")
-    print("".join(result))
+        # Check if it's an uppercase consonant and convert to lowercase
+        if char.isupper():
+            result.append(f".{char.lower()}")
+        else:
+            result.append(f".{char}")
+    print(''.join(result))
 
 if __name__ == '__main__':
     solve()

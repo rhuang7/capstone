@@ -22,14 +22,11 @@ def solve():
         left = 0
         right = 0
         for i in range(N):
-            if len(rows[i]) == 0:
-                continue
-            if left < len(rows[i]):
-                total += rows[i][left]
-                left += 1
-            if right < len(rows[i]):
-                total -= rows[i][right]
-                right += 1
+            C_i = len(rows[i])
+            if C_i % 2 == 1:
+                total += rows[i][0]
+            else:
+                total += rows[i][0] + rows[i][-1]
         results.append(str(total))
     print('\n'.join(results))
 

@@ -1,6 +1,6 @@
 import sys
 import math
-from collections import Counter
+from collections import defaultdict
 
 def solve():
     import sys
@@ -20,21 +20,23 @@ def solve():
         count = 0
         
         for l in range(N):
-            freq = Counter()
-            unique = []
+            freq = defaultdict(int)
+            unique = set()
             for r in range(l, N):
                 freq[A[r]] += 1
-                unique.append(A[r])
-                m = (K + len(unique) - 1) // len(unique)
-                B = unique * m
+                unique.add(A[r])
+                length = r - l + 1
+                m = math.ceil(K / length)
+                B = A[l:r+1] * m
                 B.sort()
                 X = B[K-1]
                 F = freq[X]
-                if str(F) in set(unique):
+                if F in unique:
                     count += 1
-        results.append(str(count))
+        results.append(count)
     
-    print('\n'.join(results))
+    for res in results:
+        print(res)
 
 if __name__ == '__main__':
     solve()

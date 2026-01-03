@@ -11,24 +11,21 @@ def solve():
     idx += 1
     c = int(data[idx])
     idx += 1
-
+    
     heaps = [c] * n
-
+    
     def add(u, v, k):
-        for i in range(u - 1, v):
+        for i in range(u-1, v):
             heaps[i] += k
-
+    
     def query(p):
-        return heaps[p - 1]
-
+        return heaps[p-1]
+    
+    output = []
     for _ in range(m):
         op = data[idx]
         idx += 1
-        if op == 'Q':
-            p = int(data[idx])
-            idx += 1
-            print(query(p))
-        elif op == 'S':
+        if op == 'S':
             u = int(data[idx])
             idx += 1
             v = int(data[idx])
@@ -36,6 +33,9 @@ def solve():
             k = int(data[idx])
             idx += 1
             add(u, v, k)
-
-if __name__ == '__main__':
-    solve()
+        else:
+            p = int(data[idx])
+            idx += 1
+            output.append(str(query(p)))
+    
+    print('\n'.join(output))

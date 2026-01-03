@@ -12,30 +12,32 @@ def solve():
     min_toggles = float('inf')
     
     for k in range(2, min(n, m) + 1):
-        # Calculate new dimensions after padding
-        new_n = ((n + k - 1) // k) * k
-        new_m = ((m + k - 1) // k) * k
+        # Calculate the padded dimensions
+        padded_n = ((n + k - 1) // k) * k
+        padded_m = ((m + k - 1) // k) * k
         
-        # Create padded grid
-        padded = []
+        # Create a padded grid
+        padded_grid = []
         for i in range(n):
-            padded.append(grid[i] + '0' * (new_m - m))
-        for i in range(n, new_n):
-            padded.append('0' * new_m)
+            padded_grid.append(grid[i] + '0' * (padded_m - m))
+        for i in range(n, padded_n):
+            padded_grid.append('0' * padded_m)
         
-        # Process each block
-        total = 0
-        for i in range(0, new_n, k):
-            for j in range(0, new_m, k):
+        # Split into k x k blocks
+        total_toggles = 0
+        for i in range(0, padded_n, k):
+            for j in range(0, padded_m, k):
                 block = []
                 for x in range(i, i + k):
-                    block.extend(padded[x][j:j + k])
-                # Count the number of 0s and 1s in the block
-                cnt0 = block.count('0')
-                cnt1 = block.count('1')
-                # Toggle to make all same
-                total += min(cnt0, cnt1)
-        
-        min_toggles = min(min_toggles, total)
+                    block.extend(padded_grid[x][j:j + k])
+                # Find the target value for the block
+                target = block[0]
+                for val in block:
+                    if val != target:
+                        total_toggles += 1
+        min_toggles = min(min_toggles, total_toggles)
     
     print(min_toggles)
+
+if __name__ == '__main__':
+    solve()

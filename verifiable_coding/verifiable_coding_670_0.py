@@ -17,14 +17,17 @@ def solve():
         idx += N
         
         A.sort()
-        res = A[0]
-        for i in range(1, N):
-            res += A[i] // A[i-1] * A[i-1]
-        
-        results.append(res)
+        min_sum = 0
+        prev = 0
+        for num in A:
+            if num > prev:
+                min_sum += prev
+                prev = num
+            else:
+                prev = num
+        results.append(str(min_sum))
     
-    for result in results:
-        print(result)
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

@@ -5,16 +5,17 @@ def solve():
     input = sys.stdin.buffer.read
     data = input().split()
     
-    index = 0
-    T = int(data[index])
-    index += 1
+    idx = 0
+    T = int(data[idx])
+    idx += 1
+    
     results = []
     
     for _ in range(T):
-        N = int(data[index])
-        index += 1
-        A = list(map(int, data[index:index + N]))
-        index += N
+        N = int(data[idx])
+        idx += 1
+        A = list(map(int, data[idx:idx+N]))
+        idx += N
         
         has_even = False
         for num in A:
@@ -27,7 +28,7 @@ def solve():
         else:
             results.append("YES")
     
-    print('\n'.join(results))
+    print("\n".join(results))
 
 if __name__ == '__main__':
     solve()

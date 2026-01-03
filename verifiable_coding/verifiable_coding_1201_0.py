@@ -32,21 +32,18 @@ def solve():
         
         # Preprocess for each cell, the maximum power it can reach
         # We'll use BFS for each query
-        # But with Q up to 2e5 and H, W up to 1e3, this is too slow
-        # So we need a better approach
+        # But with Q up to 2e5 and H, W up to 1e3, we need an efficient way
         
         # For each query, perform BFS
         for r, c, p in queries:
             if A[r][c] >= p:
                 results.append(0)
                 continue
-            
             visited = [[False]*W for _ in range(H)]
             q = deque()
             q.append((r, c))
             visited[r][c] = True
             count = 1
-            
             while q:
                 x, y = q.popleft()
                 for dx, dy in [(-1,0),(1,0),(0,-1),(0,1)]:
@@ -56,7 +53,6 @@ def solve():
                         visited[nx][ny] = True
                         count += 1
                         q.append((nx, ny))
-            
             results.append(count)
     
     sys.stdout.write('\n'.join(map(str, results)) + '\n')

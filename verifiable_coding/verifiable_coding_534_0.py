@@ -1,7 +1,8 @@
 import sys
+import math
+from collections import defaultdict, deque
 
 def solve():
-    import sys
     input = sys.stdin.buffer.read
     data = input().split()
     idx = 0
@@ -13,26 +14,26 @@ def solve():
         n = int(data[idx])
         m = int(data[idx+1])
         idx += 2
-        adj = [[] for _ in range(n+1)]
+        graph = defaultdict(list)
         for _ in range(m):
-            u = int(data[idx])
-            v = int(data[idx+1])
-            adj[u].append(v)
-            adj[v].append(u)
+            u = int(data[idx]) - 1
+            v = int(data[idx+1]) - 1
+            graph[u].append(v)
+            graph[v].append(u)
             idx += 2
         
-        # Maximum antimatching is the maximum number of edges such that no two share a vertex
+        # Maximum antimatching is the maximum number of edges such that no two share a common endpoint
         # This is equivalent to finding a maximum matching in the line graph of the original graph
-        # But since the line graph is not directly available, we can use the fact that the maximum antimatching
-        # is the maximum matching in the original graph, but with the edges being non-overlapping
+        # But since the line graph is complex, we can use a greedy approach here
         
-        # We can use a greedy approach to find the maximum antimatching
-        used = [False] * (n + 1)
+        # We can use a greedy algorithm: for each node, if it is not yet matched, we try to match it with an adjacent node
+        # We'll track which nodes are used
+        used = [False] * n
         count = 0
         
-        for u in range(1, n + 1):
+        for u in range(n):
             if not used[u]:
-                for v in adj[u]:
+                for v in graph[u]:
                     if not used[v]:
                         used[u] = True
                         used[v] = True
@@ -42,6 +43,3 @@ def solve():
         results.append(str(count))
     
     print('\n'.join(results))
-
-if __name__ == '__main__':
-    solve()

@@ -1,9 +1,8 @@
 import sys
 import math
-from collections import defaultdict
+from collections import deque
 
 def solve():
-    import sys
     input = sys.stdin.buffer.read
     data = input().split()
     idx = 0
@@ -23,144 +22,64 @@ def solve():
             edges.append((u-1, v-1))
             idx += 2
         
-        # Function to check if a given color assignment is valid
-        def is_valid(colors):
-            for u, v in edges:
-                if abs(colors[u] - colors[v]) > 0:
-                    return False
-            return True
+        # Try all possible colorings with 0, 1, 2
+        # Since N is small (<=100), we can try all possible colorings
+        # However, this is not feasible for N=100, so we need a smarter approach
         
-        # Try all possible color assignments
-        # Since N is small (<= 100), we can try all possible colorings
-        # However, this is not feasible for N=100. So we need a better approach.
-        # Instead, we can try all possible color pairs (0, 1, 2) and check if the tree can be colored with those colors.
-        # The minimum unattractiveness is the minimum difference between any two adjacent nodes.
-        # So we can try all possible colorings of the tree with 0, 1, 2, and find the one with minimum max difference.
+        # Use BFS to find the minimum possible unattractiveness
+        # We can try all possible colorings for the root and then propagate
+        # But this is still not efficient. Instead, we can use a binary search approach
         
-        # Since the markers are given, we need to use exactly the markers provided.
-        # So we need to assign colors to the tree such that the colors used are exactly the markers.
-        # But since the problem allows any assignment of markers, we can try all possible colorings of the tree with 0, 1, 2.
+        # Binary search on the answer
+        low = 0
+        high = 2
+        answer = 2
         
-        # We can try all possible colorings of the tree with 0, 1, 2, and check if the markers can be used.
-        # But since the markers are given, we need to count how many of each color are available.
-        count = [0, 0, 0]
-        for c in markers:
-            count[c] += 1
+        while low <= high:
+            mid = (low + high) // 2
+            # Check if it's possible to color the tree with max difference <= mid
+            # We can use BFS to try to color the tree
+            # Start with root (0), try all possible colors (0, 1, 2)
+            # Then for each child, try colors that differ by at most mid from parent
+            # If we can color the entire tree, then mid is possible
+            # Otherwise, we need to try higher
+            
+            # Try all possible colors for root
+            possible = False
+            for root_color in [0, 1, 2]:
+                # BFS
+                visited = [False] * N
+                queue = deque()
+                queue.append((0, root_color))
+                visited[0] = True
+                valid = True
+                while queue:
+                    node, color = queue.popleft()
+                    for neighbor in range(N):
+                        if neighbor == node:
+                            continue
+                        if visited[neighbor]:
+                            continue
+                        # Check if the color can be assigned
+                        if abs(color - markers[neighbor]) > mid:
+                            valid = False
+                            break
+                        visited[neighbor] = True
+                        queue.append((neighbor, markers[neighbor]))
+                    if not valid:
+                        break
+                if valid:
+                    possible = True
+                    break
+            if possible:
+                answer = mid
+                high = mid - 1
+            else:
+                low = mid + 1
         
-        # Try all possible colorings of the tree with 0, 1, 2
-        # We can use backtracking to assign colors to the tree
-        # But since N is small (<= 100), we can try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference between adjacent nodes.
-        
-        # We can use BFS to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        # We can use a BFS approach to try all possible colorings of the tree with 0, 1, 2
-        # and find the one with minimum max difference.
-        
-        #
+        results.append(str(answer))
+    
+    print('\n'.join(results))
+
+if __name__ == '__main__':
+    solve()

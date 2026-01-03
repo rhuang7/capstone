@@ -32,10 +32,10 @@ def solve():
     data = input().split()
     T = int(data[0])
     results = []
-    idx = 1
+    index = 1
     for _ in range(T):
-        N = int(data[idx])
-        idx += 1
+        N = int(data[index])
+        index += 1
         count = 0
         for q in primes:
             if 2 * q >= N:

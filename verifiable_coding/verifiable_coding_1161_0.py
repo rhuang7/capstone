@@ -13,10 +13,10 @@ def solve():
         # Maximum number of snakes that can be eaten is the number of consecutive 'm's
         # But each 'm' can eat at most one neighbor 's'
         # So the maximum number of snakes that can be eaten is the number of 'm's
-        # But we can't eat more than the number of 's's
+        # But if there are more 'm's than 's's, then all 's's can be eaten
+        # So the maximum number of snakes that can be eaten is min(mongoose_count, snake_count)
         max_eaten = min(mongoose_count, snake_count)
         
-        # After eating, the remaining snakes and mongooses
         remaining_snakes = snake_count - max_eaten
         remaining_mongoose = mongoose_count
         

@@ -21,33 +21,22 @@ def solve():
         # Check if the two rectangles can form a square
         # The total area of the two rectangles must be a perfect square
         total_area = a1 * b1 + a2 * b2
-        is_square = False
-        for i in range(1, int(total_area**0.5) + 1):
-            if i * i == total_area:
-                is_square = True
+        is_square = int(total_area**0.5) ** 2 == total_area
+        
+        # Check if the sides can be arranged to form a square
+        # The sum of one side of each rectangle must be equal to the other side of each rectangle
+        # Try all possible combinations of sides
+        sides = [(a1, b1), (a2, b2), (b1, a1), (b2, a2)]
+        found = False
+        for s1 in sides:
+            for s2 in sides:
+                if s1[0] == s2[1] and s1[1] == s2[0]:
+                    found = True
+                    break
+            if found:
                 break
         
-        # Check if the rectangles can be arranged to form a square
-        # The sum of one side of the rectangles must equal the side of the square
-        # And the other sides must be equal
-        square_side = int(total_area**0.5)
-        possible = False
-        # Try all combinations of sides
-        for a, b in [(a1, b1), (b1, a1), (a2, b2), (b2, a2)]:
-            if a == square_side and b == square_side:
-                possible = True
-                break
-            if a == square_side and b == square_side:
-                possible = True
-                break
-            if a == square_side and b == square_side:
-                possible = True
-                break
-            if a == square_side and b == square_side:
-                possible = True
-                break
-        
-        if is_square and possible:
+        if is_square and found:
             print("YES")
         else:
             print("NO")

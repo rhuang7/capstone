@@ -16,10 +16,9 @@ def solve():
         R = list(map(int, data[idx:idx+N]))
         idx += N
         
-        # Check if it's possible to avoid arrest
-        def is_possible(R):
+        def is_safe(arr):
             for i in range(N - K + 1):
-                sub = R[i:i+K]
+                sub = arr[i:i+K]
                 max_val = max(sub)
                 count = 0
                 for j in range(K):
@@ -29,23 +28,22 @@ def solve():
                     return False
             return True
         
-        # Try all possible operations (each element can be increased at most once)
-        # Since N is small (<=17), we can try all possibilities
         from itertools import product
         min_ops = float('inf')
-        # Generate all possible combinations of whether to increase each element or not
-        for ops in product([0, 1], repeat=N):
-            new_R = [R[i] + ops[i] for i in range(N)]
-            if is_possible(new_R):
-                ops_count = sum(ops)
-                if ops_count < min_ops:
-                    min_ops = ops_count
-        if min_ops != float('inf'):
-            results.append(str(min_ops))
+        for mask in product([0, 1], repeat=N):
+            ops = sum(mask)
+            if ops >= min_ops:
+                continue
+            new_R = [R[i] + mask[i] for i in range(N)]
+            if is_safe(new_R):
+                min_ops = ops
+        if min_ops == float('inf'):
+            results.append(-1)
         else:
-            results.append('-1')
+            results.append(min_ops)
     
-    print('\n'.join(results))
+    for res in results:
+        print(res)
 
 if __name__ == '__main__':
     solve()

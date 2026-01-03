@@ -20,18 +20,13 @@ def solve():
         idx += 1
         
         # Convert A and B from base 7 to decimal
-        A_dec = 0
-        for c in A:
-            A_dec = A_dec * 7 + int(c)
-        
-        B_dec = 0
-        for c in B:
-            B_dec = B_dec * 7 + int(c)
+        A_dec = int(A, 7)
+        B_dec = int(B, 7)
         
         # Compute C = A / B (since B divides A)
         C_dec = A_dec // B_dec
         
-        # Compute C mod 7^L
+        # Compute C modulo 7^L
         mod = 7 ** L
         C_mod = C_dec % mod
         
@@ -42,7 +37,7 @@ def solve():
             digits = []
             while C_mod > 0:
                 digits.append(str(C_mod % 7))
-                C_mod = C_mod // 7
+                C_mod //= 7
             digits.reverse()
             results.append(''.join(digits))
     

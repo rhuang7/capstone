@@ -27,7 +27,7 @@ def solve():
         e[2] = b
         for i in range(3, n + 1):
             e[i] = (e[i-1] ^ e[i-2]) ^ 0xFFFFFFFFFFFFFFFF
-            e[i] ^= 0xFFFFFFFFFFFFFFFF
+            e[i] = ~e[i] & 0xFFFFFFFFFFFFFFFF
         
         print(max(x[n], e[n]))
 

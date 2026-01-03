@@ -5,7 +5,7 @@ def solve():
     input = sys.stdin.buffer.read().split()
     n = int(input[0])
     s = input[1] if len(input) > 1 else ""
-    if n == 0:
+    if n <= 1:
         print(0)
         return
     count = 0

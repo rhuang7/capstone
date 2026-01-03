@@ -1,4 +1,5 @@
 import sys
+import math
 
 def solve():
     import sys
@@ -12,15 +13,15 @@ def solve():
         N = int(data[idx])
         M = int(data[idx+1])
         idx += 2
-        students = [10] * N
+        max_score = [10] * N
         for _ in range(M):
             i = int(data[idx])
             j = int(data[idx+1])
             k = int(data[idx+2])
             idx += 3
             for x in range(i-1, j):
-                students[x] *= k
-        total = sum(students)
+                max_score[x] *= k
+        total = sum(max_score)
         mean = total // N
         results.append(str(mean))
     print('\n'.join(results))

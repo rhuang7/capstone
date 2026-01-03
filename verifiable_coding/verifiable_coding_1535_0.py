@@ -23,30 +23,29 @@ def solve():
         
         # Compute sizes of subtrees
         size = [0] * (N + 1)
+        visited = [False] * (N + 1)
+        
         def dfs(u, parent):
+            visited[u] = True
             size[u] = 1
             for v in tree[u]:
-                if v != parent:
+                if not visited[v]:
                     dfs(v, u)
                     size[u] += size[v]
         
         dfs(1, -1)
         
-        # Find the node with the minimum W
+        # Find the node with the smallest W
         min_w = float('inf')
-        best_x = 1
+        best_x = -1
         
         for u in range(1, N + 1):
-            # When u is removed, the tree splits into several components
-            # The number of components is the number of children of u (excluding parent)
-            # The size of each component is the size of the subtree rooted at each child
-            # The maximum size among these is the W for removing u
-            # Also, the parent component is N - size[u]
-            # So W is max(max_child_size, N - size[u])
+            # The number of fighters when removing u is the maximum of the sizes of its children
             max_child_size = 0
             for v in tree[u]:
-                if v != 1:  # assuming 1 is the root, but we need to check all possible parents
+                if v != 1 and not visited[v]:  # Not the parent
                     max_child_size = max(max_child_size, size[v])
+            # The other part is N - size[u]
             w = max(max_child_size, N - size[u])
             if w < min_w or (w == min_w and u < best_x):
                 min_w = w
@@ -54,8 +53,4 @@ def solve():
         
         results.append(f"{best_x} {min_w}")
     
-    for res in results:
-        print(res)
-
-if __name__ == '__main__':
-    solve()
+    print("\n".join(results))

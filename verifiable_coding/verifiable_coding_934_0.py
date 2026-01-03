@@ -33,41 +33,59 @@ def solve():
         for i in range(r):
             prefix_C[i+1] = (prefix_C[i] + C_sorted[i]) % MOD
         
-        # Compute sum for each element in B
+        # For each element in B, find the number of elements in A <= B[i] and in C >= B[i]
         total = 0
         for y in B:
-            # Find elements in A <= y
-            left_A = 0
-            right_A = p - 1
-            while left_A <= right_A:
-                mid = (left_A + right_A) // 2
+            # Find number of elements in A <= y
+            a_count = 0
+            left, right = 0, len(A)
+            while left < right:
+                mid = (left + right) // 2
                 if A[mid] <= y:
-                    left_A = mid + 1
+                    left = mid + 1
                 else:
-                    right_A = mid - 1
-            count_A = left_A
-            sum_A = 0
-            for i in range(count_A):
-                sum_A = (sum_A + A[i]) % MOD
+                    right = mid
+            a_count = left
             
-            # Find elements in C >= y
-            left_C = 0
-            right_C = r - 1
-            while left_C <= right_C:
-                mid = (left_C + right_C) // 2
+            # Find number of elements in C >= y
+            c_count = 0
+            left, right = 0, len(C)
+            while left < right:
+                mid = (left + right) // 2
                 if C[mid] >= y:
-                    right_C = mid - 1
+                    right = mid
                 else:
-                    left_C = mid + 1
-            count_C = r - left_C
-            sum_C = 0
-            for i in range(left_C, r):
-                sum_C = (sum_C + C[i]) % MOD
+                    left = mid + 1
+            c_count = len(C) - left
             
-            # Compute (sum_A * sum_C) * y
-            term = (sum_A * sum_C) % MOD
-            term = (term * y) % MOD
-            total = (total + term) % MOD
+            if a_count == 0 or c_count == 0:
+                continue
+            
+            # Compute sum of (X + Y) for X in A <= Y
+            sum_X_plus_Y = 0
+            left, right = 0, len(A)
+            while left < right:
+                mid = (left + right) // 2
+                if A[mid] <= y:
+                    left = mid + 1
+                else:
+                    right = mid
+            sum_X_plus_Y = (prefix_B[left] - prefix_B[0]) % MOD
+            
+            # Compute sum of (Y + Z) for Z in C >= Y
+            sum_Y_plus_Z = 0
+            left, right = 0, len(C)
+            while left < right:
+                mid = (left + right) // 2
+                if C[mid] >= y:
+                    right = mid
+                else:
+                    left = mid + 1
+            sum_Y_plus_Z = (prefix_C[len(C)] - prefix_C[left]) % MOD
+            
+            # Compute contribution of this Y
+            contribution = (sum_X_plus_Y * sum_Y_plus_Z) % MOD
+            total = (total + contribution) % MOD
         
         results.append(total % MOD)
     

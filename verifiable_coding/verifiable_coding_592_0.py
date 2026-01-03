@@ -1,5 +1,4 @@
 import sys
-from collections import deque
 
 def solve():
     import sys
@@ -15,51 +14,60 @@ def solve():
         idx += 1
         N = int(data[idx])
         idx += 1
-        dict_words = []
+        dictionary = set()
         for _ in range(N):
-            dict_words.append(data[idx])
+            dictionary.add(data[idx])
             idx += 1
         
-        # Preprocess dictionary words
-        dict_set = set(dict_words)
+        # Preprocess the dictionary for faster lookups
+        # We'll use a trie for efficient substring checks
+        class TrieNode:
+            def __init__(self):
+                self.children = {}
         
-        # Precompute all possible substrings of S
-        substrings = set()
-        for i in range(len(S)):
-            for j in range(i + 1, len(S) + 1):
-                substrings.add(S[i:j])
+        root = TrieNode()
+        for word in dictionary:
+            node = root
+            for c in word:
+                if c not in node.children:
+                    node.children[c] = TrieNode()
+                node = node.children[c]
         
-        # Precompute all possible substrings in the dictionary
-        dict_substrings = set(dict_words)
+        # Function to check if a substring exists in the dictionary
+        def is_substring(s, start, end):
+            node = root
+            for i in range(start, end + 1):
+                c = s[i]
+                if c not in node.children:
+                    return False
+                node = node.children[c]
+            return True
         
-        # Find all substrings of S that are in the dictionary
-        valid_moves = [s for s in substrings if s in dict_substrings]
+        # Game simulation using Grundy numbers (Sprague-Grundy theorem)
+        # We'll compute the Grundy number for each position in the string
+        # The game is a variant of the impartial game where players remove substrings
+        # We'll use dynamic programming to compute the Grundy numbers
         
-        # If no valid moves, Tracy wins
-        if not valid_moves:
-            print("Tracy")
-            continue
+        n = len(S)
+        grundy = [0] * (n + 1)
         
-        # Use dynamic programming to determine winning positions
-        # dp[i] = True if the current player can win starting from position i
-        dp = [False] * (len(S) + 1)
+        for i in range(n):
+            # Try all possible substrings starting at i
+            for j in range(i, n):
+                # Check if the substring S[i..j] is in the dictionary
+                if is_substring(S, i, j):
+                    # Compute the Grundy number for the remaining positions
+                    # After removing S[i..j], the string is split into two parts
+                    # So we need to compute the XOR of the Grundy numbers of the left and right parts
+                    left = grundy[i]
+                    right = grundy[j + 1]
+                    current = grundy[i + 1] ^ right
+                    if current > grundy[i]:
+                        grundy[i] = current
         
-        # Fill dp from the end
-        for i in range(len(S) - 1, -1, -1):
-            for j in range(i + 1, len(S) + 1):
-                substr = S[i:j]
-                if substr in dict_substrings:
-                    # Check if any move leads to a losing position for the opponent
-                    for k in range(j, len(S) + 1):
-                        if not dp[k]:
-                            dp[i] = True
-                            break
-                    # If any move leads to a losing position, current player can win
-                    if dp[i]:
-                        break
-        
-        # If dp[0] is True, Teddy wins, else Tracy wins
-        if dp[0]:
+        # If the grundy number of the entire string is non-zero, Teddy wins
+        # Otherwise, Tracy wins
+        if grundy[0] != 0:
             print("Teddy")
         else:
             print("Tracy")

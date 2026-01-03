@@ -2,31 +2,28 @@ import sys
 
 def solve():
     import sys
-    input = sys.stdin.buffer.read
-    data = input().split(b'\n')
-    
-    first_line = data[0].split()
-    N = int(first_line[0])
-    Q = int(first_line[1])
-    
+    input = sys.stdin.buffer.read().split(b'\n')
+    idx = 0
+    NQ = input[idx].split()
+    idx += 1
+    N = int(NQ[0])
+    Q = int(NQ[1])
     media_types = {}
-    
-    for i in range(1, N + 1):
-        if i >= len(data):
+    for _ in range(N):
+        if idx >= len(input):
             break
-        line = data[i].split()
+        line = input[idx].split()
+        idx += 1
         if len(line) < 2:
             continue
         ext = line[0].decode()
         media = line[1].decode()
         media_types[ext] = media
-    
-    for i in range(N + 1, len(data)):
-        if i >= len(data):
+    for _ in range(Q):
+        if idx >= len(input):
             break
-        line = data[i].split()
-        if not line:
-            continue
+        line = input[idx].split()
+        idx += 1
         filename = line[0].decode()
         if '.' not in filename:
             print("unknown")

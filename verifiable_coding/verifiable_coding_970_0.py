@@ -22,22 +22,21 @@ def solve():
             y = int(data[idx+1])
             queries.append((x, y))
             idx += 2
-        # Preprocess a to be sorted (already sorted as per constraints)
+        # Preprocess a to be sorted (already sorted per constraints)
         # For each query, check if (x, y) is on any wall
         # A point (x, y) is on the wall a_i if x + y = a_i
         # Also, check if x == 0 and y == 0 (origin)
         for x, y in queries:
             if x == 0 and y == 0:
-                results.append("0")
+                results.append('0')
                 continue
             if x + y == 0:
-                results.append("-1")
+                results.append('-1')
                 continue
             if x + y in a:
-                results.append("-1")
+                results.append('-1')
                 continue
-            # Find the number of walls with a_i > x + y
-            # Since a is sorted, use bisect_right
-            cnt = len(a) - bisect.bisect_right(a, x + y)
+            # Find the number of a_i such that a_i < x + y
+            cnt = bisect.bisect_left(a, x + y)
             results.append(str(cnt))
     print('\n'.join(results))

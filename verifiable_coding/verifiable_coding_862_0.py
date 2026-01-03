@@ -19,30 +19,39 @@ def solve():
         A = list(map(int, data[idx:idx+N]))
         idx += N
         
-        # Max heap to always select the jar with maximum milk
-        max_heap = []
+        # Use a max-heap to always select the jar with maximum milk
+        # Since Python only has a min-heap, we store negative values
+        heap = []
         for a in A:
-            heapq.heappush(max_heap, -a)
+            heapq.heappush(heap, -a)
         
-        total = 0
+        total_sir_jadeja = 0
         
         for _ in range(N):
             # Get the jar with maximum milk
-            current = -heapq.heappop(max_heap)
+            max_milk = -heapq.heappop(heap)
             
-            # If the jar has less than K or Dhoni has already drunk M times from it
-            if current < K or M == 0:
-                total += current
-                continue
+            # Dhoni can drink from this jar up to M times
+            # Each time he drinks K liters, but not more than available
+            # If he drinks from it M times, then the remaining milk is drunk by Sir Jadeja
+            # Otherwise, after drinking, the jar is put back with remaining milk
             
-            # Dhoni drinks K liters
-            current -= K
-            M -= 1
+            # How many times can Dhoni drink from this jar?
+            times = min(M, max_milk // K)
             
-            # Put the remaining milk back into the heap
-            heapq.heappush(max_heap, -current)
+            # If times is 0, then Sir Jadeja drinks all
+            if times == 0:
+                total_sir_jadeja = (total_sir_jadeja + max_milk) % MOD
+            else:
+                # Dhoni drinks times * K liters
+                # Remaining milk is max_milk - times * K
+                remaining = max_milk - times * K
+                # Put the remaining back into the heap
+                heapq.heappush(heap, -remaining)
+                # Add the milk that Sir Jadeja will drink from this jar
+                total_sir_jadeja = (total_sir_jadeja + remaining) % MOD
         
-        results.append(total % MOD)
+        results.append(total_sir_jadeja)
     
     for res in results:
         print(res)

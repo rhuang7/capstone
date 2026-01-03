@@ -16,14 +16,15 @@ def solve():
         x = int(data[idx])
         y = int(data[idx+1])
         idx += 2
-        # Calculate the number of days
-        # The virus spreads in all 4 directions each day
-        # The maximum distance from (x,y) is max(R-1-x, C-1-y)
-        # The number of days is the maximum distance
-        max_dist = max(R-1-x, C-1-y)
-        days = max_dist
-        results.append(str(days))
-    print('\n'.join(results))
+        total = R * C
+        dist = min(x, y, R - x, C - y)
+        days = 0
+        while total > 1:
+            total = total // 2
+            days += 1
+        days += dist
+        results.append(days)
+    sys.stdout.write('\n'.join(map(str, results)) + '\n')
 
 if __name__ == '__main__':
     solve()

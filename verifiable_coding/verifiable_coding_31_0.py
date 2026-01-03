@@ -2,15 +2,16 @@ import sys
 
 def solve():
     import sys
-    input = sys.stdin.buffer.read().split()
-    t = int(input[0])
-    cases = input[1:t+1]
+    input = sys.stdin.buffer.read
+    data = input().split()
+    t = int(data[0])
+    cases = data[1:t+1]
 
     directions = {
         'N': (0, 1),
         'S': (0, -1),
-        'E': (1, 0),
-        'W': (-1, 0)
+        'W': (-1, 0),
+        'E': (1, 0)
     }
 
     for s in cases:

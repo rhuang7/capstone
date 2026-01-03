@@ -12,17 +12,15 @@ def solve():
         a = int(data[index+2])
         b = int(data[index+3])
         index += 4
-        # The distance between the rabbits is y - x
-        # Each second, the distance decreases by a + b
-        # We need to check if the initial distance is divisible by (a + b)
+        # The rabbits meet when (x + a * t) == (y - b * t)
+        # Solving for t: t = (y - x) / (a + b)
+        # Check if (y - x) is divisible by (a + b)
         distance = y - x
-        if (a + b) == 0:
-            print(-1)
-            continue
-        if distance % (a + b) != 0:
+        speed = a + b
+        if distance % speed != 0:
             print(-1)
         else:
-            print(distance // (a + b))
+            print(distance // speed)
 
 if __name__ == '__main__':
     solve()

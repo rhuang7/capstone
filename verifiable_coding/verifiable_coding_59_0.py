@@ -17,28 +17,45 @@ def solve():
         
         missing_positions = [i for i in range(n) if a[i] == -1]
         m = 0
-        possible_k = 0
+        candidates = []
         
-        # For each pair of consecutive missing positions, calculate the possible k range
         for i in range(len(missing_positions) - 1):
             left = missing_positions[i]
             right = missing_positions[i + 1]
+            left_val = a[left - 1] if left > 0 else None
+            right_val = a[right + 1] if right < n - 1 else None
             
-            # Get the values at the left and right of the missing positions
-            left_val = a[left - 1] if left > 0 else a[left + 1]
-            right_val = a[right + 1] if right < n - 1 else a[right - 1]
-            
-            # The k must be between left_val and right_val to minimize the max difference
-            low = min(left_val, right_val)
-            high = max(left_val, right_val)
-            
-            # Update the possible k range
-            m = max(m, high - low)
-            possible_k = max(possible_k, high)
+            if left_val is not None and right_val is not None:
+                candidates.append((left_val, right_val))
+            elif left_val is not None:
+                candidates.append((left_val, None))
+            elif right_val is not None:
+                candidates.append((None, right_val))
         
-        # The minimal possible m is the maximum of all the ranges
-        # We can choose k as the maximum of the high values to minimize the max difference
-        results.append(f"{m} {possible_k}")
+        if not candidates:
+            results.append("0 0")
+            continue
+        
+        min_m = float('inf')
+        best_k = 0
+        
+        for left, right in candidates:
+            if left is None:
+                left = -1
+            if right is None:
+                right = -1
+            if left == right:
+                continue
+            low = min(left, right)
+            high = max(left, right)
+            if high - low < min_m:
+                min_m = high - low
+                best_k = low
+            elif high - low == min_m:
+                if low < best_k:
+                    best_k = low
+        
+        results.append(f"{min_m} {best_k}")
     
     print("\n".join(results))
 

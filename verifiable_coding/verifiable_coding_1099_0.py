@@ -9,16 +9,17 @@ def solve():
     for _ in range(T):
         N = int(input[idx])
         idx += 1
-        votes = {}
-        score = 0
+        votes = []
         for _ in range(N):
             parts = input[idx].split()
+            votes.append((parts[0], parts[1]))
             idx += 1
-            user = parts[0]
-            vote = parts[1]
-            if user in votes:
+        score = 0
+        user_votes = {}
+        for user, vote in votes:
+            if user in user_votes:
                 # Nullify previous vote
-                prev_vote = votes[user]
+                prev_vote = user_votes[user]
                 if prev_vote == '+':
                     score -= 1
                 else:
@@ -34,7 +35,7 @@ def solve():
                     score += 1
                 else:
                     score -= 1
-            votes[user] = vote
+            user_votes[user] = vote
         print(score)
 
 if __name__ == '__main__':

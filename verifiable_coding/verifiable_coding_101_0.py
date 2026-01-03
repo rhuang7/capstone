@@ -24,26 +24,27 @@ def solve():
             start, end = a, b
         
         # The coverage interval is [c - r, c + r]
-        coverage_start = c - r
-        coverage_end = c + r
+        left = c - r
+        right = c + r
         
-        # Find the intersection of the path with the coverage area
-        path_start = min(start, end)
-        path_end = max(start, end)
+        # Find the intersection of the path [start, end] and the coverage [left, right]
+        # The part of the path not covered is the total length minus the covered part
+        # If the coverage is completely outside the path, the entire path is not covered
         
-        # Find the overlap between the path and the coverage area
-        overlap_start = max(path_start, coverage_start)
-        overlap_end = min(path_end, coverage_end)
+        # Calculate the total path length
+        total_length = end - start
         
-        if overlap_start > overlap_end:
-            # No overlap, full time is outside
-            results.append(path_end - path_start)
+        # Calculate the covered part
+        # The covered part is the overlap between [start, end] and [left, right]
+        covered_start = max(start, left)
+        covered_end = min(end, right)
+        
+        if covered_start >= covered_end:
+            # No overlap, entire path is not covered
+            results.append(total_length)
         else:
-            # Time inside coverage is (overlap_end - overlap_start)
-            # Time outside is total time - time inside
-            total_time = path_end - path_start
-            time_inside = overlap_end - overlap_start
-            results.append(total_time - time_inside)
+            covered_length = covered_end - covered_start
+            results.append(total_length - covered_length)
     
     for res in results:
         print(res)

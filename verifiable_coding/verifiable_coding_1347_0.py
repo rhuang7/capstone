@@ -27,7 +27,7 @@ def solve():
         idx += 1
         posts.append((f, p, s))
     
-    # Sort special friends' posts by popularity descending
+    # Sort posts: special friends first, then by popularity
     special_posts = []
     other_posts = []
     
@@ -37,9 +37,9 @@ def solve():
         else:
             other_posts.append((p, s))
     
-    # Sort special posts by popularity descending
+    # Sort special posts by popularity (descending)
     special_posts.sort(reverse=True)
-    # Sort other posts by popularity descending
+    # Sort other posts by popularity (descending)
     other_posts.sort(reverse=True)
     
     # Output the results

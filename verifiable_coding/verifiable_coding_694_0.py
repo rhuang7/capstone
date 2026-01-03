@@ -1,7 +1,7 @@
 import sys
 
 def solve():
-    import math
+    import sys
     input = sys.stdin.buffer.read
     data = input().split()
     
@@ -16,18 +16,34 @@ def solve():
         z = int(data[index+2])
         index += 3
         
-        # Calculate the number of times each group comes in N days
+        # Calculate the number of times each group comes
         cnt_x = N // x
         cnt_y = N // y
         cnt_z = N // z
         
-        # The number of times all three groups come on the same day
-        # is the number of days that are multiples of LCM(x, y, z)
-        lcm_xy = x * y // math.gcd(x, y)
-        lcm_xyz = lcm_xy * z // math.gcd(lcm_xy, z)
-        cnt_all = N // lcm_xyz
+        # The number of times all three come on the same day is the minimum of the counts
+        # But we need to count the number of days when all three come
+        # So we need to find the number of days when all three come
+        # Which is the number of days that are multiples of LCM(x, y, z)
+        # But since we need to count the number of days in N days when all three come
+        # We can use inclusion-exclusion principle
         
-        print(cnt_all)
+        # LCM of x, y, z
+        def lcm(a, b):
+            return a * b // gcd(a, b)
+        
+        def gcd(a, b):
+            while b:
+                a, b = b, a % b
+            return a
+        
+        lcm_xy = lcm(x, y)
+        lcm_xyz = lcm(lcm_xy, z)
+        
+        # Number of days when all three come
+        total = N // lcm_xyz
+        
+        print(total)
 
 if __name__ == '__main__':
     solve()

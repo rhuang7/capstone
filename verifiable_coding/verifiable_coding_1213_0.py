@@ -18,8 +18,8 @@ def solve():
         V2 = int(data[index+4])
         index += 5
         
-        time_chef = abs(X3 - X1) / V1
-        time_kefa = abs(X3 - X2) / V2
+        time_chef = (X3 - X1) / V1
+        time_kefa = (X2 - X3) / V2
         
         if time_chef < time_kefa:
             results.append("Chef")
@@ -28,7 +28,7 @@ def solve():
         else:
             results.append("Draw")
     
-    print('\n'.join(results)) if results else None
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

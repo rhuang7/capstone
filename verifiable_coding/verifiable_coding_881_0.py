@@ -4,11 +4,9 @@ def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
-    
     idx = 0
     T = int(data[idx])
     idx += 1
-    
     results = []
     
     for _ in range(T):
@@ -19,7 +17,6 @@ def solve():
         
         count = 0
         length = 1
-        
         for i in range(1, N):
             if A[i] >= A[i-1]:
                 length += 1

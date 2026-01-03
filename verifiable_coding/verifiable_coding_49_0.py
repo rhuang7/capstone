@@ -2,7 +2,7 @@ import sys
 
 def is_classy(x):
     s = str(x)
-    return s.count('0') == len(s) - s.count('0') - 1
+    return s.count('0') == len(s) - s.count('0')
 
 def count_classy_up_to(n):
     count = 0

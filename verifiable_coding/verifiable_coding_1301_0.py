@@ -1,6 +1,7 @@
 import sys
 
 def solve():
+    import sys
     input = sys.stdin.buffer.read
     data = input().split()
     T = int(data[0])

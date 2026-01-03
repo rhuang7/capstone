@@ -19,7 +19,7 @@ def solve():
         for i in range(N):
             for j in range(N):
                 if grid[i][j] == 1:
-                    # Check all 8 adjacent cells
+                    # Check all 8 surrounding cells
                     for dx in [-1, 0, 1]:
                         for dy in [-1, 0, 1]:
                             if dx == 0 and dy == 0:

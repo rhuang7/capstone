@@ -19,157 +19,78 @@ def solve():
         A_sorted = sorted(A)
         
         # Check if the array can be rearranged to satisfy the condition
-        # The condition is that there exists a p such that the first p elements are strictly increasing and the rest are strictly decreasing
-        # So, the array must be such that it can be rearranged into a strictly increasing then strictly decreasing sequence
+        # We can try to construct the permutation as follows:
+        # - The first part is strictly increasing
+        # - The second part is strictly decreasing
+        # We can try to find a peak element and arrange the array around it
+        # However, for simplicity, we can check if the sorted array can be rearranged
+        # such that there's a peak and the rest are arranged accordingly
         
-        # We can try to construct such a sequence by placing the smallest element at the beginning and the largest at the end
-        # Then fill the rest in increasing order from the start and decreasing order from the end
+        # Try to find a peak
+        peak = -1
+        for i in range(N):
+            if i == 0:
+                if A_sorted[i] < A_sorted[i+1]:
+                    peak = i
+            elif i == N-1:
+                if A_sorted[i] > A_sorted[i-1]:
+                    peak = i
+            else:
+                if A_sorted[i] > A_sorted[i-1] and A_sorted[i] > A_sorted[i+1]:
+                    peak = i
+                    break
         
-        # Check if there are duplicates
-        if len(set(A)) < N:
+        if peak == -1:
+            # No peak found, check if the array is strictly increasing or decreasing
+            if all(A_sorted[i] < A_sorted[i+1] for i in range(N-1)):
+                results.append("YES")
+                results.append(" ".join(map(str, A_sorted)))
+            elif all(A_sorted[i] > A_sorted[i+1] for i in range(N-1)):
+                results.append("YES")
+                results.append(" ".join(map(str, A_sorted[::-1])))
+            else:
+                results.append("NO")
+            continue
+        
+        # Construct the permutation
+        # First part is strictly increasing up to the peak
+        # Second part is strictly decreasing from the peak
+        # We can use the sorted array and arrange it accordingly
+        # We need to ensure that the peak is the maximum element
+        # So we can take the sorted array and arrange it such that the peak is the maximum
+        
+        # Check if the maximum element is at the peak
+        if A_sorted[-1] != A_sorted[peak]:
             results.append("NO")
             continue
         
-        # Try to construct the sequence
-        # Start with the smallest element
-        # Then add elements in increasing order until the peak
-        # Then add elements in decreasing order
-        # The peak can be the middle element or somewhere around it
+        # Construct the permutation
+        perm = []
+        # First part: strictly increasing up to the peak
+        perm.extend(A_sorted[:peak+1])
+        # Second part: strictly decreasing from the peak
+        perm.extend(A_sorted[peak+1:][::-1])
         
-        # We can try to construct the sequence by placing the smallest element at the beginning
-        # Then add elements in increasing order from the start and decreasing from the end
+        # Check if the permutation is valid
+        valid = True
+        for i in range(N-1):
+            if perm[i] <= perm[i+1]:
+                valid = False
+                break
+        for i in range(N-1, 0, -1):
+            if perm[i] <= perm[i-1]:
+                valid = False
+                break
         
-        # Create a copy of the sorted array
-        A_sorted = sorted(A)
-        
-        # Try to construct the sequence
-        # Start with the first element (smallest)
-        # Then add elements in increasing order until the peak
-        # Then add elements in decreasing order
-        # The peak is the middle element
-        # So, the sequence would be: A_sorted[0], A_sorted[1], ..., A_sorted[mid], A_sorted[mid+1], ..., A_sorted[-1]
-        # But this is not correct, because the middle element must be the peak
-        
-        # Instead, we can try to find the peak element and arrange the sequence around it
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that is greater than all elements before it and greater than all elements after it
-        # So, we can try to find the peak element by checking the sorted array
-        
-        # Try to find the peak element
-        # The peak element is the one that
+        if valid:
+            results.append("YES")
+            results.append(" ".join(map(str, perm)))
+        else:
+            results.append("NO")
+    
+    # Output the results
+    for res in results:
+        print(res)
+
+if __name__ == '__main__':
+    solve()

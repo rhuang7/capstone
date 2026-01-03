@@ -9,31 +9,30 @@ def solve():
     N = int(data[1])
     K = int(data[2])
     
-    if K == 1:
-        # All cells are the same color, so all rectangles are good
-        total_rectangles = M * (M + 1) // 2 * N * (N + 1) // 2
-        print(int(total_rectangles))
-        return
+    # For a rectangle to be good, all inner border cells must be the same color
+    # The inner border of a rectangle of size m x n is the cells on the edges, excluding the corners
+    # The number of inner border cells is 2*(m + n - 2)
+    # For a rectangle to be good, all these cells must be the same color
+    # The probability that all these cells are the same color is 1/K^(2*(m + n - 2))
+    # The total number of rectangles is (M * (M + 1) // 2) * (N * (N + 1) // 2)
+    # So the expected number is total_rectangles * probability
     
-    # For each possible rectangle, calculate the probability that all inner borders are the same color
-    # The number of rectangles of size i x j is (M - i + 1) * (N - j + 1)
-    # The probability that all inner borders are the same color is (1/K)^(number of inner borders)
-    # The number of inner borders for a rectangle of size i x j is 2*(i-1) + 2*(j-1) = 2*(i + j - 2)
-    # So the probability is (1/K)^(2*(i + j - 2))
+    total_rectangles = (M * (M + 1) // 2) * (N * (N + 1) // 2)
     
-    total = 0
-    for i in range(1, M + 1):
-        for j in range(1, N + 1):
-            borders = 2 * (i + j - 2)
-            if borders > 0:
-                prob = (1.0 / K) ** borders
-            else:
-                prob = 1.0
-            count = (M - i + 1) * (N - j + 1)
-            total += count * prob
+    # For each rectangle, compute the number of inner border cells
+    # The expected value is sum over all rectangles of 1/K^(2*(m + n - 2))
+    # But since m and n vary, we can compute the sum for all possible m and n
     
-    # Round to the nearest integer
-    print(round(total))
+    expected = 0
+    for m in range(1, M + 1):
+        for n in range(1, N + 1):
+            border = 2 * (m + n - 2)
+            if border > 0:
+                prob = 1.0 / (K ** border)
+                count = (m * (m + 1) // 2) * (n * (n + 1) // 2)
+                expected += count * prob
+    
+    print(round(expected))
 
 if __name__ == '__main__':
     solve()

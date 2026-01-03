@@ -20,48 +20,46 @@ def solve():
         C = list(map(int, data[idx:idx+N]))
         idx += N
         
-        # Function to calculate days to reach Z
-        def get_days(current, daily):
-            if current >= Z:
+        # Calculate days until each company reaches Z
+        def days_to_reach(target, current, gain_per_day):
+            if current >= target:
                 return 0
-            return (Z - current + daily - 1) // daily
+            return (target - current + gain_per_day - 1) // gain_per_day
         
-        # Check if Hooli will always win
-        days_pied = get_days(A, X)
-        days_hooli = get_days(B, Y)
+        days_pied = days_to_reach(Z, A, X)
+        days_hooli = days_to_reach(Z, B, Y)
+        
         if days_hooli <= days_pied:
             results.append("RIP")
             continue
         
-        # Now find the minimum contributions
-        # Use a max heap to get the largest contributions first
+        # Now find the minimum contributions needed
+        # Use a max heap to always take the largest contribution
         import heapq
         heapq.heapify(C)
-        # Reverse the heap to get max heap behavior
+        # Reverse the heap to make it a max heap
         C = [-x for x in C]
         heapq.heapify(C)
         
         contributions = 0
-        current_a = A
-        current_b = B
+        current_pied = A
+        current_hooli = B
         
         while True:
-            # Check if current_a and current_b have reached or surpassed Z
-            if current_a >= Z:
+            # Check if we have already reached the goal
+            if current_pied >= Z:
                 break
-            if current_b >= Z:
+            if current_hooli >= Z:
                 results.append("RIP")
                 break
             
-            # Get the best contribution
-            best = -heapq.heappop(C)
-            # Add the contribution
-            current_a += best
+            # Take the largest contribution
+            val = -heapq.heappop(C)
             contributions += 1
-            # Halve the contribution
-            best = best // 2
-            # Push back the halved value
-            heapq.heappush(C, -best)
+            current_pied += val
+            val //= 2
+            # Put back the halved value
+            heapq.heappush(C, -val)
         
         results.append(str(contributions))
     

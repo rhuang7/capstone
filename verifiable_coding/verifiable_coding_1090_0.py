@@ -22,7 +22,7 @@ def solve():
         
         min_len = float('inf')
         for i in range(n+1):
-            target = prefix[i] - d
+            target = d + prefix[i]
             j = bisect.bisect_left(prefix, target, i, n+1)
             if j != n+1:
                 min_len = min(min_len, j - i)
@@ -33,3 +33,6 @@ def solve():
             results.append('-1')
     
     print('\n'.join(results))
+
+if __name__ == '__main__':
+    solve()

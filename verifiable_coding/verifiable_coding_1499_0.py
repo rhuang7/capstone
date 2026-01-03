@@ -1,5 +1,5 @@
 import sys
-import heapq
+import math
 
 def solve():
     import sys
@@ -14,10 +14,10 @@ def solve():
         N = int(data[idx])
         M = int(data[idx+1])
         idx += 2
-        matrix = []
+        grid = []
         for _ in range(N):
             row = list(map(int, data[idx:idx+M]))
-            matrix.append(row)
+            grid.append(row)
             idx += M
         S = data[idx]
         idx += 1
@@ -25,83 +25,58 @@ def solve():
         Q = int(data[idx+1])
         idx += 2
         
-        # Precompute the number of steps for each cell
-        steps = [[0]*M for _ in range(N)]
+        # Precompute the positions of the characters in S
+        # For each cell (i,j), compute the position in S
+        # The position in S is i + j
+        # So for each cell (i,j), the character in S is S[i + j]
+        # We need to check if the path from (0,0) to (N-1,M-1) matches S
+        
+        # We will use dynamic programming to find the minimum cost
+        # dp[i][j] = minimum cost to reach (i,j) such that the path from (0,0) to (i,j) matches S[i+j]
+        
+        # Initialize dp table
+        dp = [[float('inf')] * M for _ in range(N)]
+        dp[0][0] = 0 if S[0] == '1' else 0  # Starting point is (0,0), which is S[0]
+        
         for i in range(N):
             for j in range(M):
-                steps[i][j] = i + j
-        
-        # Precompute the required character for each cell along all paths
-        # We'll use Dijkstra's algorithm to find the minimum cost path
-        # Each state is (cost, i, j, required_char)
-        # We'll use a priority queue to find the minimum cost path
-        
-        # Initialize the priority queue
-        pq = []
-        # The starting point is (0, 0, 0) with required character S[0]
-        # We need to check if the starting cell matches the required character
-        # or if we need to change it
-        start_char = S[0]
-        cost = 0
-        if matrix[0][0] == start_char:
-            cost = 0
-        else:
-            cost = P
-        heapq.heappush(pq, (cost, 0, 0, 0))
-        
-        # Visited array to track the minimum cost to reach each cell with a certain required character
-        # Since the required character is determined by the path, we need to track it
-        # We'll use a 3D array: visited[i][j][k], where k is 0 or 1 (required character)
-        # But since the required character is determined by the path, we can track it as part of the state
-        # So we'll use a 2D array of dictionaries: visited[i][j] = {0: cost, 1: cost}
-        visited = [[dict() for _ in range(M)] for _ in range(N)]
-        
-        while pq:
-            cost, i, j, required_char = heapq.heappop(pq)
-            
-            # If we've reached the end, return the cost
-            if i == N-1 and j == M-1:
-                results.append(cost)
-                break
-            
-            # Check if we've already visited this cell with this required character
-            if required_char in visited[i][j]:
-                if visited[i][j][required_char] <= cost:
+                if i == 0 and j == 0:
                     continue
-            
-            # Mark this state as visited
-            visited[i][j][required_char] = cost
-            
-            # Try moving right
-            if j + 1 < M:
-                new_j = j + 1
-                new_steps = steps[i][new_j]
-                new_char = S[new_steps]
-                # Calculate the cost to change the cell or not
-                if matrix[i][new_j] == new_char:
-                    new_cost = cost
-                else:
-                    new_cost = cost + P
-                heapq.heappush(pq, (new_cost, i, new_j, new_char))
-            
-            # Try moving down
-            if i + 1 < N:
-                new_i = i + 1
-                new_j = j
-                new_steps = steps[new_i][new_j]
-                new_char = S[new_steps]
-                # Calculate the cost to change the cell or not
-                if matrix[new_i][new_j] == new_char:
-                    new_cost = cost
-                else:
-                    new_cost = cost + P
-                heapq.heappush(pq, (new_cost, new_i, new_j, new_char))
+                # Current position is (i,j), which corresponds to S[i+j]
+                current_char = S[i + j]
+                # Possible previous positions: (i-1,j) or (i,j-1)
+                # Check both and take the minimum
+                min_cost = float('inf')
+                if i > 0:
+                    # From (i-1,j)
+                    prev_char = S[(i-1) + j]
+                    # Cost to change grid[i-1][j] to match prev_char
+                    cost_grid = 0
+                    if grid[i-1][j] != int(prev_char):
+                        cost_grid = P
+                    # Cost to change current character in S
+                    cost_S = 0
+                    if current_char != prev_char:
+                        cost_S = Q
+                    min_cost = min(min_cost, dp[i-1][j] + cost_grid + cost_S)
+                if j > 0:
+                    # From (i,j-1)
+                    prev_char = S[i + (j-1)]
+                    # Cost to change grid[i][j-1] to match prev_char
+                    cost_grid = 0
+                    if grid[i][j-1] != int(prev_char):
+                        cost_grid = P
+                    # Cost to change current character in S
+                    cost_S = 0
+                    if current_char != prev_char:
+                        cost_S = Q
+                    min_cost = min(min_cost, dp[i][j-1] + cost_grid + cost_S)
+                dp[i][j] = min_cost
         
-        # If we didn't reach the end, it means there's no valid path, but according to the problem statement, there is one
-        # So we can assume that the loop will have found a solution
+        # The answer is the minimum cost to reach (N-1, M-1)
+        results.append(str(dp[N-1][M-1]))
     
-    for res in results:
-        print(res)
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

@@ -8,7 +8,7 @@ def solve():
     N = int(data[0])
     A = list(map(int, data[1:N+1]))
     Q = int(data[N+1])
-    Ks = list(map(int, data[N+2:]))
+    queries = list(map(int, data[N+2:]))
     
     A.sort()
     
@@ -16,17 +16,20 @@ def solve():
     for i in range(N):
         prefix[i+1] = prefix[i] + A[i]
     
-    res = []
-    for K in Ks:
+    result = []
+    for K in queries:
         if K >= N:
-            res.append(0)
+            result.append(0)
+            continue
+        if K == 0:
+            result.append(prefix[N])
             continue
         m = (N + K) // (K + 1)
-        total = prefix[N] - prefix[m]
-        res.append(total)
+        total = prefix[N] - prefix[m] + (m * (N - m))
+        result.append(total)
     
-    for x in res:
-        print(x)
+    for res in result:
+        print(res)
 
 if __name__ == '__main__':
     solve()

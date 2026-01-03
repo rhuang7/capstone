@@ -12,13 +12,12 @@ def solve():
         for c in case:
             if c == 'M':
                 total_cost += 3
-                stamps += 1
             else:
                 total_cost += 4
-                stamps += 1
+            stamps += 1
             while stamps >= 6:
                 stamps -= 6
-                total_cost -= 3  # free drink, so no cost
+                total_cost -= 3 if c == 'M' else 4
         print(total_cost)
 
 if __name__ == '__main__':

@@ -14,20 +14,30 @@ def solve():
         idx += 1
         n = len(s)
         d = 0
-        pos = 0
         
-        while pos < n:
-            if s[pos] == 'R':
-                d = max(d, pos + 1)
-                pos += 1
-            else:
-                d = max(d, pos + 1)
-                pos = 0
+        # Find the first 'R' from the left
+        first_r = -1
+        for i in range(n):
+            if s[i] == 'R':
+                first_r = i
+                break
         
-        # Check if the frog can jump directly from 0 to n+1
-        if d < n + 1:
-            d = n + 1
+        # If there is no 'R', the frog must jump directly to n+1
+        if first_r == -1:
+            results.append(str(n + 1))
+            continue
         
+        # Find the last 'L' from the right
+        last_l = -1
+        for i in range(n-1, -1, -1):
+            if s[i] == 'L':
+                last_l = i
+                break
+        
+        # The minimal d is the maximum of:
+        # - distance from 0 to first R
+        # - distance from last L to n+1
+        d = max(first_r, n - last_l)
         results.append(str(d))
     
     print('\n'.join(results))

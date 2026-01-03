@@ -5,36 +5,35 @@ def solve():
     input = sys.stdin.buffer.read
     data = input().split()
     
-    t = int(data[0])
-    index = 1
+    idx = 0
+    t = int(data[idx])
+    idx += 1
+    results = []
     
     for _ in range(t):
-        n = int(data[index])
-        index += 1
-        a = list(map(int, data[index:index + n]))
-        index += n
+        n = int(data[idx])
+        idx += 1
+        a = list(map(int, data[idx:idx+n]))
+        idx += n
         
-        # Find the sorted version of the array
         sorted_a = sorted(a)
-        
-        # Find the longest subsequence of elements in a that are in the same order as in sorted_a
-        # This subsequence will be the elements that do not need to be moved
-        longest = 0
+        pos = [0] * n
         for i in range(n):
-            if a[i] == sorted_a[i]:
-                longest += 1
-            else:
-                break
+            pos[i] = sorted_a.index(a[i])
         
-        # Check for the rest of the elements
-        for i in range(n - 1, -1, -1):
-            if a[i] == sorted_a[i]:
-                longest += 1
+        max_len = 0
+        current_len = 0
+        for i in range(n):
+            if i == 0 or pos[i] == pos[i-1] + 1:
+                current_len += 1
             else:
-                break
+                current_len = 1
+            max_len = max(max_len, current_len)
         
-        # The minimum number of operations is n - longest
-        print(n - longest)
+        results.append(n - max_len)
+    
+    for res in results:
+        print(res)
 
 if __name__ == '__main__':
     solve()

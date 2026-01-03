@@ -16,64 +16,57 @@ def solve():
         C = int(data[index+2])
         index += 3
         
-        a_bits = bin(A)[2:]
-        b_bits = bin(B)[2:]
-        c_bits = bin(C)[2:]
+        # Convert A, B, C to binary strings without leading '0b'
+        a_bin = bin(A)[2:]
+        b_bin = bin(B)[2:]
+        c_bin = bin(C)[2:]
         
-        len_c = len(c_bits)
-        len_a = len(a_bits)
-        len_b = len(b_bits)
+        # Count the number of 1s in each binary
+        a_ones = a_bin.count('1')
+        b_ones = b_bin.count('1')
+        c_ones = c_bin.count('1')
         
-        # Pad with leading zeros to make all same length
-        a_bits = a_bits.zfill(len_c)
-        b_bits = b_bits.zfill(len_c)
-        c_bits = c_bits.zfill(len_c)
-        
-        # Count the number of 1s in each bit position
-        a_ones = [0] * len_c
-        b_ones = [0] * len_c
-        c_ones = [0] * len_c
-        
-        for i in range(len_c):
-            a_ones[i] = int(a_bits[i])
-            b_ones[i] = int(b_bits[i])
-            c_ones[i] = int(c_bits[i])
-        
-        # Check if the sum of bits in each position matches C
-        valid = True
-        for i in range(len_c):
-            if (a_ones[i] + b_ones[i]) != c_ones[i]:
-                valid = False
-                break
-        
-        if not valid:
+        # If the number of 1s in A + B != C, it's impossible
+        if a_ones + b_ones != c_ones:
             result.append(0)
             continue
         
-        # Count the number of ways to permute the bits
-        # For each bit position, count how many 1s are in A and B
-        # The number of ways is the product of combinations of choosing positions for 1s in A and B
+        # Get the length of the longest binary string
+        max_len = max(len(a_bin), len(b_bin), len(c_bin))
         
-        # Count the number of 1s in A and B
-        a_ones_count = sum(a_ones)
-        b_ones_count = sum(b_ones)
+        # Pad the binary strings with leading zeros to make them the same length
+        a_bin = a_bin.zfill(max_len)
+        b_bin = b_bin.zfill(max_len)
+        c_bin = c_bin.zfill(max_len)
         
-        # The number of ways is the product of combinations of choosing a_ones_count positions for 1s in A and b_ones_count positions for 1s in B
-        # But we need to ensure that the total number of 1s in A and B is equal to the number of 1s in C
+        # Count the number of positions where a and b have 1s and c has 0s
+        # This is the number of positions where a and b have 1s but c has 0s
+        # This is not allowed because a + b = c
+        invalid = 0
+        for i in range(max_len):
+            if a_bin[i] == '1' and b_bin[i] == '1' and c_bin[i] == '0':
+                invalid += 1
         
-        # The total number of 1s in C is sum(c_ones)
-        c_ones_count = sum(c_ones)
-        
-        if a_ones_count + b_ones_count != c_ones_count:
+        # If there are invalid positions, it's impossible
+        if invalid > 0:
             result.append(0)
             continue
         
-        # Compute the number of ways
-        from math import comb
+        # Count the number of positions where a has 1 and b has 0
+        # These can be swapped with positions where a has 0 and b has 1
+        # The number of such positions is the number of ways to swap
+        swap_count = 0
+        for i in range(max_len):
+            if a_bin[i] == '1' and b_bin[i] == '0':
+                swap_count += 1
         
-        # The number of ways is comb(len_c, a_ones_count) * comb(len_c - a_ones_count, b_ones_count)
-        ways = comb(len_c, a_ones_count) * comb(len_c - a_ones_count, b_ones_count)
-        result.append(ways)
+        # The number of ways is (swap_count)! / (swap_count - swap_count)! = swap_count! / 0! = swap_count!
+        # But since we can choose any subset of the swap positions to swap, the number of ways is 2^swap_count
+        # Because for each swap position, we can choose to swap or not
+        # However, we must ensure that the total number of 1s in a and b is the same as in c
+        # Which we have already checked
+        # So the answer is 2^swap_count
+        result.append(2 ** swap_count)
     
     sys.stdout.write('\n'.join(map(str, result)) + '\n')
 

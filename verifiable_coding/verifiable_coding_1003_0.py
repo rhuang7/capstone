@@ -28,43 +28,35 @@ def solve():
             sofloats.append((Ci, Li))
             idx += 2
         
-        from collections import defaultdict
-        level_soints = defaultdict(list)
-        level_sofloats = defaultdict(list)
+        # Group by level
+        s_level = {}
+        s_power = {}
+        for c, l in soints:
+            if l not in s_level:
+                s_level[l] = []
+                s_power[l] = []
+            s_level[l].append(c)
+            s_power[l].append(c)
         
-        for ci, li in soints:
-            level_soints[li].append(ci)
-        for ci, li in sofloats:
-            level_sofloats[li].append(ci)
+        f_level = {}
+        f_power = {}
+        for c, l in sofloats:
+            if l not in f_level:
+                f_level[l] = []
+                f_power[l] = []
+            f_level[l].append(c)
+            f_power[l].append(c)
         
-        level_soint_set = set(level_soints.keys())
-        level_sofloat_set = set(level_sofloats.keys())
-        
-        # For each level, we need to ensure that the Soint can defeat the Sofloat
-        # We need to find the minimum required chakra for each level
-        required = {}
-        for level in level_soint_set:
-            if level not in level_sofloat_set:
-                continue
-            s_list = level_soints[level]
-            f_list = level_sofloats[level]
-            
-            # For each Soint, we need to find the minimum required chakra such that
-            # it can defeat all Sofloats at this level
-            # We take the maximum of (f + 1) for all f in f_list
-            # Because if a Soint has chakra c, then c must be > f for all f in f_list
-            # So c must be at least (max(f) + 1)
-            max_f = max(f_list)
-            required[level] = max_f + 1
-        
-        # Now, for each Soint, we need to calculate how much additional chakra is needed
-        # to reach the required chakra for their level
+        # For each level, find the minimum required chakra for Soints
         total = 0
-        for ci, li in soints:
-            if li not in required:
-                continue
-            needed = required[li]
-            total += max(0, needed - ci)
+        for l in s_level:
+            # Get the minimum power of Soints and Sofloats at this level
+            min_s = min(s_level[l])
+            min_f = min(f_level[l])
+            
+            # If Soint's power is less than Sofloat's, we need to increase it
+            if min_s < min_f:
+                total += (min_f - min_s)
         
         results.append(total)
     

@@ -8,7 +8,11 @@ def solve():
     results = []
     for i in range(1, T + 1):
         N = int(data[i])
-        sum_digits = sum(int(d) for d in str(N))
+        sum_digits = 0
+        temp = N
+        while temp > 0:
+            sum_digits += temp % 10
+            temp //= 10
         if N % sum_digits == 0:
             results.append("Yes")
         else:

@@ -23,12 +23,10 @@ def solve():
         total = 0
         for ni, mi in boards:
             # Calculate the Grundy number for the board
-            # The game is equivalent to a Nim heap with size equal to the Grundy number
-            # The Grundy number for a (ni, mi) board can be computed as follows:
-            # If ni == mi, the Grundy number is (ni - 1) // 2
-            # Otherwise, the Grundy number is (min(ni, mi) - 1) // 2
-            g = (min(ni, mi) - 1) // 2
-            total += g
+            # The game is equivalent to a Nim heap of size (ni + mi - 2) // 3
+            # Because each move can increase the distance by 1, 2, or 3
+            # The Grundy number is (ni + mi - 2) // 3
+            total += (ni + mi - 2) // 3
         
         if total % 2 == 1:
             results.append("MasterChef")

@@ -9,10 +9,9 @@ def solve():
     D2 = int(data[2])
     V2 = int(data[3])
     P = int(data[4])
-
+    
     total = 0
     days = 0
-
     while total < P:
         days += 1
         if days >= D1 and days >= D2:
@@ -22,7 +21,6 @@ def solve():
         elif days >= D2:
             total += V2
         # else: no production
-
     print(days)
 
 if __name__ == '__main__':

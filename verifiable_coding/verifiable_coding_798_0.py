@@ -30,51 +30,45 @@ def solve():
     # Precompute safe cells
     safe = [[False]*N for _ in range(N)]
     for x, y, k in charms:
-        for dx in range(-k, k+1):
-            for dy in range(-k, k+1):
-                if abs(dx) + abs(dy) <= k:
-                    nx = x + dx
-                    ny = y + dy
-                    if 0 <= nx < N and 0 <= ny < N:
-                        safe[nx][ny] = True
+        for i in range(max(0, x - k), min(N, x + k + 1)):
+            for j in range(max(0, y - k), min(N, y + k + 1)):
+                if abs(x - i) + abs(y - j) <= k:
+                    safe[i][j] = True
 
-    # Dijkstra's algorithm to find max berries
-    from collections import deque
-
-    # Create a priority queue for Dijkstra's
-    # We use a max-heap (using negative values)
-    # Each element is (-berry_count, x, y)
-    # We also track the maximum berries collected to reach each cell
-    max_berry = [[-float('inf')]*N for _ in range(N)]
-    max_berry[0][0] = grid[0][0]
-    pq = []
-    heapq.heappush(pq, (-grid[0][0], 0, 0))
+    # Dijkstra's algorithm to find maximum berries
+    from heapq import heappush, heappop
 
     # Directions: right, down
     dirs = [(0, 1), (1, 0)]
 
-    while pq:
-        curr = heapq.heappop(pq)
-        curr_berry = -curr[0]
-        x, y = curr[1], curr[2]
-
+    # Priority queue: (total_berries, x, y)
+    heap = []
+    heappush(heap, (0, 0, 0))
+    # Distance matrix
+    dist = [[-float('inf')]*N for _ in range(N)]
+    dist[0][0] = grid[0][0]
+    if not safe[0][0]:
+        return print("NO")
+    while heap:
+        total, x, y = heappop(heap)
         if x == N-1 and y == N-1:
             break
-
-        if not safe[x][y]:
+        if total < dist[x][y]:
             continue
-
         for dx, dy in dirs:
             nx = x + dx
             ny = y + dy
             if 0 <= nx < N and 0 <= ny < N and safe[nx][ny]:
-                new_berry = curr_berry + grid[nx][ny]
-                if new_berry > max_berry[nx][ny]:
-                    max_berry[nx][ny] = new_berry
-                    heapq.heappush(pq, (-new_berry, nx, ny))
+                new_total = total + grid[nx][ny]
+                if new_total > dist[nx][ny]:
+                    dist[nx][ny] = new_total
+                    heappush(heap, (new_total, nx, ny))
 
-    if max_berry[N-1][N-1] == -float('inf'):
+    if dist[N-1][N-1] == -float('inf'):
         print("NO")
     else:
         print("YES")
-        print(max_berry[N-1][N-1])
+        print(dist[N-1][N-1])
+
+if __name__ == '__main__':
+    solve()

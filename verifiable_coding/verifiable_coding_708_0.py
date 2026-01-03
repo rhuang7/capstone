@@ -10,19 +10,16 @@ def solve():
         N = int(data[idx])
         A = int(data[idx+1])
         idx += 2
-        if N == 0:
-            print(0)
-            continue
-        res = 0
-        p = 1
+        
+        result = 0
+        product = 1
         for i in range(1, N+1):
-            cnt = 2 * i - 1
-            if cnt == 1:
-                res = (res + p * A) % MOD
-            else:
-                res = (res + p * A * (A - 1) * (A - 2) // 2) % MOD
-            p = (p * (A - 1) * (A - 2) // 2) % MOD
-        print(res % MOD)
+            step = 2 * i - 1
+            current_product = pow(A, step, MOD)
+            result = (result + current_product) % MOD
+            product = (product * current_product) % MOD
+        
+        print(result % MOD)
 
 if __name__ == '__main__':
     solve()

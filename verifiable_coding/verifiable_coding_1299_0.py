@@ -24,13 +24,14 @@ def solve():
         max_count = -1
         best_type = None
         
-        for typ in type_positions:
+        for typ in sorted(type_positions.keys()):
             positions = type_positions[typ]
             count = 0
-            i = 0
-            while i < len(positions):
-                count += 1
-                i += 2
+            prev = -2
+            for pos in positions:
+                if pos - prev >= 2:
+                    count += 1
+                    prev = pos
             if count > max_count or (count == max_count and typ < best_type):
                 max_count = count
                 best_type = typ

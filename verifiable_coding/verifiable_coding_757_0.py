@@ -17,20 +17,18 @@ def solve():
         vowels = {'A', 'E', 'I', 'O', 'U'}
         found = False
         
+        # Check all cyclic permutations
         for i in range(N):
-            # Check if any two vowels are adjacent in the cyclic permutation
-            # The cyclic permutation is S[i:] + S[:i]
-            # Check for adjacent vowels in this permutation
-            has_vowel = False
+            # Create the cyclic permutation by rotating the string
+            rotated = S[i:] + S[:i]
+            # Check if any two vowels are adjacent
+            has_vowel_pair = False
             for j in range(N):
-                if S[(i + j) % N] in vowels:
-                    has_vowel = True
-                else:
-                    if has_vowel:
-                        found = True
-                        break
-                    has_vowel = False
-            if found:
+                if rotated[j] in vowels and rotated[(j + 1) % N] in vowels:
+                    has_vowel_pair = True
+                    break
+            if has_vowel_pair:
+                found = True
                 break
         
         print("Yes" if found else "No")

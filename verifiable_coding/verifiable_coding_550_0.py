@@ -5,46 +5,42 @@ def solve():
     input = sys.stdin.buffer.read
     data = input().split()
     T = int(data[0])
-    idx = 1
+    index = 1
     results = []
     
     for _ in range(T):
-        A = int(data[idx])
-        B = int(data[idx+1])
-        idx += 2
+        A = int(data[index])
+        B = int(data[index+1])
+        index += 2
         
         # Find the number of bits in A and B
-        len_A = A.bit_length()
-        len_B = B.bit_length()
+        bits_A = A.bit_length()
+        bits_B = B.bit_length()
         
-        # Pad with leading zeros to make the lengths equal
-        A_padded = A
-        B_padded = B
+        # Make sure both have the same number of bits by padding with leading zeros
+        # We need to pad the smaller one with leading zeros to match the larger one
+        if bits_A < bits_B:
+            A = A << (bits_B - bits_A)
+        elif bits_B < bits_A:
+            B = B << (bits_A - bits_B)
         
-        # If lengths are different, pad the shorter one with leading zeros
-        if len_A < len_B:
-            A_padded = A << (len_B - len_A)
-        elif len_B < len_A:
-            B_padded = B << (len_A - len_B)
-        
-        # Now A_padded and B_padded have the same number of bits
-        
-        # Generate all possible right circular shifts of B_padded
-        # and compute A^B for each shift
+        # Now A and B have the same number of bits
+        # Generate all possible right circular shifts of B
+        # The number of shifts is equal to the number of bits
         max_xor = 0
         best_shift = 0
         
-        # Get the binary representation of B_padded
-        bin_B = bin(B_padded)[2:]
-        len_B = len(bin_B)
-        
-        # Generate all possible shifts
-        for shift in range(len_B):
-            # Right circular shift by shift positions
-            shifted_B = (B_padded >> shift) | (B_padded << (len_B - shift)) & ((1 << len_B) - 1)
-            xor = A_padded ^ shifted_B
-            if xor > max_xor:
-                max_xor = xor
+        for shift in range(bits_A):
+            # Perform right circular shift of B
+            # Extract the last bit and move it to the front
+            last_bit = (B >> (bits_A - 1)) & 1
+            B = (B << 1) & ((1 << bits_A) - 1)
+            B = (B | (last_bit << (bits_A - 1)))
+            
+            # Compute XOR
+            current_xor = A ^ B
+            if current_xor > max_xor:
+                max_xor = current_xor
                 best_shift = shift
         
         results.append(f"{best_shift} {max_xor}")

@@ -25,7 +25,7 @@ def solve():
         for start_row in range(n):
             for start_col in range(m):
                 row, col = start_row, start_col
-                safe_path = True
+                safe_start = True
                 for c in s:
                     if c == 'L':
                         col -= 1
@@ -35,11 +35,11 @@ def solve():
                         row -= 1
                     elif c == 'D':
                         row += 1
-                    # Check if the new position is outside the grid
+                    # Check if the robot is still in the grid
                     if not (0 <= row < n and 0 <= col < m):
-                        safe_path = False
+                        safe_start = False
                         break
-                if safe_path:
+                if safe_start:
                     safe = True
                     break
             if safe:
@@ -47,7 +47,7 @@ def solve():
         
         results.append("safe" if safe else "unsafe")
     
-    print("\n".join(results))
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

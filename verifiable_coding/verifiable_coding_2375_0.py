@@ -13,29 +13,19 @@ def solve():
         idx += 1
         a = list(map(int, data[idx:idx+n]))
         idx += n
-        count = [0] * 201
+        from collections import defaultdict
+        count = defaultdict(int)
         for num in a:
             count[num] += 1
         max_len = 0
-        for i in range(201):
-            for j in range(i, 201):
-                if i == j:
-                    max_len = max(max_len, count[i])
+        for a_val in count:
+            for b_val in count:
+                if a_val == b_val:
+                    max_len = max(max_len, count[a_val])
                 else:
-                    left = count[i]
-                    right = count[j]
-                    mid = 0
-                    for k in range(n):
-                        if a[k] == i or a[k] == j:
-                            if a[k] == i:
-                                left -= 1
-                            elif a[k] == j:
-                                right -= 1
-                            else:
-                                mid += 1
-                    total = left + right + mid
-                    if total > max_len:
-                        max_len = total
+                    left = count[a_val]
+                    right = count[b_val]
+                    max_len = max(max_len, left + right + min(left, right))
         results.append(str(max_len))
     print('\n'.join(results))
 

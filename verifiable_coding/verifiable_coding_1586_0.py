@@ -12,9 +12,9 @@ def solve():
     for shift in range(N):
         max_score = 0
         for i in range(N):
-            a = first_row[i]
-            b = first_row[(i + shift) % N]
-            current_score = a + b
+            col1 = first_row[i]
+            col2 = first_row[(i + shift) % N]
+            current_score = col1 + col2
             if current_score > max_score:
                 max_score = current_score
         result.append(str(max_score))

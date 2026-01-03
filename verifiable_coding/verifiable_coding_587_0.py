@@ -22,20 +22,21 @@ def solve():
     N = int(data[0])
     girls = list(map(int, data[1:N+1]))
     
-    # Precompute primes up to maximum possible XOR value (2^30)
-    max_xor = 2**30
-    sieve = [True] * (max_xor + 1)
-    sieve[0] = sieve[1] = False
-    for i in range(2, int(math.isqrt(max_xor)) + 1):
-        if sieve[i]:
-            for j in range(i*i, max_xor + 1, i):
-                sieve[j] = False
+    # For each girl, find the smallest possible boy strength such that XOR is prime
+    # We'll use a frequency map for the girls' strengths
+    freq = defaultdict(int)
+    for s in girls:
+        freq[s] += 1
     
-    # For each girl, find the boy's strength that makes XOR a prime
+    # We'll generate possible boy strengths and check if their XOR with a girl is prime
+    # Since the maximum girl strength is 1e9, we can't generate all possible values
+    # Instead, we'll use a set to store the required boy strengths
+    
     boys = []
     for girl in girls:
-        for i in range(1, 2**30):
-            if sieve[i ^ girl]:
+        for i in range(1, 10**9 + 1):
+            xor = girl ^ i
+            if is_prime(xor):
                 boys.append(i)
                 break
     

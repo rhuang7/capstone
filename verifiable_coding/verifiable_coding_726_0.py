@@ -1,27 +1,28 @@
 import sys
 
 def solve():
-    import sys
-    input = sys.stdin.buffer.read
-    data = input().split()
-    
+    from collections import Counter
+
+    input = sys.stdin.buffer.read().split()
     idx = 0
-    T = int(data[idx])
+    T = int(input[idx])
     idx += 1
-    
+    results = []
+
+    target = Counter("codechef")
     for _ in range(T):
-        N = int(data[idx])
+        N = int(input[idx])
         idx += 1
-        count = {'c': 0, 'o': 0, 'd': 0, 'e': 0, 'h': 0, 'f': 0}
+        counts = Counter()
         for _ in range(N):
-            s = data[idx]
+            s = input[idx]
             idx += 1
-            for c in s:
-                if c in count:
-                    count[c] += 1
-        # Calculate the maximum number of "codechef" meals
-        min_count = min(count['c'], count['o'], count['d'], count['e'], count['h'], count['f'])
-        print(min_count)
-        
-if __name__ == '__main__':
-    solve()
+            counts += Counter(s)
+        # Calculate how many times each character in target can be used
+        max_meals = 0
+        for char, required in target.items():
+            available = counts.get(char, 0)
+            max_meals = min(max_meals, available // required)
+        results.append(str(max_meals))
+
+    print('\n'.join(results))

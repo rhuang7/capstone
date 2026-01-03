@@ -2,6 +2,7 @@ import sys
 import collections
 
 def solve():
+    import sys
     input = sys.stdin.buffer.read
     data = input().split()
     idx = 0
@@ -19,16 +20,19 @@ def solve():
         for num in a:
             count[num] += 1
         
-        res = []
-        for num in a:
-            res.append(0)
-        
-        for num in a:
-            if T - num in count and T - num != num:
+        color = [0] * n
+        for i in range(n):
+            num = a[i]
+            if T - num in count:
                 if count[num] > 0 and count[T - num] > 0:
-                    res[0] = 1
-                    break
+                    color[i] = 1
+                    count[num] -= 1
+                    count[T - num] -= 1
+                else:
+                    color[i] = 0
+            else:
+                color[i] = 0
         
-        results.append(' '.join(map(str, res)))
+        results.append(' '.join(map(str, color)))
     
     print('\n'.join(results))

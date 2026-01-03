@@ -17,12 +17,15 @@ def solve():
         prev = 0
         for i in range(n):
             if i == 0:
-                res.append(str(9 - lis[0]))
+                res.append(str(9 - prev))
+                prev = 9 - prev
             else:
-                if lis[i] == lis[i - 1]:
-                    res.append(str(9 - lis[i]))
+                if lis[i] == 1:
+                    res.append(str(9 - prev))
+                    prev = 9 - prev
                 else:
-                    res.append(str(9 - lis[i]))
+                    res.append(str(prev))
+                    prev = prev - 1
         results.append(''.join(res))
     print('\n'.join(results))
 

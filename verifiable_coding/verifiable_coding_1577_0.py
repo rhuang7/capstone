@@ -2,7 +2,7 @@ import sys
 import math
 from collections import defaultdict, deque
 
-def solve():
+def main():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
@@ -18,24 +18,36 @@ def solve():
     for i in range(1, N + 1):
         gears[i] = A[i - 1]
 
-    graph = defaultdict(list)
-    parent = [0] * (N + 1)
-    speed = [0] * (N + 1)
-    visited = [False] * (N + 1)
-    direction = [0] * (N + 1)
-    blocked = [False] * (N + 1)
+    # For each gear, store its connected gears and the ratio
+    # We use a Union-Find (Disjoint Set Union) structure to track connected components
+    # But we also need to track the ratio of speed between gears in the component
+    # We use a dictionary to store the ratio from the root to each gear
+    parent = [i for i in range(N + 1)]
+    rank = [1] * (N + 1)
+    ratio = [1] * (N + 1)  # ratio[i] is the ratio of speed from root to gear i
 
-    def dfs(u, p):
-        visited[u] = True
-        parent[u] = p
-        for v in graph[u]:
-            if not visited[v]:
-                direction[v] = -direction[u]
-                dfs(v, u)
-            else:
-                if parent[v] != u and parent[u] != v:
-                    blocked[u] = True
-                    blocked[v] = True
+    def find(u):
+        if parent[u] != u:
+            parent[u] = find(parent[u])
+        return parent[u]
+
+    def union(u, v):
+        u_root = find(u)
+        v_root = find(v)
+        if u_root == v_root:
+            return
+        if rank[u_root] < rank[v_root]:
+            parent[u_root] = v_root
+            ratio[v_root] *= ratio[u_root] * (gears[u] / gears[v])
+        else:
+            parent[v_root] = u_root
+            ratio[u_root] *= ratio[v_root] * (gears[v] / gears[u])
+            if rank[u_root] == rank[v_root]:
+                rank[u_root] += 1
+
+    def get_ratio(u):
+        root = find(u)
+        return ratio[root] * (gears[u] / gears[root])
 
     for _ in range(M):
         T = int(data[idx])
@@ -51,10 +63,7 @@ def solve():
             idx += 1
             Y = int(data[idx])
             idx += 1
-            graph[X].append(Y)
-            graph[Y].append(X)
-            dfs(X, 0)
-            dfs(Y, 0)
+            union(X, Y)
         elif T == 3:
             X = int(data[idx])
             idx += 1
@@ -62,17 +71,18 @@ def solve():
             idx += 1
             V = int(data[idx])
             idx += 1
-            if blocked[Y]:
-                print("0")
-                continue
-            if blocked[X]:
-                print("0")
-                continue
-            if X == Y:
-                print(f"{V}/{1}")
-                continue
-            if not blocked[X] and not blocked[Y]:
-                speed[Y] = -speed[X] * gears[X] // gears[Y]
-                print(f"{speed[Y]}/{1}")
+            root_x = find(X)
+            root_y = find(Y)
+            if root_x != root_y:
+                ratio_x = get_ratio(X)
+                ratio_y = get_ratio(Y)
+                speed = V * ratio_x / ratio_y
+                numerator = speed * ratio_y
+                denominator = ratio_y
+                g = math.gcd(numerator, denominator)
+                print(f"{numerator // g}/{denominator // g}")
             else:
                 print("0")
+
+if __name__ == '__main__':
+    main()

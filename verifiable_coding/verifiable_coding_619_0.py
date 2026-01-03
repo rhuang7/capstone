@@ -12,9 +12,8 @@ def solve():
         P2 = int(data[index+1])
         K = int(data[index+2])
         index += 3
-        total_points = P1 + P2
-        serve_count = total_points // K
-        if serve_count % 2 == 0:
+        total = P1 + P2
+        if total % (2 * K) == 0:
             results.append("CHEF")
         else:
             results.append("COOK")

@@ -8,10 +8,8 @@ def solve():
         A = int(input[idx])
         B = int(input[idx+1])
         idx += 2
-        min_val = A + B
+        min_val = abs(A - B)
         max_val = A + B
-        if A != B:
-            max_val = A + B
         print(f"{min_val} {max_val}")
 
 if __name__ == '__main__':

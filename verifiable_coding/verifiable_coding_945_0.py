@@ -15,9 +15,12 @@ def solve():
         
         for A in range(1, N + 1):
             remainder = N % A
-            if remainder > max_remainder or (remainder == max_remainder and A > best_A):
+            if remainder > max_remainder:
                 max_remainder = remainder
                 best_A = A
+            elif remainder == max_remainder:
+                if A > best_A:
+                    best_A = A
         
         results.append(str(best_A))
     

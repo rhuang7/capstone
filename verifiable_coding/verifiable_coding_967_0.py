@@ -8,6 +8,7 @@ def solve():
     idx = 0
     T = int(data[idx])
     idx += 1
+    
     results = []
     
     for _ in range(T):
@@ -20,7 +21,7 @@ def solve():
         
         # Use dynamic programming to count subsets that sum to M
         dp = [0] * (M + 1)
-        dp[0] = 1  # Base case: one way to make sum 0 (use no elements)
+        dp[0] = 1  # Base case: one way to make sum 0 (use nothing)
         
         for num in A:
             for i in range(M, num - 1, -1):

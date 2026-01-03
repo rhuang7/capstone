@@ -17,61 +17,31 @@ def solve():
         maxnumbers = list(map(int, data[idx:idx+N]))
         idx += N
         
+        # Sort the maxnumbers
         maxnumbers.sort()
-        max_val = maxnumbers[-1]
         
         # Check if it's possible to assign distinct numbers
-        if max_val < N:
+        # The smallest possible maximum is N (since we need N distinct numbers starting from 1)
+        if maxnumbers[0] < 1 or maxnumbers[-1] < N:
             results.append(0)
             continue
         
-        # Precompute factorials and inverse factorials modulo MOD
-        fact = [1] * (max_val + 1)
-        for i in range(1, max_val + 1):
-            fact[i] = fact[i-1] * i % MOD
+        # Compute the number of ways
+        # We use dynamic programming to count the number of ways to assign numbers
+        # dp[i][j] = number of ways to assign numbers to the first i people with the maximum number j
+        # We can optimize space by using a 1D array
         
-        # Precompute inverse factorials
-        inv_fact = [1] * (max_val + 1)
-        inv_fact[max_val] = pow(fact[max_val], MOD-2, MOD)
-        for i in range(max_val-1, -1, -1):
-            inv_fact[i] = inv_fact[i+1] * (i+1) % MOD
+        dp = [0] * (maxnumbers[-1] + 1)
+        dp[0] = 1  # Base case: 1 way to assign nothing
         
-        # Compute the answer using permutation formula
-        ans = 0
-        for i in range(N):
-            # Number of choices for the i-th person
-            # It's (maxnumbers[i] - i) because we need to choose a number not used before
-            # So we choose (maxnumbers[i] - i) numbers from (maxnumbers[i] - i) available
-            # and multiply by the permutation of (maxnumbers[i] - i) taken (i+1) at a time
-            # But we need to check if (maxnumbers[i] - i) >= (i+1)
-            if maxnumbers[i] - i < i + 1:
-                break
-            # The number of ways is (maxnumbers[i] - i) choose (i+1) multiplied by (i+1)! / (maxnumbers[i] - i - (i+1))! )
-            # Which is (maxnumbers[i] - i) * (maxnumbers[i] - i - 1) * ... * (maxnumbers[i] - i - (i+1) + 1)
-            # So it's the product of (maxnumbers[i] - i - k) for k in 0 to i
-            # Which is fact[maxnumbers[i] - i] * inv_fact[maxnumbers[i] - i - (i+1)] 
-            # But since maxnumbers[i] - i - (i+1) = maxnumbers[i] - 2i - 1
-            # So we need to compute fact[maxnumbers[i] - i] * inv_fact[maxnumbers[i] - 2i - 1]
-            # But if maxnumbers[i] - 2i - 1 < 0, it's invalid
-            # So we need to compute the product of (maxnumbers[i] - i - k) for k in 0 to i
-            # Which is the same as fact[maxnumbers[i] - i] // fact[maxnumbers[i] - i - (i+1)]
-            # Which is fact[maxnumbers[i] - i] * inv_fact[maxnumbers[i] - i - (i+1)] mod MOD
-            # So we compute fact[maxnumbers[i] - i] * inv_fact[maxnumbers[i] - 2i - 1] mod MOD
-            # But if maxnumbers[i] - 2i - 1 < 0, it's invalid
-            # So we need to check if maxnumbers[i] - i >= i + 1
-            # Which is equivalent to maxnumbers[i] >= 2i + 1
-            # So if maxnumbers[i] < 2i + 1, it's invalid
-            # So we can break early
-            if maxnumbers[i] < 2 * i + 1:
-                break
-            # Compute the product of (maxnumbers[i] - i - k) for k in 0 to i
-            # Which is fact[maxnumbers[i] - i] * inv_fact[maxnumbers[i] - i - (i+1)] mod MOD
-            # Which is fact[maxnumbers[i] - i] * inv_fact[maxnumbers[i] - 2i - 1] mod MOD
-            # So we compute this
-            term = fact[maxnumbers[i] - i] * inv_fact[maxnumbers[i] - 2 * i - 1] % MOD
-            ans = (ans + term) % MOD
+        for num in maxnumbers:
+            # We need to assign a number to this person, which is <= num
+            # We can use the previous dp values to compute the current dp
+            # We need to reverse iterate to avoid overwriting values we need
+            for j in range(num, 0, -1):
+                dp[j] = (dp[j] + dp[j-1]) % MOD
         
-        results.append(ans)
+        results.append(dp[maxnumbers[-1]] if maxnumbers[-1] >= N else 0)
     
     for res in results:
         print(res)

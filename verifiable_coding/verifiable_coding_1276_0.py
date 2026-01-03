@@ -16,7 +16,7 @@ def solve():
         A = list(map(int, data[idx:idx+N]))
         idx += N
         
-        # Function to generate all possible OR values
+        # Function to generate all possible OR values of subsets
         def generate_or_values(arr):
             or_set = set()
             n = len(arr)
@@ -30,58 +30,22 @@ def solve():
         
         # Function to find the minimum number of elements to insert
         def min_insertions(arr, K):
-            current_set = set(arr)
-            size = len(current_set)
+            current = set(arr)
             while True:
-                if size == (1 << K):
+                next_set = generate_or_values(current)
+                if len(next_set) == (1 << K):
                     return 0
-                next_set = set()
-                for x in current_set:
-                    for y in current_set:
-                        next_set.add(x | y)
-                current_set = next_set
-                size = len(current_set)
-                if size == 0:
-                    return -1  # Not possible, but per problem statement it's always possible
-                
-        # Initial set of elements
-        initial_set = set(A)
-        # Check if the initial set already satisfies the condition
-        if len(initial_set) == (1 << K):
-            results.append(0)
-            continue
+                if not next_set:
+                    return 0
+                if next_set.issubset(current):
+                    return len(current) - len(next_set)
+                current = next_set
         
-        # Compute the minimal insertions
-        # We need to find the minimal number of elements to add such that the final set has size 2^K
-        # We can use BFS to find the minimal steps
-        from collections import deque
-        
-        target_size = 1 << K
-        queue = deque()
-        queue.append((initial_set, 0))
-        visited = set()
-        visited.add(frozenset(initial_set))
-        
-        while queue:
-            current_set, steps = queue.popleft()
-            if len(current_set) == target_size:
-                results.append(steps)
-                break
-            # Generate next set by OR-ing all pairs
-            next_set = set()
-            for x in current_set:
-                for y in current_set:
-                    next_set.add(x | y)
-            next_set_frozen = frozenset(next_set)
-            if next_set_frozen not in visited:
-                visited.add(next_set_frozen)
-                queue.append((next_set, steps + 1))
-        else:
-            # If no solution found, which shouldn't happen per problem statement
-            results.append(0)
+        res = min_insertions(A, K)
+        results.append(res)
     
-    for res in results:
-        print(res)
+    for r in results:
+        print(r)
 
 if __name__ == '__main__':
     solve()

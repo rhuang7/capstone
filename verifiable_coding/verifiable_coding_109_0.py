@@ -21,134 +21,50 @@ def solve():
         for num in a:
             count[num] += 1
         
-        # Count the number of each power of two
-        power_counts = {}
-        for num in count:
-            power = num.bit_length() - 1
-            power_counts[power] = count[num]
+        # Convert counts to log2 for easier handling
+        log_count = {}
+        for key in count:
+            log_count[key] = count[key]
         
-        # Try to fill the bag from the largest power of two down to 0
+        # Try to fill the bag starting from the largest possible power of two
         res = 0
         current = n
-        for power in reversed(range(60)):  # since 2^60 is larger than 1e18
-            if current == 0:
-                break
-            if power in power_counts:
-                # Use as many as possible
-                max_use = min(power_counts[power], current // (1 << power))
-                if max_use > 0:
-                    current -= max_use * (1 << power)
-                    res += max_use
-                # If we used some, we need to split the remaining
-                if current > 0:
-                    # We need to split the box of size (1 << power) into smaller ones
-                    # So we need to split it into (1 << (power - 1)) and so on
-                    # But we can't split more than needed
-                    # So we need to split until we have enough
-                    # Let's calculate how many splits are needed
-                    # For example, if we need 1 unit and we have 8, we need 3 splits
-                    # So for each unit needed, we need log2(needed / available) splits
-                    # But since we can only split once per box, we need to track how many splits are needed
-                    # So we need to find the minimal number of splits to get the needed amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # We can do this by finding the minimal splits to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
-                    # Let's find the minimal splits needed to get the current amount
+        found = False
+        
+        # Try all possible powers of two up to n
+        for power in range(60, -1, -1):
+            size = 1 << power
+            if size > n:
+                continue
+            # How many of this size can we use?
+            if size in log_count:
+                num = log_count[size]
+                if num > 0:
+                    # Use as many as possible
+                    use = min(num, current // size)
+                    current -= use * size
+                    if current == 0:
+                        found = True
+                        break
+                    # If we have some left, we need to split
+                    if use < num:
+                        # We can split the remaining ones
+                        res += (num - use) * (power - 1)
+                        # But we need to track the split sizes
+                        # So we need to keep track of the split sizes
+                        # So we need to process smaller powers
+                        # So we need to break and process smaller powers
+                        # So we need to reset the current and proceed
+                        current = n
+                        found = False
+                        break
+        if found:
+            results.append(res)
+        else:
+            results.append(-1)
+    
+    for res in results:
+        print(res)
+
+if __name__ == '__main__':
+    solve()

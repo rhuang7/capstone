@@ -21,10 +21,12 @@ def solve():
         
         for i in range(V + 1):
             for j in range(W + 1):
-                # If we place a dish of A at the end
+                # If we place a dish of A at the end, we can do this if the previous dish was not B
+                # So we can add to dp[i][j] from dp[i-1][j] (if i > 0)
                 if i > 0:
                     dp[i][j] += dp[i-1][j]
-                # If we place a dish of B at the end
+                # If we place a dish of B at the end, we can do this if the previous dish was not A
+                # So we can add to dp[i][j] from dp[i][j-1] (if j > 0)
                 if j > 0:
                     dp[i][j] += dp[i][j-1]
         

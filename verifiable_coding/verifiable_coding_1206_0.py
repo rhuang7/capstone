@@ -34,6 +34,6 @@ def solve():
     print(len(common))
     for num in common:
         print(num)
-        
+
 if __name__ == '__main__':
     solve()

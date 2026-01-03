@@ -4,7 +4,11 @@ import math
 MOD = 10**9 + 7
 
 def is_lucky(n):
-    return all(c in '47' for c in str(n))
+    s = str(n)
+    for c in s:
+        if c not in {'4', '7'}:
+            return False
+    return True
 
 def count_lucky_numbers(n):
     count = 0
@@ -14,15 +18,20 @@ def count_lucky_numbers(n):
     return count
 
 def solve():
-    input = sys.stdin.buffer.read().split()
-    T = int(input[0])
+    import sys
+    input = sys.stdin.buffer.read
+    data = input().split()
+    T = int(data[0])
     idx = 1
+    results = []
     for _ in range(T):
-        L = int(input[idx])
-        R = int(input[idx+1])
+        L = int(data[idx])
+        R = int(data[idx+1])
         idx += 2
-        result = count_lucky_numbers(R) - count_lucky_numbers(L - 1)
-        print(result % MOD)
+        res = count_lucky_numbers(R) - count_lucky_numbers(L - 1)
+        results.append(res % MOD)
+    for res in results:
+        print(res)
 
 if __name__ == '__main__':
     solve()

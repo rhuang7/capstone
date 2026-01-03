@@ -16,7 +16,7 @@ def solve():
         C = int(data[index+2])
         index += 3
         
-        # Check if the sides can form a triangle
+        # Check if they can form a triangle
         a, b, c = sorted([A, B, C])
         if a + b <= c:
             results.append("NO")
@@ -28,7 +28,7 @@ def solve():
         else:
             results.append("NO")
     
-    print("\n".join(results))
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

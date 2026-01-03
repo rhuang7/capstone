@@ -8,6 +8,7 @@ def solve():
     idx = 0
     T = int(data[idx])
     idx += 1
+    
     results = []
     
     for _ in range(T):
@@ -16,26 +17,30 @@ def solve():
         arr = list(map(int, data[idx:idx+N]))
         idx += N
         
-        # Create a new array with the required pattern
-        new_arr = []
-        i = 0
-        while i < N:
-            # Find the next peak
-            peak = max(arr[i:])
-            new_arr.append(peak)
-            # Remove the peak from the array
-            arr.remove(peak)
-            # Move to the next position
-            i += 1
+        # Create a new array following the pattern arr[i] > arr[i+1] < arr[i+2] > arr[i+3] < ...
+        # We can sort the array and place the largest elements in the peaks and valleys
+        # Sort the array
+        arr.sort()
         
-        # Check if the array is correctly arranged
-        # For the required pattern, the array should be in the form: a < b > c < d > e ...
-        # So we need to ensure that every third element is a peak
-        # We can do this by checking the pattern
-        # However, since we are constructing the array by taking peaks, it should already be correct
-        # So we can directly output the new array
+        # Create the result array
+        result = []
+        # The peak positions are at even indices (0, 2, 4, ...)
+        # The valley positions are at odd indices (1, 3, 5, ...)
+        # We place the largest elements at the peaks and the next largest at the valleys
+        peak_index = 0
+        valley_index = 1
         
-        results.append(' '.join(map(str, new_arr)))
+        for i in range(N):
+            if i % 2 == 0:
+                # Peak position, take the next largest element
+                result.append(arr[peak_index])
+                peak_index += 1
+            else:
+                # Valley position, take the next largest element
+                result.append(arr[valley_index])
+                valley_index += 1
+        
+        results.append(' '.join(map(str, result)))
     
     print('\n'.join(results))
 
