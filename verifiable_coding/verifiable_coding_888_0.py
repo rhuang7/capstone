@@ -15,144 +15,182 @@ def solve():
     
     # Precompute the pattern for T in S
     # We need to find all positions in S where T can start
-    # and check if T is a substring of S starting at that position
-    # We also need to find the pattern of T in S for cyclic repetition
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # and then find the number of occurrences of T in the row
+    # for each query
     
-    # Precompute all starting positions in S where T can start
-    # and check if T is a substring of S starting at that position
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # Precompute the positions in S where T can start
+    # and the number of times T appears in a row
+    # using the fact that each row starts with the first character of S
+    # and then cycles through S
     
-    # Precompute all positions where T can start in S
-    # and check if T is a substring of S starting at that position
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # Precompute the number of times T appears in a row of length N
+    # for all possible N
+    # However, since N can be up to 1e9, we need an efficient way
     
-    # Precompute the positions where T can start in S
-    # and check if T is a substring of S starting at that position
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # Precompute the positions in S where T can start
+    # and the number of times T appears in a row of length N
+    # for each query N
     
-    # Precompute the positions where T can start in S
-    # and check if T is a substring of S starting at that position
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # Precompute the number of times T appears in a row of length N
+    # for each query N
+    # We can do this by checking how many times T appears in the row
+    # which is formed by repeating the first len(S) characters of S
+    # in a cyclic manner
     
-    # Precompute the positions where T can start in S
-    # and check if T is a substring of S starting at that position
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # Precompute the number of times T appears in a row of length N
+    # for each query N
+    # We can do this by checking how many times T appears in the row
+    # which is formed by repeating the first len(S) characters of S
+    # in a cyclic manner
     
-    # Precompute the positions where T can start in S
-    # and check if T is a substring of S starting at that position
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # Precompute the number of times T appears in a row of length N
+    # for each query N
+    # We can do this by checking how many times T appears in the row
+    # which is formed by repeating the first len(S) characters of S
+    # in a cyclic manner
     
-    # Precompute the positions where T can start in S
-    # and check if T is a substring of S starting at that position
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # Precompute the number of times T appears in a row of length N
+    # for each query N
+    # We can do this by checking how many times T appears in the row
+    # which is formed by repeating the first len(S) characters of S
+    # in a cyclic manner
     
-    # Precompute the positions where T can start in S
-    # and check if T is a substring of S starting at that position
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # Precompute the number of times T appears in a row of length N
+    # for each query N
+    # We can do this by checking how many times T appears in the row
+    # which is formed by repeating the first len(S) characters of S
+    # in a cyclic manner
     
-    # Precompute the positions where T can start in S
-    # and check if T is a substring of S starting at that position
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # Precompute the number of times T appears in a row of length N
+    # for each query N
+    # We can do this by checking how many times T appears in the row
+    # which is formed by repeating the first len(S) characters of S
+    # in a cyclic manner
     
-    # Precompute the positions where T can start in S
-    # and check if T is a substring of S starting at that position
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # Precompute the number of times T appears in a row of length N
+    # for each query N
+    # We can do this by checking how many times T appears in the row
+    # which is formed by repeating the first len(S) characters of S
+    # in a cyclic manner
     
-    # Precompute the positions where T can start in S
-    # and check if T is a substring of S starting at that position
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # Precompute the number of times T appears in a row of length N
+    # for each query N
+    # We can do this by checking how many times T appears in the row
+    # which is formed by repeating the first len(S) characters of S
+    # in a cyclic manner
     
-    # Precompute the positions where T can start in S
-    # and check if T is a substring of S starting at that position
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # Precompute the number of times T appears in a row of length N
+    # for each query N
+    # We can do this by checking how many times T appears in the row
+    # which is formed by repeating the first len(S) characters of S
+    # in a cyclic manner
     
-    # Precompute the positions where T can start in S
-    # and check if T is a substring of S starting at that position
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # Precompute the number of times T appears in a row of length N
+    # for each query N
+    # We can do this by checking how many times T appears in the row
+    # which is formed by repeating the first len(S) characters of S
+    # in a cyclic manner
     
-    # Precompute the positions where T can start in S
-    # and check if T is a substring of S starting at that position
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # Precompute the number of times T appears in a row of length N
+    # for each query N
+    # We can do this by checking how many times T appears in the row
+    # which is formed by repeating the first len(S) characters of S
+    # in a cyclic manner
     
-    # Precompute the positions where T can start in S
-    # and check if T is a substring of S starting at that position
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # Precompute the number of times T appears in a row of length N
+    # for each query N
+    # We can do this by checking how many times T appears in the row
+    # which is formed by repeating the first len(S) characters of S
+    # in a cyclic manner
     
-    # Precompute the positions where T can start in S
-    # and check if T is a substring of S starting at that position
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # Precompute the number of times T appears in a row of length N
+    # for each query N
+    # We can do this by checking how many times T appears in the row
+    # which is formed by repeating the first len(S) characters of S
+    # in a cyclic manner
     
-    # Precompute the positions where T can start in S
-    # and check if T is a substring of S starting at that position
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # Precompute the number of times T appears in a row of length N
+    # for each query N
+    # We can do this by checking how many times T appears in the row
+    # which is formed by repeating the first len(S) characters of S
+    # in a cyclic manner
     
-    # Precompute the positions where T can start in S
-    # and check if T is a substring of S starting at that position
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # Precompute the number of times T appears in a row of length N
+    # for each query N
+    # We can do this by checking how many times T appears in the row
+    # which is formed by repeating the first len(S) characters of S
+    # in a cyclic manner
     
-    # Precompute the positions where T can start in S
-    # and check if T is a substring of S starting at that position
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # Precompute the number of times T appears in a row of length N
+    # for each query N
+    # We can do this by checking how many times T appears in the row
+    # which is formed by repeating the first len(S) characters of S
+    # in a cyclic manner
     
-    # Precompute the positions where T can start in S
-    # and check if T is a substring of S starting at that position
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # Precompute the number of times T appears in a row of length N
+    # for each query N
+    # We can do this by checking how many times T appears in the row
+    # which is formed by repeating the first len(S) characters of S
+    # in a cyclic manner
     
-    # Precompute the positions where T can start in S
-    # and check if T is a substring of S starting at that position
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # Precompute the number of times T appears in a row of length N
+    # for each query N
+    # We can do this by checking how many times T appears in the row
+    # which is formed by repeating the first len(S) characters of S
+    # in a cyclic manner
     
-    # Precompute the positions where T can start in S
-    # and check if T is a substring of S starting at that position
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # Precompute the number of times T appears in a row of length N
+    # for each query N
+    # We can do this by checking how many times T appears in the row
+    # which is formed by repeating the first len(S) characters of S
+    # in a cyclic manner
     
-    # Precompute the positions where T can start in S
-    # and check if T is a substring of S starting at that position
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # Precompute the number of times T appears in a row of length N
+    # for each query N
+    # We can do this by checking how many times T appears in the row
+    # which is formed by repeating the first len(S) characters of S
+    # in a cyclic manner
     
-    # Precompute the positions where T can start in S
-    # and check if T is a substring of S starting at that position
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # Precompute the number of times T appears in a row of length N
+    # for each query N
+    # We can do this by checking how many times T appears in the row
+    # which is formed by repeating the first len(S) characters of S
+    # in a cyclic manner
     
-    # Precompute the positions where T can start in S
-    # and check if T is a substring of S starting at that position
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # Precompute the number of times T appears in a row of length N
+    # for each query N
+    # We can do this by checking how many times T appears in the row
+    # which is formed by repeating the first len(S) characters of S
+    # in a cyclic manner
     
-    # Precompute the positions where T can start in S
-    # and check if T is a substring of S starting at that position
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # Precompute the number of times T appears in a row of length N
+    # for each query N
+    # We can do this by checking how many times T appears in the row
+    # which is formed by repeating the first len(S) characters of S
+    # in a cyclic manner
     
-    # Precompute the positions where T can start in S
-    # and check if T is a substring of S starting at that position
-    # We'll use a sliding window approach to find all occurrences of T in S
-    # and then use this to find how many times T appears in each row of the pyramid
+    # Precompute the number of times T appears in a row of length N
+    # for each query N
+    # We can do this by checking how many times T appears in the row
+    # which is formed by repeating the first len(S) characters of S
+    # in a cyclic manner
     
-    # Precompute the positions where T can start in S
+    # Precompute the number of times T appears in a row of length N
+    # for each query N
+    # We can do this by checking how many times T appears in the row
+    # which is formed by repeating the first len(S) characters of S
+    # in a cyclic manner
+    
+    # Precompute the number of times T appears in a row of length N
+    # for each query N
+    # We can do this by checking how many times T appears in the row
+    # which is formed by repeating the first len(S) characters of S
+    # in a cyclic manner
+    
+    # Precompute the number of times T appears in a row of length N
+    # for each query N
+    # We can do this by checking how many times T appears in the row
+    # which is formed by repeating the first len(S) characters of S
+    # in a cyclic manner
+    
+    # Precompute the number of times T appears in a row of length

@@ -13,32 +13,29 @@ def solve():
     # Build the tree
     tree = [[] for _ in range(N+1)]
     for i in range(1, N):
-        parent = parents[i-1]
-        tree[parent].append(i)
+        tree[parents[i-1]].append(i)
     
     # Compute the result
-    result = [0] * (N + 1)
-    min_vals = []
+    result = [0] * (N+1)
     
     # Perform DFS from root
-    def dfs(node):
-        # Current node's value
-        current_min = A[node-1]
-        # Add current value to min_vals
-        min_vals.append(current_min)
-        # Recursively process children
+    stack = [(1, 0)]  # (node, parent)
+    min_so_far = []
+    
+    while stack:
+        node, parent = stack.pop()
+        # Compute the min_so_far for this node
+        if parent == 0:
+            min_so_far = [A[node-1]]
+        else:
+            min_so_far = [min(min_so_far[0], A[node-1])]
+        
+        # Update the result for this node
+        result[node] = sum(min_so_far)
+        
+        # Push children to stack
         for child in tree[node]:
-            dfs(child)
-        # After processing children, backtrack
-        min_vals.pop()
-    
-    dfs(1)
-    
-    # Compute the sum of min_vals in reverse order
-    total = 0
-    for i in range(N, 0, -1):
-        total += min_vals[i-1]
-        result[i] = total
+            stack.append((child, node))
     
     # Output the result for nodes 1 to N
     print(' '.join(map(str, result[1:N+1])))

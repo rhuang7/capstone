@@ -5,17 +5,14 @@ def solve():
     input = sys.stdin.buffer.read
     data = input().split()
     
-    idx = 0
-    q = int(data[idx])
-    idx += 1
-    
-    results = []
+    q = int(data[0])
+    index = 1
     
     for _ in range(q):
-        n = int(data[idx])
-        idx += 1
-        s = list(map(int, data[idx:idx+n]))
-        idx += n
+        n = int(data[index])
+        index += 1
+        s = list(map(int, data[index:index + n]))
+        index += n
         
         count = {}
         for num in s:
@@ -24,34 +21,49 @@ def solve():
             else:
                 count[num] = 1
         
-        # Convert to exponents of 2
-        exp = {}
-        for num in count:
-            exp[num] = count[num]
-        
-        # Start from 1 (2^0) and go up to 2048 (2^11)
-        for i in range(1, 12):
-            if 2 ** i in exp:
-                exp[2 ** i] = exp[2 ** i]
+        # Count how many of each power of two we have
+        # Convert each number to its exponent (log2)
+        # We'll use a dictionary to count occurrences of each exponent
+        exp_count = {}
+        for num in s:
+            exp = num.bit_length() - 1
+            if exp in exp_count:
+                exp_count[exp] += 1
             else:
-                exp[2 ** i] = 0
+                exp_count[exp] = 1
         
-        # Try to build up to 2048
-        for i in range(11, 0, -1):
-            if exp[2 ** i] > 0:
-                # Try to combine with lower exponents
-                while exp[2 ** i] > 0:
-                    exp[2 ** (i - 1)] += exp[2 ** i]
-                    exp[2 ** i] = 0
-                # Check if we have enough to make 2048
-                if exp[2 ** 11] >= 1:
-                    results.append("YES")
-                    break
+        # Try to build up to 2048 (which is 2^11)
+        # We need to have at least one 2048, or enough lower numbers to combine into it
+        # Start from 11 and go down
+        # We need to check if we can combine numbers to reach 11
+        # For each exponent, we can combine pairs to go up
+        # We'll track how many of each exponent we have
+        # We'll start from 11 and go down to 0
+        # If we can reach 11, then we can make 2048
+        
+        # We'll use a list to track the count of each exponent from 0 to 11
+        # Since 2048 is 2^11, we need to check up to 11
+        # We'll create a list of counts for exponents 0 to 11
+        counts = [0] * 12
+        for exp in exp_count:
+            if exp <= 11:
+                counts[exp] = exp_count[exp]
+        
+        # Now try to build up from the lowest exponents to the highest
+        # We'll go from 0 to 11
+        for i in range(11, -1, -1):
+            # For each exponent, we can combine pairs to go up
+            # We can combine pairs of i to make i+1
+            # So we can carry over the number of pairs to i+1
+            # The number of pairs is counts[i] // 2
+            pairs = counts[i] // 2
+            counts[i + 1] += pairs
+            counts[i] %= 2
+        
+        if counts[11] >= 1:
+            print("YES")
         else:
-            results.append("NO")
-    
-    for res in results:
-        print(res)
+            print("NO")
 
 if __name__ == '__main__':
     solve()

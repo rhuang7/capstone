@@ -14,7 +14,7 @@ def solve():
         segments = []
         for _ in range(N):
             L = int(data[idx])
-            R = int(data[idx+1])
+            R = int(data[idx + 1])
             segments.append((L, R))
             idx += 2
         if N == 1:
@@ -24,23 +24,20 @@ def solve():
         current_L, current_R = segments[0]
         for i in range(1, N):
             target_L, target_R = segments[i]
-            # Calculate the difference
-            delta_L = target_L - current_L
-            delta_R = target_R - current_R
-            # Move L first to ensure lex order
-            for _ in range(delta_L):
-                ops.append("L+")
+            # Move L to target_L
+            while current_L < target_L:
                 current_L += 1
-            for _ in range(delta_R):
-                ops.append("R+")
-                current_R += 1
-            # Now move back to ensure lex order
-            for _ in range(delta_L):
-                ops.append("L-")
+                ops.append("L+")
+            while current_L > target_L:
                 current_L -= 1
-            for _ in range(delta_R):
-                ops.append("R-")
+                ops.append("L-")
+            # Move R to target_R
+            while current_R < target_R:
+                current_R += 1
+                ops.append("R+")
+            while current_R > target_R:
                 current_R -= 1
+                ops.append("R-")
         results.append(f"{len(ops)}\n{''.join(ops)}")
     print("\n".join(results))
 

@@ -2,7 +2,6 @@ import sys
 import heapq
 
 def solve():
-    import sys
     input = sys.stdin.buffer.read
     data = input().split()
     idx = 0
@@ -16,35 +15,42 @@ def solve():
         idx += 1
         treasure = set()
         for _ in range(X):
-            x = int(data[idx]) - 1
-            y = int(data[idx+1]) - 1
-            treasure.add((x, y))
+            x = int(data[idx])
+            y = int(data[idx+1])
+            treasure.add((x-1, y-1))
             idx += 2
         Y = int(data[idx])
         idx += 1
         blocked = set()
         for _ in range(Y):
-            u = int(data[idx]) - 1
-            v = int(data[idx+1]) - 1
-            blocked.add((u, v))
+            u = int(data[idx])
+            v = int(data[idx+1])
+            blocked.add((u-1, v-1))
             idx += 2
+        
         dist = [[-1]*M for _ in range(N)]
         q = []
-        for x, y in treasure:
-            dist[x][y] = 0
-            heapq.heappush(q, (0, x, y))
-        dirs = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        
+        for i, j in treasure:
+            dist[i][j] = 0
+            heapq.heappush(q, (0, i, j))
+        
+        directions = [(-1,0),(1,0),(0,-1),(0,1)]
+        
         while q:
-            d, x, y = heapq.heappop(q)
-            if (x, y) in blocked:
+            d, i, j = heapq.heappop(q)
+            if dist[i][j] < d:
                 continue
-            for dx, dy in dirs:
-                nx = x + dx
-                ny = y + dy
-                if 0 <= nx < N and 0 <= ny < M:
-                    if dist[nx][ny] == -1 and (nx, ny) not in blocked:
-                        dist[nx][ny] = d + 1
-                        heapq.heappush(q, (d + 1, nx, ny))
+            for dx, dy in directions:
+                ni = i + dx
+                nj = j + dy
+                if 0 <= ni < N and 0 <= nj < M:
+                    if (ni, nj) in blocked:
+                        continue
+                    if dist[ni][nj] == -1:
+                        dist[ni][nj] = d + 1
+                        heapq.heappush(q, (d+1, ni, nj))
+        
         for i in range(N):
             row = []
             for j in range(M):
@@ -53,5 +59,6 @@ def solve():
                 else:
                     row.append(str(dist[i][j]))
             print(' '.join(row))
-        if _ < T - 1:
-            print()
+        
+if __name__ == '__main__':
+    solve()

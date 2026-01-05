@@ -6,48 +6,46 @@ def solve():
     data = input().split()
     
     T = int(data[0])
-    index = 1
+    idx = 1
     results = []
     
     for _ in range(T):
-        n = int(data[index])
-        index += 1
-        s = data[index]
-        index += 1
+        n = int(data[idx])
+        idx += 1
+        s = data[idx]
+        idx += 1
         
         # Try to find a way to have exactly one occurrence of "abacaba"
         found = False
-        result = None
+        result_str = list(s)
         
         # Try each possible starting position for "abacaba"
         for i in range(n - 6):
-            # Check if we can replace question marks to make "abacaba" start at i
+            # Check if we can replace question marks to form "abacaba" starting at i
             valid = True
             for j in range(7):
-                if s[i + j] != '?' and s[i + j] != "abacaba"[j]:
+                if s[i + j] != '?' and s[i + j] != 'abacaba'[j]:
                     valid = False
                     break
             if valid:
-                # Now check how many occurrences of "abacaba" are there in the string
-                # Replace the question marks with "abacaba"
+                # Try to replace question marks to form "abacaba" at i
                 temp = list(s)
                 for j in range(7):
-                    temp[i + j] = "abacaba"[j]
-                temp_str = ''.join(temp)
-                
-                # Count occurrences of "abacaba"
+                    if temp[i + j] == '?':
+                        temp[i + j] = 'abacaba'[j]
+                # Now check how many occurrences of "abacaba" are there in temp
                 count = 0
                 for k in range(n - 6):
-                    if temp_str[k:k+7] == "abacaba":
+                    if ''.join(temp[k:k+7]) == 'abacaba':
                         count += 1
                 if count == 1:
                     found = True
-                    result = temp_str
+                    result_str = temp
                     break
         
         if found:
             results.append("Yes")
-            results.append(result)
+            results.append(''.join(result_str))
         else:
             results.append("No")
     

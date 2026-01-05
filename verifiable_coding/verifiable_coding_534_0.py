@@ -1,6 +1,5 @@
 import sys
-import math
-from collections import defaultdict, deque
+import collections
 
 def solve():
     input = sys.stdin.buffer.read
@@ -14,32 +13,36 @@ def solve():
         n = int(data[idx])
         m = int(data[idx+1])
         idx += 2
-        graph = defaultdict(list)
+        adj = collections.defaultdict(list)
+        edges = []
         for _ in range(m):
             u = int(data[idx]) - 1
             v = int(data[idx+1]) - 1
-            graph[u].append(v)
-            graph[v].append(u)
             idx += 2
+            adj[u].append(v)
+            adj[v].append(u)
+            edges.append((u, v))
         
         # Maximum antimatching is the maximum number of edges such that no two share a common endpoint
-        # This is equivalent to finding a maximum matching in the line graph of the original graph
-        # But since the line graph is complex, we can use a greedy approach here
+        # This is equivalent to finding the maximum matching in the complement graph
+        # But since we need to maximize the number of edges with no shared endpoints, we can do the following:
+        # For each node, we can take at most one edge incident to it
+        # So the maximum size of an antimatching is the maximum number of edges such that no two share a common endpoint
+        # This is equivalent to finding the maximum matching in the original graph
+        # Wait, no. Wait: in an antimatching, any two edges must share a common endpoint. So the maximum antimatching is the maximum set of edges where every pair shares a common endpoint.
+        # This is equivalent to finding the maximum number of edges that form a clique in the intersection graph of edges.
+        # But this is computationally expensive. However, there's a key observation:
+        # The maximum size of an antimatching is equal to the maximum number of edges that can be selected such that no two share a common endpoint. Wait, no! That's the opposite.
+        # Wait, no. An antimatching is a set of edges where every pair shares a common endpoint. So, for example, if you have three edges that all share a common vertex, then they form an antimatching.
+        # The maximum size of an antimatching is the maximum number of edges that can be selected such that every pair of edges shares a common endpoint.
+        # This is equivalent to finding the maximum number of edges that can be selected such that they all share a common vertex.
+        # So the maximum size of an antimatching is the maximum degree of any vertex in the graph.
+        # Because if a vertex has degree d, then you can select d edges incident to it, and all of them share that vertex, so they form an antimatching.
+        # Therefore, the answer is the maximum degree of any vertex in the graph.
         
-        # We can use a greedy algorithm: for each node, if it is not yet matched, we try to match it with an adjacent node
-        # We'll track which nodes are used
-        used = [False] * n
-        count = 0
-        
-        for u in range(n):
-            if not used[u]:
-                for v in graph[u]:
-                    if not used[v]:
-                        used[u] = True
-                        used[v] = True
-                        count += 1
-                        break
-        
-        results.append(str(count))
+        max_degree = 0
+        for u in adj:
+            max_degree = max(max_degree, len(adj[u]))
+        results.append(str(max_degree))
     
     print('\n'.join(results))

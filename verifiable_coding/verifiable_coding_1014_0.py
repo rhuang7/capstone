@@ -8,30 +8,42 @@ def solve():
     T = int(data[0])
     cases = data[1:T+1]
 
-    from collections import defaultdict
+    from collections import Counter
 
-    # Precompute powers of 2 up to 10^1000 (since max length is 1000)
-    # We'll store them as strings to compare with the input strings
-    powers_of_2 = []
-    power = 1
-    while len(str(power)) <= 1000:
-        powers_of_2.append(str(power))
-        power *= 2
+    def is_power_of_two(n):
+        return (n & (n - 1)) == 0
+
+    def get_powers_of_two_up_to_max_len(max_len):
+        powers = []
+        current = 1
+        while True:
+            if len(str(current)) > max_len:
+                break
+            powers.append(current)
+            current <<= 1
+        return powers
 
     for s in cases:
-        found = False
-        total = 0
-        for p in powers_of_2:
-            if len(p) > len(s):
-                continue
-            if len(p) == len(s):
-                if sorted(p) == sorted(s):
-                    total = (total + int(p)) % MOD
-                    found = True
-        if found:
-            print(total)
-        else:
+        n = len(s)
+        if n == 1:
             print(-1)
+            continue
+        max_len = n
+        powers = get_powers_of_two_up_to_max_len(max_len)
+        total = 0
+        for power in powers:
+            s_str = str(power)
+            if len(s_str) > n:
+                continue
+            if len(s_str) < n:
+                continue
+            if len(s_str) == n:
+                if s == s_str:
+                    total += power
+        if total == 0:
+            print(-1)
+        else:
+            print(total % MOD)
 
 if __name__ == '__main__':
     solve()

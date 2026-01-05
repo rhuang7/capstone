@@ -14,7 +14,7 @@ def solve():
         # Distance for stairs is sqrt(2)*N
         time_stairs = (math.sqrt(2) * N) / V1
         
-        # Distance for elevator is N (goes from ground to N-th floor, then back to ground)
+        # Distance for elevator is N (goes from ground to N-th floor, then back down)
         time_elevator = (N / V2) * 2
         
         if time_stairs < time_elevator:

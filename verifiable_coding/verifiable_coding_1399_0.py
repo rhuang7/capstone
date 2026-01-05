@@ -21,30 +21,24 @@ def solve():
             l.append(li)
             r.append(ri)
             idx += 2
-        # Compute A^K
-        # Use binary exponentiation
-        # Since K can be up to 5e7, we need an efficient way
-        # We will represent the current sequence as a list of integers
-        # For each step, we compute the next sequence using the given operation
-        # Since the operation is XOR over a range, we can precompute prefix XORs
-        # to make the range XOR queries efficient
-        # Precompute prefix XORs
-        prefix = [0] * (N + 1)
-        for i in range(N):
-            prefix[i+1] = prefix[i] ^ A[i]
-        # Function to compute XOR of range [l, r]
-        def range_xor(l, r):
-            return prefix[r] ^ prefix[l-1]
-        # Binary exponentiation
-        # Initialize the result as the original sequence
-        current = A[:]
+        # Initialize the current power of the sequence
+        current = A.copy()
+        # If K is 1, output the original sequence
+        if K == 1:
+            results.append(' '.join(map(str, current)))
+            continue
+        # For K > 1, compute the power iteratively
         for _ in range(K-1):
-            next_seq = [0] * N
+            next_power = [0] * N
             for i in range(N):
-                li = l[i]
-                ri = r[i]
-                next_seq[i] = range_xor(li, ri)
-            current = next_seq
+                li = l[i] - 1
+                ri = r[i] - 1
+                # Compute XOR of current[li ... ri]
+                xor = 0
+                for j in range(li, ri + 1):
+                    xor ^= current[j]
+                next_power[i] = xor
+            current = next_power
         results.append(' '.join(map(str, current)))
     print('\n'.join(results))
 

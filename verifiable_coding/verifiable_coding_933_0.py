@@ -11,17 +11,16 @@ def solve():
             print("Error")
             continue
         if s[0].islower() and s[0] >= 'a' and s[0] <= 'h' and s[2] == '-' and s[3].islower() and s[3] >= 'a' and s[3] <= 'h' and s[4].isdigit() and s[4] >= '1' and s[4] <= '8':
-            if s[0] == s[3] and s[2] == '-':
-                print("No")
+            start = s[0] + s[1]
+            end = s[3] + s[4]
+            x1 = ord(start[0]) - ord('a')
+            y1 = int(start[1]) - 1
+            x2 = ord(end[0]) - ord('a')
+            y2 = int(end[1]) - 1
+            if abs(x1 - x2) == 2 and abs(y1 - y2) == 1 or abs(x1 - x2) == 1 and abs(y1 - y2) == 2:
+                print("Yes")
             else:
-                x1 = ord(s[0]) - ord('a')
-                y1 = int(s[4]) - 1
-                x2 = ord(s[3]) - ord('a')
-                y2 = int(s[4]) - 1
-                if abs(x1 - x2) == 2 and abs(y1 - y2) == 1 or abs(x1 - x2) == 1 and abs(y1 - y2) == 2:
-                    print("Yes")
-                else:
-                    print("No")
+                print("No")
         else:
             print("Error")
 

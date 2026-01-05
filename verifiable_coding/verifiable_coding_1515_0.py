@@ -15,7 +15,7 @@ def solve():
         elif first_char == 'z':
             base = 2600
         else:
-            base = 100 + (ord(first_char) - ord('a'))
+            base = 100 + (ord(first_char) - ord('a')) * 100
         
         total = 0
         for c in s:

@@ -8,17 +8,14 @@ def solve():
     first_row = list(map(int, data[1:]))
     
     result = []
-    
-    for shift in range(N):
+    for k in range(N):
+        second_row = first_row[k:] + first_row[:k]
         max_score = 0
         for i in range(N):
-            col1 = first_row[i]
-            col2 = first_row[(i + shift) % N]
-            current_score = col1 + col2
+            current_score = first_row[i] + second_row[i]
             if current_score > max_score:
                 max_score = current_score
         result.append(str(max_score))
-    
     print(' '.join(result))
 
 if __name__ == '__main__':

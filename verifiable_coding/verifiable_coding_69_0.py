@@ -8,7 +8,6 @@ def solve():
     idx = 0
     t = int(data[idx])
     idx += 1
-    
     results = []
     
     for _ in range(t):
@@ -18,7 +17,7 @@ def solve():
         s = data[idx]
         idx += 1
         
-        # Find all segments of consecutive '1's
+        # Find all continuous segments of '1's
         segments = []
         n = len(s)
         i = 0
@@ -32,21 +31,19 @@ def solve():
             else:
                 i += 1
         
-        # For each segment, decide whether to activate or place mines
-        total = 0
-        for seg in segments:
-            # If we activate, cost is a
-            # If we place, cost is b * seg
-            # But placing is better only if b < a
-            if b < a:
-                total += b * seg
-            else:
-                total += a
+        # For each segment, decide whether to activate it or place mines
+        min_cost = 0
+        for segment in segments:
+            # Option 1: activate the segment (cost a * 1)
+            # Option 2: place mines to connect the segment and activate it (cost b * (segment - 1) + a * 1)
+            # We choose the minimum of the two options
+            option1 = a
+            option2 = b * (segment - 1) + a
+            min_cost += min(option1, option2)
         
-        results.append(total)
+        results.append(str(min_cost))
     
-    for res in results:
-        print(res)
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

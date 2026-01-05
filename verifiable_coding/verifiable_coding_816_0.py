@@ -13,18 +13,20 @@ def solve():
     # Create a dictionary to map book numbers to their indices
     book_to_index = {book: i for i, book in enumerate(books)}
     
-    # Create a list to represent the current positions of the books
-    current_positions = list(range(M))
+    # For each query, find the book at the given position
+    # Since the books are being removed, we need to simulate the process
+    # We'll use a list to represent the current state of the shelf
+    shelf = books.copy()
     
-    # Process each query
-    for i in range(N):
-        pos = queries[i]
-        # Find the book at the given position
-        book = books[current_positions[pos-1]]
-        # Remove the book from the current_positions list
-        current_positions.pop(pos-1)
-        # Output the book
+    for query in queries:
+        # Find the book at the given position (0-based or 1-based?)
+        # The problem says "position from the left", which is 1-based
+        # So we need to subtract 1
+        pos = query - 1
+        book = shelf[pos]
         print(book)
-        
+        # Remove the book from the shelf
+        shelf.pop(pos)
+    
 if __name__ == '__main__':
     solve()

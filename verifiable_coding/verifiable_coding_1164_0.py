@@ -28,14 +28,14 @@ def solve():
             if sorted_subtasks[k][1] > sorted_subtasks[k+1][1]:
                 n += 1
         
-        problems.append((n, i+1))  # i+1 is the problem index (1-based)
+        problems.append((n, i+1))  # (n, problem index)
     
-    # Sort problems by difficulty (n, then index)
+    # Sort problems by difficulty
     problems.sort()
     
-    # Output the problem indices in order
-    for prob in problems:
-        print(prob[1])
+    # Output the problem indices
+    for p in problems:
+        print(p[1])
 
 if __name__ == '__main__':
     solve()

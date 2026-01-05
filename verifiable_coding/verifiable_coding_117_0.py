@@ -31,81 +31,41 @@ def solve():
         for i in range(n):
             for j in range(m):
                 value_to_pos[rows[i][j]] = (i, j)
-        # Create a set of all elements in columns
-        col_elements = set()
-        for col in cols:
-            col_elements.update(col)
-        # Create a dictionary to map values to their column positions
-        value_to_col = {}
+        # Create a dictionary to map columns to their values
+        col_to_values = {}
         for i in range(m):
-            for j in range(n):
-                value_to_col[cols[i][j]] = i
-        # Create the table
-        table = [[0] * m for _ in range(n)]
+            col = cols[i]
+            col_to_values[i] = col
+        # Create a dictionary to map rows to their values
+        row_to_values = {}
+        for i in range(n):
+            row = rows[i]
+            row_to_values[i] = row
+        # Create a grid
+        grid = [[0]*m for _ in range(n)]
+        # Fill the grid
         for i in range(n):
             for j in range(m):
-                # Find the value that is in the i-th row and j-th column
-                # It must be the value that is in the i-th row of the rows list
-                # and in the j-th column of the cols list
-                # So we find the value that is in the i-th row of rows and in the j-th column of cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of the cols
-                # So we find the value that is in the i-th row of rows and in the j-th column of cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of cols
-                # So we find the value that is in the i-th row of rows and in the j-th column of cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of cols
-                # So we find the value that is in the i-th row of rows and in the j-th column of cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of cols
-                # So we find the value that is in the i-th row of rows and in the j-th column of cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of cols
-                # So we find the value that is in the i-th row of rows and in the j-th column of cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of cols
-                # So we find the value that is in the i-th row of rows and in the j-th column of cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of cols
-                # So we find the value that is in the i-th row of rows and in the j-th column of cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of the cols
-                # So we find the value that is in the i-th row of the rows and in the j-th column of the cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of the cols
-                # So we find the value that is in the i-th row of the rows and in the j-th column of the cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of the cols
-                # So we find the value that is in the i-th row of the rows and in the j-th column of the cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of the cols
-                # So we find the value that is in the i-th row of the rows and in the j-th column of the cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of the cols
-                # So we find the value that is in the i-th row of the rows and in the j-th column of the cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of the cols
-                # So we find the value that is in the i-th row of the rows and in the j-th column of the cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of the cols
-                # So we find the value that is in the i-th row of the rows and in the j-th column of the cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of the cols
-                # So we find the value that is in the i-th row of the rows and in the j-th column of the cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of the cols
-                # So we find the value that is in the i-th row of the rows and in the j-th column of the cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of the cols
-                # So we find the value that is in the i-th row of the rows and in the j-th column of the cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of the cols
-                # So we find the value that is in the i-th row of the rows and in the j-th column of the cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of the cols
-                # So we find the value that is in the i-th row of the rows and in the j-th column of the cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of the cols
-                # So we find the value that is in the i-th row of the rows and in the j-th column of the cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of the cols
-                # So we find the value that is in the i-th row of the rows and in the j-th column of the cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of the cols
-                # So we find the value that is in the i-th row of the rows and in the j-th column of the cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of the cols
-                # So we find the value that is in the i-th row of the rows and in the j-th column of the cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of the cols
-                # So we find the value that is in the i-th row of the rows and in the j-th column of the cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of the cols
-                # So we find the value that is in the i-th row of the rows and in the j-th column of the cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of the cols
-                # So we find the value that is in the i-th row of the rows and in the j-th column of the cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of the cols
-                # So we find the value that is in the i-th row of the rows and in the j-th column of the cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of the cols
-                # So we find the value that is in the i-th row of the rows and in the j-th column of the cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of the cols
-                # So we find the value that is in the i-th row of the rows and in the j-th column of the cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of the cols
-                # So we find the value that is in the i-th row of the rows and in the j-th column of the cols
-                # This is the value that is in the i-th row of the rows and in the j-th column of the cols
+                val = rows[i][j]
+                grid[i][j] = val
+        # Check if the grid is correct
+        # We need to ensure that the columns match
+        for i in range(m):
+            col = []
+            for j in range(n):
+                col.append(grid[j][i])
+            if col != cols[i]:
+                # Find the correct column
+                for k in range(m):
+                    if col == cols[k]:
+                        # Swap the columns
+                        for j in range(n):
+                            grid[j][i], grid[j][k] = grid[j][k], grid[j][i]
+                        break
+        # Output the grid
+        for row in grid:
+            results.append(' '.join(map(str, row)) + ' ')
+    print('\n'.join(results))
+
+if __name__ == '__main__':
+    solve()

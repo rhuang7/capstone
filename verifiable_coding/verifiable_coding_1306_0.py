@@ -1,33 +1,23 @@
 import sys
 
 def solve():
-    import sys
     input = sys.stdin.buffer.read
     data = input().split()
-    
     T = int(data[0])
     cases = data[1:T+1]
     
-    for S in cases:
-        count = [0] * 26
-        for c in S:
-            count[ord(c) - ord('A')] += 1
+    for s in cases:
+        count = {}
+        for c in s:
+            count[c] = count.get(c, 0) + 1
         
-        # Check for "LTIME" and "EMITL"
-        required = [0] * 26
-        for c in "LTIME":
-            required[ord(c) - ord('A')] += 1
-        for c in "EMITL":
-            required[ord(c) - ord('A')] += 1
-        
-        # Check if counts are sufficient
-        possible = True
-        for i in range(26):
-            if count[i] < required[i]:
-                possible = False
+        required = {'L': 2, 'T': 2, 'I': 2, 'M': 2, 'E': 2}
+        for key in required:
+            if count.get(key, 0) < required[key]:
+                print("NO")
                 break
-        
-        print("YES" if possible else "NO")
-
+        else:
+            print("YES")
+            
 if __name__ == '__main__':
     solve()

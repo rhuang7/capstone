@@ -5,46 +5,45 @@ def solve():
     input = sys.stdin.buffer.read
     data = input().split()
     
-    T = int(data[0])
-    index = 1
-    
+    idx = 0
+    T = int(data[idx])
+    idx += 1
     results = []
     
     for _ in range(T):
-        p = int(data[index])
-        q = int(data[index+1])
-        r = int(data[index+2])
-        index += 3
+        p = int(data[idx])
+        q = int(data[idx+1])
+        r = int(data[idx+2])
+        idx += 3
+        a = int(data[idx])
+        b = int(data[idx+1])
+        c = int(data[idx+2])
+        idx += 3
         
-        a = int(data[index])
-        b = int(data[index+1])
-        c = int(data[index+2])
-        index += 3
-        
-        if (p == a and q == b and r == c):
-            results.append(0)
+        # Check if it's possible to reach the target
+        if (a - p) < 0 or (b - q) < 0 or (c - r) < 0:
+            results.append("-1")
             continue
         
+        # Calculate the differences
         diff_p = a - p
         diff_q = b - q
         diff_r = c - r
         
+        # Check if all differences are non-negative
         if diff_p < 0 or diff_q < 0 or diff_r < 0:
-            results.append(-1)
+            results.append("-1")
             continue
         
-        ops = 0
+        # Count the number of non-zero differences
+        count = 0
         if diff_p > 0:
-            ops += 1
+            count += 1
         if diff_q > 0:
-            ops += 1
+            count += 1
         if diff_r > 0:
-            ops += 1
+            count += 1
         
-        results.append(ops)
+        results.append(str(count))
     
-    for res in results:
-        print(res)
-
-if __name__ == '__main__':
-    solve()
+    print("\n".join(results))

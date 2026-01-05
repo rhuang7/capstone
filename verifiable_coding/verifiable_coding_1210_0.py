@@ -12,21 +12,24 @@ def solve():
         X = int(input[idx+1])
         idx += 2
         direction = input[idx]
-        start_lang = input[idx+1]
+        lang = input[idx+1]
         idx += 2
         if direction == 'L':
+            start = 1
             pos = X
         else:
+            start = N
             pos = N - X + 1
-        lang = start_lang
-        for i in range(1, pos):
-            if lang == 'H':
-                lang = 'E'
+        count = 1
+        lang_turn = lang
+        for i in range(pos - 1):
+            if i % 2 == 0:
+                lang_turn = 'H' if lang_turn == 'E' else 'E'
             else:
-                lang = 'H'
-        P = pos
-        results.append(f"{P} {lang}")
-    print('\n'.join(results))
+                lang_turn = 'H' if lang_turn == 'E' else 'E'
+            count += 1
+        results.append(f"{count} {lang_turn}")
+    print("\n".join(results))
 
 if __name__ == '__main__':
     solve()

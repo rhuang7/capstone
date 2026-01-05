@@ -11,20 +11,17 @@ def solve():
     
     events = data[2:]
     
-    people = []
-    max_heap = []
+    citizens = []
+    heap = []
     result = []
     
     for event in events:
         if event == '-1':
-            # King visits, find the richest alive person
-            if max_heap:
-                richest = -heapq.heappop(max_heap)
-                result.append(str(richest))
+            if heap:
+                result.append(str(heapq.heappop(heap)))
         else:
-            # Citizen arrives
             wealth = int(event)
-            heapq.heappush(max_heap, -wealth)
+            heapq.heappush(heap, -wealth)
     
     for line in result:
         print(line)

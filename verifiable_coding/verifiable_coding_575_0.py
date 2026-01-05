@@ -9,117 +9,28 @@ def solve():
     
     for s in cases:
         n = len(s)
-        if n == 0:
-            print(1)
-            continue
-        # We need to find the minimal P such that we can assign numbers to the N+1 positions
-        # such that the signs are satisfied.
-        # We can model this as a graph problem where we track the maximum value needed at each position.
-        # We'll use a dynamic programming approach where we track the maximum value at each position.
-        # We'll use a list to track the maximum value at each position.
-        # We'll also track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a list to track the maximum value at each position.
-        # We'll use a list to track the previous value to ensure the sign is satisfied.
-        # We'll use a
+        P = 1
+        prev = 1
+        for i in range(n):
+            if s[i] == '<':
+                if prev == 1:
+                    P = 2
+                else:
+                    P += 1
+                prev = P
+            elif s[i] == '>':
+                if prev == 1:
+                    P = 2
+                else:
+                    P += 1
+                prev = P
+            else:  # '='
+                if prev == 1:
+                    P = 2
+                else:
+                    P += 1
+                prev = P
+        print(P)
+
+if __name__ == '__main__':
+    solve()

@@ -7,6 +7,8 @@ def solve():
     idx = 0
     T = int(data[idx])
     idx += 1
+    results = []
+    
     for _ in range(T):
         t_r = int(data[idx])
         idx += 1
@@ -25,14 +27,17 @@ def solve():
         D_s = list(map(int, data[idx:idx+d_s]))
         idx += d_s
         
-        # Check if all truth tasks Shyam asks are in Ram's truth tasks
+        # Check if all truth tasks in T_s are in T_r
         all_truth = all(task in T_r for task in T_s)
-        # Check if all dare tasks Shyam asks are in Ram's dare tasks
+        # Check if all dare tasks in D_s are in D_r
         all_dare = all(task in D_r for task in D_s)
+        
         if all_truth and all_dare:
-            print("yes")
+            results.append("yes")
         else:
-            print("no")
+            results.append("no")
+    
+    print("\n".join(results))
 
 if __name__ == '__main__':
     solve()

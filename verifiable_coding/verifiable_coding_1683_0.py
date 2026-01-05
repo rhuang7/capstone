@@ -1,6 +1,5 @@
 import sys
-import math
-from collections import deque
+import heapq
 
 def solve():
     import sys
@@ -11,43 +10,49 @@ def solve():
     S = list(map(int, data[1:N+1]))
     edges = data[N+1:]
     
-    # Build tree
-    tree = [[] for _ in range(N)]
+    from collections import defaultdict, deque
+    
+    graph = defaultdict(list)
     for i in range(0, len(edges), 2):
         u = int(edges[i]) - 1
         v = int(edges[i+1]) - 1
-        tree[u].append(v)
-        tree[v].append(u)
+        graph[u].append(v)
+        graph[v].append(u)
     
-    # BFS to find depth of each node
-    depth = [0] * N
-    visited = [False] * N
+    # BFS to find depth of each node from the capital (node 0)
+    depth = [-1] * N
     q = deque()
     q.append(0)
-    visited[0] = True
+    depth[0] = 0
     while q:
         u = q.popleft()
-        for v in tree[u]:
-            if not visited[v]:
-                visited[v] = True
+        for v in graph[u]:
+            if depth[v] == -1:
                 depth[v] = depth[u] + 1
                 q.append(v)
     
-    # Calculate Grundy numbers
+    # Calculate the Grundy numbers for each node
     grundy = [0] * N
     for i in range(N-1, -1, -1):
         if depth[i] == 0:
             continue
-        g = 0
-        for neighbor in tree[i]:
-            if depth[neighbor] == depth[i] - 1:
-                g ^= grundy[neighbor]
-        grundy[i] = g
+        # The node is at depth d, and its parent is at depth d-1
+        d = depth[i]
+        parent = -1
+        for neighbor in graph[i]:
+            if depth[neighbor] == d - 1:
+                parent = neighbor
+                break
+        # The number of soldiers in this node is S[i]
+        # The Grundy number for this node is the mex of the grundy numbers of its parent
+        # But since we can move soldiers from this node to its parent, the game is equivalent to a Nim heap of size S[i]
+        # The Grundy number for this node is S[i] % (d + 1)
+        grundy[i] = S[i] % (d + 1)
     
-    # Total XOR of all non-capital nodes
+    # The total XOR of all grundy numbers is the overall Grundy number of the game
     total_xor = 0
-    for i in range(1, N):
-        total_xor ^= grundy[i] ^ S[i]
+    for i in range(N):
+        total_xor ^= grundy[i]
     
     if total_xor != 0:
         print("First")

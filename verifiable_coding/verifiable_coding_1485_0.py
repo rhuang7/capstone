@@ -8,6 +8,7 @@ def solve():
     idx = 0
     T = int(data[idx])
     idx += 1
+    
     results = []
     
     for _ in range(T):
@@ -20,25 +21,35 @@ def solve():
             idx += 1
         
         # Calculate initial counts
-        half = N // 2
-        count1 = 0
-        count2 = 0
+        left = 0
+        right = 0
         for row in grid:
-            count1 += row[:half].count('1')
-            count2 += row[half:].count('1')
-        
-        min_diff = abs(count1 - count2)
+            for i in range(N // 2):
+                if row[i] == '1':
+                    left += 1
+                if row[N - 1 - i] == '1':
+                    right += 1
         
         # Try reversing each row
+        min_diff = abs(left - right)
         for i in range(N):
-            row = grid[i]
-            # Count how many '1's are in the left half and right half of this row
-            left = row[:half].count('1')
-            right = row[half:].count('1')
-            # After reversing, the left and right halves swap
-            new_count1 = count1 - left + right
-            new_count2 = count2 - right + left
-            current_diff = abs(new_count1 - new_count2)
+            # Create reversed row
+            reversed_row = []
+            for j in range(N // 2):
+                reversed_row.append(grid[i][N - 1 - j])
+            for j in range(N // 2):
+                reversed_row.append(grid[i][j])
+            
+            # Calculate new counts
+            new_left = left
+            new_right = right
+            for j in range(N // 2):
+                if reversed_row[j] == '1':
+                    new_left += 1
+                if reversed_row[N - 1 - j] == '1':
+                    new_right += 1
+            
+            current_diff = abs(new_left - new_right)
             if current_diff < min_diff:
                 min_diff = current_diff
         

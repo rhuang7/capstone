@@ -16,7 +16,7 @@ def solve():
                 a_count += 1
             else:
                 count *= 2
-        return count * (a_count)
+        return count * (2 ** (a_count - 1))
 
     for word in words:
         print(count_subsequences(word))

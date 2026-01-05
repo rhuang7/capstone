@@ -4,12 +4,10 @@ def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
-    
     idx = 0
     T = int(data[idx])
     idx += 1
     results = []
-    
     for _ in range(T):
         N, K = int(data[idx]), int(data[idx+1])
         idx += 2
@@ -20,35 +18,22 @@ def solve():
             p = int(data[idx+2])
             events.append((s, e, p))
             idx += 3
-        
-        # For each room, keep track of intervals that are already booked
-        room_intervals = [ [] for _ in range(K+1) ]  # rooms are 1-based
-        
-        # Sort events by preferred room
+        # For each room, sort events by end time
+        room_events = [[] for _ in range(K+1)]
         for s, e, p in events:
-            # Check if the preferred room is available
-            # Use greedy algorithm to check if the event can be scheduled
-            # Sort intervals by end time
-            intervals = room_intervals[p]
-            # Check if the new interval can be added without overlap
-            # Sort intervals by end time
-            intervals.sort()
-            can_add = True
-            for start, end in intervals:
-                if not (e <= start or s >= end):
-                    can_add = False
-                    break
-            if can_add:
-                intervals.append((s, e))
-                # Sort again after adding to maintain order
-                intervals.sort()
-        
-        # Count total events
-        total = 0
-        for intervals in room_intervals:
-            total += len(intervals)
-        results.append(str(total))
-    
+            room_events[p].append((s, e))
+        # For each room, select maximum number of non-overlapping events
+        count = 0
+        for room in room_events:
+            # Sort by start time
+            room.sort()
+            # Greedy algorithm: select earliest ending events
+            last_end = -1
+            for s, e in room:
+                if s >= last_end:
+                    count += 1
+                    last_end = e
+        results.append(str(count))
     print('\n'.join(results))
 
 if __name__ == '__main__':

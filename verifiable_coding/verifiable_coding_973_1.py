@@ -1,0 +1,31 @@
+import sys
+
+def solve():
+    import sys
+    input = sys.stdin.buffer.read
+    data = input().split()
+    idx = 0
+    T = int(data[idx])
+    idx += 1
+    results = []
+    for _ in range(T):
+        N, K = int(data[idx]), int(data[idx+1])
+        idx += 2
+        arr = list(map(int, data[idx:idx+N]))
+        idx += N
+        max_diff = 0
+        # Find the maximum and minimum possible values after increment or decrement
+        # Each element can be: original, original + K, original - K
+        # To maximize the difference, we need the maximum and minimum possible values
+        max_val = -float('inf')
+        min_val = float('inf')
+        for num in arr:
+            max_val = max(max_val, num + K)
+            min_val = min(min_val, num - K)
+        # The maximum absolute difference is the difference between the maximum and minimum values
+        max_diff = max_val - min_val
+        results.append(str(max_diff))
+    print('\n'.join(results))
+
+if __name__ == '__main__':
+    solve()

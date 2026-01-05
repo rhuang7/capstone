@@ -18,16 +18,13 @@ def solve():
         # Calculate the maximum possible haybales in pile 1
         max_haybales = 0
         for i in range(1, n):
-            # Calculate how many days are needed to move all haybales from pile i to pile 1
-            days_needed = a[i] * i
-            if days_needed <= d:
-                max_haybales += a[i]
-                d -= days_needed
-            else:
-                # Can only move some haybales
-                max_haybales += d // i
-                d = 0
-                break
+            # How many days can we move haybales from pile i to pile 1
+            # Each haybale from pile i takes i days to reach pile 1
+            # So, we can move min(d // i, a[i-1]) haybales
+            days_per_haybale = i
+            max_possible = min(d // days_per_haybale, a[i-1])
+            max_haybales += max_possible
+            d -= max_possible * days_per_haybale
         
         results.append(str(max_haybales))
     

@@ -20,22 +20,37 @@ def solve():
         print(0)
         return
 
-    # Create events for boarding and departure
-    events = [(b, 1) for b, d in events] + [(d, -1) for b, d in events]
+    # Sort events by boarding point
     events.sort()
 
-    # Process events
-    res = 0
-    current_passengers = 0
-    prev_coord = None
-    for coord, delta in events:
-        if prev_coord is not None and coord != prev_coord:
-            res += current_passengers * (coord - prev_coord)
-            res %= MOD
-        current_passengers += delta
-        prev_coord = coord
+    # Create a list of all unique points
+    points = set()
+    for b, d in events:
+        points.add(b)
+        points.add(d)
+    points = sorted(points)
 
-    print(res % MOD)
+    # Create a list of events for each point
+    events = []
+    for p in points:
+        for b, d in events:
+            if b == p or d == p:
+                events.append((p, 'start' if b == p else 'end'))
+
+    # Sort events by point, and for same point, start before end
+    events.sort(key=lambda x: (x[0], 0 if x[1] == 'start' else 1))
+
+    # Calculate infection severity
+    severity = 0
+    passengers = 0
+    for i in range(len(points) - 1):
+        p1 = points[i]
+        p2 = points[i + 1]
+        # The infection degree is the number of passengers at p1
+        severity += passengers * (p2 - p1)
+        severity %= MOD
+
+    print(severity % MOD)
 
 if __name__ == '__main__':
     solve()

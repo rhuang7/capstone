@@ -7,119 +7,79 @@ def solve():
     data = input().split()
     
     N = int(data[0])
-    cost = []
+    costs = []
     index = 1
     for _ in range(N):
-        row = []
-        for _ in range(N):
-            row.append(int(data[index]))
-            index += 1
-        cost.append(row)
+        row = list(map(int, data[index:index+N]))
+        index += N
+        costs.append(row)
     
-    # The initial graph is a star with the capital (node 1) connected to all other nodes
-    # We need to make the graph 2-connected, i.e., removing any single node does not disconnect the graph
-    # This is equivalent to finding a minimum spanning tree of the graph where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
+    # Build a graph
+    graph = [[] for _ in range(N)]
+    for i in range(N):
+        for j in range(N):
+            if i != j:
+                graph[i].append((j, costs[i][j]))
     
-    # To achieve this, we can model the problem as finding a minimum spanning tree of the graph where the capital is connected to all other nodes, and then adding edges to make it 2-connected
-    # However, since the initial graph is already a star, we need to connect the other nodes in such a way that the graph remains connected even if any one node is removed
+    # Prim's algorithm to find minimum spanning tree (MST)
+    # We need to ensure that removing any one city still leaves the rest connected
+    # This is equivalent to finding a MST that is 2-edge-connected
+    # So we need to find a MST that is 2-edge-connected, which can be done by finding a MST and then adding edges to make it 2-edge-connected
     
-    # This is equivalent to finding a minimum spanning tree of the graph where the capital is connected to all other nodes, and then adding edges to make it 2-connected
-    # The minimum cost to achieve this is the sum of the minimum edges connecting the other nodes in such a way that the graph remains connected even if any one node is removed
+    # First, find MST of the graph
+    mst = set()
+    visited = [False] * N
+    visited[0] = True
+    min_heap = [(0, 0)]  # (cost, node)
     
-    # This is equivalent to finding a minimum spanning tree of the graph where the capital is connected to all other nodes, and then adding edges to make it 2-connected
+    while min_heap:
+        cost, u = heapq.heappop(min_heap)
+        if visited[u]:
+            continue
+        visited[u] = True
+        for v, w in graph[u]:
+            if not visited[v]:
+                heapq.heappush(min_heap, (w, v))
+                mst.add((u, v))
+                mst.add((v, u))
     
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make the graph 2-connected
+    # Now, find the minimum number of edges to add to make the MST 2-edge-connected
+    # This is equivalent to finding a minimum spanning tree of the graph with the edges not in the MST
+    # We can use Krusky's algorithm for this
     
-    # The minimum cost is the sum of the minimum edges connecting the other nodes in such a way that the graph remains connected even if any one node is removed
+    # Create a list of edges not in the MST
+    edges = []
+    for i in range(N):
+        for j in range(N):
+            if i != j and (i, j) not in mst and (j, i) not in mst:
+                edges.append((costs[i][j], i, j))
     
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
+    # Sort the edges by cost
+    edges.sort()
     
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
+    # Use Union-Find to find the minimum number of edges to add
+    parent = list(range(N))
     
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
+    def find(u):
+        while parent[u] != u:
+            parent[u] = parent[parent[u]]
+            u = parent[u]
+        return u
     
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
+    def union(u, v):
+        pu = find(u)
+        pv = find(v)
+        if pu == pv:
+            return False
+        parent[pu] = pv
+        return True
     
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
+    result = 0
+    for cost, u, v in edges:
+        if union(u, v):
+            result += cost
     
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can model this as a minimum spanning tree problem where the capital is connected to all other nodes, and we need to add edges to make it 2-connected
-    
-    # We can
+    print(result)
+
+if __name__ == '__main__':
+    solve()

@@ -28,17 +28,14 @@ def solve():
             else:
                 odd += 1
         for P in queries:
-            even_cnt = 0
-            odd_cnt = 0
+            res_even = 0
+            res_odd = 0
             for num in A:
                 x = P ^ num
                 cnt = count_ones(x)
                 if cnt % 2 == 0:
-                    even_cnt += 1
+                    res_even += 1
                 else:
-                    odd_cnt += 1
-            results.append(f"{even_cnt} {odd_cnt}")
+                    res_odd += 1
+            results.append(f"{res_even} {res_odd}")
     print('\n'.join(results))
-
-if __name__ == '__main__':
-    solve()

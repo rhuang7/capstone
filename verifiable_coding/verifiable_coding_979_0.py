@@ -8,30 +8,35 @@ def solve():
     M = int(data[0])
     N = int(data[1])
     K = int(data[2])
-    
-    # For a rectangle to be good, all inner border cells must be the same color
-    # The inner border of a rectangle of size m x n is the cells on the edges, excluding the corners
-    # The number of inner border cells is 2*(m + n - 2)
-    # For a rectangle to be good, all these cells must be the same color
-    # The probability that all these cells are the same color is 1/K^(2*(m + n - 2))
-    # The total number of rectangles is (M * (M + 1) // 2) * (N * (N + 1) // 2)
-    # So the expected number is total_rectangles * probability
-    
-    total_rectangles = (M * (M + 1) // 2) * (N * (N + 1) // 2)
-    
-    # For each rectangle, compute the number of inner border cells
-    # The expected value is sum over all rectangles of 1/K^(2*(m + n - 2))
-    # But since m and n vary, we can compute the sum for all possible m and n
-    
-    expected = 0
-    for m in range(1, M + 1):
-        for n in range(1, N + 1):
-            border = 2 * (m + n - 2)
-            if border > 0:
-                prob = 1.0 / (K ** border)
-                count = (m * (m + 1) // 2) * (n * (n + 1) // 2)
-                expected += count * prob
-    
+
+    if K == 1:
+        # All cells are the same color, so all rectangles are good
+        total_rectangles = M * (M + 1) // 2 * N * (N + 1) // 2
+        print(int(total_rectangles))
+        return
+
+    # For each possible rectangle, the probability that all inner borders are the same color
+    # is (1/K)^(number of inner borders)
+    # We calculate the expected number by summing over all possible rectangles
+
+    # Total number of rectangles is (M*(M+1)//2) * (N*(N+1)//2)
+    total_rectangles = M * (M + 1) // 2 * N * (N + 1) // 2
+
+    # For each rectangle, the number of inner borders is (width - 1) * (height - 1)
+    # So the expected contribution is total_rectangles * (1/K)^(number of inner borders)
+    # But since the number of inner borders varies, we need to sum over all possible rectangles
+
+    # We can precompute the sum of (1/K)^(width-1)*(height-1) for all possible widths and heights
+    # Let's compute the sum for all possible widths and heights
+
+    sum_expected = 0
+    for width in range(1, N + 1):
+        for height in range(1, M + 1):
+            inner_borders = (width - 1) * (height - 1)
+            prob = (1 / K) ** inner_borders
+            sum_expected += prob
+
+    expected = total_rectangles * sum_expected
     print(round(expected))
 
 if __name__ == '__main__':

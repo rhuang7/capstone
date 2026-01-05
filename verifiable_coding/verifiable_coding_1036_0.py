@@ -1,82 +1,86 @@
 import sys
-import math
 
-def read_input():
-    data = sys.stdin.buffer.read().split()
+def solve():
+    import sys
+    input = sys.stdin.buffer.read
+    data = input().split()
     idx = 0
     T = int(data[idx])
     idx += 1
     results = []
+    
     for _ in range(T):
         x11 = int(data[idx])
         y11 = int(data[idx+1])
         x12 = int(data[idx+2])
         y12 = int(data[idx+3])
         idx += 4
+        
         x21 = int(data[idx])
         y21 = int(data[idx+1])
         x22 = int(data[idx+2])
         y22 = int(data[idx+3])
         idx += 4
-        results.append((x11, y11, x12, y12, x21, y21, x22, y22))
-    return results
-
-def get_cells(start, end):
-    x1, y1, x2, y2 = start[0], start[1], end[0], end[1]
-    cells = set()
-    if x1 == x2:
-        for y in range(min(y1, y2), max(y1, y2) + 1):
-            cells.add((x1, y))
-    else:
-        for x in range(min(x1, x2), max(x1, x2) + 1):
-            cells.add((x, y1))
-    return cells
-
-def solve():
-    data = read_input()
-    for case in data:
-        x11, y11, x12, y12, x21, y21, x22, y22 = case
-        snake1 = [(x11, y11), (x12, y12)]
-        snake2 = [(x21, y21), (x22, y22)]
-        cells1 = get_cells(snake1[0], snake1[1])
-        cells2 = get_cells(snake2[0], snake2[1])
+        
+        # Function to get all cells in a snake
+        def get_cells(start, end):
+            x1, y1 = start
+            x2, y2 = end
+            cells = set()
+            if x1 == x2:
+                for y in range(min(y1, y2), max(y1, y2) + 1):
+                    cells.add((x1, y))
+            else:
+                for x in range(min(x1, x2), max(x1, x2) + 1):
+                    cells.add((x, y1))
+            return cells
+        
+        cells1 = get_cells((x11, y11), (x12, y12))
+        cells2 = get_cells((x21, y21), (x22, y22))
+        
+        # Combine cells
         all_cells = cells1.union(cells2)
+        
+        # Build adjacency list
         adj = {}
         for cell in all_cells:
             adj[cell] = []
-        # Build adjacency based on snake1
-        for i in range(len(snake1) - 1):
-            curr = snake1[i]
-            next_ = snake1[i+1]
-            adj[curr].append(next_)
-            adj[next_].append(curr)
-        # Build adjacency based on snake2
-        for i in range(len(snake2) - 1):
-            curr = snake2[i]
-            next_ = snake2[i+1]
-            adj[curr].append(next_)
-            adj[next_].append(curr)
+        
+        # Add edges from first snake
+        for i in range(len(cells1) - 1):
+            c1 = list(cells1)[i]
+            c2 = list(cells1)[i+1]
+            adj[c1].append(c2)
+            adj[c2].append(c1)
+        
+        # Add edges from second snake
+        for i in range(len(cells2) - 1):
+            c1 = list(cells2)[i]
+            c2 = list(cells2)[i+1]
+            adj[c1].append(c2)
+            adj[c2].append(c1)
+        
         # Check if all cells are connected
         visited = set()
-        start_cell = next(iter(all_cells))
-        stack = [start_cell]
-        visited.add(start_cell)
+        start = next(iter(all_cells))
+        stack = [start]
+        visited.add(start)
         while stack:
-            curr = stack.pop()
-            for neighbor in adj[curr]:
+            node = stack.pop()
+            for neighbor in adj[node]:
                 if neighbor not in visited:
                     visited.add(neighbor)
                     stack.append(neighbor)
         if len(visited) != len(all_cells):
-            print("no")
+            results.append("no")
             continue
-        # Check if all degrees are <= 2
+        
+        # Check if all nodes have degree <= 2
         for cell in all_cells:
             if len(adj[cell]) > 2:
-                print("no")
+                results.append("no")
                 break
         else:
-            print("yes")
-
-if __name__ == '__main__':
-    solve()
+            results.append("yes")
+    
+    print("\n".join(results))

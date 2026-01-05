@@ -1,5 +1,4 @@
 import sys
-import math
 
 def solve():
     import sys
@@ -9,13 +8,13 @@ def solve():
     k = int(data[1])
     a = list(map(int, data[2:2+N]))
     
-    # dp_forward[i] = max score to reach i from k in forward phase
-    # dp_backward[i] = max score to reach i from 1 in backward phase
+    # dp_forward[i]: maximum score when reaching position i from k in forward phase
+    # dp_backward[i]: maximum score when reaching position i from 1 in backward phase
     dp_forward = [float('-inf')] * (N + 2)
     dp_backward = [float('-inf')] * (N + 2)
     
     # Initialize forward phase
-    dp_forward[k] = 0
+    dp_forward[k] = 0  # start at k, score is 0
     for i in range(k, N):
         if i + 1 <= N:
             dp_forward[i + 1] = max(dp_forward[i + 1], dp_forward[i])
@@ -23,7 +22,7 @@ def solve():
             dp_forward[i + 2] = max(dp_forward[i + 2], dp_forward[i])
     
     # Initialize backward phase
-    dp_backward[1] = 0
+    dp_backward[1] = 0  # end at 1, score is 0
     for i in range(1, N):
         if i - 1 >= 1:
             dp_backward[i - 1] = max(dp_backward[i - 1], dp_backward[i])

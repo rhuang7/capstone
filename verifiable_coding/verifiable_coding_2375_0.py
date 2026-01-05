@@ -8,25 +8,37 @@ def solve():
     t = int(data[idx])
     idx += 1
     results = []
+    
     for _ in range(t):
         n = int(data[idx])
         idx += 1
         a = list(map(int, data[idx:idx+n]))
         idx += n
-        from collections import defaultdict
-        count = defaultdict(int)
-        for num in a:
-            count[num] += 1
+        
         max_len = 0
-        for a_val in count:
-            for b_val in count:
+        freq = {}
+        for num in a:
+            freq[num] = freq.get(num, 0) + 1
+        
+        for a_val in freq:
+            for b_val in freq:
                 if a_val == b_val:
-                    max_len = max(max_len, count[a_val])
+                    max_len = max(max_len, freq[a_val])
                 else:
-                    left = count[a_val]
-                    right = count[b_val]
-                    max_len = max(max_len, left + right + min(left, right))
+                    left = freq[a_val]
+                    right = freq[b_val]
+                    middle = 0
+                    for num in a:
+                        if num == a_val:
+                            left -= 1
+                        elif num == b_val:
+                            middle += 1
+                        elif num == a_val or num == b_val:
+                            pass
+                    max_len = max(max_len, left + middle + right)
+        
         results.append(str(max_len))
+    
     print('\n'.join(results))
 
 if __name__ == '__main__':

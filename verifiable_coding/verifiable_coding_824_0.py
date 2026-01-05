@@ -1,4 +1,5 @@
 import sys
+import sys
 sys.setrecursionlimit(1 << 25)
 
 def solve():
@@ -33,14 +34,12 @@ def solve():
     from collections import defaultdict
     leaf_count = defaultdict(int)
     for i in range(1, N + 1):
-        if len(edges[i]) == 1:
+        if len(edges[i]) == 1 and i != 1:
             leaf_count[depth[i]] += 1
     
     # The maximum number of components is the number of leaves at the deepest level
-    max_depth = max(depth)
-    result = leaf_count.get(max_depth, 0)
-    
-    print(result)
+    max_depth = max(leaf_count.keys())
+    print(leaf_count[max_depth])
 
 if __name__ == '__main__':
     solve()

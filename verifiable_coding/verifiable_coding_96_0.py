@@ -20,149 +20,135 @@ def solve():
         t = list(map(int, data[idx:idx+n]))
         idx += n
         
-        # Sort problems by their mandatory time
-        problems = sorted(zip(t, types), key=lambda x: x[0])
-        
-        # Precompute the earliest time to solve each problem
-        # For easy problems, time is a
-        # For hard problems, time is b
-        # We need to solve all problems with t_i <= s
-        # So we need to find the maximum s such that all problems with t_i <= s can be solved in s time
-        
-        # We can binary search on s
-        # For each s, we check if all problems with t_i <= s can be solved in s time
-        # To do that, we can collect all problems with t_i <= s, and check if the total time needed is <= s
-        
-        # First, collect all problems with t_i <= T (since s can't exceed T)
-        # Then, for each s, we can check if all problems with t_i <= s can be solved in s time
-        
-        # We can precompute the earliest time to solve each problem
-        # For each problem, the earliest time to solve it is max(t_i, 0)
-        # The total time needed to solve all problems with t_i <= s is the sum of a or b for each such problem
-        
-        # We can sort the problems by t_i
-        # Then, for each s, we can find all problems with t_i <= s, and check if the total time needed is <= s
-        
-        # We can binary search on s in [0, T]
-        # For each candidate s, we can find the number of problems with t_i <= s, and check if the total time needed is <= s
-        
-        # Precompute the list of (t_i, type)
-        # Sort by t_i
-        problems = sorted(zip(t, types), key=lambda x: x[0])
-        
-        # Precompute prefix sums of a and b
-        # We will need to know how many easy and hard problems are there up to each t_i
-        # So we can create two arrays: easy_count and hard_count
-        # easy_count[i] is the number of easy problems in the first i problems
-        # hard_count[i] is the number of hard problems in the first i problems
-        
-        # Also, we can precompute the prefix sum of a and b
-        # So that we can compute the total time needed for the first i problems
-        
-        # We will sort the problems by t_i
-        # Then, for each i, we can compute the total time needed to solve the first i problems
-        
-        # Let's sort the problems by t_i
-        problems.sort()
-        
-        # Now, we can precompute the prefix sums
-        # We will have two arrays: easy_count and hard_count
-        # And a total_time array
-        easy_count = []
-        hard_count = []
-        total_time = []
-        current_easy = 0
-        current_hard = 0
-        current_time = 0
-        for t_i, type_i in problems:
-            if type_i == 0:
-                current_easy += 1
-                current_time += a
+        easy = []
+        hard = []
+        for i in range(n):
+            if types[i] == 0:
+                easy.append(t[i])
             else:
-                current_hard += 1
-                current_time += b
-            easy_count.append(current_easy)
-            hard_count.append(current_hard)
-            total_time.append(current_time)
+                hard.append(t[i])
         
-        # Now, we can binary search on s in [0, T]
-        # For each s, we can find the maximum i such that t_i <= s
-        # Then, check if the total time needed for the first i problems is <= s
-        # If yes, then we can consider this s as a candidate
-        
-        # We can binary search on s in [0, T]
-        # For each s, find the maximum i where t_i <= s
-        # Then, check if the total time for the first i problems is <= s
-        
-        # We can use binary search for this
-        # Also, we need to consider that some problems may have t_i > s, but they are not mandatory
-        
-        # Let's binary search for the best s
-        # The maximum possible points is the maximum number of problems that can be solved in s time, where s is such that all mandatory problems up to s are solved
-        
-        # We can try all possible s in [0, T], but that would be too slow
-        # So we need to find the best s efficiently
-        
-        # We can binary search on s in [0, T]
-        # For each s, we find the maximum i such that t_i <= s
-        # Then, check if the total time for the first i problems is <= s
-        # If yes, then we can consider this s as a candidate
-        
-        # Also, we need to consider that some problems may have t_i > s, but they are not mandatory
-        # So we need to find the maximum s such that all mandatory problems up to s can be solved in s time
-        
-        # We can binary search on s in [0, T]
-        # For each s, we can find the number of problems with t_i <= s
-        # Then, check if the total time needed to solve all of them is <= s
-        
-        # Let's binary search for the best s
-        # We'll keep track of the maximum points we can get
+        easy.sort()
+        hard.sort()
         
         max_points = 0
-        low = 0
-        high = T
-        best_s = 0
         
-        while low <= high:
-            mid = (low + high) // 2
-            # Find the number of problems with t_i <= mid
-            # We can use binary search for this
-            left = 0
-            right = n - 1
-            best_i = -1
-            while left <= right:
-                m = (left + right) // 2
-                if problems[m][0] <= mid:
-                    best_i = m
-                    left = m + 1
+        for s in range(0, T + 1):
+            # Check if all mandatory problems up to s are solved
+            # Count easy and hard problems that can be solved by s
+            # We need to find the maximum number of problems that can be solved by s
+            # and ensure that all mandatory problems up to s are solved
+            
+            # Find the number of easy problems that can be solved by s
+            # Each easy problem takes a minutes, so the number of easy problems is s // a
+            # But we need to count only those with t_i <= s
+            # Similarly for hard problems
+            
+            # Binary search for the number of easy problems with t_i <= s
+            # and can be solved by s
+            # Similarly for hard problems
+            
+            # We can precompute the sorted lists
+            # For each s, find the maximum number of easy and hard problems that can be solved by s
+            # and that have t_i <= s
+            
+            # For easy problems:
+            # Find the number of easy problems with t_i <= s
+            # and the number of easy problems that can be solved by s
+            # The minimum of these two is the number of easy problems that can be solved
+            
+            # For hard problems:
+            # Find the number of hard problems with t_i <= s
+            # and the number of hard problems that can be solved by s
+            # The minimum of these two is the number of hard problems that can be solved
+            
+            # The total number of problems that can be solved is the sum of the two
+            
+            # But we need to ensure that all mandatory problems up to s are solved
+            # So we need to find the maximum s such that all mandatory problems up to s are solved
+            
+            # To find the maximum s, we can binary search on s
+            
+            # Let's find the maximum s such that all mandatory problems up to s are solved
+            
+            # First, find the set of all mandatory problems
+            # For each s, the mandatory problems are those with t_i <= s
+            # We need to check if all of them can be solved by s
+            
+            # So for each s, we need to check:
+            # 1. All mandatory problems (t_i <= s) can be solved by s
+            # 2. The number of problems solved is the sum of the number of easy and hard problems that can be solved by s
+            
+            # To do this efficiently, we can precompute the sorted lists of t_i for easy and hard problems
+            
+            # For each s, we can find the number of easy and hard problems with t_i <= s
+            # and the maximum number of easy and hard problems that can be solved by s
+            # The minimum of these two is the number of problems that can be solved
+            
+            # We can binary search for the maximum s where all mandatory problems up to s can be solved
+            
+            # To do this, we can find the maximum s such that:
+            # the number of easy problems with t_i <= s is <= s // a
+            # and the number of hard problems with t_i <= s is <= s // b
+            
+            # So for each s, we need to check if all mandatory problems up to s can be solved by s
+            
+            # To find the maximum s, we can binary search between 0 and T
+            
+            # Let's binary search for s
+            low = 0
+            high = T
+            best = 0
+            
+            while low <= high:
+                mid = (low + high) // 2
+                # Check if all mandatory problems up to mid can be solved by mid
+                # Find the number of easy and hard problems with t_i <= mid
+                # and check if they can be solved by mid
+                
+                # For easy problems
+                # Find the number of easy problems with t_i <= mid
+                # This is the number of easy problems in the sorted list that are <= mid
+                # Similarly for hard problems
+                # We can use binary search for this
+                
+                # For easy problems
+                e = 0
+                for ti in easy:
+                    if ti <= mid:
+                        e += 1
+                # For hard problems
+                h = 0
+                for ti in hard:
+                    if ti <= mid:
+                        h += 1
+                # Check if all mandatory problems up to mid can be solved by mid
+                # The number of easy problems that can be solved by mid is mid // a
+                # The number of hard problems that can be solved by mid is mid // b
+                # We need to have e <= mid // a and h <= mid // b
+                if e <= mid // a and h <= mid // b:
+                    best = mid
+                    low = mid + 1
                 else:
-                    right = m - 1
-            if best_i == -1:
-                # No problems with t_i <= mid
-                # So we can't solve any problem
-                # So the points is 0
-                current_points = 0
-            else:
-                # Check if the total time for the first best_i + 1 problems is <= mid
-                total = easy_count[best_i] * a + hard_count[best_i] * b
-                if total <= mid:
-                    current_points = best_i + 1
-                else:
-                    current_points = 0
-            if current_points > max_points:
-                max_points = current_points
-                best_s = mid
-            if current_points == 0:
-                # We can't solve any problem, so we need to try smaller s
-                high = mid - 1
-            else:
-                # Try to find a better s
-                low = mid + 1
+                    high = mid - 1
+            
+            # Now, for the best s, compute the maximum number of problems that can be solved
+            # This is the number of easy and hard problems that can be solved by s
+            # And all mandatory problems up to s are solved
+            # So we can compute this as:
+            e = 0
+            for ti in easy:
+                if ti <= best:
+                    e += 1
+            h = 0
+            for ti in hard:
+                if ti <= best:
+                    h += 1
+            max_points = max(max_points, e + h)
         
-        results.append(max_points)
+        results.append(str(max_points))
     
-    for res in results:
-        print(res)
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

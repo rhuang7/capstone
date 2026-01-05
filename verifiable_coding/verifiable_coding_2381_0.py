@@ -34,9 +34,7 @@ def solve():
                 last_l = i
                 break
         
-        # The minimal d is the maximum of:
-        # - distance from 0 to first R
-        # - distance from last L to n+1
+        # The minimum d is the maximum of the distance from 0 to first R and from last L to n+1
         d = max(first_r, n - last_l)
         results.append(str(d))
     

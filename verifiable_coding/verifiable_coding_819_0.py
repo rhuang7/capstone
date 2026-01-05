@@ -6,27 +6,33 @@ def solve():
     data = input().split()
     
     T = int(data[0])
-    index = 1
+    idx = 1
+    
+    results = []
     
     for _ in range(T):
-        x = int(data[index])
-        y = int(data[index + 1])
-        index += 2
+        x = int(data[idx])
+        y = int(data[idx + 1])
+        idx += 2
         
-        # The problem reduces to checking if x and y are coprime
-        # Because the operation allows us to reduce the problem to gcd(x-1, y-1)
-        # If gcd(x-1, y-1) == 1, then it is possible to reach the desired state
-        if (x - 1) * (y - 1) == 0:
-            print("YES")
+        # Initial state: 1 red, 1 black
+        r = 1
+        b = 1
+        
+        # Perform operations until either r or b becomes 0
+        while r > 0 and b > 0:
+            if r >= b:
+                r -= b
+            else:
+                b -= r
+        
+        # Check if we can reach the required number of balls
+        if r == x and b == y:
+            results.append("YES")
         else:
-            if sys.version_info[0] >= 3 and sys.version_info[1] >= 11:
-                from math import gcd
-            else:
-                from math import gcd
-            if gcd(x - 1, y - 1) == 1:
-                print("YES")
-            else:
-                print("NO")
+            results.append("NO")
+    
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

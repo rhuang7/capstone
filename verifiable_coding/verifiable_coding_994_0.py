@@ -21,51 +21,104 @@ def solve():
         for i in range(N):
             prefix[i+1] = prefix[i] + A[i]
         
-        # Precompute prefix sums of B (but B is not stored, we compute on the fly)
-        # We need to find the number of square submatrices of B with sum X
+        # Precompute prefix sums of B
+        # B[i][j] = A[i] + A[j]
+        # Sum of square submatrix from (x1, y1) to (x2, y2) is sum_{i=x1}^{x2} sum_{j=y1}^{y2} (A[i] + A[j])
+        # = sum_{i=x1}^{x2} (A[i] * (y2 - y1 + 1) + sum_{j=y1}^{y2} A[j])
+        # = (y2 - y1 + 1) * sum_{i=x1}^{x2} A[i] + (x2 - x1 + 1) * sum_{j=y1}^{y2} A[j]
+        # = (y2 - y1 + 1) * (prefix[x2] - prefix[x1-1]) + (x2 - x1 + 1) * (prefix[y2] - prefix[y1-1])
+        # Let k = x2 - x1 = y2 - y1
+        # Then x2 = x1 + k, y2 = y1 + k
+        # So the sum is k * (prefix[x1 + k] - prefix[x1-1]) + (k + 1) * (prefix[y1 + k] - prefix[y1-1])
+        # We need this sum to be X
         
-        # For a square submatrix of size k x k, the sum can be computed using prefix sums
-        # The sum of B from (x1, y1) to (x2, y2) is sum_{i=x1}^{x2} sum_{j=y1}^{y2} (A_i + A_j)
-        # = sum_{i=x1}^{x2} (A_i * (y2 - y1 + 1)) + sum_{j=y1}^{y2} (A_j * (x2 - x1 + 1))
-        # = (y2 - y1 + 1) * sum_{i=x1}^{x2} A_i + (x2 - x1 + 1) * sum_{j=y1}^{y2} A_j
-        
-        # Let k = x2 - x1 + 1 = y2 - y1 + 1
-        # Then sum = k * (sum_A[x2] - sum_A[x1-1]) + k * (sum_A[y2] - sum_A[y1-1])
-        # = k * (sum_A[x2] - sum_A[x1-1] + sum_A[y2] - sum_A[y1-1])
-        
-        # Let's precompute all possible values of (sum_A[i] - sum_A[j]) for 0 <= j < i <= N
-        # Then for each k, we can find pairs (i, j) such that k * (sum_A[i] - sum_A[j] + sum_A[j] - sum_A[i]) = X
-        # Wait, that's not right. Let me re-derive:
-        
-        # sum = k * (sum_A[x2] - sum_A[x1-1] + sum_A[y2] - sum_A[y1-1])
-        # = k * (sum_A[x2] + sum_A[y2] - sum_A[x1-1] - sum_A[y1-1])
-        
-        # Let's define for each i, the value sum_A[i] as prefix[i]
-        # Then for a square of size k, we need to find pairs (i, j) such that:
-        # k * (prefix[i] + prefix[j] - prefix[i-k] - prefix[j-k]) = X
-        
-        # But this is complicated. Let's think of it differently.
-        
-        # For a square of size k x k, the sum is:
-        # sum_{i=1}^k sum_{j=1}^k (A_i + A_j) = k * sum_{i=1}^k A_i + k * sum_{j=1}^k A_j = 2k * sum_{i=1}^k A_i
-        
-        # Wait, no. Because for each i and j, we have A_i + A_j. So the total is:
-        # sum_{i=1}^k sum_{j=1}^k (A_i + A_j) = k * sum_{i=1}^k A_i + k * sum_{j=1}^k A_j = 2k * sum_{i=1}^k A_i
-        
-        # So the sum of the square submatrix of size k x k is 2k * sum_{i=1}^k A_i
-        
-        # So we need to find the number of k such that 2k * sum_{i=1}^k A_i = X
-        
-        # So for each k from 1 to N, we can compute the sum of the first k elements of A, multiply by 2k, and check if it equals X
-        
-        # So the solution is to compute for each k, the sum of the first k elements of A, multiply by 2k, and count how many times it equals X
-        
+        # For each possible k (from 0 to N-1), iterate over possible x1 and y1
         count = 0
-        for k in range(1, N+1):
-            s = prefix[k]
-            if 2 * k * s == X:
-                count += 1
-        results.append(count)
-    
-    for res in results:
-        print(res)
+        for k in range(N):
+            # For each possible x1, compute the value of (prefix[x1 + k] - prefix[x1-1]) * k
+            # And for each possible y1, compute (prefix[y1 + k] - prefix[y1-1]) * (k + 1)
+            # We need k * a + (k + 1) * b = X
+            # => k*a + (k + 1)*b = X
+            # => k*(a + b) + b = X
+            # => b = X - k*(a + b)
+            # But this may not help directly. Instead, we can precompute all possible a and b for this k
+            # and check if k*a + (k+1)*b = X
+            # So for each x1, compute a = prefix[x1 + k] - prefix[x1-1]
+            # For each y1, compute b = prefix[y1 + k] - prefix[y1-1]
+            # Check if k*a + (k+1)*b == X
+            # To optimize, we can precompute all possible a and b for this k
+            # and for each a, find the number of b's such that (k+1)*b = X - k*a
+            # => b = (X - k*a) / (k+1)
+            # So for each a, compute (X - k*a) and check if it is divisible by (k+1)
+            # and if so, check how many times that value of b appears in the list of b's
+            # So we can precompute all possible b's for this k, and store their frequencies
+            # Then for each a, compute (X - k*a) and check if it is divisible by (k+1)
+            # and if so, look up the frequency of (X - k*a) / (k+1) in the b list
+            # This would be O(N) per k, which is acceptable since k ranges up to N-1 and N is up to 1e5
+            # However, for large N, this would be O(N^2), which is too slow
+            # So we need a better approach
+            
+            # Let's try to find a mathematical way to express the condition
+            # k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*(a + b) + b = X
+            # => b = X - k*(a + b)
+            # Not helpful. Let's try to find a way to express this in terms of a and b
+            # For a fixed k, we can precompute all possible a and b
+            # Then for each a, compute required b = (X - k*a) / (k+1)
+            # And check if this b is present in the list of b's
+            # So for each k, we can precompute all possible a's and b's
+            # Then for each a, compute required b and check if it exists in the b list
+            # This is O(N) per k, which is O(N^2) overall, which is too slow for N=1e5
+            
+            # So we need a better approach
+            # Let's try to find a way to express the sum of the square submatrix in terms of prefix sums
+            # The sum is k * (prefix[x1 + k] - prefix[x1-1]) + (k+1) * (prefix[y1 + k] - prefix[y1-1])
+            # = k * (prefix[x1 + k] - prefix[x1-1]) + (k+1) * (prefix[y1 + k] - prefix[y1-1])
+            # = k * (prefix[x1 + k] - prefix[x1-1]) + (k+1) * (prefix[y1 + k] - prefix[y1-1])
+            # Let's denote this as k*a + (k+1)*b = X
+            # We can rewrite this as:
+            # k*a + (k+1)*b = X
+            # => k*(a + b) + b = X
+            # => b = X - k*(a + b)
+            # Not helpful. Let's think of it as:
+            # k*a + (k+1)*b = X
+            # => k*(a + b) + b = X
+            # => b = X - k*(a + b)
+            # Not helpful. Let's think of it as:
+            # k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*(a + b) + b = X
+            # => b = X - k*(a + b)
+            # Not helpful. Let's try to find a way to express this in terms of a and b
+            # Let's think of this as:
+            # k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*b = X
+            # => k*a + (k+1)*

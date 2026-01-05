@@ -8,7 +8,7 @@ def solve():
     idx += 1
     N = int(NQ[0])
     Q = int(NQ[1])
-    media_types = {}
+    ext_to_type = {}
     for _ in range(N):
         if idx >= len(input):
             break
@@ -16,22 +16,20 @@ def solve():
         idx += 1
         if len(line) < 2:
             continue
-        ext = line[0].decode()
-        media = line[1].decode()
-        media_types[ext] = media
+        ext, typ = line[0], line[1]
+        ext_to_type[ext] = typ
     for _ in range(Q):
         if idx >= len(input):
             break
-        line = input[idx].split()
+        filename = input[idx].strip()
         idx += 1
-        filename = line[0].decode()
         if '.' not in filename:
             print("unknown")
             continue
         parts = filename.split('.', 1)
         ext = parts[1]
-        if ext in media_types:
-            print(media_types[ext])
+        if ext in ext_to_type:
+            print(ext_to_type[ext])
         else:
             print("unknown")
 

@@ -2,9 +2,9 @@ import sys
 
 def is_classy(x):
     s = str(x)
-    return s.count('0') == len(s) - s.count('0')
+    return s.count('0') == len(s) - s.count('0') - 1
 
-def count_classy_up_to(n):
+def count_classy(n):
     count = 0
     for i in range(1, n + 1):
         if is_classy(i):
@@ -22,10 +22,10 @@ def solve():
         L = int(data[idx])
         R = int(data[idx + 1])
         idx += 2
-        res = count_classy_up_to(R) - count_classy_up_to(L - 1)
+        res = count_classy(R) - count_classy(L - 1)
         results.append(res)
-    for r in results:
-        print(r)
+    for res in results:
+        print(res)
 
 if __name__ == '__main__':
     solve()

@@ -15,7 +15,7 @@ def solve():
         idx += N
         total = 0
         for i in range(N):
-            if (i + 1) <= (N - i):
+            if (i+1) <= (N - i):
                 total += a[i]
         if total >= X:
             results.append("YES")

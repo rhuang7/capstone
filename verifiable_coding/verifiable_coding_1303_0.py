@@ -15,41 +15,32 @@ def solve():
         A = list(map(int, data[idx:idx+N]))
         idx += N
         
-        # For each position i (1-based), compute A[i-1] % M
-        # And group elements by their (i % M) value
-        # We need to select K elements such that the i-th element in the subsequence satisfies A[i-1] % M == i % M
-        # So for position j in the subsequence (1-based), the element must satisfy A[i-1] % M == j % M
-        # So we can precompute for each position in the array, what (i % M) value it contributes to
-        # Then, for each possible j (1-based in the subsequence), we can count how many elements in the array have (i % M) == j % M
-        # Then, the problem reduces to choosing K elements such that for each position j in the subsequence, the j-th element in the subsequence comes from the group of elements with (i % M) == j % M
-        # This is a combinatorial problem: for each j in 1..K, we choose one element from the group of elements with (i % M) == j % M
-        # So we can precompute for each j in 1..K, the count of elements in the array with (i % M) == j % M
-        # Then, the answer is the product of these counts for each j in 1..K
-        # But we need to make sure that for each j, there are enough elements in the group to choose from
-        # So we can precompute for each j in 1..K, the count of elements in the array with (i % M) == j % M
-        # Then, the answer is the product of these counts for each j in 1..K
-        
-        # Precompute for each j in 1..K, the count of elements in the array with (i % M) == j % M
+        # For each position i (1-based), determine which remainder it can contribute to
+        # We'll count how many numbers in A have value % M equal to r, for r in 0..M-1
         count = [0] * M
-        for i in range(N):
-            rem = A[i] % M
+        for num in A:
+            rem = num % M
             count[rem] += 1
         
-        # Now, for each j in 1..K, we need to select one element from the group with (i % M) == j % M
-        # So the answer is the product of count[j % M] for j in 1..K
-        # But we need to make sure that for each j, count[j % M] >= 1
-        # If any of them is zero, the answer is zero
-        ans = 1
-        for j in range(1, K+1):
-            rem = j % M
-            if count[rem] == 0:
-                ans = 0
-                break
-            ans = (ans * count[rem]) % MOD
-        results.append(ans)
+        # dp[i][r] = number of ways to choose i elements with the i-th element having remainder r
+        # We'll use a 1D array for space optimization
+        dp = [0] * M
+        dp[0] = 1  # base case: 1 way to choose 0 elements with remainder 0
+        
+        for i in range(1, K+1):
+            new_dp = [0] * M
+            for r in range(M):
+                if dp[r] == 0:
+                    continue
+                # For the i-th position (1-based), the remainder must be (i % M)
+                target_r = i % M
+                # We can take any element with remainder target_r
+                new_dp[target_r] = (new_dp[target_r] + dp[r] * count[target_r]) % MOD
+            dp = new_dp
+        
+        results.append(dp[0] % MOD)
     
-    for res in results:
-        print(res)
+    sys.stdout.write('\n'.join(map(str, results)) + '\n')
 
 if __name__ == '__main__':
     solve()

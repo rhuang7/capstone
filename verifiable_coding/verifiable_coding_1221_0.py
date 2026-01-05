@@ -2,6 +2,7 @@ import sys
 import math
 
 def solve():
+    import sys
     input = sys.stdin.buffer.read
     data = input().split()
     T = int(data[0])
@@ -9,21 +10,13 @@ def solve():
     
     for Xf in cases:
         max_moves = 0
-        y = 0
-        x = 0
-        while True:
-            # Find the smallest P such that P^2 > y and P > x
-            P = math.isqrt(y) + 1
-            if P > Xf:
-                break
-            if P > x:
-                # Valid move
+        current_y = 0
+        current_x = 0
+        for i in range(1, Xf + 1):
+            if i * i > current_y:
+                current_y += i * i
+                current_x = i
                 max_moves += 1
-                y += P * P
-                x = P
-            else:
-                # Cannot choose P because it's not larger than current x
-                break
         print(max_moves)
 
 if __name__ == '__main__':

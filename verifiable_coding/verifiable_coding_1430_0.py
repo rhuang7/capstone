@@ -6,22 +6,28 @@ def solve():
     data = input().split()
     
     T = int(data[0])
-    idx = 1
+    index = 1
     
     results = []
     
     for _ in range(T):
-        N = int(data[idx])
-        K = int(data[idx + 1])
-        idx += 2
+        N = int(data[index])
+        K = int(data[index + 1])
+        index += 2
         
         if K == 0:
             results.append(N)
             continue
         
-        # The minimum configuration is to have each kid get 1 candy, and then add K to alternate kids
-        # So the total is N + K * (N // 2)
-        results.append(N + K * (N // 2))
+        # Minimum configuration: start with 1, then add K each time
+        # But since it's a circle, the last and first must also differ by at least K
+        # So we need to adjust the sequence to ensure this
+        # The minimum sequence is 1, 1 + K, 1 + 2K, ..., 1 + (N-1)K
+        # But the last and first must differ by at least K
+        # So we need to add K to the last element to ensure this
+        # Total = sum(1 + i*K for i in range(N)) + K
+        total = sum(1 + i * K for i in range(N)) + K
+        results.append(total)
     
     sys.stdout.write('\n'.join(map(str, results)) + '\n')
 

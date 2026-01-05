@@ -12,23 +12,19 @@ def solve():
         if n < 2:
             print("no")
             continue
-        # Check for any two equal subsequences
-        # We can use the fact that if there is any character that appears at least twice,
-        # then we can find two different subsequences of length 1 (the same character)
-        # or longer if there are duplicates
-        # So, check if any character appears at least twice
+        # Check if there are at least two identical characters
         freq = {}
-        for c in s:
-            if c in freq:
-                freq[c] += 1
+        for ch in s:
+            if ch in freq:
+                freq[ch] += 1
             else:
-                freq[c] = 1
-        # If any character appears at least twice, then answer is yes
-        # Because we can take two different positions of that character as two subsequences
-        # For example, "aa" has "a" and "a" as two different subsequences
-        # But if all characters are unique, then answer is no
-        has_duplicate = any(count >= 2 for count in freq.values())
-        print("yes" if has_duplicate else "no")
+                freq[ch] = 1
+        # If any character appears at least twice, then there are two equal subsequences
+        # For example, if a character appears twice, then the two single characters are equal subsequences
+        if any(count >= 2 for count in freq.values()):
+            print("yes")
+        else:
+            print("no")
 
 if __name__ == '__main__':
     solve()

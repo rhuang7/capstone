@@ -6,26 +6,30 @@ def solve():
     M = int(data[0])
     arr = list(map(int, data[1:M+1]))
     
-    # Compute the GCD of all elements
-    gcd_val = arr[0]
+    # Compute the gcd of all elements
+    def gcd(a, b):
+        while b:
+            a, b = b, a % b
+        return a
+    
+    current_gcd = arr[0]
     for num in arr[1:]:
-        gcd_val = math.gcd(gcd_val, num)
+        current_gcd = gcd(current_gcd, num)
     
-    # Find all divisors of gcd_val that are >1
-    divisors = set()
-    for i in range(2, int(math.isqrt(gcd_val)) + 1):
-        if gcd_val % i == 0:
-            divisors.add(i)
-            if i != gcd_val // i:
-                divisors.add(gcd_val // i)
-    if gcd_val > 1:
-        divisors.add(gcd_val)
+    # Find all divisors of current_gcd that are > 1
+    def get_divisors(n):
+        divisors = set()
+        for i in range(2, int(math.isqrt(n)) + 1):
+            if n % i == 0:
+                divisors.add(i)
+                if n // i > 1:
+                    divisors.add(n // i)
+        if n > 1:
+            divisors.add(n)
+        return sorted(divisors)
     
-    # Sort the divisors
-    sorted_divisors = sorted(divisors)
-    
-    # Output the result
-    print(' '.join(map(str, sorted_divisors)))
+    result = get_divisors(current_gcd)
+    print(' '.join(map(str, result)))
 
 if __name__ == '__main__':
     solve()

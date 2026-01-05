@@ -23,22 +23,10 @@ def solve():
         valid_lengths = []
         for l1 in range(1, n):
             l2 = n - l1
-            p1 = a[:l1]
-            p2 = a[l1:]
-            
-            # Check if p1 is a permutation of 1..l1
-            if len(p1) != len(set(p1)) or any(x < 1 or x > l1 for x in p1):
-                continue
-            
-            # Check if p2 is a permutation of 1..l2
-            if len(p2) != len(set(p2)) or any(x < 1 or x > l2 for x in p2):
-                continue
-            
-            # Check if all elements in a are accounted for
-            if len(set(a)) != n:
-                continue
-            
-            valid_lengths.append((l1, l2))
+            p1 = set(a[:l1])
+            p2 = set(a[l1:])
+            if len(p1) == l1 and len(p2) == l2:
+                valid_lengths.append((l1, l2))
         
         results.append(str(len(valid_lengths)))
         for l1, l2 in valid_lengths:

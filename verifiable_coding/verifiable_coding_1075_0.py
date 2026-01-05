@@ -17,21 +17,21 @@ def solve():
         A = list(map(int, data[idx:idx+N]))
         idx += N
         
-        # Calculate Grundy numbers for each number
+        # Compute Grundy numbers for each number
         grundy = []
         for a in A:
             g = 0
             # Compute mex of all possible next states
             next_states = set()
-            for d in [2, 3, 4, 5, 6]:
-                if a % d == 0:
-                    next_val = a // d
+            for divisor in [2, 3, 4, 5, 6]:
+                if a % divisor == 0:
+                    next_val = a // divisor
                 else:
-                    next_val = a // d
-                if next_val > 0:
-                    next_states.add(next_val)
-                else:
+                    next_val = a // divisor
+                if next_val == 0:
                     next_states.add(0)
+                else:
+                    next_states.add(grundy[next_val - 1] if next_val <= 10**18 else 0)
             # Compute mex
             mex = 0
             while mex in next_states:

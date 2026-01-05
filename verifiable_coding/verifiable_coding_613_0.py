@@ -11,23 +11,19 @@ def solve():
         n = len(word)
         if n % 2 != 0:
             return False
-        a_positions = [i for i, c in enumerate(word) if c == 'A']
-        b_positions = [i for i, c in enumerate(word) if c == 'B']
-        if len(a_positions) % 2 != 0 or len(b_positions) % 2 != 0:
-            return False
-        a_pairs = []
-        b_pairs = []
-        i = 0
-        j = 0
-        while i < len(a_positions) and j < len(b_positions):
-            a_pairs.append((a_positions[i], a_positions[i+1]))
-            b_pairs.append((b_positions[j], b_positions[j+1]))
-            i += 2
-            j += 2
-        for a1, a2 in a_pairs:
-            for b1, b2 in b_pairs:
-                if (a1 < b1 and a2 > b2) or (a1 > b1 and a2 < b2):
-                    return False
+        pairs = []
+        for i in range(0, n, 2):
+            pairs.append((i, i+1))
+        # Check if the word can be paired such that no two lines intersect
+        # We can use a greedy approach: pair A's with A's and B's with B's
+        # If the word has equal number of A's and B's, then it's bubbly
+        # But this is not sufficient, we need to check the order
+        # A valid bubbly word must have the same number of A's and B's and the sequence must be such that A's and B's alternate
+        # So the word must be of the form ABABAB... or BABA...B
+        # So check if the word is alternating
+        for i in range(1, len(word)):
+            if word[i] == word[i-1]:
+                return False
         return True
 
     count = 0

@@ -29,33 +29,20 @@ def solve():
             results.append("No")
             continue
         
-        # Create a list of colors
-        colors = []
+        # Create a list of colors in the order they appear
+        color_list = []
         for color, cnt in freq:
-            colors.extend([color] * cnt)
+            color_list.extend([color] * cnt)
         
         # Try to rearrange
         res = []
         for i in range(N):
             if i % 2 == 0:
-                res.append(colors[i // 2])
+                res.append(color_list[(N - i) // 2])
             else:
-                res.append(colors[i // 2])
+                res.append(color_list[(N - i) // 2])
         
-        # Check if it's valid
-        valid = True
-        for i in range(N):
-            if res[i] == a[i]:
-                valid = False
-                break
-        
-        if valid:
-            results.append("Yes")
-            results.append(" ".join(map(str, res)))
-        else:
-            results.append("No")
+        results.append("Yes")
+        results.append(' '.join(map(str, res)))
     
-    print("\n".join(results))
-
-if __name__ == '__main__':
-    solve()
+    print('\n'.join(results))

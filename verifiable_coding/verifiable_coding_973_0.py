@@ -13,10 +13,13 @@ def solve():
         idx += 2
         arr = list(map(int, data[idx:idx+N]))
         idx += N
-        max_val = -1
-        min_val = 1000000000
+        max_val = -float('inf')
+        min_val = float('inf')
         for num in arr:
+            # Consider all possible operations
+            # Increment by K
             max_val = max(max_val, num + K)
+            # Decrement by K
             min_val = min(min_val, num - K)
         results.append(str(max_val - min_val))
     print('\n'.join(results))

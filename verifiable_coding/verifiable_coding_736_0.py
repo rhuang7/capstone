@@ -14,16 +14,21 @@ def solve():
             results.append(0)
             continue
         
-        # Calculate the total points for converting all characters to 'a'
+        # Calculate the total points for changing all characters to 'a'
         total = 0
         for c in S:
             total += ord(c) - ord('a')
         
-        # The minimum absolute value is the minimum between total and (25 - total)
-        min_abs = min(total, 25 - total)
-        results.append(str(min_abs))
+        # Calculate the total points for changing all characters to 'z'
+        total_z = 0
+        for c in S:
+            total_z += ord('z') - ord(c)
+        
+        # The minimum absolute value is the minimum of the two totals
+        results.append(min(abs(total), abs(total_z)))
     
-    print('\n'.join(results))
+    for res in results:
+        print(res)
 
 if __name__ == '__main__':
     solve()

@@ -10,7 +10,6 @@ def solve():
     T = int(data[idx])
     idx += 1
     results = []
-    
     for _ in range(T):
         N = int(data[idx])
         M = int(data[idx+1])
@@ -22,24 +21,21 @@ def solve():
             adj[a].append(b)
             adj[b].append(a)
             idx += 2
-        
         visited = [False] * N
         count = 0
-        
-        def dfs(u):
-            visited[u] = True
-            for v in adj[u]:
-                if not visited[v]:
-                    dfs(v)
-        
         for i in range(N):
             if not visited[i]:
-                dfs(i)
                 count += 1
-        
+                stack = [i]
+                visited[i] = True
+                while stack:
+                    node = stack.pop()
+                    for neighbor in adj[node]:
+                        if not visited[neighbor]:
+                            visited[neighbor] = True
+                            stack.append(neighbor)
         results.append(str(count))
-    
-    print('\n'.join(results)) if results else None
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

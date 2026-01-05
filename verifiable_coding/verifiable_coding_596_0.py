@@ -7,13 +7,13 @@ def solve():
     input = sys.stdin.buffer.read
     data = input().split()
     T = int(data[0])
-    idx = 1
+    index = 1
     results = []
     
     for _ in range(T):
-        N = int(data[idx])
-        K = int(data[idx+1])
-        idx += 2
+        N = int(data[index])
+        K = int(data[index+1])
+        index += 2
         
         if N == 0:
             results.append(0)
@@ -21,23 +21,22 @@ def solve():
         
         # For N to be visited K-th time
         # First occurrence is in round 1
-        # Second occurrence is in round 2
-        # ...
-        # K-th occurrence is in round K
-        # So the K-th time he reaches N is during the K-th round
+        # Then every even round (2, 4, 6, ...) contributes an additional occurrence
+        # So, if K is odd, it's in the (K+1)//2-th round
+        # If K is even, it's in the K//2-th round
+        if K % 2 == 1:
+            round_num = (K + 1) // 2
+        else:
+            round_num = K // 2
         
-        # Time to reach N for the K-th time
-        # The K-th round is the round where he goes from 0 to K and back
-        # So the K-th time he reaches N is when he is going from K to K-1
-        # So the time is:
-        # Time to reach K in the K-th round: 2*K - 1
-        # Then he goes back from K to K-1, which takes 1 second per step
-        # So to reach N from K, he has to go back K - N steps
-        # So total time is (2*K - 1) + (K - N)
-        # Which is 3*K - N - 1
+        # Time to reach N for the first time in round_num
+        # Time to go from 0 to N: N seconds
+        # Time to go back from N to 0: N seconds
+        # But we only need to go to N once in the round
+        # So total time is (round_num - 1) * (2 * N) + N
+        time = (round_num - 1) * (2 * N) + N
         
-        time = (3 * K - N - 1) % MOD
-        results.append(time)
+        results.append(time % MOD)
     
     sys.stdout.write('\n'.join(map(str, results)) + '\n')
 

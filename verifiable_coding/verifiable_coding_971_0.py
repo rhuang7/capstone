@@ -4,6 +4,7 @@ def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
+    
     idx = 0
     T = int(data[idx])
     idx += 1
@@ -19,19 +20,29 @@ def solve():
             results.append(0)
             continue
         
+        min_moves = float('inf')
         target = None
-        count = 0
+        
         for i in range(N):
-            if A[i] == A[0]:
+            if A[i] == min(A):
                 target = A[i]
                 break
         
-        moves = 0
         for i in range(N):
             if A[i] != target:
-                moves += 1
+                moves = 0
+                current = A[i]
+                while current != target:
+                    moves += 1
+                    if i > 0:
+                        current = A[i - 1]
+                        i -= 1
+                    else:
+                        current = A[i + 1]
+                        i += 1
+                min_moves = min(min_moves, moves)
         
-        results.append(moves)
+        results.append(min_moves)
     
     for res in results:
         print(res)

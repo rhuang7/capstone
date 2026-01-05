@@ -12,19 +12,21 @@ def solve():
     # Sort the array
     a.sort()
     
-    # Use a min-heap for a and a max-heap for b
+    # Use a min-heap for the laziness levels
     heapq.heapify(a)
     
-    # Create a max-heap for the second part
-    b = [-x for x in a]
-    heapq.heapify(b)
-    
     total = 0
-    for i in range(n):
-        # Take the smallest from a and the largest from b
-        smallest = heapq.heappop(a)
-        largest = -heapq.heappop(b)
-        total += smallest * largest
+    # Use a max-heap for the difficulty levels
+    # To simulate a max-heap, we insert negative values
+    max_heap = [-x for x in a]
+    heapq.heapify(max_heap)
+    
+    for _ in range(n):
+        # Get the smallest laziness
+        laziness = heapq.heappop(a)
+        # Get the largest difficulty
+        difficulty = -heapq.heappop(max_heap)
+        total += laziness * difficulty
         total %= MOD
     
     print(total % MOD)

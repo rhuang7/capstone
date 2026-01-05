@@ -8,7 +8,6 @@ def solve():
     idx = 0
     T = int(data[idx])
     idx += 1
-    
     results = []
     
     for _ in range(T):
@@ -25,7 +24,6 @@ def solve():
         days += (at_risk + D - 1) // D
         # Days needed for non-risk people
         days += (non_risk + D - 1) // D
-        
         results.append(days)
     
     for res in results:

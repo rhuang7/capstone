@@ -4,39 +4,33 @@ def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
-    
     T = int(data[0])
-    index = 1
+    idx = 1
+    months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
+    month_days = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     
-    months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
+    results = []
     
     for _ in range(T):
-        d = int(data[index])
-        m = data[index + 1]
-        index += 2
+        d = int(data[idx])
+        m = data[idx+1]
+        idx += 2
         
         month_index = months.index(m)
+        day = d
         
-        # Find the next month
-        next_month_index = (month_index + 1) % 12
-        
-        # Find the number of days in the current month
-        if month_index == 1:  # february
-            days = 29  # leap year
-        elif month_index in [3, 5, 8, 10]:  # april, june, september, november
-            days = 30
+        if month_index == 11:  # december
+            if day <= 15:
+                results.append(f"{day + 15} january")
+            else:
+                results.append(f"{day - 15} january")
         else:
-            days = 31
-        
-        # Calculate the half birthday
-        if d * 2 <= days:
-            d1 = d * 2
-            m1 = months[month_index]
-        else:
-            d1 = d * 2 - days
-            m1 = months[next_month_index]
-        
-        print(f"{d1} {m1}")
+            if day <= (month_days[month_index] // 2):
+                results.append(f"{day + (month_days[month_index] // 2)} {months[month_index]}")
+            else:
+                results.append(f"{day - (month_days[month_index] // 2)} {months[month_index + 1]}")
+    
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

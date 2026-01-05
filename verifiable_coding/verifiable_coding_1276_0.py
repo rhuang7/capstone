@@ -37,15 +37,12 @@ def solve():
                     return 0
                 if not next_set:
                     return 0
+                # Check if we are in a loop
                 if next_set.issubset(current):
                     return len(current) - len(next_set)
                 current = next_set
         
         res = min_insertions(A, K)
-        results.append(res)
+        results.append(str(res))
     
-    for r in results:
-        print(r)
-
-if __name__ == '__main__':
-    solve()
+    print('\n'.join(results))

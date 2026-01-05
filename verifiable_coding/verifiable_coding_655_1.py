@@ -1,0 +1,48 @@
+import sys
+
+def solve():
+    import sys
+    input = sys.stdin.buffer.read
+    data = input().split()
+    
+    idx = 0
+    T = int(data[idx])
+    idx += 1
+    
+    results = []
+    
+    for _ in range(T):
+        N = int(data[idx])
+        K = int(data[idx+1])
+        V = int(data[idx+2])
+        idx += 3
+        
+        A = list(map(int, data[idx:idx+N]))
+        idx += N
+        
+        total_remaining = sum(A)
+        total_original = (N + K) * V
+        
+        deleted_total = total_original - total_remaining
+        
+        if deleted_total < 0:
+            results.append(-1)
+            continue
+        
+        if deleted_total % K != 0:
+            results.append(-1)
+            continue
+        
+        deleted_value = deleted_total // K
+        
+        if deleted_value <= 0:
+            results.append(-1)
+            continue
+        
+        results.append(deleted_value)
+    
+    for res in results:
+        print(res)
+
+if __name__ == '__main__':
+    solve()

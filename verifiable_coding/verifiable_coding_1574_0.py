@@ -19,10 +19,15 @@ def solve():
             count[height] += 1
         prev = curr
 
+    if not count:
+        print(1)
+        return
+
     max_k = 0
     for k in count.values():
         if k > max_k:
             max_k = k
+
     print(max_k)
 
 if __name__ == '__main__':

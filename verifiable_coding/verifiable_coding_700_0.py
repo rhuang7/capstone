@@ -19,19 +19,22 @@ def solve():
         # DP approach
         # dp[i][0] = min cost to rob up to i-th bank with i-th bank not robbed
         # dp[i][1] = min cost to rob up to i-th bank with i-th bank robbed
-        # Initialize for first bank
-        dp0 = [0] * (N + 1)  # not robbed
-        dp1 = [0] * (N + 1)  # robbed
-        dp0[1] = 0
-        dp1[1] = min(banks[0][0], banks[0][1], banks[0][2], banks[0][3])
-        for i in range(2, N + 1):
-            # current bank is i-th (0-based)
-            a, b, c, d = banks[i - 1]
-            # if current bank is not robbed, previous can be robbed or not
-            dp0[i] = min(dp0[i - 1], dp1[i - 1])
-            # if current bank is robbed, previous cannot be robbed
-            dp1[i] = dp0[i - 1] + min(a, b, c, d)
-        results.append(min(dp0[N], dp1[N]))
+        # Initialize
+        dp_prev_not = float('inf')
+        dp_prev_yes = float('inf')
+        # First bank
+        a, b, c, d = banks[0]
+        dp_prev_not = min(a, b, c, d)
+        dp_prev_yes = min(a, b, c, d)
+        # Iterate from second bank
+        for i in range(1, N):
+            a, b, c, d = banks[i]
+            # Current not robbed
+            current_not = min(dp_prev_yes + a, dp_prev_not + b, dp_prev_yes + c, dp_prev_not + d)
+            # Current robbed
+            current_yes = min(dp_prev_not + a, dp_prev_not + b, dp_prev_not + c, dp_prev_not + d)
+            dp_prev_not, dp_prev_yes = current_not, current_yes
+        results.append(min(dp_prev_not, dp_prev_yes))
     for res in results:
         print(res)
 

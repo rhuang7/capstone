@@ -18,40 +18,44 @@ def solve():
             seg = list(map(int, data[idx:idx+k]))
             idx += k
             segments.append(seg)
-        # Find the permutation
-        # The smallest element in all segments is the first element of the permutation
-        # We can use the smallest element as the starting point
-        # Then, for each position, we find the next element that is not yet used
-        # and is present in the segments that include the current position
-        # We can use a greedy approach
-        # Start with the smallest element
-        used = [False] * (n + 1)
-        p = [0] * n
-        # Find the smallest element
-        min_val = None
+        # Build a graph where each node is a number and edges represent possible positions
+        # We'll use a union-find structure to group numbers that must be in the same segment
+        parent = list(range(n+1))
+        def find(u):
+            while parent[u] != u:
+                parent[u] = parent[parent[u]]
+                u = parent[u]
+            return u
+        def union(u, v):
+            pu = find(u)
+            pv = find(v)
+            if pu != pv:
+                parent[pv] = pu
+        # For each segment, merge all elements together
         for seg in segments:
-            if min_val is None or seg[0] < min_val:
-                min_val = seg[0]
-        used[min_val] = True
-        p[0] = min_val
-        # Now find the rest of the permutation
-        for i in range(1, n):
-            # Find the next element that is not used and is present in any segment that includes the current position
-            # We can use the fact that the segments are sorted and the permutation is unique
-            # So for each position, the next element is the smallest element in the segments that includes the current position
-            # But since we don't know the positions, we can use the fact that the next element must be in the segments
-            # and not used yet
-            # So we can iterate through all segments and find the smallest element not used
-            next_val = None
-            for seg in segments:
-                for val in seg:
-                    if not used[val]:
-                        if next_val is None or val < next_val:
-                            next_val = val
-            used[next_val] = True
-            p[i] = next_val
-        results.append(' '.join(map(str, p)) + ' ')
-    print(''.join(results))
+            for i in range(1, len(seg)):
+                union(seg[i-1], seg[i])
+        # Now, the permutation must be such that each number is in the correct position
+        # We can construct the permutation by placing the smallest number in the earliest position
+        # that is not yet occupied
+        p = [0] * (n + 1)
+        used = [False] * (n + 1)
+        for i in range(1, n+1):
+            # Find the root of i
+            root = find(i)
+            # Find the smallest number in the connected component of root
+            min_val = None
+            for j in range(1, n+1):
+                if find(j) == root and (min_val is None or j < min_val):
+                    min_val = j
+            # Place min_val in the first available position
+            for pos in range(1, n+1):
+                if not used[pos]:
+                    p[pos] = min_val
+                    used[pos] = True
+                    break
+        results.append(' '.join(map(str, p[1:])))
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

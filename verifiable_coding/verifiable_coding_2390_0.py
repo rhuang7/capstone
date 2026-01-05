@@ -16,8 +16,8 @@ def solve():
         a = list(map(int, data[idx:idx + n]))
         idx += n
         
-        freq = collections.Counter(a)
-        values = list(freq.values())
+        count = collections.Counter(a)
+        values = list(count.values())
         values.sort(reverse=True)
         
         res = 0
@@ -27,6 +27,7 @@ def solve():
                 res += 1
                 i += 1
             else:
+                res += values[i]
                 i += 1
         results.append(str(res))
     

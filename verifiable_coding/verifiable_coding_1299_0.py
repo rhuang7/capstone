@@ -17,24 +17,30 @@ def solve():
         idx += N
         
         from collections import defaultdict
-        type_positions = defaultdict(list)
-        for i, typ in enumerate(A):
-            type_positions[typ].append(i)
+        count = defaultdict(list)
         
-        max_count = -1
+        for i in range(N):
+            count[A[i]].append(i)
+        
+        max_dishes = -1
         best_type = None
         
-        for typ in sorted(type_positions.keys()):
-            positions = type_positions[typ]
-            count = 0
-            prev = -2
-            for pos in positions:
-                if pos - prev >= 2:
-                    count += 1
-                    prev = pos
-            if count > max_count or (count == max_count and typ < best_type):
-                max_count = count
+        for typ in count:
+            positions = count[typ]
+            n = len(positions)
+            if n == 0:
+                continue
+            # Maximum number of non-adjacent dishes
+            # This is equivalent to the maximum number of non-adjacent elements in a list
+            # which can be found by greedily selecting every other element
+            # So the maximum is (n + 1) // 2
+            max_dishes_type = (n + 1) // 2
+            if max_dishes_type > max_dishes:
+                max_dishes = max_dishes_type
                 best_type = typ
+            elif max_dishes_type == max_dishes:
+                if typ < best_type:
+                    best_type = typ
         
         results.append(str(best_type))
     

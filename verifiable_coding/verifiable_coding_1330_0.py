@@ -18,31 +18,28 @@ def solve():
         d = list(map(int, data[idx:idx+A*B]))
         idx += A*B
         
-        # Create a list of tuples (c_i, d_i) for each district
-        districts = list(zip(c, d))
+        # Combine c and d into pairs and sort by the maximum of each pair
+        districts = []
+        for i in range(A*B):
+            districts.append((c[i], d[i]))
         
-        # For each district, create a list of (value, is_c) where value is the vote and is_c indicates if it's P1's vote
-        # We sort this list in descending order to prioritize the highest values
-        sorted_districts = sorted([(val, is_c) for val, is_c in [(c[i], True) for i in range(A*B)] + [(d[i], False) for i in range(A*B)]], reverse=True)
+        # Sort districts based on the maximum of (c[i], d[i])
+        districts.sort(key=lambda x: max(x[0], x[1]), reverse=True)
         
-        # We need to select B districts for each state, and for each state, the maximum value determines the winner
-        # We want to maximize the number of states where P1 wins, i.e., the maximum value in the state is from P1
-        # So, we try to select B districts such that the maximum value is from P1
-        # We can do this greedily: for each state, select the top B districts, and check if the maximum is from P1
-        # We need to do this for A states
-        
+        # For each state, select B districts
         count_p1 = 0
-        remaining = A*B
-        for _ in range(A):
-            # Select B districts
-            state = sorted_districts[:B]
-            # Find the maximum value in the state
-            max_val = max(state, key=lambda x: x[0])
-            # Check if the maximum is from P1
-            if max_val[1]:
+        for i in range(0, A*B, B):
+            max_val = -1
+            max_party = ''
+            for j in range(i, i+B):
+                if max(districts[j][0], districts[j][1]) > max_val:
+                    max_val = max(districts[j][0], districts[j][1])
+                    if districts[j][0] == max_val:
+                        max_party = 'P1'
+                    else:
+                        max_party = 'P2'
+            if max_party == 'P1':
                 count_p1 += 1
-            # Remove these B districts from the list
-            sorted_districts = sorted_districts[B:]
         
         results.append(str(count_p1))
     

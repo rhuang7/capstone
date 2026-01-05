@@ -8,7 +8,6 @@ def solve():
     idx = 0
     T = int(data[idx])
     idx += 1
-    
     results = []
     
     for _ in range(T):
@@ -18,28 +17,26 @@ def solve():
         s = data[idx]
         idx += 1
         
-        # Check if the command string is safe for any starting position
+        # Check if the command string can be executed safely from any starting position
         safe = False
-        
-        # Try all possible starting positions
         for start_row in range(n):
             for start_col in range(m):
                 row, col = start_row, start_col
-                safe_start = True
-                for c in s:
-                    if c == 'L':
+                safe_path = True
+                for move in s:
+                    if move == 'L':
                         col -= 1
-                    elif c == 'R':
+                    elif move == 'R':
                         col += 1
-                    elif c == 'U':
+                    elif move == 'U':
                         row -= 1
-                    elif c == 'D':
+                    elif move == 'D':
                         row += 1
-                    # Check if the robot is still in the grid
+                    # Check if the robot is still inside the grid
                     if not (0 <= row < n and 0 <= col < m):
-                        safe_start = False
+                        safe_path = False
                         break
-                if safe_start:
+                if safe_path:
                     safe = True
                     break
             if safe:
@@ -47,7 +44,7 @@ def solve():
         
         results.append("safe" if safe else "unsafe")
     
-    print('\n'.join(results))
+    print("\n".join(results))
 
 if __name__ == '__main__':
     solve()

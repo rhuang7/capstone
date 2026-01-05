@@ -5,49 +5,94 @@ def get_first_digit_of_fraction(x, divisor):
     if remainder == 0:
         return quotient % 10
     fractional_part = remainder / divisor
-    # Convert to string to find first non-zero digit
-    fractional_str = str(fractional_part)
-    for c in fractional_str:
-        if c != '0':
-            return int(c)
-    return quotient % 10
+    # Get the first non-zero digit of the fractional part
+    digit = 0
+    for i in range(1, 10):
+        if fractional_part >= 10**(-i):
+            digit = i
+            break
+    return int(fractional_part * 10**digit) % 10
 
 def solve():
     import sys
-    input = sys.stdin.buffer.read().split()
-    ptr = 0
-    T = int(input[ptr])
-    ptr += 1
+    input = sys.stdin.buffer.read
+    data = input().split()
+    idx = 0
+    T = int(data[idx])
+    idx += 1
     results = []
     for _ in range(T):
-        N = int(input[ptr])
-        ptr += 1
-        A = int(input[ptr])
-        B = int(input[ptr+1])
-        C = int(input[ptr+2])
-        ptr += 3
-        Q = int(input[ptr])
-        ptr += 1
-        list_ = [N]
-        current = N
-        for _ in range(10**9):  # enough steps for all queries
-            current = list_[-1]
-            if A:
-                first_digit = get_first_digit_of_fraction(current, A)
-                list_.append(first_digit)
-            if B:
-                first_digit = get_first_digit_of_fraction(current, B)
-                list_.append(first_digit)
-            if C:
-                first_digit = get_first_digit_of_fraction(current, C)
-                list_.append(first_digit)
-            # Stop after 10^9 steps (as per query constraints)
-            if len(list_) > 10**9 + 1:
-                break
+        N = int(data[idx])
+        idx += 1
+        A = int(data[idx])
+        B = int(data[idx+1])
+        C = int(data[idx+2])
+        idx += 3
+        Q = int(data[idx])
+        idx += 1
+        queries = []
         for _ in range(Q):
-            i = int(input[ptr])
-            ptr += 1
-            results.append(str(list_[i]))
+            queries.append(int(data[idx]))
+            idx += 1
+        # Initialize list
+        lst = [N]
+        current = N
+        # Repeat the process for A, B, C
+        for _ in range(10**9):  # enough to cover all possible queries
+            # Process A
+            if current == 0:
+                lst.append(0)
+            else:
+                quotient, remainder = divmod(current, A)
+                if remainder == 0:
+                    lst.append(quotient % 10)
+                else:
+                    fractional_part = remainder / A
+                    digit = 0
+                    for i in range(1, 10):
+                        if fractional_part >= 10**(-i):
+                            digit = i
+                            break
+                    lst.append(int(fractional_part * 10**digit) % 10)
+            current = lst[-1]
+            # Process B
+            if current == 0:
+                lst.append(0)
+            else:
+                quotient, remainder = divmod(current, B)
+                if remainder == 0:
+                    lst.append(quotient % 10)
+                else:
+                    fractional_part = remainder / B
+                    digit = 0
+                    for i in range(1, 10):
+                        if fractional_part >= 10**(-i):
+                            digit = i
+                            break
+                    lst.append(int(fractional_part * 10**digit) % 10)
+            current = lst[-1]
+            # Process C
+            if current == 0:
+                lst.append(0)
+            else:
+                quotient, remainder = divmod(current, C)
+                if remainder == 0:
+                    lst.append(quotient % 10)
+                else:
+                    fractional_part = remainder / C
+                    digit = 0
+                    for i in range(1, 10):
+                        if fractional_part >= 10**(-i):
+                            digit = i
+                            break
+                    lst.append(int(fractional_part * 10**digit) % 10)
+            current = lst[-1]
+            # Check if we have enough elements for queries
+            if len(lst) >= max(queries) + 1:
+                break
+        # Answer queries
+        for i in queries:
+            results.append(str(lst[i]))
     print('\n'.join(results))
 
 if __name__ == '__main__':

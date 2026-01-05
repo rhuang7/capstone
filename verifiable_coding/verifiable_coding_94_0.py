@@ -30,8 +30,10 @@ def solve():
                     count[T - num] -= 1
                 else:
                     color[i] = 0
+                    count[num] -= 1
             else:
                 color[i] = 0
+                count[num] -= 1
         
         results.append(' '.join(map(str, color)))
     

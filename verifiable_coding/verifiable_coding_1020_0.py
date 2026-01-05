@@ -14,28 +14,32 @@ def solve():
         A = list(map(int, data[idx:idx+N]))
         idx += N
         
-        # We need to determine if Vanja can force the absolute value of the expression to be >= K
-        # We use dynamic programming to track possible values of the expression
-        # dp[i][v] = True if it is possible to reach value v after i operations
-        # Since the maximum possible value is 1*sum(A) and minimum is -sum(A), we can use a set to track possible values
+        # We need to determine if Vanja can force |V| >= K
+        # Since players alternate and start with Vanja, we simulate the game
+        # We use dynamic programming to track the possible values of the expression
+        # at each step
         
-        sum_A = sum(A)
-        max_val = sum_A
-        min_val = -sum_A
-        
-        # Initialize dp
+        # dp[i][v] = True if it's possible to reach value v after i operations
+        # We use a set to track possible values at each step
         dp = [set() for _ in range(N+1)]
         dp[0].add(0)
         
         for i in range(N):
-            for val in dp[i]:
+            for v in dp[i]:
                 # Current player can choose + or -
-                dp[i+1].add(val + A[i])
-                dp[i+1].add(val - A[i])
+                # The next value is v + A[i] or v - A[i]
+                dp[i+1].add(v + A[i])
+                dp[i+1].add(v - A[i])
         
-        # Check if any value in dp[N] has absolute value >= K
-        vanja_wins = any(abs(v) >= K for v in dp[N])
-        results.append(1 if vanja_wins else 2)
+        # After all operations, check if any value has absolute value >= K
+        max_abs = 0
+        for v in dp[N]:
+            max_abs = max(max_abs, abs(v))
+        
+        if max_abs >= K:
+            results.append(1)
+        else:
+            results.append(2)
     
     for res in results:
         print(res)

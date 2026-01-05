@@ -19,38 +19,22 @@ def solve():
         
         for i in range(n):
             if s[i] == '1':
-                # Check if w[i - x] is 1 (i > x)
-                if i > x and w[i - x] == '1':
+                # Check if w[i - x] exists and is 1
+                if i - x >= 0 and w[i - x] == '1':
                     continue
-                # Check if w[i + x] is 1 (i + x <= n)
+                # Check if w[i + x] exists and is 1
                 if i + x < n and w[i + x] == '1':
                     continue
-                # If neither, set w[i] to 1
-                w[i] = '1'
-        
-        # Check if the constructed w produces the given s
-        valid = True
-        for i in range(n):
-            if s[i] == '1':
-                # Check if w[i - x] is 1 (i > x)
-                if i > x and w[i - x] == '1':
-                    continue
-                # Check if w[i + x] is 1 (i + x <= n)
-                if i + x < n and w[i + x] == '1':
-                    continue
-                # If neither, it's invalid
-                valid = False
+                # If neither, then it's impossible
+                print(-1)
                 break
             else:
-                # Check if both conditions are false
-                if (i > x and w[i - x] == '1') or (i + x < n and w[i + x] == '1'):
-                    valid = False
+                # Check if both conditions are true
+                if (i - x >= 0 and w[i - x] == '1') or (i + x < n and w[i + x] == '1'):
+                    print(-1)
                     break
-        
-        if valid:
-            print(''.join(w))
         else:
-            print(-1)
-
+            print(''.join(w))
+            
 if __name__ == '__main__':
     solve()

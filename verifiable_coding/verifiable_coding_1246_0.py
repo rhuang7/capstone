@@ -4,12 +4,10 @@ def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
-    
     idx = 0
     T = int(data[idx])
     idx += 1
     results = []
-    
     for _ in range(T):
         N = int(data[idx])
         idx += 1

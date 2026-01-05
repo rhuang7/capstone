@@ -8,9 +8,10 @@ def is_ciel_number(k):
     d8 = count[8]
     d5 = count[5]
     d3 = count[3]
-    if d8 >= d5 >= d3:
-        return True
-    return False
+    for i in range(0, 3, 1):
+        if count[i] > 0:
+            return False
+    return d8 >= d5 >= d3
 
 def solve():
     import sys

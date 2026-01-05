@@ -16,27 +16,41 @@ def solve():
         A = list(map(int, data[idx:idx+N]))
         idx += N
         
-        pos = [0] * (N + 1)  # pos[i] is the current position of person i
-        steps = 0
+        # We will track the current positions of the people
+        # Initially, person 1 is at position 0
+        # For each new person, we find where they should be inserted
+        # and calculate the number of steps needed
+        # The steps are the number of people to the right of the insertion point
+        # because we need to shift them to the right by 1
+        # or the number of people to the left of the insertion point
+        # because we need to shift them to the left by 1
+        # We choose the minimum of the two
         
-        for i in range(1, N + 1):
-            a = A[i - 1]
+        # We will maintain a list of positions
+        positions = [0]  # position of person 1
+        
+        total_steps = 0
+        
+        for i in range(1, N):
+            a = A[i]
             if a == 0:
                 # Insert at the beginning
-                steps += i - 1  # move all people to the left
-                pos[i] = 0
+                insert_pos = 0
             else:
-                # Insert after person a
-                # The current position of a is pos[a]
-                # The new position is pos[a] + 1
-                # To insert here, we need to move all people to the right of a to the right
-                # The number of people to the right of a is (N - a)
-                # But since we are inserting person i, the number of people to the right of a is (N - a - 1)
-                # So steps += (N - a - 1)
-                steps += (N - a - 1)
-                pos[i] = pos[a] + 1
+                # Find the position of a
+                insert_pos = positions[a - 1]
+            
+            # The new person will be inserted at insert_pos + 1
+            # The number of people to the right of insert_pos is len(positions) - insert_pos - 1
+            # The number of people to the left of insert_pos is insert_pos
+            # We choose the minimum of these two
+            steps = min(len(positions) - insert_pos - 1, insert_pos)
+            total_steps += steps
+            
+            # Insert the new position
+            positions.insert(insert_pos + 1, i)
         
-        results.append(str(steps))
+        results.append(str(total_steps))
     
     print('\n'.join(results))
 

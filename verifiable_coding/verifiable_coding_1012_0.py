@@ -1,10 +1,12 @@
 import sys
+import math
+
 MOD = 10**9 + 7
 
 def is_prime(n):
-    if n <= 1:
+    if n < 2:
         return False
-    for i in range(2, int(n**0.5)+1):
+    for i in range(2, int(math.isqrt(n)) + 1):
         if n % i == 0:
             return False
     return True
@@ -19,7 +21,7 @@ def solve():
     T = int(data[0])
     strings = data[1:T+1]
     
-    primes = [i for i in range(2, 100) if is_prime(i)]
+    primes = [i for i in range(2, 26) if is_prime(i)]
     
     for s in strings:
         n = len(s)
@@ -32,6 +34,6 @@ def solve():
             print(1)
         else:
             print(0)
-
+        
 if __name__ == '__main__':
     solve()

@@ -18,14 +18,14 @@ def solve():
         count = Counter(S)
         odd_count = 0
         
-        for char, freq in count.items():
-            if freq % 2 != 0:
+        for ch in count:
+            if count[ch] % 2 != 0:
                 odd_count += 1
         
         if odd_count > 2:
             print("NO")
         else:
             print("YES")
-
+            
 if __name__ == '__main__':
     solve()

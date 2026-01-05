@@ -22,11 +22,14 @@ def solve():
         
         total = 0
         for ni, mi in boards:
-            # Calculate the Grundy number for the board
-            # The game is equivalent to a Nim heap of size (ni + mi - 2) // 3
-            # Because each move can increase the distance by 1, 2, or 3
-            # The Grundy number is (ni + mi - 2) // 3
-            total += (ni + mi - 2) // 3
+            # Calculate Grundy number for the board
+            # The game is equivalent to a Nim heap with size equal to the Grundy number
+            # The Grundy number for a (n, m) grid is determined by the number of moves possible
+            # This is a variant of the Wythoff's game, where the Grundy number is (n + m) // 2
+            # But since the allowed moves are limited, we need to compute it properly
+            # For this problem, the Grundy number is (n + m) // 2
+            grundy = (ni + mi) // 2
+            total += grundy
         
         if total % 2 == 1:
             results.append("MasterChef")

@@ -1,0 +1,24 @@
+import sys
+
+def solve():
+    import sys
+    input = sys.stdin.buffer.read().strip()
+    N = int(input)
+
+    special_count = 0
+    partial_count = 0
+
+    for num in range(1, 10**6):
+        digits = list(map(int, str(num)))
+        product = 1
+        for d in digits:
+            product *= d
+        if product == num:
+            if 1 not in digits:
+                special_count += 1
+            partial_count += 1
+
+    print(special_count, partial_count)
+
+if __name__ == '__main__':
+    solve()

@@ -14,8 +14,10 @@ def solve():
     for _ in range(T):
         N = int(data[idx])
         idx += 1
+        
         dom_times = list(map(int, data[idx:idx+N]))
         idx += N
+        
         rival_times = list(map(int, data[idx:idx+N]))
         idx += N
         
@@ -26,6 +28,7 @@ def solve():
         for d, r in zip(dom_times, rival_times):
             if d < r:
                 wins += 1
+        
         results.append(wins)
     
     for res in results:

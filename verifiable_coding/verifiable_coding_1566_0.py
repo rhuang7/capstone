@@ -1,6 +1,5 @@
 import sys
 import math
-from collections import defaultdict
 
 def solve():
     import sys
@@ -14,42 +13,41 @@ def solve():
         N = int(data[idx])
         Q = int(data[idx+1])
         idx += 2
-        edges = []
+        graph = [[] for _ in range(N)]
         for __ in range(Q):
             i = int(data[idx]) - 1
             j = int(data[idx+1]) - 1
             val = int(data[idx+2])
             idx += 3
-            edges.append((i, j, val))
-        # Build graph
-        graph = defaultdict(list)
-        for i, j, val in edges:
             if val == 0:
-                graph[i].append((j, 0))
-                graph[j].append((i, 0))
+                graph[i].append(j)
+                graph[j].append(i)
             else:
-                graph[i].append((j, 1))
-                graph[j].append((i, 1))
-        # Check for consistency
-        color = {}
-        is_possible = True
+                graph[i].append(j)
+                graph[j].append(i)
+        # Check if the graph is bipartite
+        color = [-1] * N
+        is_bipartite = True
         for start in range(N):
-            if start not in color:
-                stack = [(start, 0)]
+            if color[start] == -1:
+                queue = [start]
                 color[start] = 0
-                while stack:
-                    node, c = stack.pop()
-                    for neighbor, val in graph[node]:
-                        if neighbor in color:
-                            if color[neighbor] != c ^ val:
-                                is_possible = False
-                                break
+                while queue:
+                    u = queue.pop(0)
+                    for v in graph[u]:
+                        if color[v] == -1:
+                            color[v] = color[u] ^ 1
+                            queue.append(v)
                         else:
-                            color[neighbor] = c ^ val
-                            stack.append((neighbor, c ^ val))
-                    if not is_possible:
+                            if color[v] == color[u]:
+                                is_bipartite = False
+                                break
+                    if not is_bipartite:
                         break
-                if not is_possible:
+                if not is_bipartite:
                     break
-        results.append("yes" if is_possible else "no")
-    print('\n'.join(results))
+        if is_bipartite:
+            results.append("yes")
+        else:
+            results.append("no")
+    print("\n".join(results))

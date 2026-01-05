@@ -16,157 +16,45 @@ def solve():
         A = list(map(int, data[idx:idx+N]))
         idx += N
         
-        # Sort the array to find the minimum sum subsequences
+        # Sort the array to find the minimum sum subsequence
         A.sort()
         
-        # Find the first K elements (smallest K elements)
-        min_sum_subseq = A[:K]
-        min_sum = sum(min_sum_subseq)
+        # The minimum sum subsequence is the first K elements
+        min_sum = sum(A[:K])
         
         # Count how many times the smallest element appears
-        count_min = A.count(min_sum_subseq[0])
+        count = 0
+        for num in A:
+            if num == A[0]:
+                count += 1
+            else:
+                break
         
-        # If all elements in the first K are the same, the count is combination(N, K)
-        if count_min == K:
-            from math import comb
-            results.append(comb(N, K))
-        else:
-            # Calculate the number of ways to choose K elements with the first K elements
-            # The first K elements are the smallest, so we need to count how many times the smallest element appears
-            # and how many times the next smallest appears, etc.
-            # We need to count how many times the first K elements appear in the array
-            # This is a combinatorial problem where we need to count the number of ways to choose K elements
-            # such that they are the smallest K elements
-            # So we need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need to count how many times the first K elements appear in the array
-            # and then calculate the combinations
-            # This is a standard problem in combinatorics
-            # We need
+        # If K is 1, the answer is the count of the smallest element
+        if K == 1:
+            results.append(count)
+            continue
+        
+        # Otherwise, count the number of ways to choose K elements
+        # with the first (K - 1) elements being the smallest ones
+        # and the last element being the next smallest
+        # We need to find how many times the (K-th) smallest element appears
+        # after the first (K - 1) smallest elements
+        
+        # Find the number of occurrences of the K-th smallest element
+        # after the first (K - 1) smallest elements
+        count_k = 0
+        for i in range(K, N):
+            if A[i] == A[K-1]:
+                count_k += 1
+            else:
+                break
+        
+        # The number of interesting subsequences is count * count_k
+        results.append(count * count_k)
+    
+    for res in results:
+        print(res)
+
+if __name__ == '__main__':
+    solve()

@@ -23,8 +23,8 @@ def solve():
             total = total // 2
             days += 1
         days += dist
-        results.append(days)
-    sys.stdout.write('\n'.join(map(str, results)) + '\n')
+        results.append(str(days))
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

@@ -13,7 +13,7 @@ def solve():
     left = A[0]
     right = A[-1]
     
-    # Since K is small (1, 2, 3), we can use ternary search
+    # Binary search for the optimal x
     def f(x):
         res = 0
         for a in A:
@@ -21,31 +21,31 @@ def solve():
             res += abs(diff ** K)
         return res
     
-    # Ternary search
-    def find_min():
-        low = left
-        high = right
-        while high - low > 3:
-            m1 = low + (high - low) // 3
-            m2 = high - (high - low) // 3
+    # Since the function is convex, we can use ternary search
+    def ternary_search(l, r):
+        while r - l > 3:
+            m1 = l + (r - l) // 3
+            m2 = r - (r - l) // 3
             f1 = f(m1)
             f2 = f(m2)
             if f1 < f2:
-                high = m2
+                r = m2 - 1
             else:
-                low = m1
-        # Check all values in [low, high]
+                l = m1 + 1
+        # Check all values in [l, r]
         min_val = float('inf')
-        for x in range(low, high + 1):
-            if f(x) < min_val:
-                min_val = f(x)
+        for i in range(l, r + 1):
+            current = f(i)
+            if current < min_val:
+                min_val = current
         # Find the smallest x with min_val
-        for x in range(low, high + 1):
-            if f(x) == min_val:
-                return x
-        return low
+        for i in range(l, r + 1):
+            if f(i) == min_val:
+                return i
+        return l  # fallback
     
-    print(find_min())
+    result = ternary_search(left, right)
+    print(result)
 
 if __name__ == '__main__':
     solve()

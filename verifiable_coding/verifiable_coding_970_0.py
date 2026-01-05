@@ -22,21 +22,27 @@ def solve():
             y = int(data[idx+1])
             queries.append((x, y))
             idx += 2
-        # Preprocess a to be sorted (already sorted per constraints)
+        # Preprocess a to be sorted (already sorted as per constraints)
         # For each query, check if (x, y) is on any wall
-        # A point (x, y) is on the wall a_i if x + y = a_i
+        # A point (x, y) is on the wall with a_i if x + y = a_i
         # Also, check if x == 0 and y == 0 (origin)
         for x, y in queries:
             if x == 0 and y == 0:
-                results.append('0')
+                results.append("0")
                 continue
             if x + y == 0:
-                results.append('-1')
+                results.append("-1")
                 continue
+            # Check if (x, y) is on any wall
             if x + y in a:
-                results.append('-1')
+                results.append("-1")
                 continue
-            # Find the number of a_i such that a_i < x + y
-            cnt = bisect.bisect_left(a, x + y)
+            # Find the number of walls that are in the range (x + y, infinity)
+            # Because Chef needs to break all walls that are in the path
+            # The path from (x, y) to (0, 0) is the line x + y = constant
+            # So any wall with a_i > x + y will be in the path
+            # So count the number of a_i > x + y
+            s = x + y
+            cnt = len(a) - bisect.bisect_right(a, s)
             results.append(str(cnt))
-    print('\n'.join(results))
+    print("\n".join(results))

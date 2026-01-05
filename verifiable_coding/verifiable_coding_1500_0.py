@@ -6,7 +6,7 @@ def solve():
     data = input().split()
     T = int(data[0])
     cases = data[1:T+1]
-    
+
     for A in cases:
         balance = 0
         max_balance = 0
@@ -16,10 +16,10 @@ def solve():
             else:
                 balance -= 1
             max_balance = max(max_balance, balance)
-        # Minimal length is 2 * max_balance
+        # Minimal length is 2 * max_balance, as each level of balance requires at least two parentheses
         # Lexicographically smallest is all '(' followed by all ')'
         B = '(' * max_balance + ')' * max_balance
         print(B)
-        
+
 if __name__ == '__main__':
     solve()

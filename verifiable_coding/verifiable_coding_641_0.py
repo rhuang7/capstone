@@ -1,6 +1,6 @@
 import sys
 import math
-from collections import deque
+from collections import defaultdict, deque
 
 def solve():
     import sys
@@ -11,103 +11,74 @@ def solve():
     traffic = list(map(int, data[1:N+1]))
     edges = data[N+1:]
     
-    adj = [[] for _ in range(N)]
+    graph = defaultdict(list)
     for i in range(N-1):
-        u = int(edges[2*i]) - 1
-        v = int(edges[2*i + 1]) - 1
-        adj[u].append(v)
-        adj[v].append(u)
+        u = int(edges[i*2]) - 1
+        v = int(edges[i*2 + 1]) - 1
+        graph[u].append(v)
+        graph[v].append(u)
     
-    def bfs(start, end):
+    # BFS to find the maximum traffic in a tree
+    def bfs(start):
         visited = [False] * N
         q = deque()
-        q.append((start, [start]))
+        q.append(start)
         visited[start] = True
+        max_traffic = 0
         while q:
-            node, path = q.popleft()
-            if node == end:
-                return path
-            for neighbor in adj[node]:
+            node = q.popleft()
+            max_traffic = max(max_traffic, traffic[node])
+            for neighbor in graph[node]:
                 if not visited[neighbor]:
                     visited[neighbor] = True
-                    q.append((neighbor, path + [neighbor]))
-        return []
-    
-    def get_path(u, v):
-        path = bfs(u, v)
-        return path
-    
-    def get_traffic(path):
-        return sum(traffic[i] for i in path)
-    
-    def is_valid_assignment(assignment):
-        for i in range(3):
-            if len(assignment[i]) == 0:
-                continue
-            max_traffic = 0
-            for station in assignment[i]:
-                max_traffic = max(max_traffic, traffic[station])
-            if max_traffic > 1000000000:
-                return False
-        return True
-    
-    def dfs(node, color, assignment, max_traffic):
-        if color == 3:
-            if is_valid_assignment(assignment):
-                return True
-            return False
-        for neighbor in adj[node]:
-            if neighbor not in assignment[color]:
-                if dfs(neighbor, color, assignment, max_traffic):
-                    return True
-        return False
-    
-    def find_assignment():
-        assignment = [[], [], []]
-        for i in range(N):
-            for j in range(3):
-                if i not in assignment[j]:
-                    assignment[j].append(i)
-        return assignment
-    
-    def min_max_traffic():
-        assignment = find_assignment()
-        max_traffic = 0
-        for i in range(3):
-            if len(assignment[i]) == 0:
-                continue
-            current_max = 0
-            for station in assignment[i]:
-                current_max = max(current_max, traffic[station])
-            max_traffic = max(max_traffic, current_max)
+                    q.append(neighbor)
         return max_traffic
     
-    def binary_search():
-        low = 0
-        high = 1000000000
-        answer = high
-        while low <= high:
-            mid = (low + high) // 2
-            assignment = [[], [], []]
-            for i in range(N):
-                for j in range(3):
-                    if i not in assignment[j]:
-                        assignment[j].append(i)
-            valid = True
-            for i in range(3):
-                if len(assignment[i]) == 0:
-                    continue
-                current_max = 0
-                for station in assignment[i]:
-                    current_max = max(current_max, traffic[station])
-                if current_max > mid:
-                    valid = False
-                    break
-            if valid:
-                answer = mid
-                high = mid - 1
-            else:
-                low = mid + 1
-        return answer
+    # Try all possible splits of the tree into three parts
+    # We use binary search to find the minimum possible maximum traffic
+    low = max(traffic)
+    high = sum(traffic)
     
-    print(binary_search())
+    answer = high
+    
+    while low <= high:
+        mid = (low + high) // 2
+        # Check if it's possible to split the tree into 3 parts with max traffic <= mid
+        # We use BFS to check if we can split the tree into 3 parts with max traffic <= mid
+        # We need to find 3 subtrees such that the sum of traffic in each is <= mid
+        # We use a modified BFS to check this
+        
+        # We'll use a visited array to mark nodes that are already assigned
+        visited = [False] * N
+        count = 0
+        for i in range(N):
+            if not visited[i]:
+                # BFS to find the subtree starting at i
+                q = deque()
+                q.append(i)
+                visited[i] = True
+                subtree_sum = 0
+                while q:
+                    node = q.popleft()
+                    subtree_sum += traffic[node]
+                    for neighbor in graph[node]:
+                        if not visited[neighbor]:
+                            visited[neighbor] = True
+                            q.append(neighbor)
+                if subtree_sum > mid:
+                    # Not possible to split
+                    break
+                count += 1
+                if count == 3:
+                    # Possible to split
+                    answer = mid
+                    high = mid - 1
+                    break
+        else:
+            # Not possible to split
+            low = mid + 1
+    
+    print(answer)
+
+if __name__ == '__main__':
+    solve()

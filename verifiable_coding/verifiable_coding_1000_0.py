@@ -1,7 +1,7 @@
 import sys
 
 def solve():
-    import sys
+    import math
     input = sys.stdin.buffer.read
     data = input().split()
     
@@ -17,24 +17,31 @@ def solve():
         A = list(map(int, data[idx:idx+N]))
         idx += N
         
-        # Calculate the minimum speed
-        total_time = 0
-        current_time = 0
-        for a in A:
-            total_time += a
-            if current_time >= total_time:
-                current_time = 0
-            else:
-                current_time += a
+        # Calculate the minimum speed using binary search
+        left = 1
+        right = 10**18
+        answer = 0
         
-        # The minimum speed is ceil(total_time / N)
-        # But since we can't have fractional speed, we need to find the smallest integer s such that s * N >= total_time
-        # So s = ceil(total_time / N)
-        # But since we can't use math.ceil, we compute it as (total_time + N - 1) // N
-        speed = (total_time + N - 1) // N
-        results.append(str(speed))
+        while left <= right:
+            mid = (left + right) // 2
+            total_time = 0
+            current_time = 0
+            for a in A:
+                if current_time >= a * mid:
+                    current_time = 0
+                current_time += a * mid
+                total_time = max(total_time, current_time)
+            
+            if total_time <= N * mid:
+                answer = mid
+                right = mid - 1
+            else:
+                left = mid + 1
+        
+        results.append(answer)
     
-    print('\n'.join(results))
+    for res in results:
+        print(res)
 
 if __name__ == '__main__':
     solve()

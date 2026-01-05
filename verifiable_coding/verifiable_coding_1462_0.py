@@ -3,15 +3,15 @@ import sys
 def solve():
     input = sys.stdin.buffer.read().split(b'\n')
     T = int(input[0])
-    for i in range(1, T + 1):
+    for i in range(1, T+1):
         s = input[i].decode().lower()
-        has_berhampore = 'berhampore' in s
-        has_serampore = 'serampore' in s
-        if has_berhampore and has_serampore:
+        berhampore = 'berhampore' in s
+        serampore = 'serampore' in s
+        if berhampore and serampore:
             print("Both")
-        elif has_berhampore:
+        elif berhampore:
             print("GCETTB")
-        elif has_serampore:
+        elif serampore:
             print("GCETTS")
         else:
             print("Others")

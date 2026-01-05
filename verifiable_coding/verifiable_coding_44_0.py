@@ -8,8 +8,10 @@ def solve():
     
     for n in cases:
         res = []
-        for i in range(n):
-            res.append(4 * n - i - 1)
+        for i in range(n, 2*n):
+            res.append(4*i)
+        for i in range(1, n):
+            res.append(4*i - 2)
         print(' '.join(map(str, res)))
         
 if __name__ == '__main__':

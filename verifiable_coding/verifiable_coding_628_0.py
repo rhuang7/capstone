@@ -11,12 +11,12 @@ def solve():
         left = s[:w_pos].count('B')
         right = s[w_pos+1:].count('B')
         
-        # The game is played on the left and right of the white cell
-        # Each player can take any number of black cells from one side
-        # This is a variant of the Nim game with two piles
-        # The player who cannot make a move loses
-        # The winner is determined by the XOR of the two piles
-        # If XOR is non-zero, first player (Aleksa) wins, else second player (Chef) wins
+        # The game is equivalent to a Nim game with two piles
+        # Each pile represents the number of black cells on each side of the white cell
+        # The player to make the last move wins
+        # The Grundy number for a pile of size n is n
+        # The XOR of the two piles determines the winner
+        # If XOR is non-zero, the first player (Aleksa) wins, else the second player (Chef) wins
         
         xor = left ^ right
         if xor != 0:

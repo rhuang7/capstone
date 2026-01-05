@@ -20,51 +20,52 @@ def solve():
         C = list(map(int, data[idx:idx+N]))
         idx += N
         
-        # Calculate days until each company reaches Z
-        def days_to_reach(target, current, gain_per_day):
+        # Function to calculate days to reach Z
+        def days_to_reach(target, current, increment):
             if current >= target:
                 return 0
-            return (target - current + gain_per_day - 1) // gain_per_day
+            return (target - current + increment - 1) // increment
         
+        # Calculate days for each company to reach Z
         days_pied = days_to_reach(Z, A, X)
         days_hooli = days_to_reach(Z, B, Y)
         
+        # If Hooli reaches first or same day, output RIP
         if days_hooli <= days_pied:
             results.append("RIP")
             continue
         
-        # Now find the minimum contributions needed
-        # Use a max heap to always take the largest contribution
-        import heapq
-        heapq.heapify(C)
-        # Reverse the heap to make it a max heap
-        C = [-x for x in C]
-        heapq.heapify(C)
-        
+        # Otherwise, find minimum contributions
+        # Sort contributions in descending order
+        C.sort(reverse=True)
         contributions = 0
         current_pied = A
         current_hooli = B
         
+        # Try to contribute until either company reaches Z
         while True:
-            # Check if we have already reached the goal
-            if current_pied >= Z:
+            # Check if current_pied or current_hooli has reached Z
+            if current_pied >= Z or current_hooli >= Z:
                 break
-            if current_hooli >= Z:
-                results.append("RIP")
+            # Try to contribute the largest available contribution
+            if C:
+                contribution = C[0]
+                # If contribution is 0, skip
+                if contribution == 0:
+                    break
+                # Add contribution to Pied Piper
+                current_pied += contribution
+                contributions += 1
+                # Halve the contribution
+                C[0] = C[0] // 2
+                # Re-sort the list
+                C.sort(reverse=True)
+            else:
                 break
-            
-            # Take the largest contribution
-            val = -heapq.heappop(C)
-            contributions += 1
-            current_pied += val
-            val //= 2
-            # Put back the halved value
-            heapq.heappush(C, -val)
         
         results.append(str(contributions))
     
-    for res in results:
-        print(res)
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

@@ -1,17 +1,6 @@
 import sys
 import math
 
-def compute_perimeter(polygon):
-    perimeter = 0.0
-    n = len(polygon)
-    for i in range(n):
-        x1, y1 = polygon[i]
-        x2, y2 = polygon[(i + 1) % n]
-        dx = x2 - x1
-        dy = y2 - y1
-        perimeter += math.hypot(dx, dy)
-    return perimeter
-
 def solve():
     import sys
     input = sys.stdin.buffer.read
@@ -20,6 +9,7 @@ def solve():
     T = int(data[idx])
     idx += 1
     results = []
+    
     for _ in range(T):
         N = int(data[idx])
         idx += 1
@@ -37,22 +27,34 @@ def solve():
             C = int(data[idx + 1])
             stripes.append((L, C))
             idx += 2
-        perimeter = compute_perimeter(polygon)
+        
+        # Compute perimeter of the polygon
+        perimeter = 0.0
+        for i in range(N):
+            x1, y1 = polygon[i]
+            x2, y2 = polygon[(i + 1) % N]
+            dx = x2 - x1
+            dy = y2 - y1
+            perimeter += math.hypot(dx, dy)
+        
         # Sort stripes by cost per unit length
         stripes.sort(key=lambda x: x[1] / x[0])
-        # Use greedy approach: use as many as possible of the cheapest stripe
-        total_cost = 0
-        remaining = perimeter
+        
+        # Use greedy approach: use the cheapest per unit length stripe as much as possible
+        min_cost = 0
         for L, C in stripes:
-            if remaining <= 0:
+            if perimeter <= 0:
                 break
-            if L >= remaining:
-                total_cost += math.ceil(remaining / L) * C
-                remaining = 0
+            if L >= perimeter:
+                min_cost += math.ceil(perimeter / L) * C
+                break
             else:
-                total_cost += C
-                remaining -= L
-        results.append(str(total_cost))
+                count = math.ceil(perimeter / L)
+                min_cost += count * C
+                perimeter -= count * L
+        
+        results.append(str(min_cost))
+    
     print('\n'.join(results))
 
 if __name__ == '__main__':

@@ -13,17 +13,15 @@ def solve():
         events.append((S, D))
         idx += 2
 
-    # Sort events by start date
-    events.sort()
+    events.sort(key=lambda x: (x[0], x[1]))
 
-    # Greedy algorithm: select events that do not overlap and have at least one gap day
     count = 0
     last_end = 0
 
-    for S, D in events:
-        if S > last_end:
+    for s, d in events:
+        if s > last_end:
             count += 1
-            last_end = S + D
+            last_end = s + d
 
     print(count)
 

@@ -1,0 +1,31 @@
+import sys
+
+def solve():
+    import sys
+    input = sys.stdin.buffer.read
+    data = input().split()
+    idx = 0
+    t = int(data[idx])
+    idx += 1
+    results = []
+    
+    for _ in range(t):
+        n = int(data[idx])
+        idx += 1
+        a = list(map(int, data[idx:idx + 2 * n]))
+        idx += 2 * n
+        
+        a.sort()
+        
+        # The optimal way is to have the two classes with sizes 1 and 2n-1, or 3 and 2n-3, etc.
+        # But the minimal difference is always between the middle elements of the sorted array.
+        # The minimal difference is between the n-th and (n+1)-th elements in the sorted array.
+        # Because those are the medians of the two classes when one class has 1 student and the other has 2n-1.
+        # Other combinations will have larger or equal difference.
+        min_diff = abs(a[n] - a[n + 1])
+        results.append(str(min_diff))
+    
+    print('\n'.join(results))
+
+if __name__ == '__main__':
+    solve()

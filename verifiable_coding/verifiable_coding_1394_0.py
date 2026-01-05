@@ -19,11 +19,11 @@ def solve():
                 j = n // i
                 res += 2 * (i * j)
                 if i != j:
-                    res += 1
+                    res += 2 * (i * j)
         return res
     
     for n in N_list:
         print(count_rectangles(n) % MOD)
-        
+
 if __name__ == '__main__':
     solve()

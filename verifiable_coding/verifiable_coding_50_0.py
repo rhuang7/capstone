@@ -23,35 +23,38 @@ def solve():
             results.append(0)
             continue
         
-        left = []
-        right = []
+        s = total_s
+        b = total_b
         
-        for i in range(2 * n):
-            if a[i] == 1:
-                left.append(1)
-                right.append(0)
-            else:
-                left.append(0)
-                right.append(1)
-        
-        s = 0
-        b = 0
-        min_jars = float('inf')
+        left = 0
+        right = 0
+        left_s = 0
+        left_b = 0
+        right_s = 0
+        right_b = 0
         
         for i in range(2 * n):
             if i < n:
-                s += left[i]
-                b += right[i]
+                left_s += a[i] == 1
+                left_b += a[i] == 2
             else:
-                s += right[i]
-                b += left[i]
-            
-            if s == b:
-                min_jars = min(min_jars, i + 1)
+                right_s += a[i] == 1
+                right_b += a[i] == 2
         
-        results.append(min_jars)
+        s_left = left_s
+        b_left = left_b
+        s_right = right_s
+        b_right = right_b
+        
+        min_jars = float('inf')
+        
+        for i in range(n + 1):
+            s_remaining = s - i
+            b_remaining = b - (n - i)
+            
+            if s_remaining == b_remaining:
+                min_jars = min(min_jars, i + (n - i))
+        
+        results.append(str(min_jars))
     
-    sys.stdout.write('\n'.join(map(str, results)) + '\n')
-
-if __name__ == '__main__':
-    solve()
+    print('\n'.join(results))

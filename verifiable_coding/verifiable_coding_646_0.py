@@ -4,22 +4,17 @@ def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
-    
     T = int(data[0])
-    results = []
+    cases = data[1:T+1]
     
-    for i in range(1, T + 1):
-        s = data[i]
+    for s in cases:
         stack = []
         for char in s:
             if stack and stack[-1] == char:
                 stack.pop()
             else:
                 stack.append(char)
-        results.append(len(stack))
-    
-    for res in results:
-        print(res)
+        print(len(stack))
 
 if __name__ == '__main__':
     solve()

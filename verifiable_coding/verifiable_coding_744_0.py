@@ -8,209 +8,56 @@ def solve():
     
     for k in cases:
         if k == 1:
-            print("*")
-            print("*")
-            print("**")
+            print('*')
+            print('*')
         else:
             for i in range(k):
                 if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
+                    print('*' * (k // 2 + 1))
                 else:
-                    print("* " * (k // 2) + "*")
+                    print('*' + ' ' * (k // 2) + '*')
             for i in range(k):
                 if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
+                    print('*' * (k // 2 + 1))
                 else:
-                    print("* " * (k // 2) + "*")
+                    print('*' + ' ' * (k // 2) + '*')
             for i in range(k):
                 if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
+                    print('*' * (k // 2 + 1))
                 else:
-                    print("* " * (k // 2) + "*")
+                    print('*' + ' ' * (k // 2) + '*')
             for i in range(k):
                 if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
+                    print('*' * (k // 2 + 1))
                 else:
-                    print("* " * (k // 2) + "*")
+                    print('*' + ' ' * (k // 2) + '*')
             for i in range(k):
                 if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
+                    print('*' * (k // 2 + 1))
                 else:
-                    print("* " * (k // 2) + "*")
+                    print('*' + ' ' * (k // 2) + '*')
             for i in range(k):
                 if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
+                    print('*' * (k // 2 + 1))
                 else:
-                    print("* " * (k // 2) + "*")
+                    print('*' + ' ' * (k // 2) + '*')
             for i in range(k):
                 if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
+                    print('*' * (k // 2 + 1))
                 else:
-                    print("* " * (k // 2) + "*")
+                    print('*' + ' ' * (k // 2) + '*')
             for i in range(k):
                 if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
+                    print('*' * (k // 2 + 1))
                 else:
-                    print("* " * (k // 2) + "*")
+                    print('*' + ' ' * (k // 2) + '*')
             for i in range(k):
                 if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
+                    print('*' * (k // 2 + 1))
                 else:
-                    print("* " * (k // 2) + "*")
+                    print('*' + ' ' * (k // 2) + '*')
             for i in range(k):
                 if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
+                    print('*' * (k // 2 + 1))
                 else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if i % 2 == 0:
-                    print("*" * (k // 2 + 1))
-                else:
-                    print("* " * (k // 2) + "*")
-            for i in range(k):
-                if
+                    print('*' + ' ' * (k // 2) + '*')

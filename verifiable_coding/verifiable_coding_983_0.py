@@ -10,38 +10,38 @@ def solve():
     Q = int(data[2])
     queries = data[3:]
     
-    # Precompute the string for each row
-    # Since N can be up to 1e18, we cannot precompute all rows
-    # Instead, we compute on the fly for each query
+    # Preprocess the string to handle circular behavior
+    S += S  # Double the string to handle circularity
     
-    def get_row(R):
-        # Calculate the length of the row
-        row_length = 2 * (R - 1) + 1
-        # Calculate the starting index in the string
-        start = (R - 1) * (2 * R - 1)
-        # Calculate the number of characters in the row
-        count = row_length
-        # Calculate the number of full cycles of the string
-        full_cycles = count // len(S)
-        # Calculate the remaining characters
-        rem = count % len(S)
-        # Get the characters in the row
-        row = []
-        for i in range(count):
-            pos = (start + i) % len(S)
-            row.append(S[pos])
-        return row
+    # Precompute for each row the characters
+    # Since N can be up to 1e18, we can't store all rows, so we compute on the fly
+    # For each query, compute the characters in the row and count the frequency
     
-    # Process queries
-    output = []
     for i in range(Q):
         R = int(queries[2*i])
         C = queries[2*i + 1]
-        row = get_row(R)
-        freq = row.count(C)
-        output.append(str(freq))
-    
-    print('\n'.join(output))
-
+        
+        # Compute the number of characters in the row
+        row_length = 2 * R - 1
+        
+        # Determine the direction
+        if R % 3 == 0:
+            direction = 1  # left to right
+        else:
+            direction = -1  # right to left
+        
+        # Compute the starting index in the string
+        start = (R - 1) * R // 2
+        end = start + row_length
+        
+        # Count the frequency of character C in this row
+        count = 0
+        for j in range(start, end):
+            char = S[j]
+            if char == C:
+                count += 1
+        
+        print(count)
+        
 if __name__ == '__main__':
     solve()

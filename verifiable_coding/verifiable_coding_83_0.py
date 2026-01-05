@@ -14,13 +14,14 @@ def solve():
         index += 4
         # The rabbits meet when (x + a * t) == (y - b * t)
         # Solving for t: t = (y - x) / (a + b)
-        # Check if (y - x) is divisible by (a + b)
+        # Check if (y - x) is divisible by (a + b) and t is non-negative
         distance = y - x
         speed = a + b
         if distance % speed != 0:
             print(-1)
         else:
-            print(distance // speed)
+            t = distance // speed
+            print(t)
 
 if __name__ == '__main__':
     solve()

@@ -11,7 +11,7 @@ def solve():
     for i in range(1, T + 1):
         N = int(data[i])
         # The maximum number of squares is the sum of squares from 1 to N
-        total = sum(x * x for x in range(1, N + 1))
+        total = sum(x*x for x in range(1, N+1))
         results.append(str(total))
     
     print('\n'.join(results))

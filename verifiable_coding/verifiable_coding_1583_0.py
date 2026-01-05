@@ -8,6 +8,7 @@ def solve():
     idx = 0
     T = int(data[idx])
     idx += 1
+    
     results = []
     
     for _ in range(T):
@@ -25,20 +26,11 @@ def solve():
         
         # Check if the bomb is on the direct path
         # If the bomb is on the direct path, we need to detour
+        # Check if the bomb is on the straight line between start and end
         # Check if the bomb is between start and end
-        # If the bomb is on the direct path, the minimum moves is moves + 2
-        # Because Jerry has to go around the bomb (either up or down)
-        # But if the bomb is not on the direct path, the moves remain the same
-        
-        # Check if the bomb is on the direct path
-        # The direct path is from (sx, sy) to (ex, ey)
-        # If the bomb is on the same row or column and between the start and end
-        if (bx == sx and bx == ex and (sy <= by <= ey or ey <= by <= sy)) or \
-           (by == sy and by == ey and (sx <= bx <= ex or ex <= bx <= sx)) or \
-           (bx == ex and by == ey and (sx <= bx <= ex or ex <= bx <= sx)) or \
-           (bx == sx and by == sy and (ex <= bx <= sx or sx <= bx <= ex)):
+        if (sx == ex or sy == ey) and (bx >= min(sx, ex) and bx <= max(sx, ex) and by >= min(sy, ey) and by <= max(sy, ey)):
             # Bomb is on the direct path, need to detour
-            # The minimum detour is 2 moves (go around the bomb)
+            # The detour adds 2 moves (go around the bomb)
             moves += 2
         
         results.append(str(moves))

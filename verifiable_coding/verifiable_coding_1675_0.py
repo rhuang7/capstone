@@ -9,6 +9,7 @@ def solve():
     t = int(data[idx])
     idx += 1
     results = []
+    
     for _ in range(t):
         while idx < len(data) and data[idx] == '':
             idx += 1
@@ -24,17 +25,14 @@ def solve():
             y = int(data[idx + 1])
             points.append((x, y))
             idx += 2
-        # Sort the points according to the rules
+        # Sort points based on the given rules
         points.sort(key=lambda p: (p[0], -p[1]))
-        # Compute the total distance
+        # Calculate total distance
         total = 0.0
-        for i in range(len(points) - 1):
-            x1, y1 = points[i]
-            x2, y2 = points[i + 1]
-            dx = x2 - x1
-            dy = y2 - y1
-            total += math.hypot(dx, dy)
+        for i in range(1, len(points)):
+            total += math.hypot(points[i][0] - points[i-1][0], points[i][1] - points[i-1][1])
         results.append("{0:.2f}".format(total))
+    
     for res in results:
         print(res)
 

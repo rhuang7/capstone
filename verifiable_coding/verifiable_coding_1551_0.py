@@ -1,11 +1,11 @@
 import sys
 
 def solve():
-    input = sys.stdin.buffer.read().splitlines()
-    T = int(input[0])
-    for i in range(1, T + 1):
-        S = input[i].strip()
-        if " not " in S:
+    input = sys.stdin.buffer.read().split()
+    T = input[0]
+    quotes = input[1:]
+    for s in quotes:
+        if ' not ' in s:
             print("Real Fancy")
         else:
             print("regularly fancy")

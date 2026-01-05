@@ -17,7 +17,6 @@ def solve():
         R = int(data[index+3])
         index += 4
         
-        # Calculate required slices for the family
         total = 0
         current = K
         for _ in range(N):
@@ -29,23 +28,29 @@ def solve():
         else:
             results.append(f"IMPOSSIBLE {total - S}")
     
-    # Calculate total slices and total required for sharing
-    total_slices = 0
-    total_required = 0
+    # Calculate total slices needed for all families
+    total_slices_needed = 0
+    for i in range(T):
+        S = int(data[1 + 4*i])
+        N = int(data[2 + 4*i])
+        K = int(data[3 + 4*i])
+        R = int(data[4 + 4*i])
+        current = K
+        total = 0
+        for _ in range(N):
+            total += current
+            current *= R
+        total_slices_needed += total
     
-    for res in results:
-        if res.startswith("IMPOSSIBLE"):
-            total_required += int(res.split()[-1])
+    # Calculate total slices available
+    total_slices_available = 0
+    for i in range(T):
+        total_slices_available += int(data[1 + 4*i])
     
-    total_slices = sum(int(res.split()[-1]) for res in results if not res.startswith("IMPOSSIBLE"))
-    
-    if total_required <= total_slices:
+    if total_slices_available >= total_slices_needed:
         results.append("POSSIBLE")
     else:
         results.append("IMPOSSIBLE")
     
-    for res in results:
-        print(res)
-
-if __name__ == '__main__':
-    solve()
+    for line in results:
+        print(line)

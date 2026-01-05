@@ -17,64 +17,81 @@ def solve():
         A = list(map(int, data[idx:idx+N]))
         idx += N
         
-        # Check if Vanja can win in one move
-        can_vanja_win = False
-        for a in A:
-            if abs(a) == Z1 or abs(a) == Z2:
-                can_vanja_win = True
-                break
-        
-        if can_vanja_win:
+        # Check if either Z1 or Z2 is 0
+        # If so, the first player can choose the element and make S = 0 in one move
+        if Z1 == 0 or Z2 == 0:
             results.append(1)
             continue
         
-        # Check if Miksi can win in one move
-        # For Miksi to win, Vanja must not be able to win in one move, and Miksi can reach Z1 or Z2 in one move
-        # But since Miksi moves after Vanja, he can only win if Vanja didn't win and Miksi can reach Z1 or Z2 in one move
-        # However, since Miksi can only move after Vanja, he can only win if Vanja didn't win and Miksi can reach Z1 or Z2 in one move
-        # But since Miksi can choose any element and add or subtract, he can reach any value that is a multiple of the GCD of the elements
-        # So we need to check if Z1 or Z2 is reachable in one move (i.e., if Z1 or Z2 is in the set {a, -a} for any a in A)
-        # But since Vanja already checked that, we need to check if Miksi can reach Z1 or Z2 in one move, given that Vanja didn't win
-        # But since Miksi can choose any element and add or subtract, he can reach any value that is a multiple of the GCD of the elements
-        # So we need to check if Z1 or Z2 is reachable in one move (i.e., if Z1 or Z2 is in the set {a, -a} for any a in A)
-        # But since Vanja already checked that, we need to check if Miksi can reach Z1 or Z2 in one move, given that Vanja didn't win
-        # But since Miksi can choose any element and add or subtract, he can reach any value that is a multiple of the GCD of the elements
-        # So we need to check if Z1 or Z2 is reachable in one move (i.e., if Z1 or Z2 is in the set {a, -a} for any a in A)
-        # But since Vanja already checked that, we need to check if Miksi can reach Z1 or Z2 in one move, given that Vanja didn't win
-        # But since Miksi can choose any element and add or subtract, he can reach any value that is a multiple of the GCD of the elements
-        # So we need to check if Z1 or Z2 is reachable in one move (i.e., if Z1 or Z2 is in the set {a, -a} for any a in A)
-        # But since Vanja already checked that, we need to check if Miksi can reach Z1 or Z2 in one move, given that Vanja didn't win
-        # But since Miksi can choose any element and add or subtract, he can reach any value that is a multiple of the GCD of the elements
-        # So we need to check if Z1 or Z2 is reachable in one move (i.e., if Z1 or Z2 is in the set {a, -a} for any a in A)
-        # But since Vanja already checked that, we need to check if Miksi can reach Z1 or Z2 in one move, given that Vanja didn't win
-        # But since Miksi can choose any element and add or subtract, he can reach any value that is a multiple of the GCD of the elements
-        # So we need to check if Z1 or Z2 is reachable in one move (i.e., if Z1 or Z2 is in the set {a, -a} for any a in A)
-        # But since Vanja already checked that, we need to check if Miksi can reach Z1 or Z2 in one move, given that Vanja didn't win
-        # But since Miksi can choose any element and add or subtract, he can reach any value that is a multiple of the GCD of the elements
-        # So we need to check if Z1 or Z2 is reachable in one move (i.e., if Z1 or Z2 is in the set {a, -a} for any a in A)
-        # But since Vanja already checked that, we need to check if Miksi can reach Z1 or Z2 in one move, given that Vanja didn't win
-        # But since Miksi can choose any element and add or subtract, he can reach any value that is a multiple of the GCD of the elements
-        # So we need to check if Z1 or Z2 is reachable in one move (i.e., if Z1 or Z2 is in the set {a, -a} for any a in A)
-        # But since Vanja already checked that, we need to check if Miksi can reach Z1 or Z2 in one move, given that Vanja didn't win
-        # But since Miksi can choose any element and add or subtract, he can reach any value that is a multiple of the GCD of the elements
-        # So we need to check if Z1 or Z2 is reachable in one move (i.e., if Z1 or Z2 is in the set {a, -a} for any a in A)
-        # But since Vanja already checked that, we need to check if Miksi can reach Z1 or Z2 in one move, given that Vanja didn't win
-        # But since Miksi can choose any element and add or subtract, he can reach any value that is a multiple of the GCD of the elements
-        # So we need to check if Z1 or Z2 is reachable in one move (i.e., if Z1 or Z2 is in the set {a, -a} for any a in A)
-        # But since Vanja already checked that, we need to check if Miksi can reach Z1 or Z2 in one move, given that Vanja didn't win
-        # But since Miksi can choose any element and add or subtract, he can reach any value that is a multiple of the GCD of the elements
-        # So we need to check if Z1 or Z2 is reachable in one move (i.e., if Z1 or Z2 is in the set {a, -a} for any a in A)
-        # But since Vanja already checked that, we need to check if Miksi can reach Z1 or Z2 in one move, given that Vanja didn't win
-        # But since Miksi can choose any element and add or subtract, he can reach any value that is a multiple of the GCD of the elements
-        # So we need to check if Z1 or Z2 is reachable in one move (i.e., if Z1 or Z2 is in the set {a, -a} for any a in A)
-        # But since Vanja already checked that, we need to check if Miksi can reach Z1 or Z2 in one move, given that Vanja didn't win
-        # But since Miksi can choose any element and add or subtract, he can reach any value that is a multiple of the GCD of the elements
-        # So we need to check if Z1 or Z2 is reachable in one move (i.e., if Z1 or Z2 is in the set {a, -a} for any a in A)
-        # But since Vanja already checked that, we need to check if Miksi can reach Z1 or Z2 in one move, given that Vanja didn't win
-        # But since Miksi can choose any element and add or subtract, he can reach any value that is a multiple of the GCD of the elements
-        # So we need to check if Z1 or Z2 is reachable in one move (i.e., if Z1 or Z2 is in the set {a, -a} for any a in A)
-        # But since Vanja already checked that, we need to check if Miksi can reach Z1 or Z2 in one move, given that Vanja didn't win
-        # But since Miksi can choose any element and add or subtract, he can reach any value that is a multiple of the GCD of the elements
-        # So we need to check if Z1 or Z2 is reachable in one move (i.e., if Z1 or Z2 is in the set {a, -a} for any a in A)
-        # But since Vanja already checked that, we need to check if Miksi can reach Z1 or Z2 in one move, given that Vanja didn't win
-        # But since Miksi can choose any element and add or subtract, he can reach any value that is a multiple of
+        # Check if any element in A can reach Z1 or Z2 in one move
+        can_reach = False
+        for a in A:
+            if abs(a) == abs(Z1) or abs(a) == abs(Z2):
+                can_reach = True
+                break
+        if can_reach:
+            results.append(1)
+            continue
+        
+        # Check if any element in A can reach Z1 or Z2 in two moves
+        # For two moves, the possible values are:
+        # S = a1 + a2, a1 - a2, -a1 + a2, -a1 - a2
+        # We check if any of these equals Z1 or Z2
+        can_reach_in_two = False
+        for a in A:
+            for b in A:
+                if a + b == Z1 or a + b == Z2 or a - b == Z1 or a - b == Z2 or -a + b == Z1 or -a + b == Z2 or -a - b == Z1 or -a - b == Z2:
+                    can_reach_in_two = True
+                    break
+            if can_reach_in_two:
+                break
+        if can_reach_in_two:
+            results.append(2)
+            continue
+        
+        # Check if any element in A can reach Z1 or Z2 in three moves
+        # For three moves, the possible values are:
+        # S = a1 + a2 + a3, a1 + a2 - a3, a1 - a2 + a3, a1 - a2 - a3, -a1 + a2 + a3, -a1 + a2 - a3, -a1 - a2 + a3, -a1 - a2 - a3
+        # We check if any of these equals Z1 or Z2
+        can_reach_in_three = False
+        for a in A:
+            for b in A:
+                for c in A:
+                    if a + b + c == Z1 or a + b + c == Z2 or a + b - c == Z1 or a + b - c == Z2 or a - b + c == Z1 or a - b + c == Z2 or a - b - c == Z1 or a - b - c == Z2 or -a + b + c == Z1 or -a + b + c == Z2 or -a + b - c == Z1 or -a + b - c == Z2 or -a - b + c == Z1 or -a - b + c == Z2 or -a - b - c == Z1 or -a - b - c == Z2:
+                        can_reach_in_three = True
+                        break
+                if can_reach_in_three:
+                    break
+            if can_reach_in_three:
+                break
+        if can_reach_in_three:
+            results.append(2)
+            continue
+        
+        # Check if any element in A can reach Z1 or Z2 in four moves
+        # For four moves, the possible values are:
+        # S = a1 + a2 + a3 + a4, a1 + a2 + a3 - a4, a1 + a2 - a3 + a4, a1 + a2 - a3 - a4, a1 - a2 + a3 + a4, a1 - a2 + a3 - a4, a1 - a2 - a3 + a4, a1 - a2 - a3 - a4, -a1 + a2 + a3 + a4, -a1 + a2 + a3 - a4, -a1 + a2 - a3 + a4, -a1 + a2 - a3 - a4, -a1 - a2 + a3 + a4, -a1 - a2 + a3 - a4, -a1 - a2 - a3 + a4, -a1 - a2 - a3 - a4
+        # We check if any of these equals Z1 or Z2
+        can_reach_in_four = False
+        for a in A:
+            for b in A:
+                for c in A:
+                    for d in A:
+                        if a + b + c + d == Z1 or a + b + c + d == Z2 or a + b + c - d == Z1 or a + b + c - d == Z2 or a + b - c + d == Z1 or a + b - c + d == Z2 or a + b - c - d == Z1 or a + b - c - d == Z2 or a - b + c + d == Z1 or a - b + c + d == Z2 or a - b + c - d == Z1 or a - b + c - d == Z2 or a - b - c + d == Z1 or a - b - c + d == Z2 or a - b - c - d == Z1 or a - b - c - d == Z2 or -a + b + c + d == Z1 or -a + b + c + d == Z2 or -a + b + c - d == Z1 or -a + b + c - d == Z2 or -a + b - c + d == Z1 or -a + b - c + d == Z2 or -a + b - c - d == Z1 or -a + b - c - d == Z2 or -a - b + c + d == Z1 or -a - b + c + d == Z2 or -a - b + c - d == Z1 or -a - b + c - d == Z2 or -a - b - c + d == Z1 or -a - b - c + d == Z2 or -a - b - c - d == Z1 or -a - b - c - d == Z2:
+                            can_reach_in_four = True
+                            break
+                        if can_reach_in_four:
+                            break
+                    if can_reach_in_four:
+                        break
+                if can_reach_in_four:
+                    break
+            if can_reach_in_four:
+                break
+        if can_reach_in_four:
+            results.append(2)
+            continue
+        
+        # Check if any element in A can reach Z1 or Z2 in five moves
+        # For five moves, the possible values are:
+        # S = a1 + a2 + a3 + a4 + a5, a1 + a2 + a3 + a4 - a5, a1 + a2 + a3 - a4 + a5, a1 + a2 + a3 - a4 - a5, a1 + a2 - a3 + a4 + a5, a1 + a2 - a3 + a4 - a5, a1 + a2 - a3 - a4 + a5, a1 + a2 - a3 - a4 - a5, a1 - a2 + a3 + a4 + a5, a1 - a2 + a3 + a4 - a5, a1 - a2 + a3 - a4 + a5, a1 - a2 + a3 - a4 - a5, a1 - a2 - a3 + a4 + a5, a1 - a2 - a3 + a4 - a5, a1 - a2 - a3 - a4 + a5, a1 - a2 - a3 - a4 - a5, -a1 + a2 + a3 + a4 + a5, -a1 + a2 + a3 + a4 - a5, -a1 + a2 + a3 - a4 + a5, -a1 + a2 + a3 - a4 - a5, -a1 + a2 - a3 + a4 + a5, -a1 + a2 - a3 + a4 - a5, -a1 + a2 - a3 - a4 + a5, -a1 + a2 - a3 - a4 - a5, -a1 - a2 + a3 + a4 + a5, -a1 - a2 + a3 + a4 - a5, -a1 - a2 + a3 - a4 + a5, -a1 - a2 + a3 - a4 - a5, -a1 - a2 - a3 + a4

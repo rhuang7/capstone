@@ -12,13 +12,17 @@ def solve():
         for i in range(N):
             for j in range(N):
                 if i == 0 and j == 0:
-                    grid[i][j] = 1
+                    grid[i][j] = num
+                    num += 1
                 elif i == 0:
-                    grid[i][j] = grid[i][j-1] + 1
+                    grid[i][j] = grid[i][j-1] + num
+                    num += 1
                 elif j == 0:
-                    grid[i][j] = grid[i-1][j] + 1
+                    grid[i][j] = grid[i-1][j] + num
+                    num += 1
                 else:
-                    grid[i][j] = grid[i-1][j] + grid[i][j-1] - grid[i-1][j-1] + 1
+                    grid[i][j] = grid[i-1][j] + grid[i][j-1] - grid[i-1][j-1] + num
+                    num += 1
         for row in grid:
             print(' '.join(map(str, row)))
 

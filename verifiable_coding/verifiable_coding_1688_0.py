@@ -24,10 +24,7 @@ def solve():
                     res.append(str(9 - prev))
                     prev = 9 - prev
                 else:
-                    res.append(str(prev))
-                    prev = prev - 1
+                    res.append(str(9 - prev))
+                    prev = 9 - prev
         results.append(''.join(res))
     print('\n'.join(results))
-
-if __name__ == '__main__':
-    solve()

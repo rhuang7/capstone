@@ -23,59 +23,41 @@ def solve():
         pos = {val: i for i, val in enumerate(sorted_P)}
         
         # Create a graph where each node is a position in the original array
-        # and edges represent valid swaps (difference of D)
+        # and edges represent possible swaps (difference of D)
         graph = defaultdict(list)
         for i in range(N):
-            for j in range(i + 1, N):
+            for j in range(i+1, N):
                 if abs(P[i] - P[j]) == D:
                     graph[i].append(j)
                     graph[j].append(i)
         
-        # BFS to find the minimum number of swaps to sort the array
-        # We need to find the minimum number of swaps to bring each element to its correct position
-        # We can model this as a graph where each node is a position, and edges are valid swaps
-        # We need to find the minimum number of swaps to reach the correct position for each element
-        
-        # Create a list to store the number of swaps needed for each position
-        swaps = [0] * N
-        
-        # For each position, if it's not already correct, perform BFS to find the minimum swaps
+        # BFS to find the minimum number of swaps
         visited = [False] * N
+        min_swaps = [0] * N
+        q = deque()
+        
         for i in range(N):
-            if not visited[i]:
-                # Start BFS from position i
-                queue = deque()
-                queue.append((i, 0))
+            if P[i] != sorted_P[i]:
+                q.append(i)
                 visited[i] = True
-                while queue:
-                    node, count = queue.popleft()
-                    # Check if this node is already in the correct position
-                    if P[node] == sorted_P[node]:
-                        continue
-                    # Check if this node is in the correct position in the sorted array
-                    correct_pos = pos[P[node]]
-                    if correct_pos == node:
-                        continue
-                    # If not, check if we can swap with another node
-                    for neighbor in graph[node]:
-                        if not visited[neighbor]:
-                            visited[neighbor] = True
-                            queue.append((neighbor, count + 1))
-                            swaps[neighbor] = count + 1
-                    # If we can't reach the correct position, it's impossible
-                    if not queue:
-                        results.append(-1)
-                        break
-                else:
-                    # If we successfully reached the correct positions, sum the swaps
-                    total = sum(swaps)
-                    results.append(total)
-        # If any test case is impossible, return -1
-        if -1 in results:
-            results = [-1]
+                min_swaps[i] = 0
+        
+        # BFS to find the minimum swaps
+        while q:
+            u = q.popleft()
+            for v in graph[u]:
+                if not visited[v]:
+                    visited[v] = True
+                    min_swaps[v] = min_swaps[u] + 1
+                    q.append(v)
+        
+        # Check if all elements are in their correct positions
+        total_swaps = sum(min_swaps)
+        for i in range(N):
+            if P[i] != sorted_P[i]:
+                total_swaps = -1
+                break
+        
+        results.append(str(total_swaps))
     
-    for res in results:
-        print(res)
-
-if __name__ == '__main__':
-    solve()
+    print('\n'.join(results))

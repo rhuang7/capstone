@@ -23,69 +23,46 @@ def solve():
         
         # Preprocess B to sort and compute prefix sums
         B_sorted = sorted(B)
-        prefix_B = [0] * (q + 1)
+        prefix_sum_B = [0] * (q + 1)
         for i in range(q):
-            prefix_B[i+1] = (prefix_B[i] + B_sorted[i]) % MOD
+            prefix_sum_B[i+1] = (prefix_sum_B[i] + B_sorted[i]) % MOD
         
         # Preprocess C to sort and compute prefix sums
         C_sorted = sorted(C)
-        prefix_C = [0] * (r + 1)
+        prefix_sum_C = [0] * (r + 1)
         for i in range(r):
-            prefix_C[i+1] = (prefix_C[i] + C_sorted[i]) % MOD
+            prefix_sum_C[i+1] = (prefix_sum_C[i] + C_sorted[i]) % MOD
         
-        # For each element in B, find the number of elements in A <= B[i] and in C >= B[i]
+        # Compute the sum for each element in B
         total = 0
         for y in B:
-            # Find number of elements in A <= y
-            a_count = 0
-            left, right = 0, len(A)
-            while left < right:
+            # Find elements in A <= y
+            left = 0
+            right = p - 1
+            while left <= right:
                 mid = (left + right) // 2
                 if A[mid] <= y:
                     left = mid + 1
                 else:
-                    right = mid
-            a_count = left
+                    right = mid - 1
+            count_A = left
+            sum_A = sum(A[:left])
             
-            # Find number of elements in C >= y
-            c_count = 0
-            left, right = 0, len(C)
-            while left < right:
+            # Find elements in C >= y
+            left = 0
+            right = r - 1
+            while left <= right:
                 mid = (left + right) // 2
                 if C[mid] >= y:
-                    right = mid
+                    right = mid - 1
                 else:
                     left = mid + 1
-            c_count = len(C) - left
+            count_C = r - left
+            sum_C = sum(C[left:])
             
-            if a_count == 0 or c_count == 0:
-                continue
-            
-            # Compute sum of (X + Y) for X in A <= Y
-            sum_X_plus_Y = 0
-            left, right = 0, len(A)
-            while left < right:
-                mid = (left + right) // 2
-                if A[mid] <= y:
-                    left = mid + 1
-                else:
-                    right = mid
-            sum_X_plus_Y = (prefix_B[left] - prefix_B[0]) % MOD
-            
-            # Compute sum of (Y + Z) for Z in C >= Y
-            sum_Y_plus_Z = 0
-            left, right = 0, len(C)
-            while left < right:
-                mid = (left + right) // 2
-                if C[mid] >= y:
-                    right = mid
-                else:
-                    left = mid + 1
-            sum_Y_plus_Z = (prefix_C[len(C)] - prefix_C[left]) % MOD
-            
-            # Compute contribution of this Y
-            contribution = (sum_X_plus_Y * sum_Y_plus_Z) % MOD
-            total = (total + contribution) % MOD
+            # Compute (sum_A) * (sum_C) and add to total
+            term = (sum_A * sum_C) % MOD
+            total = (total + term) % MOD
         
         results.append(total % MOD)
     

@@ -2,14 +2,14 @@ import sys
 
 def solve():
     import sys
-    input = sys.stdin.buffer.read().split()
-    T = int(input[0])
-    cases = input[1:T+1]
-
-    for s in cases:
+    input = sys.stdin.buffer.read
+    data = input().split()
+    T = int(data[0])
+    for i in range(1, T + 1):
+        s = data[i]
         transitions = 0
-        for i in range(8):
-            if s[i] != s[(i + 1) % 8]:
+        for j in range(8):
+            if s[j] != s[(j + 1) % 8]:
                 transitions += 1
         if transitions <= 2:
             print("uniform")

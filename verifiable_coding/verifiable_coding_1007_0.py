@@ -5,10 +5,7 @@ def compute_gcd_list(arr):
     gcd_list = []
     current_gcd = 0
     for num in arr:
-        if current_gcd == 0:
-            current_gcd = num
-        else:
-            current_gcd = math.gcd(current_gcd, num)
+        current_gcd = math.gcd(current_gcd, num)
         gcd_list.append(current_gcd)
     return gcd_list
 

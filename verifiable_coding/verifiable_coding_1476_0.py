@@ -7,7 +7,7 @@ def solve():
     input = sys.stdin.buffer.read().split()
     T = int(input[0])
     cases = input[1:T+1]
-
+    
     for s in cases:
         freq = {}
         for c in s:
@@ -15,11 +15,12 @@ def solve():
                 freq[c] += 1
             else:
                 freq[c] += 1
-        total = len(s)
-        res = math.factorial(total)
+        
+        total = 1
         for count in freq.values():
-            res //= math.factorial(count)
-        print(res % MOD)
+            total = total * math.factorial(count) % MOD
+        
+        print(total)
 
 if __name__ == '__main__':
     solve()

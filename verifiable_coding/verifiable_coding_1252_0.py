@@ -15,15 +15,14 @@ def solve():
     cases = list(map(int, input[1:t+1]))
     
     primes_sum = [0] * (10**6 + 1)
-    prime = 2
-    while prime <= 10**6:
-        primes_sum[prime] = primes_sum[prime - 1] + prime
-        for i in range(prime * 2, 10**6 + 1, prime):
-            primes_sum[i] = primes_sum[i - 1] + prime
-        prime = primes_sum.index(prime + 1, prime + 1) + 1
+    for i in range(2, 10**6 + 1):
+        if is_prime(i):
+            primes_sum[i] = (primes_sum[i-1] + i) % 10
+        else:
+            primes_sum[i] = primes_sum[i-1]
     
     for n in cases:
-        print(primes_sum[n] % 10)
+        print(primes_sum[n])
 
 if __name__ == '__main__':
     solve()

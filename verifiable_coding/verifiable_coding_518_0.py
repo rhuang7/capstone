@@ -10,10 +10,9 @@ def solve():
     
     for i in range(1, T + 1):
         N = int(data[i])
-        # The number of ways to reach N stairs is equal to the (N+1)th Fibonacci number
-        # because the problem is equivalent to counting the number of ways to climb N stairs
-        # with steps of 1 or 2, where order does not matter.
-        # This is the same as the Fibonacci sequence starting from 1, 1, 2, 3, 5, ...
+        # The number of ways to reach N stairs is the (N+1)th Fibonacci number
+        # Since the chef can take 1 or 2 steps at a time, and order doesn't matter
+        # This is equivalent to finding the (N+1)th Fibonacci number
         a, b = 1, 1
         for _ in range(N):
             a, b = b, a + b

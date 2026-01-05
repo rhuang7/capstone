@@ -1,28 +1,24 @@
 import sys
 import math
 
-def is_sharp_turn(A, B, C):
-    # Vector AB
-    AB = (B[0] - A[0], B[1] - A[1])
-    # Vector BC
-    BC = (C[0] - B[0], C[1] - B[1])
+def is_sharp_turn(a, b, c):
+    # Compute vectors BA and BC
+    ba = (a[0] - b[0], a[1] - b[1])
+    bc = (c[0] - b[0], c[1] - b[1])
     
-    # Compute the angle between AB and BC using the dot product
-    dot_product = AB[0] * BC[0] + AB[1] * BC[1]
-    magnitude_AB = math.hypot(AB[0], AB[1])
-    magnitude_BC = math.hypot(BC[0], BC[1])
+    # Compute the dot product and magnitudes
+    dot = ba[0] * bc[0] + ba[1] * bc[1]
+    mag_ba = math.hypot(ba[0], ba[1])
+    mag_bc = math.hypot(bc[0], bc[1])
     
-    # Avoid division by zero
-    if magnitude_AB == 0 or magnitude_BC == 0:
-        return False
+    # Compute the cosine of the angle between BA and BC
+    cos_theta = dot / (mag_ba * mag_bc)
     
-    cos_theta = dot_product / (magnitude_AB * magnitude_BC)
-    # Clamp to avoid numerical errors
-    cos_theta = max(min(cos_theta, 1.0), -1.0)
-    theta = math.acos(cos_theta)
+    # Compute the angle in radians and convert to degrees
+    angle = math.degrees(math.acos(cos_theta))
     
     # Check if the angle is greater than 45 degrees
-    return theta > math.radians(45)
+    return angle > 45
 
 def solve():
     import sys
@@ -38,55 +34,61 @@ def solve():
         points = []
         for _ in range(N):
             x = int(input[idx])
-            y = int(input[idx + 1])
+            y = int(input[idx+1])
             points.append((x, y))
             idx += 2
         
-        # Check if there is a sharp turn
+        # Check if there is any sharp turn
         has_sharp = False
-        for i in range(1, N - 1):
-            A = points[i - 1]
-            B = points[i]
-            C = points[i + 1]
-            if is_sharp_turn(A, B, C):
+        for i in range(1, N-1):
+            a = points[i-1]
+            b = points[i]
+            c = points[i+1]
+            if is_sharp_turn(a, b, c):
                 has_sharp = True
                 break
         
-        # If there is a sharp turn, check if we can fix it by changing one point
-        can_fix = False
-        if has_sharp:
-            for i in range(N):
-                for dx in range(-51, 51):
-                    for dy in range(-51, 51):
-                        if dx == 0 and dy == 0:
-                            continue
-                        new_point = (points[i][0] + dx, points[i][1] + dy)
-                        if new_point in points:
-                            continue
-                        if new_point[0] < 0 or new_point[0] > 50 or new_point[1] < 0 or new_point[1] > 50:
-                            continue
-                        # Create new points list
-                        new_points = points.copy()
-                        new_points[i] = new_point
-                        # Check if there is any sharp turn
-                        sharp = False
-                        for j in range(1, len(new_points) - 1):
-                            A = new_points[j - 1]
-                            B = new_points[j]
-                            C = new_points[j + 1]
-                            if is_sharp_turn(A, B, C):
-                                sharp = True
-                                break
-                        if not sharp:
-                            can_fix = True
-                            break
-                    if can_fix:
-                        break
-                if can_fix:
-                    break
+        # If there is no sharp turn, output "yes yes"
+        if not has_sharp:
+            results.append("yes yes")
+            continue
         
-        results.append("no" if has_sharp else "yes")
-        results.append("yes" if can_fix or not has_sharp else "no")
+        # If there is a sharp turn, check if we can modify one point to remove it
+        can_modify = False
+        for i in range(N):
+            x, y = points[i]
+            for dx in range(-51, 51):
+                for dy in range(-51, 51):
+                    if dx == 0 and dy == 0:
+                        continue
+                    new_x = x + dx
+                    new_y = y + dy
+                    if new_x < 0 or new_x > 50 or new_y < 0 or new_y > 50:
+                        continue
+                    # Check if the new point is already in the list
+                    if (new_x, new_y) in points:
+                        continue
+                    # Create a new list with the modified point
+                    new_points = points.copy()
+                    new_points[i] = (new_x, new_y)
+                    # Check if there is any sharp turn in the new list
+                    sharp = False
+                    for j in range(1, len(new_points)-1):
+                        a = new_points[j-1]
+                        b = new_points[j]
+                        c = new_points[j+1]
+                        if is_sharp_turn(a, b, c):
+                            sharp = True
+                            break
+                    if not sharp:
+                        can_modify = True
+                        break
+                if can_modify:
+                    break
+            if can_modify:
+                break
+        
+        results.append("no" + (" yes" if can_modify else " no"))
     
     for res in results:
         print(res)

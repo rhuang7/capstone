@@ -28,31 +28,21 @@ def solve():
                 count = 1
         runs.append(count)
         
-        # Find the minimum number of operations
-        min_ops = float('inf')
+        # Calculate the minimum operations needed
+        # For each run, if its length is odd, we need to delete one element or insert one element
+        # To minimize operations, we can delete one element from the run (cost 1) or insert one (cost 1)
+        # But if we have multiple runs with odd lengths, we can delete one element from two runs (cost 2)
+        # So the minimum number of operations is the number of runs with odd lengths, if it's even, else it's (number of odd runs + 1)
+        odd_count = sum(1 for r in runs if r % 2 != 0)
+        if odd_count % 2 == 0:
+            res = odd_count
+        else:
+            res = odd_count + 1
         
-        # Try all possible ways to make the sequence even
-        # Case 1: All runs have even length
-        if all(x % 2 == 0 for x in runs):
-            min_ops = 0
-        
-        # Case 2: Change one run to even length
-        for i in range(len(runs)):
-            if runs[i] % 2 == 1:
-                # Change this run to even length (add 1)
-                new_len = runs[i] + 1
-                min_ops = min(min_ops, 1)
-        
-        # Case 3: Remove one run (if it's odd)
-        for i in range(len(runs)):
-            if runs[i] % 2 == 1:
-                min_ops = min(min_ops, 1)
-        
-        # Case 4: Remove two runs (if both are odd)
-        odd_runs = [x for x in runs if x % 2 == 1]
-        if len(odd_runs) >= 2:
-            min_ops = min(min_ops, 2)
-        
-        results.append(str(min_ops))
+        results.append(res)
     
-    print('\n'.join(results))
+    for res in results:
+        print(res)
+
+if __name__ == '__main__':
+    solve()

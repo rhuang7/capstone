@@ -30,22 +30,19 @@ def solve():
             element_to_people[num].append(i)
     
     # BFS to find all people in the extended family
-    visited = [False] * N
-    queue = deque()
-    queue.append(0)
-    visited[0] = True
-    count = 0
+    visited = set()
+    queue = deque([0])
+    visited.add(0)
     
     while queue:
-        current = queue.popleft()
-        count += 1
-        for num in people[current]:
+        person = queue.popleft()
+        for num in people[person]:
             for neighbor in element_to_people[num]:
-                if not visited[neighbor]:
-                    visited[neighbor] = True
+                if neighbor not in visited:
+                    visited.add(neighbor)
                     queue.append(neighbor)
     
-    print(count)
+    print(len(visited))
 
 if __name__ == '__main__':
     solve()

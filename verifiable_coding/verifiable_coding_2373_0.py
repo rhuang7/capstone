@@ -15,26 +15,33 @@ def solve():
         a = list(map(int, data[idx:idx+n]))
         idx += n
         
-        # For each pair (i, n-i+1), find possible x values and count the number of replacements needed
-        min_replacements = float('inf')
+        # For each pair (i, n-i+1), find possible x values and count required changes
+        count = {}
+        for i in range(0, n, 2):
+            x1 = a[i] + a[n - i - 1]
+            if x1 <= 2 * k:
+                count[x1] = count.get(x1, 0) + 1
         
-        # Try all possible x values (from 1 to k)
-        for x in range(1, k+1):
-            replacements = 0
-            for i in range(n // 2):
-                left = a[i]
-                right = a[n - i - 1]
-                if left + right != x:
-                    # Need to replace at least one of them
-                    # Check if both are valid
-                    if left > k or right > k:
-                        # Both are invalid, need to replace both
-                        replacements += 2
-                    else:
-                        # At least one is invalid, need to replace at least one
-                        replacements += 1
-            min_replacements = min(min_replacements, replacements)
+        # Find the x with maximum count (min changes)
+        max_count = -1
+        best_x = None
+        for x in count:
+            if count[x] > max_count:
+                max_count = count[x]
+                best_x = x
         
-        results.append(str(min_replacements))
+        # Calculate the minimum changes needed
+        min_changes = 0
+        for i in range(0, n, 2):
+            x = best_x
+            left = a[i]
+            right = a[n - i - 1]
+            if left + right != x:
+                min_changes += 1
+        
+        results.append(str(min_changes))
     
     print('\n'.join(results))
+
+if __name__ == '__main__':
+    solve()

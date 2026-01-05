@@ -10,7 +10,6 @@ def solve():
     T = int(data[idx])
     idx += 1
     results = []
-    
     for _ in range(T):
         N, K = int(data[idx]), int(data[idx+1])
         idx += 2
@@ -21,17 +20,17 @@ def solve():
         
         for l in range(N):
             freq = defaultdict(int)
-            unique = set()
+            unique = []
             for r in range(l, N):
                 freq[A[r]] += 1
-                unique.add(A[r])
-                length = r - l + 1
-                m = math.ceil(K / length)
-                B = A[l:r+1] * m
+                unique.append(A[r])
+                len_s = r - l + 1
+                m = math.ceil(K / len_s)
+                B = unique * m
                 B.sort()
                 X = B[K-1]
                 F = freq[X]
-                if F in unique:
+                if str(F) in unique:
                     count += 1
         results.append(count)
     

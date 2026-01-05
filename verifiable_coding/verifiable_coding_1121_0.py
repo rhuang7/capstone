@@ -9,24 +9,22 @@ def solve():
     results = []
     
     for i in range(1, T + 1):
-        time = data[i].decode()
-        hours, minutes = map(int, time.split(':'))
+        time_str = data[i].decode('utf-8')
+        hours, minutes = map(int, time_str.split(':'))
         
-        # Calculate minute hand position
+        # Calculate positions of hour and minute hands
         minute_angle = 6 * minutes  # 6 degrees per minute
-        
-        # Calculate hour hand position
         hour_angle = 30 * hours + 0.5 * minutes  # 30 degrees per hour, 0.5 per minute
         
         # Calculate the absolute difference
-        diff = abs(minute_angle - hour_angle)
+        diff = abs(hour_angle - minute_angle)
         
-        # Minimum angle is the smaller of diff and 360 - diff
+        # The minimum angle is the smaller of diff and 360 - diff
         min_angle = min(diff, 360 - diff)
         
         results.append(f"{min_angle} degree")
     
-    print("\n".join(results))
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

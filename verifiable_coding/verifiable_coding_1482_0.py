@@ -2,10 +2,9 @@ import sys
 import math
 
 def solve():
-    input = sys.stdin.buffer.read
-    data = input().split()
-    T = int(data[0])
-    cases = list(map(int, data[1:T+1]))
+    input = sys.stdin.buffer.read().split()
+    T = int(input[0])
+    cases = list(map(int, input[1:T+1]))
     
     for N in cases:
         if N == 1:
@@ -17,20 +16,16 @@ def solve():
         
         if N % 2 == 0:
             half = N // 2
-            same = 9 * 10 ** (half - 1)
-        else:
-            mid = N // 2
-            same = 9 * 10 ** mid
+            same = 10 ** half
         
-        prob = same / total
-        p = same
-        q = total
+        prob_p = same
+        prob_q = total
         
-        g = math.gcd(p, q)
-        p //= g
-        q //= g
+        gcd = math.gcd(prob_p, prob_q)
+        p = prob_p // gcd
+        q = prob_q // gcd
         
         print(f"{p} {q}")
-
+        
 if __name__ == '__main__':
     solve()

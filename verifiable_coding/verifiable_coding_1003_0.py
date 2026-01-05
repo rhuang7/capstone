@@ -28,35 +28,30 @@ def solve():
             sofloats.append((Ci, Li))
             idx += 2
         
-        # Group by level
-        s_level = {}
-        s_power = {}
-        for c, l in soints:
-            if l not in s_level:
-                s_level[l] = []
-                s_power[l] = []
-            s_level[l].append(c)
-            s_power[l].append(c)
+        from collections import defaultdict
+        level_soints = defaultdict(list)
+        level_sofloats = defaultdict(list)
         
-        f_level = {}
-        f_power = {}
-        for c, l in sofloats:
-            if l not in f_level:
-                f_level[l] = []
-                f_power[l] = []
-            f_level[l].append(c)
-            f_power[l].append(c)
+        for ci, li in soints:
+            level_soints[li].append(ci)
         
-        # For each level, find the minimum required chakra for Soints
+        for ci, li in sofloats:
+            level_sofloats[li].append(ci)
+        
         total = 0
-        for l in s_level:
-            # Get the minimum power of Soints and Sofloats at this level
-            min_s = min(s_level[l])
-            min_f = min(f_level[l])
+        for level in level_soints:
+            s_list = level_soints[level]
+            f_list = level_sofloats[level]
             
-            # If Soint's power is less than Sofloat's, we need to increase it
-            if min_s < min_f:
-                total += (min_f - min_s)
+            s = min(s_list)
+            f = min(f_list)
+            
+            if s < f:
+                total += (f - s)
+            elif s > f:
+                pass
+            else:
+                total += 0
         
         results.append(total)
     

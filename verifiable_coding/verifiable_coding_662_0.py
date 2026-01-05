@@ -26,16 +26,18 @@ def solve():
         # Last odd number in the range
         last_odd = R if R % 2 else R - 1
         
-        # The sequence is first_odd, first_odd + 2, ..., last_odd
-        # We need to take every d-th odd number, starting from the first
-        # So the first term is first_odd, the second is first_odd + 2*d, etc.
+        # The sequence of odd numbers is an arithmetic progression with common difference 2
+        # We need to select every d-th odd number, starting from the first
+        # So the selected numbers are first_odd, first_odd + 2*d, first_odd + 4*d, ...
         
-        # Number of terms to take is total_terms
-        # The sum of an arithmetic sequence is (n * (a1 + an)) // 2
+        # The sum of an arithmetic progression is (n * (a1 + an)) // 2
+        # Here, a1 is first_odd, an is first_odd + 2*(d-1)*d, n is total_terms
         a1 = first_odd
-        an = first_odd + 2 * (total_terms - 1) * d
-        sum_seq = (total_terms * (a1 + an)) // 2
-        results.append(sum_seq % MOD)
+        an = a1 + 2 * (d - 1) * d
+        n = total_terms
+        sum_ap = (n * (a1 + an)) // 2
+        
+        results.append(sum_ap % MOD)
     
     sys.stdout.write('\n'.join(map(str, results)) + '\n')
 

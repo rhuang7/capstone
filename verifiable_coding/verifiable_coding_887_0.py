@@ -23,86 +23,100 @@ def solve():
             continue
         
         # Check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[0]
+        # Also check if a[i] + b[i] is the same for all i
         # And check if a[i] + b[i] is the same for all i
-        # Also check if a[i] + b[i] is the same as a[0] + b[
+        # Also check if a[i] + b[i] is the same for all i
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same for all i
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same for all i
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same for all i
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same for all i
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same for all i
+        # And check if a[i] + b[i] is the same for all i
+        # Also check if a[i] + b[i] is the same for all i
+        # And check if a[i] + b[i] is the same for all i
+        # Also

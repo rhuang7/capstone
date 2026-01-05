@@ -29,3 +29,6 @@ def solve():
         else:
             results.append("no")
     print('\n'.join(results))
+
+if __name__ == '__main__':
+    solve()

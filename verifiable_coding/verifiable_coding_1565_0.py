@@ -19,7 +19,7 @@ def solve():
                 ptr += Z
                 row.extend(line)
             B.append(row)
-        A = [[[] for _ in range(Z)] for _ in range(Y) for _ in range(X)]
+        A = [[ [0]*Z for _ in range(Y) ] for _ in range(X) ]
         for i in range(X):
             for j in range(Y):
                 for k in range(Z):
@@ -31,7 +31,7 @@ def solve():
             for j in range(Y):
                 for k in range(Z):
                     print(A[i][j][k])
-                    if k == Z - 1:
+                    if k == Z-1:
                         print()
         if X > 0 and Y > 0 and Z > 0:
             print()

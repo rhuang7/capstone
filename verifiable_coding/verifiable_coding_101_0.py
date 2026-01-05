@@ -8,8 +8,6 @@ def solve():
     t = int(data[0])
     index = 1
     
-    results = []
-    
     for _ in range(t):
         a = int(data[index])
         b = int(data[index+1])
@@ -19,35 +17,36 @@ def solve():
         
         # Determine the direction of movement
         if a > b:
-            start, end = b, a
+            a, b = b, a
+            direction = -1
         else:
-            start, end = a, b
+            direction = 1
         
-        # The coverage interval is [c - r, c + r]
-        left = c - r
-        right = c + r
+        # Calculate the range of x where Polycarp is in coverage
+        start = c - r
+        end = c + r
         
-        # Find the intersection of the path [start, end] and the coverage [left, right]
-        # The part of the path not covered is the total length minus the covered part
-        # If the coverage is completely outside the path, the entire path is not covered
+        # Find the overlap between the path and the coverage area
+        path_start = a
+        path_end = b
         
-        # Calculate the total path length
-        total_length = end - start
+        # Calculate the intersection of the path and coverage
+        overlap_start = max(path_start, start)
+        overlap_end = min(path_end, end)
         
-        # Calculate the covered part
-        # The covered part is the overlap between [start, end] and [left, right]
-        covered_start = max(start, left)
-        covered_end = min(end, right)
+        # If there is no overlap, the total time is the full path length
+        if overlap_start >= overlap_end:
+            print(b - a)
+            continue
         
-        if covered_start >= covered_end:
-            # No overlap, entire path is not covered
-            results.append(total_length)
-        else:
-            covered_length = covered_end - covered_start
-            results.append(total_length - covered_length)
-    
-    for res in results:
-        print(res)
+        # Calculate the time spent in coverage
+        time_in_coverage = overlap_end - overlap_start
+        
+        # Calculate the total time
+        total_time = b - a
+        
+        # Time not in coverage is total time minus time in coverage
+        print(total_time - time_in_coverage)
 
 if __name__ == '__main__':
     solve()

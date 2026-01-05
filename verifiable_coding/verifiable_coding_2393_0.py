@@ -13,99 +13,49 @@ def solve():
     for _ in range(t):
         n = int(data[idx])
         idx += 1
-        grid = data[idx]
-        idx += 1
-        grid = [list(grid[i*n:(i+1)*n]) for i in range(n)]
+        matrix = []
+        for i in range(n):
+            row = data[idx]
+            matrix.append(row)
+            idx += 1
         
         valid = True
+        # Check if any 1 is in a position that cannot be reached by any cannon
         for i in range(n):
             for j in range(n):
-                if grid[i][j] == '1':
-                    # Check if it can be reached from a cannon
-                    # Check if it's in first row or first column
+                if matrix[i][j] == '1':
+                    # Check if it's in the first row or first column
                     if i == 0 or j == 0:
-                        # It can be reached from a cannon
+                        # It can be shot from a cannon
                         continue
-                    # Check if there is a path from the border to this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach this cell
-                    # Check if there is a 1 in the first row or first column that can reach
+                    # Check if it's blocked by a 1 in the same row or column
+                    # Check row i
+                    blocked = False
+                    for k in range(1, n):
+                        if matrix[i][k] == '1':
+                            blocked = True
+                            break
+                    if not blocked:
+                        valid = False
+                        break
+                    # Check column j
+                    blocked = False
+                    for k in range(1, n):
+                        if matrix[k][j] == '1':
+                            blocked = True
+                            break
+                    if not blocked:
+                        valid = False
+                        break
+            if not valid:
+                break
+        
+        if valid:
+            results.append("YES")
+        else:
+            results.append("NO")
+    
+    print('\n'.join(results))
+
+if __name__ == '__main__':
+    solve()

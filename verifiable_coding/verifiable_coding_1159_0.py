@@ -21,13 +21,13 @@ def solve():
             if freq[s[i]] == 1:
                 anku = s[i]
                 break
-        if shanky is not None and anku is not None:
+        if shanky is None or anku is None:
+            print("PANDEY")
+        else:
             if shanky > anku:
                 print("SHANKY")
             else:
                 print("ANKU")
-        else:
-            print("PANDEY")
 
 if __name__ == '__main__':
     solve()

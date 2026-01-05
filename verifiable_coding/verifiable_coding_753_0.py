@@ -34,53 +34,32 @@ def solve():
         
         # Check by type
         # Maple
-        total = MG + MY + MR
-        if total > 0:
-            if total % 2 == 1:
-                max_leaves = max(max_leaves, total)
-            else:
-                max_leaves = max(max_leaves, total - 1)
+        total_maple = MG + MY + MR
+        if total_maple > 0:
+            max_leaves = max(max_leaves, total_maple - (total_maple % 2))
         # Oak
-        total = OG + OY + OR
-        if total > 0:
-            if total % 2 == 1:
-                max_leaves = max(max_leaves, total)
-            else:
-                max_leaves = max(max_leaves, total - 1)
+        total_oak = OG + OY + OR
+        if total_oak > 0:
+            max_leaves = max(max_leaves, total_oak - (total_oak % 2))
         # Poplar
-        total = PG + PY + PR
-        if total > 0:
-            if total % 2 == 1:
-                max_leaves = max(max_leaves, total)
-            else:
-                max_leaves = max(max_leaves, total - 1)
+        total_poplar = PG + PY + PR
+        if total_poplar > 0:
+            max_leaves = max(max_leaves, total_poplar - (total_poplar % 2))
         
         # Check by color
         # Green
-        total = MG + OG + PG
-        if total > 0:
-            if total % 2 == 1:
-                max_leaves = max(max_leaves, total)
-            else:
-                max_leaves = max(max_leaves, total - 1)
+        total_green = MG + OG + PG
+        if total_green > 0:
+            max_leaves = max(max_leaves, total_green - (total_green % 2))
         # Yellow
-        total = MY + OY + PY
-        if total > 0:
-            if total % 2 == 1:
-                max_leaves = max(max_leaves, total)
-            else:
-                max_leaves = max(max_leaves, total - 1)
+        total_yellow = MY + OY + PY
+        if total_yellow > 0:
+            max_leaves = max(max_leaves, total_yellow - (total_yellow % 2))
         # Red
-        total = MR + OR + PR
-        if total > 0:
-            if total % 2 == 1:
-                max_leaves = max(max_leaves, total)
-            else:
-                max_leaves = max(max_leaves, total - 1)
+        total_red = MR + OR + PR
+        if total_red > 0:
+            max_leaves = max(max_leaves, total_red - (total_red % 2))
         
         results.append(str(max_leaves))
     
     print('\n'.join(results))
-
-if __name__ == '__main__':
-    solve()

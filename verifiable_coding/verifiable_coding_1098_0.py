@@ -20,9 +20,9 @@ def solve():
         A.sort(reverse=True)
         
         # Chef takes first, then Roma, and so on
-        # Chef's total is sum of elements at even indices (0-based)
-        chef_total = sum(A[i] for i in range(0, N, 2))
-        results.append(str(chef_total))
+        # Total stones Chef can take is sum of every other element starting from index 0
+        total_chef = sum(A[i] for i in range(0, N, 2))
+        results.append(str(total_chef))
     
     print('\n'.join(results))
 

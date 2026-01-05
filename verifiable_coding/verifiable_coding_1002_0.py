@@ -16,7 +16,7 @@ def solve():
         C = list(map(int, data[idx:idx+N]))
         idx += N
         
-        # Sort the temperatures
+        # Sort the cities by temperature
         C.sort()
         
         # Check if the first city can reach the last city with the given D
@@ -24,94 +24,18 @@ def solve():
             results.append("NO")
             continue
         
-        # Check if there's a way to connect all cities in a path
-        # We can do this by checking if the maximum difference between consecutive cities is <= D
-        # But since the cities are sorted, we can just check the first and last city
-        # Because if the first and last city are connected, then there's a path through the sorted cities
-        # So we just need to check if the first and last city are connected
-        # But wait, this is not sufficient. We need to check if there's a path that connects all cities
-        # So we need to check if the maximum difference between consecutive cities is <= D
-        # But since the cities are sorted, we can just check if the first and last city are connected
-        # Because if the first and last city are connected, then there's a path through the sorted cities
-        # So we just need to check if the first and last city are connected
-        # But wait, this is not sufficient. We need to check if there's a path that connects all cities
-        # So we need to check if the maximum difference between consecutive cities is <= D
-        # But since the cities are sorted, we can just check if the first and last city are connected
-        # Because if the first and last city are connected, then there's a path through the sorted cities
-        # So we just need to check if the first and last city are connected
-        # But wait, this is not sufficient. We need to check if there's a path that connects all cities
-        # So we need to check if the maximum difference between consecutive cities is <= D
-        # But since the cities are sorted, we can just check if the first and last city are connected
-        # Because if the first and last city are connected, then there's a path through the sorted cities
-        # So we just need to check if the first and last city are connected
-        # But wait, this is not sufficient. We need to check if there's a path that connects all cities
-        # So we need to check if the maximum difference between consecutive cities is <= D
-        # But since the cities are sorted, we can just check if the first and last city are connected
-        # Because if the first and last city are connected, then there's a path through the sorted cities
-        # So we just need to check if the first and last city are connected
-        # But wait, this is not sufficient. We need to check if there's a path that connects all cities
-        # So we need to check if the maximum difference between consecutive cities is <= D
-        # But since the cities are sorted, we can just check if the first and last city are connected
-        # Because if the first and last city are connected, then there's a path through the sorted cities
-        # So we just need to check if the first and last city are connected
-        # But wait, this is not sufficient. We need to check if there's a path that connects all cities
-        # So we need to check if the maximum difference between consecutive cities is <= D
-        # But since the cities are sorted, we can just check if the first and last city are connected
-        # Because if the first and last city are connected, then there's a path through the sorted cities
-        # So we just need to check if the first and last city are connected
-        # But wait, this is not sufficient. We need to check if there's a path that connects all cities
-        # So we need to check if the maximum difference between consecutive cities is <= D
-        # But since the cities are sorted, we can just check if the first and last city are connected
-        # Because if the first and last city are connected, then there's a path through the sorted cities
-        # So we just need to check if the first and last city are connected
-        # But wait, this is not sufficient. We need to check if there's a path that connects all cities
-        # So we need to check if the maximum difference between consecutive cities is <= D
-        # But since the cities are sorted, we can just check if the first and last city are connected
-        # Because if the first and last city are connected, then there's a path through the sorted cities
-        # So we just need to check if the first and last city are connected
-        # But wait, this is not sufficient. We need to check if there's a path that connects all cities
-        # So we need to check if the maximum difference between consecutive cities is <= D
-        # But since the cities are sorted, we can just check if the first and last city are connected
-        # Because if the first and last city are connected, then there's a path through the sorted cities
-        # So we just need to check if the first and last city are connected
-        # But wait, this is not sufficient. We need to check if there's a path that connects all cities
-        # So we need to check if the maximum difference between consecutive cities is <= D
-        # But since the cities are sorted, we can just check if the first and last city are connected
-        # Because if the first and last city are connected, then there's a path through the sorted cities
-        # So we just need to check if the first and last city are connected
-        # But wait, this is not sufficient. We need to check if there's a path that connects all cities
-        # So we need to check if the maximum difference between consecutive cities is <= D
-        # But since the cities are sorted, we can just check if the first and last city are connected
-        # Because if the first and last city are connected, then there's a path through the sorted cities
-        # So we just need to check if the first and last city are connected
-        # But wait, this is not sufficient. We need to check if there's a path that connects all cities
-        # So we need to check if the maximum difference between consecutive cities is <= D
-        # But since the cities are sorted, we can just check if the first and last city are connected
-        # Because if the first and last city are connected, then there's a path through the sorted cities
-        # So we just need to check if the first and last city are connected
-        # But wait, this is not sufficient. We need to check if there's a path that connects all cities
-        # So we need to check if the maximum difference between consecutive cities is <= D
-        # But since the cities are sorted, we can just check if the first and last city are connected
-        # Because if the first and last city are connected, then there's a path through the sorted cities
-        # So we just need to check if the first and last city are connected
-        # But wait, this is not sufficient. We need to check if there's a path that connects all cities
-        # So we need to check if the maximum difference between consecutive cities is <= D
-        # But since the cities are sorted, we can just check if the first and last city are connected
-        # Because if the first and last city are connected, then there's a path through the sorted cities
-        # So we just need to check if the first and last city are connected
-        # But wait, this is not sufficient. We need to check if there's a path that connects all cities
-        # So we need to check if the maximum difference between consecutive cities is <= D
-        # But since the cities are sorted, we can just check if the first and last city are connected
-        # Because if the first and last city are connected, then there's a path through the sorted cities
-        # So we just need to check if the first and last city are connected
-        # But wait, this is not sufficient. We need to check if there's a path that connects all cities
-        # So we need to check if the maximum difference between consecutive cities is <= D
-        # But since the cities are sorted, we can just check if the first and last city are connected
-        # Because if the first and last city are connected, then there's a path through the sorted cities
-        # So we just need to check if the first and last city are connected
-        # But wait, this is not sufficient. We need to check if there's a path that connects all cities
-        # So we need to check if the maximum difference between consecutive cities is <= D
-        # But since the cities are sorted, we can just check if the first and last city are connected
-        # Because if the first and last city are connected, then there's a path through the sorted cities
-        # So we just need to check if the first and last city are connected
-        # But wait, this
+        # Check if there is a way to connect all cities
+        # We can connect all cities if the max difference between consecutive cities is <= D
+        # But since the cities are sorted, we can check the max difference between consecutive cities
+        max_diff = 0
+        for i in range(1, N):
+            diff = abs(C[i] - C[i-1])
+            if diff > max_diff:
+                max_diff = diff
+        
+        if max_diff <= D:
+            results.append("YES")
+        else:
+            results.append("NO")
+    
+    print("\n".join(results))

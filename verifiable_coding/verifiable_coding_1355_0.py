@@ -7,6 +7,7 @@ def solve():
     idx = 0
     T = int(data[idx])
     idx += 1
+    results = []
     for _ in range(T):
         N = int(data[idx])
         idx += 1
@@ -20,7 +21,8 @@ def solve():
                 while a > N:
                     a //= 2
                 result.append(A[N - a])
-        print(' '.join(map(str, result)))
+        results.append(' '.join(map(str, result)))
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

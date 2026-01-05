@@ -183,11 +183,10 @@ Requirements:
 def test_current_py_code(the_dataset, repeat_num, folder, pattern): 
     test_dict = {}
     for data in the_dataset:
-        after_num = 0
         for i in range(repeat_num):
-            python_file_name = 'verifiable_coding_' + str(data[0]) + '_' + str(after_num) + '.py'
-            after_num += 1
-            test_dict[python_file_name] = data[2]
+            python_file_name = 'verifiable_coding_' + str(data[0]) + '.py'
+            if python_file_name not in test_dict.keys():
+                test_dict[python_file_name] = data[2]
     # print(test_dict['verifiable_coding_0_0.py'][0]['input'])
     
     folder = Path(folder)
@@ -206,8 +205,8 @@ def test_current_py_code(the_dataset, repeat_num, folder, pattern):
         f = files[i]
         path_name_list = str(f).split('/')
         store_name = path_name_list[1]
-        #store_name = utils.key_name_update(key_name)
-        stdin_text_list = test_dict[store_name]
+        test_name = utils.key_name_update(store_name)
+        stdin_text_list = test_dict[test_name]
         
         success = 0
         base = 0
@@ -257,9 +256,9 @@ if __name__ == '__main__':
 
     model_id = "Qwen/Qwen3-4B"
     cache_dir = "/data/ruoyu/model"
-    repeat_num = 1
+    repeat_num = 6
     the_conf = generate_python_file(the_dataset, model_id, cache_dir, repeat_num)
     
-    out_dict = test_current_py_code(the_dataset, 1, "./verifiable_coding", "*.py")
+    out_dict = test_current_py_code(the_dataset, repeat_num, "./verifiable_coding", "*.py")
     print(out_dict)
     utils.creat_json_for_eval(out_dict, 'verifiable_out', the_conf)

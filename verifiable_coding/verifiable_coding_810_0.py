@@ -11,163 +11,164 @@ def solve():
     results = []
     
     for _ in range(T):
-        N = int(data[idx])
-        Q = int(data[idx+1])
+        N, Q = int(data[idx]), int(data[idx+1])
         idx += 2
         a = list(map(int, data[idx:idx+N]))
         idx += N
         
         # For each element, store a sorted list of values to the right
-        # and their indices
-        right = [{} for _ in range(N)]
-        for i in range(N-2, -1, -1):
+        # and a dictionary to map value to list of indices
+        from collections import defaultdict
+        val_to_indices = defaultdict(list)
+        right_sorted = [ [] for _ in range(N) ]
+        
+        for i in range(N-1, -1, -1):
             val = a[i]
-            # Find the next greater value to the right
-            # Using bisect to find the insertion point
-            # We need to find the first value greater than val
-            # in the right[i+1] dictionary
-            # We'll use a sorted list of values to the right
-            # and their indices
-            # For this, we'll maintain a list of sorted values
-            # and their indices
-            # So for each i, right[i] is a list of (value, index)
-            # sorted by value
-            # We'll use bisect to find the first value greater than a[i]
-            # in right[i+1]
-            # So we'll build right[i] as a list of (value, index) sorted by value
-            # and then for each i, we'll find the first value greater than a[i]
-            # in right[i+1]
-            # We'll also need to maintain the sorted list for right[i]
-            # So for each i, we'll have a sorted list of (value, index)
-            # and for each query, we can perform a binary search
-            # to find the next greater value
-            # So we'll precompute for each i, the next greater value to the right
-            # and store it in next_greater array
-            # But for updates, we need to be able to handle dynamic changes
-            # So we need a more efficient data structure
-            # For this, we'll use a binary indexed tree or a segment tree
-            # But given the time constraints, we'll use a brute force approach
-            # for the initial setup and then handle updates
-            # For each i, we'll store a list of (value, index) sorted by value
-            # and for each query, we'll perform a binary search to find the first value greater than a[i]
-            # in the list for i
-            # So we'll precompute for each i, the sorted list of (value, index) to the right
-            # and for each query, we'll perform a binary search
-            # to find the first value greater than a[i]
-            # in the list for i
-            # So for the initial setup, we'll precompute this
-            # For the updates, we'll need to update the sorted list for the affected indices
-            # This is going to be O(N log N) for the initial setup
-            # and O(log N) per update
-            # But for the given constraints, this is acceptable
-            # So we'll proceed with this approach
-            # We'll create a list of sorted (value, index) for each i
-            # and for each query of type 2, we'll perform a binary search
-            # to find the first value greater than a[i]
-            # in the list for i
-            # So let's precompute the sorted lists
-            # For each i, sorted_values[i] is a list of (value, index) sorted by value
-            sorted_values = [[] for _ in range(N)]
-            for i in range(N-1, -1, -1):
-                # Add the current value to the list
-                # and keep it sorted
-                # We'll use bisect.insort to insert in the correct position
-                # but since we are going from right to left, we can just append and sort
-                # but this would be O(N^2) time, which is not acceptable
-                # So instead, we'll build the sorted list for each i
-                # by inserting the current value into the sorted list of i+1
-                # So for i from N-1 downto 0:
-                # sorted_values[i] = sorted_values[i+1] + [(a[i], i)]
-                # but this is O(N^2) time
-                # So we need a better way
-                # We'll use a list of sorted values for each i
-                # and for each i, we'll insert a[i] into the sorted list of i+1
-                # and then create the sorted list for i
-                # So for i from N-1 downto 0:
-                # sorted_values[i] = sorted_values[i+1] + [(a[i], i)]
-                # but this is O(N^2) time
-                # So we need to find a better way
-                # Let's proceed with this approach for the initial setup
-                # and then handle updates with a binary search
-                # So for each i, we'll have a sorted list of (value, index) to the right
-                # and for each query, we'll perform a binary search
-                # to find the first value greater than a[i]
-                # in the list for i
-                # So let's proceed
-                if i == N-1:
-                    sorted_values[i] = [(a[i], i)]
+            val_to_indices[val].append(i)
+            # Insert into right_sorted[i] in sorted order
+            bisect.insort(right_sorted[i], val)
+        
+        for _ in range(Q):
+            query = data[idx]
+            if query == '0':
+                # Type 1: update
+                A = int(data[idx+1])
+                B = int(data[idx+2])
+                idx += 3
+                a[A] = B
+                # Update val_to_indices and right_sorted
+                old_val = a[A]
+                new_val = B
+                # Remove old_val from val_to_indices
+                val_to_indices[old_val].remove(A)
+                if len(val_to_indices[old_val]) == 0:
+                    del val_to_indices[old_val]
+                # Add new_val to val_to_indices
+                val_to_indices[new_val].append(A)
+                # Update right_sorted for A
+                bisect.insort(right_sorted[A], new_val)
+                bisect.insort(right_sorted[A], new_val)
+            else:
+                # Type 2: query
+                A = int(data[idx+1])
+                idx += 2
+                val = a[A]
+                # Find the next greater value to the right of A
+                # that is not present in the values up to A
+                # We need to find the smallest value greater than val
+                # in right_sorted[A]
+                # and check if it's not in the values up to A
+                # We can use a set to store the values up to A
+                # but for efficiency, we can use a binary search
+                # on the right_sorted[A]
+                # Since right_sorted[A] is sorted, we can find the first value > val
+                # and check if it's not in the values up to A
+                # However, since the values up to A are not stored, we can't do that
+                # So we need to find the first value > val in right_sorted[A]
+                # and check if it's not in the values up to A
+                # But how?
+                # We can use a set of values up to A
+                # But since we can't store it for each A, we need to find it on the fly
+                # So we can use a binary search on right_sorted[A]
+                # to find the first value > val
+                # and then check if that value is not in the values up to A
+                # But how to check if it's not in the values up to A?
+                # We can use a set of values up to A
+                # But since we can't store it for each A, we need to find it on the fly
+                # So we can use a binary search on right_sorted[A]
+                # to find the first value > val
+                # and then check if that value is not in the values up to A
+                # But how to check if it's not in the values up to A?
+                # We can use a binary search on the values up to A
+                # But since we can't store them, we need to find them on the fly
+                # So we can use a binary search on the array a[0..A]
+                # to find if the value exists
+                # But that would be O(N) per query, which is too slow
+                # So we need a better approach
+                # We can precompute for each position A, a set of values up to A
+                # But that would take O(N^2) space, which is not feasible
+                # So we need to find a way to check if a value exists in a[0..A]
+                # using a binary search on the array
+                # So we can use a binary search on the array a[0..A]
+                # to find if the value exists
+                # But how?
+                # We can use a binary search on the array a[0..A]
+                # to find if the value exists
+                # So for the value found in right_sorted[A], we can check if it exists in a[0..A]
+                # If it does, we need to find the next one
+                # So the algorithm is:
+                # 1. Find the first value in right_sorted[A] that is > val
+                # 2. Check if that value exists in a[0..A]
+                # 3. If it does, move to the next one
+                # 4. Repeat until we find a value that does not exist in a[0..A]
+                # 5. If none found, return -1
+                # But how to check if a value exists in a[0..A]?
+                # We can use a binary search on the array a[0..A]
+                # So for each candidate value, we can perform a binary search on a[0..A]
+                # to see if it exists
+                # This is O(log N) per check
+                # So the total time per query is O(log N * log N)
+                # Which is acceptable for N=1e4 and Q=1e4
+                # So let's implement this
+                # Find the first value in right_sorted[A] that is > val
+                # Using bisect
+                pos = bisect.bisect_right(right_sorted[A], val)
+                if pos < len(right_sorted[A]):
+                    candidate = right_sorted[A][pos]
+                    # Check if candidate exists in a[0..A]
+                    # Binary search in a[0..A]
+                    left = 0
+                    right = A
+                    found = False
+                    while left <= right:
+                        mid = (left + right) // 2
+                        if a[mid] == candidate:
+                            found = True
+                            break
+                        elif a[mid] < candidate:
+                            left = mid + 1
+                        else:
+                            right = mid - 1
+                    if not found:
+                        results.append(str(candidate))
+                    else:
+                        # Need to find the next one
+                        # So we need to find the next value in right_sorted[A] that is > val
+                        # and not in a[0..A]
+                        # We can loop through the right_sorted[A] starting from pos
+                        # and check each value
+                        # But this could be O(N) in the worst case
+                        # So we need a way to find the next value efficiently
+                        # So we can loop through the right_sorted[A] starting from pos
+                        # and for each value, check if it exists in a[0..A]
+                        # If not, return it
+                        # If yes, continue
+                        # This is O(K log N) where K is the number of values to check
+                        # Which is acceptable for small K
+                        # So we can do this
+                        found_val = -1
+                        for i in range(pos, len(right_sorted[A])):
+                            candidate = right_sorted[A][i]
+                            left = 0
+                            right = A
+                            found = False
+                            while left <= right:
+                                mid = (left + right) // 2
+                                if a[mid] == candidate:
+                                    found = True
+                                    break
+                                elif a[mid] < candidate:
+                                    left = mid + 1
+                                else:
+                                    right = mid - 1
+                            if not found:
+                                found_val = candidate
+                                break
+                        results.append(str(found_val) if found_val != -1 else "-1")
                 else:
-                    # Insert a[i] into the sorted list of i+1
-                    # and then sort the combined list
-                    # but this is O(N^2) time
-                    # So we need to find a better way
-                    # Let's proceed with the initial approach
-                    # and then handle updates with a binary search
-                    # So for each i, sorted_values[i] is a list of (value, index) sorted by value
-                    # and for each query, we'll perform a binary search
-                    # to find the first value greater than a[i]
-                    # in the list for i
-                    # So let's proceed
-                    # We'll use bisect to find the insertion point
-                    # and then check if there is a value greater than a[i]
-                    # So for each i, we'll have a sorted list of (value, index) to the right
-                    # and for each query, we'll perform a binary search
-                    # to find the first value greater than a[i]
-                    # in the list for i
-                    # So let's proceed
-                    # We'll use bisect to find the insertion point
-                    # and then check if there is a value greater than a[i]
-                    # in the list for i
-                    # So let's proceed
-                    # We'll create a list of values for each i
-                    # and for each query, we'll perform a binary search
-                    # to find the first value greater than a[i]
-                    # in the list for i
-                    # So let's proceed
-                    # We'll use bisect to find the insertion point
-                    # and then check if there is a value greater than a[i]
-                    # in the list for i
-                    # So let's proceed
-                    # We'll create a list of values for each i
-                    # and for each query, we'll perform a binary search
-                    # to find the first value greater than a[i]
-                    # in the list for i
-                    # So let's proceed
-                    # We'll use bisect to find the insertion point
-                    # and then check if there is a value greater than a[i]
-                    # in the list for i
-                    # So let's proceed
-                    # We'll create a list of values for each i
-                    # and for each query, we'll perform a binary search
-                    # to find the first value greater than a[i]
-                    # in the list for i
-                    # So let's proceed
-                    # We'll use bisect to find the insertion point
-                    # and then check if there is a value greater than a[i]
-                    # in the list for i
-                    # So let's proceed
-                    # We'll create a list of values for each i
-                    # and for each query, we'll perform a binary search
-                    # to find the first value greater than a[i]
-                    # in the list for i
-                    # So let's proceed
-                    # We'll use bisect to find the insertion point
-                    # and then check if there is a value greater than a[i]
-                    # in the list for i
-                    # So let's proceed
-                    # We'll create a list of values for each i
-                    # and for each query, we'll perform a binary search
-                    # to find the first value greater than a[i]
-                    # in the list for i
-                    # So let's proceed
-                    # We'll use bisect to find the insertion point
-                    # and then check if there is a value greater than a[i]
-                    # in the list for i
-                    # So let's proceed
-                    # We'll create a list of values for each i
-                    # and for each query, we'll perform a binary search
-                    # to find the first value greater than a[i]
-                    # in the list for i
-                    # So let's proceed
-                    # We'll use bisect to find the insertion point
-                    # and then check
+                    results.append("-1")
+    
+    print("\n".join(results))
+
+if __name__ == '__main__':
+    solve()

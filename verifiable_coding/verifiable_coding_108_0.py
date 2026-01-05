@@ -19,46 +19,57 @@ def solve():
             results.append("Yes")
             continue
         
-        increasing = []
-        decreasing = []
-        for num in a:
-            if not increasing or num > increasing[-1]:
-                increasing.append(num)
-            else:
-                break
-        for num in reversed(a):
-            if not decreasing or num < decreasing[-1]:
-                decreasing.append(num)
+        # Find the peak position
+        peak = 0
+        for i in range(1, n):
+            if a[i] > a[i - 1]:
+                peak = i
             else:
                 break
         
-        if len(increasing) == n or len(decreasing) == n:
-            results.append("Yes")
-        else:
-            # Try to find a k where the first part is strictly increasing and the second is strictly decreasing
-            # We can only do this if the peak is at some position
-            # We can try all possible peaks
-            found = False
-            for k in range(1, n):
-                # Check if the first k elements can be strictly increasing
-                valid = True
-                for i in range(1, k):
-                    if a[i] <= a[i - 1]:
-                        valid = False
-                        break
-                if not valid:
-                    continue
-                # Check if the remaining elements can be strictly decreasing
-                for i in range(k, n - 1):
-                    if a[i] <= a[i + 1]:
-                        valid = False
-                        break
-                if valid:
-                    found = True
+        # Check if the array can be made sharpened
+        # Try to make the first part strictly increasing and the second part strictly decreasing
+        # We can adjust the elements to ensure this
+        
+        # Make the first part strictly increasing
+        inc = []
+        for i in range(n):
+            if not inc or a[i] > inc[-1]:
+                inc.append(a[i])
+            else:
+                inc.append(inc[-1] + 1)
+        
+        # Make the second part strictly decreasing
+        dec = []
+        for i in range(n - 1, -1, -1):
+            if not dec or a[i] > dec[-1]:
+                dec.append(a[i])
+            else:
+                dec.append(dec[-1] - 1)
+        
+        # Check if there exists a peak such that the first part is increasing and the second part is decreasing
+        # We can try all possible peak positions
+        found = False
+        for k in range(n):
+            # Check if the first k elements can be made strictly increasing
+            valid_inc = True
+            for i in range(1, k + 1):
+                if a[i] <= a[i - 1]:
+                    valid_inc = False
                     break
-            results.append("Yes" if found else "No")
+            if not valid_inc:
+                continue
+            
+            # Check if the remaining elements can be made strictly decreasing
+            valid_dec = True
+            for i in range(k + 1, n):
+                if a[i] <= a[i - 1]:
+                    valid_dec = False
+                    break
+            if valid_dec:
+                found = True
+                break
+        
+        results.append("Yes" if found else "No")
     
     print("\n".join(results))
-
-if __name__ == '__main__':
-    solve()

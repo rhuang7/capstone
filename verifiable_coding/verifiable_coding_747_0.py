@@ -18,79 +18,63 @@ def solve():
         # Sort the array
         A_sorted = sorted(A)
         
-        # Check if the array can be rearranged to satisfy the condition
+        # Check if there is a valid permutation
         # We can try to construct the permutation as follows:
-        # - The first part is strictly increasing
-        # - The second part is strictly decreasing
-        # We can try to find a peak element and arrange the array around it
-        # However, for simplicity, we can check if the sorted array can be rearranged
-        # such that there's a peak and the rest are arranged accordingly
+        # - Find the peak element (the maximum element)
+        # - Place it at position p (the peak)
+        # - Arrange the elements to the left of the peak in increasing order
+        # - Arrange the elements to the right of the peak in decreasing order
         
-        # Try to find a peak
-        peak = -1
-        for i in range(N):
-            if i == 0:
-                if A_sorted[i] < A_sorted[i+1]:
-                    peak = i
-            elif i == N-1:
-                if A_sorted[i] > A_sorted[i-1]:
-                    peak = i
+        # Find the peak element
+        peak = A_sorted[-1]
+        left = []
+        right = []
+        
+        for num in A_sorted:
+            if num == peak:
+                # This is the peak element
+                pass
+            elif num < peak:
+                left.append(num)
             else:
-                if A_sorted[i] > A_sorted[i-1] and A_sorted[i] > A_sorted[i+1]:
-                    peak = i
-                    break
+                right.append(num)
         
-        if peak == -1:
-            # No peak found, check if the array is strictly increasing or decreasing
-            if all(A_sorted[i] < A_sorted[i+1] for i in range(N-1)):
-                results.append("YES")
-                results.append(" ".join(map(str, A_sorted)))
-            elif all(A_sorted[i] > A_sorted[i+1] for i in range(N-1)):
-                results.append("YES")
-                results.append(" ".join(map(str, A_sorted[::-1])))
-            else:
-                results.append("NO")
-            continue
-        
-        # Construct the permutation
-        # First part is strictly increasing up to the peak
-        # Second part is strictly decreasing from the peak
-        # We can use the sorted array and arrange it accordingly
-        # We need to ensure that the peak is the maximum element
-        # So we can take the sorted array and arrange it such that the peak is the maximum
-        
-        # Check if the maximum element is at the peak
-        if A_sorted[-1] != A_sorted[peak]:
-            results.append("NO")
-            continue
+        # Now, we need to arrange left in increasing order and right in decreasing order
+        # But we need to ensure that the peak is at the correct position
+        # So we can try to place the peak at the end of the left part
+        # and the right part in reverse order
         
         # Construct the permutation
         perm = []
-        # First part: strictly increasing up to the peak
-        perm.extend(A_sorted[:peak+1])
-        # Second part: strictly decreasing from the peak
-        perm.extend(A_sorted[peak+1:][::-1])
+        # Add the left part in increasing order
+        for num in left:
+            perm.append(num)
+        # Add the peak
+        perm.append(peak)
+        # Add the right part in decreasing order
+        for num in reversed(right):
+            perm.append(num)
         
         # Check if the permutation is valid
-        valid = True
-        for i in range(N-1):
-            if perm[i] <= perm[i+1]:
-                valid = False
-                break
-        for i in range(N-1, 0, -1):
-            if perm[i] <= perm[i-1]:
-                valid = False
+        # The first part must be strictly increasing
+        # The second part must be strictly decreasing
+        # Also, the peak must be the maximum element
+        # We can check this by verifying the conditions
+        
+        # Check if the permutation is valid
+        is_valid = True
+        for i in range(len(perm) - 1):
+            if perm[i] >= perm[i + 1]:
+                is_valid = False
                 break
         
-        if valid:
+        if is_valid:
             results.append("YES")
             results.append(" ".join(map(str, perm)))
         else:
             results.append("NO")
     
-    # Output the results
-    for res in results:
-        print(res)
+    print("\n".join(results))
 
 if __name__ == '__main__':
     solve()

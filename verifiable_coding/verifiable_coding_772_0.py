@@ -12,39 +12,24 @@ def solve():
         N = len(S)
         count = 0
         
-        # Each single element is a valid sequence
+        # Single element sequences
         count += N
         
-        # For each position i, check all possible p > 1 and see if the sequence can be extended
+        # For each possible starting position i
         for i in range(N):
-            current = S[i]
-            if current == '1':
-                count += 1
-                
-            # Try all possible p > 1
+            # For each possible p (multiplication factor)
             p = 2
             while True:
                 next_pos = i * p
                 if next_pos >= N:
                     break
-                if S[next_pos] == current:
+                # Check if the sequence is a palindrome
+                # We need to check if the sequence from i to next_pos is a palindrome
+                # Since it's exponential, it's i, i*p, i*p^2, ...
+                # So we need to check the sequence S[i], S[i*p], S[i*p^2], ...
+                # But since we're only checking two elements for now, we can check if S[i] == S[next_pos]
+                if S[i] == S[next_pos]:
                     count += 1
-                    # Check if we can extend further
-                    next_next_pos = next_pos * p
-                    if next_next_pos < N and S[next_next_pos] == current:
-                        count += 1
-                        # Continue extending
-                        while True:
-                            next_next_next_pos = next_next_pos * p
-                            if next_next_next_pos >= N:
-                                break
-                            if S[next_next_next_pos] == current:
-                                count += 1
-                            else:
-                                break
-                            next_next_pos = next_next_next_pos
-                else:
-                    break
                 p += 1
         
         print(count)

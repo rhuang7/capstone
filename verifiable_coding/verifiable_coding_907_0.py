@@ -11,30 +11,31 @@ def solve():
         idx += 1
         s = input[idx]
         idx += 1
-        if L != len(s):
+        if s.count('H') > 1 and s.count('T') > 1 and s.index('H') > s.index('T'):
             print("Invalid")
             continue
-        i = 0
-        valid = True
-        while i < L:
-            if s[i] == 'H':
-                h_pos = i
-                i += 1
-                while i < L and s[i] == '.':
-                    i += 1
-                if i >= L or s[i] != 'T':
-                    valid = False
-                    break
-                i += 1
-            elif s[i] == 'T':
-                valid = False
-                break
-            else:
-                i += 1
-        if valid and i == L:
+        if s.count('H') == 0 and s.count('T') == 0:
             print("Valid")
-        else:
+            continue
+        if s[0] == 'T' or s[-1] == 'H':
             print("Invalid")
+            continue
+        h_positions = []
+        t_positions = []
+        for i, c in enumerate(s):
+            if c == 'H':
+                h_positions.append(i)
+            elif c == 'T':
+                t_positions.append(i)
+        if len(h_positions) != len(t_positions):
+            print("Invalid")
+            continue
+        for i in range(len(h_positions)):
+            if t_positions[i] <= h_positions[i]:
+                print("Invalid")
+                break
+        else:
+            print("Valid")
 
 if __name__ == '__main__':
     solve()

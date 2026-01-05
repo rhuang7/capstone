@@ -8,7 +8,6 @@ def solve():
     t = int(data[idx])
     idx += 1
     results = []
-    
     for _ in range(t):
         n, k = int(data[idx]), int(data[idx+1])
         idx += 2
@@ -18,212 +17,50 @@ def solve():
         idx += k
         
         a.sort()
-        w.sort(reverse=True)
+        w.sort()
         
+        # To maximize the sum of happiness, we need to:
+        # 1. Assign the largest numbers to the friends with the most integers (so their max is large)
+        # 2. Assign the smallest numbers to the friends with the most integers (so their min is small)
+        # But since each friend gets exactly w_i integers, we need to balance the max and min
+        
+        # We will use a greedy approach:
+        # - Assign the largest numbers to the friends with the largest w_i (so their max is large)
+        # - Assign the smallest numbers to the friends with the largest w_i (so their min is small)
+        
+        # We will sort the friends by w_i in descending order
+        # Then, for each friend, assign the largest available number as max, and the smallest available as min
+        # But since each friend gets exactly w_i integers, we need to assign w_i - 1 numbers in between
+        
+        # So, for each friend, we take the largest available number as max, and the smallest available as min
+        # Then, we take w_i - 2 numbers in between (they don't affect the happiness)
+        
+        # So, the total happiness is sum of (max + min) for each friend
+        
+        # We will use two pointers: left (smallest available) and right (largest available)
+        # We will assign the largest available as max, and the smallest available as min
+        # Then, we take w_i - 2 numbers in between (they don't affect the happiness)
+        
+        left = 0
+        right = n - 1
         total = 0
-        # Assign maximums and minimums
-        # For each friend, assign the maximum available and the minimum available
-        # But we need to assign exactly w_i integers to each friend
-        # So for each friend, we take the max and min from the ends of the sorted array
         
-        # First, assign the maximums
-        # The first friend gets the largest number, the second gets the next largest, etc.
-        # But we need to assign exactly w_i numbers to each friend
-        # So we need to assign the max and min for each friend
+        # Sort the friends by w_i in descending order
+        friends = sorted(zip(w, range(k)), key=lambda x: -x[0])
         
-        # We need to assign the max and min for each friend
-        # The first friend gets the max and the min of their group
-        # The second friend gets the next max and the next min of their group
-        # So we need to assign the max and min for each friend
+        for w_i, _ in friends:
+            # Assign the largest available as max
+            max_val = a[right]
+            # Assign the smallest available as min
+            min_val = a[left]
+            total += (max_val + min_val)
+            # Move pointers
+            right -= 1
+            left += 1
         
-        # We can do this by taking the first w_1 elements and the last w_1 elements
-        # But we need to assign the max and min for each friend
-        
-        # Let's think of it this way:
-        # For each friend, we need to assign one max and one min
-        # So we take the first w_i elements and the last w_i elements
-        # But we need to assign exactly w_i elements to each friend
-        
-        # So for each friend, we take the max and min from the ends of the array
-        # But we need to assign exactly w_i elements to each friend
-        
-        # So we can do this:
-        # Sort the array
-        # For each friend, take the max and min from the ends of the array
-        # But we need to assign exactly w_i elements to each friend
-        
-        # So we can do this:
-        # Take the first w_1 elements and the last w_1 elements
-        # Take the first w_2 elements and the last w_2 elements
-        # And so on
-        
-        # But we need to assign exactly w_i elements to each friend
-        
-        # So we can do this:
-        # Sort the array
-        # Take the first w_1 elements and the last w_1 elements
-        # Take the first w_2 elements and the last w_2 elements
-        # And so on
-        
-        # But we need to assign exactly w_i elements to each friend
-        
-        # So we can do this:
-        # Take the first w_1 elements and the last w_1 elements
-        # Take the first w_2 elements and the last w_2 elements
-        # And so on
-        
-        # But we need to assign exactly w_i elements to each friend
-        
-        # So we can do this:
-        # Sort the array
-        # Take the first w_1 elements and the last w_1 elements
-        # Take the first w_2 elements and the last w_2 elements
-        # And so on
-        
-        # But we need to assign exactly w_i elements to each friend
-        
-        # So we can do this:
-        # Sort the array
-        # Take the first w_1 elements and the last w_1 elements
-        # Take the first w_2 elements and the last w_2 elements
-        # And so on
-        
-        # But we need to assign exactly w_i elements to each friend
-        
-        # So we can do this:
-        # Sort the array
-        # Take the first w_1 elements and the last w_1 elements
-        # Take the first w_2 elements and the last w_2 elements
-        # And so on
-        
-        # But we need to assign exactly w_i elements to each friend
-        
-        # So we can do this:
-        # Sort the array
-        # Take the first w_1 elements and the last w_1 elements
-        # Take the first w_2 elements and the last w_2 elements
-        # And so on
-        
-        # But we need to assign exactly w_i elements to each friend
-        
-        # So we can do this:
-        # Sort the array
-        # Take the first w_1 elements and the last w_1 elements
-        # Take the first w_2 elements and the last w_2 elements
-        # And so on
-        
-        # But we need to assign exactly w_i elements to each friend
-        
-        # So we can do this:
-        # Sort the array
-        # Take the first w_1 elements and the last w_1 elements
-        # Take the first w_2 elements and the last w_2 elements
-        # And so on
-        
-        # But we need to assign exactly w_i elements to each friend
-        
-        # So we can do this:
-        # Sort the array
-        # Take the first w_1 elements and the last w_1 elements
-        # Take the first w_2 elements and the last w_2 elements
-        # And so on
-        
-        # But we need to assign exactly w_i elements to each friend
-        
-        # So we can do this:
-        # Sort the array
-        # Take the first w_1 elements and the last w_1 elements
-        # Take the first w_2 elements and the last w_2 elements
-        # And so on
-        
-        # But we need to assign exactly w_i elements to each friend
-        
-        # So we can do this:
-        # Sort the array
-        # Take the first w_1 elements and the last w_1 elements
-        # Take the first w_2 elements and the last w_2 elements
-        # And so on
-        
-        # But we need to assign exactly w_i elements to each friend
-        
-        # So we can do this:
-        # Sort the array
-        # Take the first w_1 elements and the last w_1 elements
-        # Take the first w_2 elements and the last w_2 elements
-        # And so on
-        
-        # But we need to assign exactly w_i elements to each friend
-        
-        # So we can do this:
-        # Sort the array
-        # Take the first w_1 elements and the last w_1 elements
-        # Take the first w_2 elements and the last w_2 elements
-        # And so on
-        
-        # But we need to assign exactly w_i elements to each friend
-        
-        # So we can do this:
-        # Sort the array
-        # Take the first w_1 elements and the last w_1 elements
-        # Take the first w_2 elements and the last w_2 elements
-        # And so on
-        
-        # But we need to assign exactly w_i elements to each friend
-        
-        # So we can do this:
-        # Sort the array
-        # Take the first w_1 elements and the last w_1 elements
-        # Take the first w_2 elements and the last w_2 elements
-        # And so on
-        
-        # But we need to assign exactly w_i elements to each friend
-        
-        # So we can do this:
-        # Sort the array
-        # Take the first w_1 elements and the last w_1 elements
-        # Take the first w_2 elements and the last w_2 elements
-        # And so on
-        
-        # But we need to assign exactly w_i elements to each friend
-        
-        # So we can do this:
-        # Sort the array
-        # Take the first w_1 elements and the last w_1 elements
-        # Take the first w_2 elements and the last w_2 elements
-        # And so on
-        
-        # But we need to assign exactly w_i elements to each friend
-        
-        # So we can do this:
-        # Sort the array
-        # Take the first w_1 elements and the last w_1 elements
-        # Take the first w_2 elements and the last w_2 elements
-        # And so on
-        
-        # But we need to assign exactly w_i elements to each friend
-        
-        # So we can do this:
-        # Sort the array
-        # Take the first w_1 elements and the last w_1 elements
-        # Take the first w_2 elements and the last w_2 elements
-        # And so on
-        
-        # But we need to assign exactly w_i elements to each friend
-        
-        # So we can do this:
-        # Sort the array
-        # Take the first w_1 elements and the last w_1 elements
-        # Take the first w_2 elements and the last w_2 elements
-        # And so on
-        
-        # But we need to assign exactly w_i elements to each friend
-        
-        # So we can do this:
-        # Sort the array
-        # Take the first w_1 elements and the last w_1 elements
-        # Take the first w_2 elements and the last w_2 elements
-        # And so on
-        
-        # But we need to assign exactly w_i elements to each friend
-        
-        # So we can do this:
+        results.append(str(total))
+    
+    print('\n'.join(results))
+
+if __name__ == '__main__':
+    solve()

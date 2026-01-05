@@ -8,8 +8,6 @@ def solve():
     T = int(data[0])
     cases = list(map(int, data[1:T+1]))
     
-    results = []
-    
     for N in cases:
         count = 0
         i = 1
@@ -19,9 +17,7 @@ def solve():
             elif i % 4 == 3:
                 count += 1
             i += 2
-        results.append(str(count))
-    
-    print('\n'.join(results))
+        print(count)
 
 if __name__ == '__main__':
     solve()

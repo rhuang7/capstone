@@ -19,15 +19,19 @@ def solve():
         
         # For each possible starting position of the d-day window
         for i in range(n - d + 1):
-            # Use a sliding window approach to track unique shows in the window
-            seen = set()
-            count = 0
+            # Use a sliding window to track the unique shows in the window
+            window = collections.defaultdict(int)
+            unique = 0
             for j in range(i, i + d):
-                if a[j] not in seen:
-                    seen.add(a[j])
-                    count += 1
-            min_subscriptions = min(min_subscriptions, count)
+                show = a[j]
+                if window[show] == 0:
+                    unique += 1
+                window[show] += 1
+            min_subscriptions = min(min_subscriptions, unique)
         
         results.append(str(min_subscriptions))
     
     print('\n'.join(results))
+
+if __name__ == '__main__':
+    solve()

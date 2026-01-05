@@ -8,6 +8,7 @@ def solve():
     idx = 0
     T = int(data[idx])
     idx += 1
+    
     results = []
     
     for _ in range(T):
@@ -22,6 +23,7 @@ def solve():
             idx += 1
         
         collisions = 0
+        
         for j in range(M):
             count = 0
             for i in range(N):

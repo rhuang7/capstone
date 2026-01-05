@@ -4,11 +4,9 @@ def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
-    
     idx = 0
     t = int(data[idx])
     idx += 1
-    
     results = []
     
     for _ in range(t):
@@ -28,167 +26,20 @@ def solve():
         import heapq
         heap = []
         
-        # Initially, we have no voters
-        # We need to buy at least one voter to start the process
-        # So we need to buy the cheapest voter to start with
-        # But we can also consider buying a voter with m_i > 0 to get more people
+        for m, p in voters:
+            # If the current group has more members than the heap's top, we need to merge
+            while heap and heap[0][0] < m:
+                # Pop the top element and merge
+                prev_m, prev_p = heapq.heappop(heap)
+                m += prev_m
+                p += prev_p
+            heapq.heappush(heap, (m, p))
         
-        # We'll use a greedy approach: always buy the cheapest voter that can contribute the most
-        # We'll track the number of people we have, and for each voter, we'll decide whether to buy them or not
-        
-        # Start with 0 people
-        # We need to buy at least one voter to start the process
-        # So we need to buy the cheapest voter to start with
-        # But we can also consider buying a voter with m_i > 0 to get more people
-        
-        # We'll use a priority queue (min-heap) to track the cost of each group
-        # The heap will store the cost of the current group of people
-        
-        # We'll also track the number of people we have
-        # Initially, we have 0 people
-        # We need to buy at least one voter to start the process
-        # So we need to buy the cheapest voter to start with
-        
-        # We'll use a priority queue (min-heap) to track the cost of each group
-        # The heap will store the cost of the current group of people
-        
-        # We'll also track the number of people we have
-        # Initially, we have 0 people
-        # We need to buy at least one voter to start the process
-        # So we need to buy the cheapest voter to start with
-        
-        # We'll use a priority queue (min-heap) to track the cost of each group
-        # The heap will store the cost of the current group of people
-        
-        # We'll also track the number of people we have
-        # Initially, we have 0 people
-        # We need to buy at least one voter to start the process
-        # So we need to buy the cheapest voter to start with
-        
-        # We'll use a priority queue (min-heap) to track the cost of each group
-        # The heap will store the cost of the current group of people
-        
-        # We'll also track the number of people we have
-        # Initially, we have 0 people
-        # We need to buy at least one voter to start the process
-        # So we need to buy the cheapest voter to start with
-        
-        # We'll use a priority queue (min-heap) to track the cost of each group
-        # The heap will store the cost of the current group of people
-        
-        # We'll also track the number of people we have
-        # Initially, we have 0 people
-        # We need to buy at least one voter to start the process
-        # So we need to buy the cheapest voter to start with
-        
-        # We'll use a priority queue (min-heap) to track the cost of each group
-        # The heap will store the cost of the current group of people
-        
-        # We'll also track the number of people we have
-        # Initially, we have 0 people
-        # We need to buy at least one voter to start the process
-        # So we need to buy the cheapest voter to start with
-        
-        # We'll use a priority queue (min-heap) to track the cost of each group
-        # The heap will store the cost of the current group of people
-        
-        # We'll also track the number of people we have
-        # Initially, we have 0 people
-        # We need to buy at least one voter to start the process
-        # So we need to buy the cheapest voter to start with
-        
-        # We'll use a priority queue (min-heap) to track the cost of each group
-        # The heap will store the cost of the current group of people
-        
-        # We'll also track the number of people we have
-        # Initially, we have 0 people
-        # We need to buy at least one voter to start the process
-        # So we need to buy the cheapest voter to start with
-        
-        # We'll use a priority queue (min-heap) to track the cost of each group
-        # The heap will store the cost of the current group of people
-        
-        # We'll also track the number of people we have
-        # Initially, we have 0 people
-        # We need to buy at least one voter to start the process
-        # So we need to buy the cheapest voter to start with
-        
-        # We'll use a priority queue (min-heap) to track the cost of each group
-        # The heap will store the cost of the current group of people
-        
-        # We'll also track the number of people we have
-        # Initially, we have 0 people
-        # We need to buy at least one voter to start the process
-        # So we need to buy the cheapest voter to start with
-        
-        # We'll use a priority queue (min-heap) to track the cost of each group
-        # The heap will store the cost of the current group of people
-        
-        # We'll also track the number of people we have
-        # Initially, we have 0 people
-        # We need to buy at least one voter to start the process
-        # So we need to buy the cheapest voter to start with
-        
-        # We'll use a priority queue (min-heap) to track the cost of each group
-        # The heap will store the cost of the current group of people
-        
-        # We'll also track the number of people we have
-        # Initially, we have 0 people
-        # We need to buy at least one voter to start the process
-        # So we need to buy the cheapest voter to start with
-        
-        # We'll use a priority queue (min-heap) to track the cost of each group
-        # The heap will store the cost of the current group of people
-        
-        # We'll also track the number of people we have
-        # Initially, we have 0 people
-        # We need to buy at least one voter to start the process
-        # So we need to buy the cheapest voter to start with
-        
-        # We'll use a priority queue (min-heap) to track the cost of each group
-        # The heap will store the cost of the current group of people
-        
-        # We'll also track the number of people we have
-        # Initially, we have 0 people
-        # We need to buy at least one voter to start the process
-        # So we need to buy the cheapest voter to start with
-        
-        # We'll use a priority queue (min-heap) to track the cost of each group
-        # The heap will store the cost of the current group of people
-        
-        # We'll also track the number of people we have
-        # Initially, we have 0 people
-        # We need to buy at least one voter to start the process
-        # So we need to buy the cheapest voter to start with
-        
-        # We'll use a priority queue (min-heap) to track the cost of each group
-        # The heap will store the cost of the current group of people
-        
-        # We'll also track the number of people we have
-        # Initially, we have 0 people
-        # We need to buy at least one voter to start the process
-        # So we need to buy the cheapest voter to start with
-        
-        # We'll use a priority queue (min-heap) to track the cost of each group
-        # The heap will store the cost of the current group of people
-        
-        # We'll also track the number of people we have
-        # Initially, we have 0 people
-        # We need to buy at least one voter to start the process
-        # So we need to buy the cheapest voter to start with
-        
-        # We'll use a priority queue (min-heap) to track the cost of each group
-        # The heap will store the cost of the current group of people
-        
-        # We'll also track the number of people we have
-        # Initially, we have 0 people
-        # We need to buy at least one voter to start the process
-        # So we need to buy the cheapest voter to start with
-        
-        # We'll use a priority queue (min-heap) to track the cost of each group
-        # The heap will store the cost of the current group of people
-        
-        # We'll also track the number of people we have
-        # Initially, we have 0 people
-        # We need to buy at least one voter to start the process
-        # So we need to buy
+        # The total cost is the sum of the p values in the heap
+        total = sum(p for (m, p) in heap)
+        results.append(total)
+    
+    sys.stdout.write('\n'.join(map(str, results)) + '\n')
+
+if __name__ == '__main__':
+    solve()

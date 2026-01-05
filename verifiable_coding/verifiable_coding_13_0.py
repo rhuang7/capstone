@@ -1,36 +1,36 @@
 import sys
 
 def solve():
-    import sys
+    import math
     input = sys.stdin.buffer.read
     data = input().split()
+    
     T = int(data[0])
     index = 1
+    
     results = []
+    
     for _ in range(T):
         n = int(data[index])
         g = int(data[index+1])
         b = int(data[index+2])
         index += 3
         
-        required_high = (n + 1) // 2
+        required_high_quality = (n + 1) // 2
         
         # Calculate how many full cycles of (g + b) days are needed
-        full_cycles = required_high // (g + b)
-        remainder = required_high % (g + b)
+        full_cycles = required_high_quality // g
+        remainder = required_high_quality % g
         
-        # Days needed for full cycles
-        days = full_cycles * (g + b)
+        # Days needed for high quality
+        high_days = full_cycles * g + remainder
         
-        # Days needed for remainder
-        # If remainder <= g, then we can do it in remainder days
-        # Else, we need g days for the good part and (remainder - g) days for the bad part
-        if remainder <= g:
-            days += remainder
-        else:
-            days += g + (remainder - g)
+        # Total days needed is high_days + (full_cycles * b)
+        total_days = high_days + full_cycles * b
         
-        results.append(days)
+        # But we also need to make sure that we have enough days to complete the entire highway
+        # So we take the maximum between total_days and n
+        results.append(max(total_days, n))
     
     sys.stdout.write('\n'.join(map(str, results)) + '\n')
 

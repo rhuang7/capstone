@@ -7,10 +7,10 @@ def solve():
     
     for k in cases:
         pattern = ""
-        num = 1
-        for i in range(k):
-            pattern += str(num)
-            num += 1
+        count = 1
+        for i in range(1, k+1):
+            pattern += str(count)
+            count += 1
         print(pattern)
         
 if __name__ == '__main__':

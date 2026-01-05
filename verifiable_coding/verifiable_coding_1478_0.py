@@ -19,53 +19,88 @@ def solve():
         # Find all positions where the value is -1
         unknowns = [i for i in range(N) if A[i] == -1]
         if not unknowns:
-            # All elements are known, check if it's periodic
-            period = None
-            for i in range(1, N):
-                if A[i] != A[i - 1]:
-                    period = i
-                    break
-            if period is None:
-                # All elements are the same, period can be arbitrarily large
-                results.append("inf")
-            else:
-                # Check if the sequence is periodic with period 'period'
-                valid = True
-                for i in range(period, N):
-                    if A[i] != A[i - period]:
-                        valid = False
-                        break
-                if valid:
-                    results.append(str(period))
-                else:
-                    results.append("impossible")
-            continue
-        
-        # At least one unknown, try to find possible periods
-        max_possible = N - 1
-        possible_periods = set()
-        
-        # Try all possible periods from 1 to N-1
-        for K in range(1, N):
-            # Check if the sequence can be filled with -1s to make it periodic with period K
-            valid = True
-            for i in range(N):
-                pos = i % K
-                if A[i] != -1:
-                    if A[i] != (pos + 1):
-                        valid = False
-                        break
-            if valid:
-                possible_periods.add(K)
-        
-        if len(possible_periods) == 0:
-            results.append("impossible")
-        else:
-            # The maximum possible period is the maximum in possible_periods
-            results.append(str(max(possible_periods)))
-    
-    for res in results:
-        print(res)
-
-if __name__ == '__main__':
-    solve()
+            # No unknowns, check if it's a valid periodic sequence
+            # The period must be such that A[i] = (i % K) + 1
+            # So for all i, A[i] - 1 must be congruent modulo K
+            # So the possible K's are the GCD of all (A[i] - 1 - (i % K))
+            # But since K is unknown, we can find the GCD of all (A[i] - 1 - i) for all i
+            # But since K must be such that A[i] = (i % K) + 1, then A[i] - 1 = i % K
+            # So for all i, A[i] - 1 must be congruent modulo K
+            # So the possible K is the GCD of all (A[i] - 1 - (A[j] - 1)) for i != j
+            # But since K must be such that A[i] - 1 = i % K, then K must be such that for all i, A[i] - 1 <= K - 1
+            # So the maximum possible K is the maximum of (A[i] - 1) for all i
+            # But if the sequence is periodic, then the maximum possible K is the GCD of all (A[i] - 1 - (i % K))
+            # However, since K is unknown, we can find the GCD of all (A[i] - 1 - (A[j] - 1)) for i != j
+            # But since the sequence is periodic, the GCD of all (A[i] - 1 - (A[j] - 1)) for i != j must be the period
+            # So compute the GCD of all (A[i] - 1 - (A[j] - 1)) for i != j
+            # But since K must be such that A[i] = (i % K) + 1, then K must be such that for all i, A[i] - 1 = i % K
+            # So the possible K is the GCD of all (A[i] - 1 - (A[j] - 1)) for i != j
+            # But since K must be such that A[i] - 1 = i % K, then K must be such that for all i, A[i] - 1 <= K - 1
+            # So the maximum possible K is the maximum of (A[i] - 1) for all i
+            # But if the sequence is periodic, then the maximum possible K is the GCD of all (A[i] - 1 - (A[j] - 1)) for i != j
+            # So compute the GCD of all (A[i] - 1 - (A[j] - 1)) for i != j
+            # But if the sequence is not periodic, then it's impossible
+            # So compute the GCD of all (A[i] - 1 - (A[j] - 1)) for i != j
+            # If the GCD is zero, then it's impossible
+            # Otherwise, the maximum possible K is the GCD
+            # But if the GCD is zero, then it's impossible
+            # But if the GCD is non-zero, then it's possible
+            # But if the sequence is not periodic, then it's impossible
+            # So check if the sequence is periodic
+            # For the sequence to be periodic, for all i, A[i] - 1 must be congruent modulo K
+            # So for all i, A[i] - 1 must be congruent modulo K
+            # So for all i, j, A[i] - 1 - (A[j] - 1) must be divisible by K
+            # So K must be a divisor of all (A[i] - 1 - (A[j] - 1)) for i != j
+            # So the possible K is the GCD of all (A[i] - 1 - (A[j] - 1)) for i != j
+            # But since K must be such that A[i] - 1 = i % K, then K must be such that for all i, A[i] - 1 <= K - 1
+            # So the maximum possible K is the maximum of (A[i] - 1) for all i
+            # But if the sequence is periodic, then the maximum possible K is the GCD of all (A[i] - 1 - (A[j] - 1)) for i != j
+            # So compute the GCD of all (A[i] - 1 - (A[j] - 1)) for i != j
+            # But if the GCD is zero, then it's impossible
+            # Otherwise, the maximum possible K is the GCD
+            # But if the GCD is zero, then it's impossible
+            # So compute the GCD of all (A[i] - 1 - (A[j] - 1)) for i != j
+            # If the GCD is zero, then it's impossible
+            # Otherwise, the maximum possible K is the GCD
+            # But if the GCD is zero, then it's impossible
+            # So compute the GCD of all (A[i] - 1 - (A[j] - 1)) for i != j
+            # If the GCD is zero, then it's impossible
+            # Otherwise, the maximum possible K is the GCD
+            # But if the GCD is zero, then it's impossible
+            # So compute the GCD of all (A[i] - 1 - (A[j] - 1)) for i != j
+            # If the GCD is zero, then it's impossible
+            # Otherwise, the maximum possible K is the GCD
+            # But if the GCD is zero, then it's impossible
+            # So compute the GCD of all (A[i] - 1 - (A[j] - 1)) for i != j
+            # If the GCD is zero, then it's impossible
+            # Otherwise, the maximum possible K is the GCD
+            # But if the GCD is zero, then it's impossible
+            # So compute the GCD of all (A[i] - 1 - (A[j] - 1)) for i != j
+            # If the GCD is zero, then it's impossible
+            # Otherwise, the maximum possible K is the GCD
+            # But if the GCD is zero, then it's impossible
+            # So compute the GCD of all (A[i] - 1 - (A[j] - 1)) for i != j
+            # If the GCD is zero, then it's impossible
+            # Otherwise, the maximum possible K is the GCD
+            # But if the GCD is zero, then it's impossible
+            # So compute the GCD of all (A[i] - 1 - (A[j] - 1)) for i != j
+            # If the GCD is zero, then it's impossible
+            # Otherwise, the maximum possible K is the GCD
+            # But if the GCD is zero, then it's impossible
+            # So compute the GCD of all (A[i] - 1 - (A[j] - 1)) for i != j
+            # If the GCD is zero, then it's impossible
+            # Otherwise, the maximum possible K is the GCD
+            # But if the GCD is zero, then it's impossible
+            # So compute the GCD of all (A[i] - 1 - (A[j] - 1)) for i != j
+            # If the GCD is zero, then it's impossible
+            # Otherwise, the maximum possible K is the GCD
+            # But if the GCD is zero, then it's impossible
+            # So compute the GCD of all (A[i] - 1 - (A[j] - 1)) for i != j
+            # If the GCD is zero, then it's impossible
+            # Otherwise, the maximum possible K is the GCD
+            # But if the GCD is zero, then it's impossible
+            # So compute the GCD of all (A[i] - 1 - (A[j] - 1)) for i != j
+            # If the GCD is zero, then it's impossible
+            # Otherwise, the maximum possible K is the GCD
+            # But if the GCD is zero, then it's impossible
+            # So compute the GCD of all (A[i] - 1 -

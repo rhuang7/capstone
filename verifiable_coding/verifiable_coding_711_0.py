@@ -11,36 +11,25 @@ def solve():
     
     for S in cases:
         n = len(S)
-        total = 0
-        
-        # Precompute frequency of each character in S
-        freq = [0] * 26
-        for c in S:
-            if c != '?':
-                freq[ord(c) - ord('a')] += 1
-        
-        # For each possible substring
+        res = 0
         for i in range(n):
-            current = [0] * 26
             for j in range(i, n):
-                c = S[j]
-                if c != '?':
-                    current[ord(c) - ord('a')] += 1
-                # Check if this substring is good
-                is_good = True
+                substr = S[i:j+1]
+                cnt = [0] * 26
+                qcnt = 0
+                for c in substr:
+                    if c == '?':
+                        qcnt += 1
+                    else:
+                        cnt[ord(c) - ord('a')] += 1
+                valid = True
                 for k in range(26):
-                    # Original count in S
-                    orig = freq[k]
-                    # Count in substring
-                    sub = current[k]
-                    # Check parity
-                    if (orig % 2) != (sub % 2):
-                        is_good = False
+                    if (cnt[k] % 2) != (qcnt % 2):
+                        valid = False
                         break
-                if is_good:
-                    total += 1
-        
-        print(total)
+                if valid:
+                    res += 1
+        print(res)
 
 if __name__ == '__main__':
     solve()

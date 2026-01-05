@@ -24,12 +24,10 @@ def solve():
         row_black = [row.count('*') for row in grid]
         # Precompute for each column: number of black cells
         col_black = [0] * m
-        for j in range(m):
-            cnt = 0
-            for i in range(n):
+        for i in range(n):
+            for j in range(m):
                 if grid[i][j] == '*':
-                    cnt += 1
-            col_black[j] = cnt
+                    col_black[j] += 1
         
         min_paint = float('inf')
         
@@ -37,29 +35,43 @@ def solve():
         for i in range(n):
             # The row is already all black: no need to paint
             if row_black[i] == m:
-                min_paint = 0
-                break
-            # Need to paint (m - row_black[i]) cells in this row
-            # Then find a column that has (n - col_black[j]) cells to paint
-            # The total is (m - row_black[i]) + (n - col_black[j])
-            # We want to minimize this
-            # So find the column with maximum col_black[j]
+                # Check if any column is all black
+                for j in range(m):
+                    if col_black[j] == n:
+                        min_paint = 0
+                        break
+                if min_paint == 0:
+                    break
+            # Paint the row to all black: cost is (m - row_black[i])
+            row_cost = m - row_black[i]
+            # Now find the column that has the most black cells
             max_col_black = max(col_black)
-            min_paint = min(min_paint, (m - row_black[i]) + (n - max_col_black))
+            # The cost to make this column all black is (n - max_col_black)
+            col_cost = n - max_col_black
+            total_cost = row_cost + col_cost
+            if total_cost < min_paint:
+                min_paint = total_cost
         
         # Try each column as the vertical part of the cross
         for j in range(m):
             # The column is already all black: no need to paint
             if col_black[j] == n:
-                min_paint = 0
-                break
-            # Need to paint (n - col_black[j]) cells in this column
-            # Then find a row that has (m - row_black[i]) cells to paint
-            # The total is (n - col_black[j]) + (m - row_black[i])
-            # We want to minimize this
-            # So find the row with maximum row_black[i]
+                # Check if any row is all black
+                for i in range(n):
+                    if row_black[i] == m:
+                        min_paint = 0
+                        break
+                if min_paint == 0:
+                    break
+            # Paint the column to all black: cost is (n - col_black[j])
+            col_cost = n - col_black[j]
+            # Now find the row that has the most black cells
             max_row_black = max(row_black)
-            min_paint = min(min_paint, (n - col_black[j]) + (m - max_row_black))
+            # The cost to make this row all black is (m - max_row_black)
+            row_cost = m - max_row_black
+            total_cost = col_cost + row_cost
+            if total_cost < min_paint:
+                min_paint = total_cost
         
         results.append(str(min_paint))
     

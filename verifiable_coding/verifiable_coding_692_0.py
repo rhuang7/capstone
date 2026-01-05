@@ -33,31 +33,29 @@ def main():
             for i in range(self.n):
                 self.min_tree[self.size + i] = data[i]
                 self.max_tree[self.size + i] = data[i]
-                self.second_min_tree[self.size + i] = float('inf')
-                self.second_max_tree[self.size + i] = -float('inf')
+                self.second_min_tree[self.size + i] = data[i]
+                self.second_max_tree[self.size + i] = data[i]
             for i in range(self.size - 1, 0, -1):
-                self.min_tree[i] = min(self.min_tree[2*i], self.min_tree[2*i+1])
-                self.max_tree[i] = max(self.max_tree[2*i], self.max_tree[2*i+1])
-                self.second_min_tree[i] = min(self.second_min_tree[2*i], self.second_min_tree[2*i+1])
-                self.second_max_tree[i] = max(self.second_max_tree[2*i], self.second_max_tree[2*i+1])
+                self.min_tree[i] = min(self.min_tree[2 * i], self.min_tree[2 * i + 1])
+                self.max_tree[i] = max(self.max_tree[2 * i], self.max_tree[2 * i + 1])
+                self.second_min_tree[i] = min(self.second_min_tree[2 * i], self.second_min_tree[2 * i + 1])
+                self.second_max_tree[i] = max(self.second_max_tree[2 * i], self.second_max_tree[2 * i + 1])
 
         def update(self, pos, value):
             pos += self.size
             self.min_tree[pos] = value
             self.max_tree[pos] = value
-            self.second_min_tree[pos] = float('inf')
-            self.second_max_tree[pos] = -float('inf')
+            self.second_min_tree[pos] = value
+            self.second_max_tree[pos] = value
             pos >>= 1
             while pos >= 1:
-                left = 2 * pos
-                right = 2 * pos + 1
-                self.min_tree[pos] = min(self.min_tree[left], self.min_tree[right])
-                self.max_tree[pos] = max(self.max_tree[left], self.max_tree[right])
-                self.second_min_tree[pos] = min(self.second_min_tree[left], self.second_min_tree[right])
-                self.second_max_tree[pos] = max(self.second_max_tree[left], self.second_max_tree[right])
+                self.min_tree[pos] = min(self.min_tree[2 * pos], self.min_tree[2 * pos + 1])
+                self.max_tree[pos] = max(self.max_tree[2 * pos], self.max_tree[2 * pos + 1])
+                self.second_min_tree[pos] = min(self.second_min_tree[2 * pos], self.second_min_tree[2 * pos + 1])
+                self.second_max_tree[pos] = max(self.second_max_tree[2 * pos], self.second_max_tree[2 * pos + 1])
                 pos >>= 1
 
-        def get_min(self, l, r):
+        def query_min(self, l, r):
             l += self.size
             r += self.size
             res = float('inf')
@@ -72,7 +70,7 @@ def main():
                 r >>= 1
             return res
 
-        def get_max(self, l, r):
+        def query_max(self, l, r):
             l += self.size
             r += self.size
             res = -float('inf')
@@ -87,7 +85,7 @@ def main():
                 r >>= 1
             return res
 
-        def get_second_min(self, l, r):
+        def query_second_min(self, l, r):
             l += self.size
             r += self.size
             res = float('inf')
@@ -102,7 +100,7 @@ def main():
                 r >>= 1
             return res
 
-        def get_second_max(self, l, r):
+        def query_second_max(self, l, r):
             l += self.size
             r += self.size
             res = -float('inf')
@@ -125,19 +123,19 @@ def main():
             val = R
             st.update(pos, val)
         elif T == 'A':
-            res = st.get_min(L-1, R-1)
+            res = st.query_min(L-1, R-1)
             print(res)
         elif T == 'M':
-            res = st.get_max(L-1, R-1)
+            res = st.query_max(L-1, R-1)
             print(res)
         elif T == 'm':
-            res = st.get_min(L-1, R-1)
+            res = st.query_min(L-1, R-1)
             print(res)
         elif T == 'S':
-            res = st.get_second_max(L-1, R-1)
+            res = st.query_second_max(L-1, R-1)
             print(res)
         elif T == 's':
-            res = st.get_second_min(L-1, R-1)
+            res = st.query_second_min(L-1, R-1)
             print(res)
         else:
             print("!!!")

@@ -16,21 +16,21 @@ def solve():
         b = int(data[index+2])
         index += 3
         
-        # Sort the counts
-        a, b, c = sorted([r, g, b])
-        
         # The maximum number of days is determined by the sum of the two smaller piles
-        # minus the largest pile, but not less than the sum of the two smaller piles
-        # divided by 2 (since each day requires two candies)
-        max_days = (a + b) // 2
-        if a + b > c:
-            max_days = min(max_days, (a + b + c) // 2)
-        else:
-            max_days = min(max_days, (a + b + c) // 2)
-        
-        results.append(str(max_days))
+        # because Tanya can eat one candy from each of two piles each day.
+        # The maximum possible is (sum of two smaller piles) // 2
+        # But if the sum of all three is odd, the maximum is (sum of all three - 1) // 2
+        # However, the correct formula is min((r + g + b) // 2, (sum of two smaller piles))
+        # So we sort the numbers and compute accordingly
+        a, b, c = sorted([r, g, b])
+        total = a + b + c
+        if total % 2 == 1:
+            total -= 1
+        result = total // 2
+        results.append(result)
     
-    print('\n'.join(results))
+    for res in results:
+        print(res)
 
 if __name__ == '__main__':
     solve()

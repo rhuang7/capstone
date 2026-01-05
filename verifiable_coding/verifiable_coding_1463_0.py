@@ -3,6 +3,7 @@ import math
 from collections import defaultdict
 
 def solve():
+    import sys
     input = sys.stdin.buffer.read
     data = input().split()
     T = int(data[0])
@@ -16,39 +17,56 @@ def solve():
                 return False
         return True
     
-    def get_factors(n):
-        factors = set()
-        for i in range(2, int(math.isqrt(n)) + 1):
+    def get_prime_factors(n):
+        factors = []
+        i = 2
+        while i * i <= n:
             if n % i == 0:
-                factors.add(i)
-                if n // i != i:
-                    factors.add(n // i)
+                factors.append(i)
+                while n % i == 0:
+                    n //= i
+            i += 1
         if n > 1:
-            factors.add(n)
+            factors.append(n)
         return factors
     
     def solve_case(N):
         if N == 0:
             return []
-        pages = list(range(1, N + 1))
+        prime_factors = defaultdict(list)
+        for i in range(1, N + 1):
+            if i == 1:
+                continue
+            if is_prime(i):
+                prime_factors[i].append(i)
+            else:
+                factors = get_prime_factors(i)
+                for p in factors:
+                    prime_factors[p].append(i)
+        
         days = []
         current_day = []
-        for page in pages:
-            if page == 1:
-                current_day.append(page)
-                continue
-            can_add = True
-            for p in current_day:
-                if math.gcd(page, p) != 1:
-                    can_add = False
-                    break
-            if can_add:
-                current_day.append(page)
-            else:
+        for i in range(1, N + 1):
+            if i == 1:
+                current_day.append(i)
                 days.append(current_day)
-                current_day = [page]
-        if current_day:
-            days.append(current_day)
+                current_day = []
+                continue
+            if len(current_day) == 0:
+                current_day.append(i)
+                days.append(current_day)
+                current_day = []
+            else:
+                can_add = True
+                for page in current_day:
+                    if not math.gcd(page, i) == 1:
+                        can_add = False
+                        break
+                if can_add:
+                    current_day.append(i)
+                else:
+                    days.append([i])
+                    current_day = [i]
         return days
     
     results = []
@@ -58,8 +76,7 @@ def solve():
         for day in days:
             results.append(str(len(day)) + ' ' + ' '.join(map(str, day)))
     
-    for res in results:
-        print(res)
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

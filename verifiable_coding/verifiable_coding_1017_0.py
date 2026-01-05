@@ -16,15 +16,15 @@ def solve():
         P = int(data[idx+5])
         idx += 6
         
-        total_work = sum(a * P for a in A)
-        max_work_per_day = 24
+        total_home_hours = sum(a * P for a in A)
+        max_weekday_hours = 5 * 24
         
-        if total_work > 5 * max_work_per_day:
+        if total_home_hours > max_weekday_hours:
             results.append("Yes")
         else:
             results.append("No")
     
-    print('\n'.join(results))
+    print("\n".join(results))
 
 if __name__ == '__main__':
     solve()

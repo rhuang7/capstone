@@ -35,8 +35,14 @@ def solve():
             prefix[i][j] = matrix[i-1][j-1] + prefix[i-1][j] + prefix[i][j-1] - prefix[i-1][j-1]
     
     for px, py, qx, qy in queries:
-        res = prefix[qx][qy] - prefix[px-1][qy] - prefix[qx][py-1] + prefix[px-1][py-1]
-        print(res)
+        # Convert to 1-based to 0-based
+        x1 = px - 1
+        y1 = py - 1
+        x2 = qx - 1
+        y2 = qy - 1
+        # Use prefix sums to get the sum in the rectangle
+        sum_rect = prefix[x2+1][y2+1] - prefix[x1][y2+1] - prefix[x2+1][y1] + prefix[x1][y1]
+        print(sum_rect)
 
 if __name__ == '__main__':
     solve()

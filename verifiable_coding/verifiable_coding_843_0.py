@@ -25,67 +25,33 @@ def solve():
             sorted_row = sorted(row)
             sorted_rows.append(sorted_row)
         
-        # DP table: dp[i][j] represents the maximum sum for first i rows, choosing j-th element in the i-th row
-        # Since N can be up to 700, we need a 2D DP table of size 700x700
-        # But for space optimization, we can use two 1D arrays: previous and current
-        prev = [-1] * N
+        # dp[i][j] = maximum sum for first i rows, choosing j-th element in i-th row
+        # dp[i][j] = max(dp[i-1][k] for k < j) + A[i][j]
+        # We'll use a list to keep track of the maximum values for previous row
+        prev_max = [-1] * N
         for i in range(N):
-            curr = [-1] * N
+            curr_max = [-1] * N
             for j in range(N):
-                if prev[j] == -1:
-                    continue
-                # Try to pick the j-th element in the i-th row
-                # We need to find the smallest element in the i-th row that is larger than the j-th element in the previous row
-                # So we find the first element in the i-th row that is larger than the j-th element in the previous row
-                # Using binary search
-                val = sorted_rows[i][j]
-                # Find the smallest element in the i-th row that is larger than the previous value
-                # Since sorted_rows[i] is sorted, we can use bisect_right
-                # We need to find the first element in sorted_rows[i] that is larger than the previous value
-                # But since we are choosing the j-th element in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # So we need to find the first element in the i-th row that is larger than the previous value
-                # But since we are choosing the j-th element in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # So for each j in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # But since we are choosing the j-th element in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # So for each j in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # But since we are choosing the j-th element in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # So for each j in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # But since we are choosing the j-th element in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # So for each j in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # But since we are choosing the j-th element in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # So for each j in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # But since we are choosing the j-th element in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # So for each j in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # But since we are choosing the j-th element in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # So for each j in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # But since we are choosing the j-th element in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # So for each j in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # But since we are choosing the j-th element in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # So for each j in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # But since we are choosing the j-th element in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # So for each j in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # But since we are choosing the j-th element in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # So for each j in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # But since we are choosing the j-th element in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # So for each j in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # But since we are choosing the j-th element in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # So for each j in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # But since we are choosing the j-th element in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # So for each j in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # But since we are choosing the j-th element in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # So for each j in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # But since we are choosing the j-th element in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # So for each j in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # But since we are choosing the j-th element in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # So for each j in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # But since we are choosing the j-th element in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # So for each j in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # But since we are choosing the j-th element in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # So for each j in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # But since we are choosing the j-th element in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # So for each j in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # But since we are choosing the j-th element in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # So for each j in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # But since we are choosing the j-th element in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # So for each j in the i-th row, we need to find the smallest element in the i-th row that is larger than the previous value
-                # But since we are choosing the j-th element in
+                # Find the maximum value in prev_max for indices < j
+                max_prev = -1
+                if prev_max[j] != -1:
+                    max_prev = prev_max[j]
+                if i == 0:
+                    # First row, can choose any element
+                    curr_max[j] = sorted_rows[i][j]
+                else:
+                    # Find the maximum value in prev_max for indices < j
+                    if j > 0:
+                        max_prev = max(prev_max[:j])
+                    curr_max[j] = max_prev + sorted_rows[i][j]
+            prev_max = curr_max
+        
+        # Find the maximum value in the last row
+        result = max(prev_max)
+        results.append(result if result != -1 else -1)
+    
+    for res in results:
+        print(res)
+
+if __name__ == '__main__':
+    solve()

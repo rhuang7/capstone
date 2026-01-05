@@ -4,20 +4,24 @@ def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
+    
     idx = 0
     T = int(data[idx])
     idx += 1
+    
     results = []
     
     for _ in range(T):
         n = int(data[idx])
         m = int(data[idx+1])
         idx += 2
+        
         grid = []
         for i in range(n):
             row = data[idx]
             grid.append([c == '1' for c in row])
             idx += 1
+        
         S = data[idx]
         idx += 1
         
@@ -25,9 +29,8 @@ def solve():
         for direction in S:
             # Create a copy of the grid to track positions
             new_grid = [[False for _ in range(m)] for _ in range(n)]
+            # Track positions of particles
             positions = []
-            
-            # Collect all positions with particles
             for i in range(n):
                 for j in range(m):
                     if grid[i][j]:
@@ -56,15 +59,12 @@ def solve():
                         new_grid[i+1][j] = True
             
             # Update the grid
-            for i in range(n):
-                for j in range(m):
-                    grid[i][j] = new_grid[i][j]
+            grid = new_grid
         
-        # Convert grid to binary strings
+        # Convert the grid to binary strings
         output = []
-        for i in range(n):
-            row = ''.join(['1' if grid[i][j] else '0' for j in range(m)])
-            output.append(row)
+        for row in grid:
+            output.append(''.join(['1' if cell else '0' for cell in row]))
         results.append('\n'.join(output))
     
     print('\n'.join(results))

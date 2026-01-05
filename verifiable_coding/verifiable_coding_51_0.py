@@ -4,8 +4,10 @@ def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
+    
     t = int(data[0])
     index = 1
+    
     results = []
     
     for _ in range(t):
@@ -15,90 +17,93 @@ def solve():
         d2 = int(data[index+3])
         index += 4
         
-        # Total wins after all games must be equal for all teams
-        # Let x be the number of wins for each team
-        # Total wins = 3x = n => n must be divisible by 3
+        # Total wins after all games must be n
+        # Let a, b, c be the number of wins of each team
+        # a + b + c = n
+        # |a - b| = d1
+        # |b - c| = d2
+        # Also, a, b, c >= 0
+        
+        # Since all teams must have equal number of wins, a = b = c = n // 3
+        # But n must be divisible by 3
         if n % 3 != 0:
             results.append("no")
             continue
         
-        x = n // 3
+        total = n // 3
+        # The current wins of the teams must be such that they can reach total
+        # Let current wins be a, b, c
+        # a + b + c = k
+        # |a - b| = d1
+        # |b - c| = d2
+        # a, b, c >= 0
         
-        # Current wins for teams: a, b, c
-        # We have |a - b| = d1, |b - c| = d2
-        # Also, a + b + c = k
-        # After remaining (n - k) games, total wins will be n, so a + b + c + (n - k) = n => a + b + c = k (already known)
+        # We need to check if there exists a, b, c such that:
+        # a + b + c = k
+        # |a - b| = d1
+        # |b - c| = d2
+        # a, b, c >= 0
+        # and after adding (n - k) games, a, b, c all become total
         
-        # Possible configurations:
-        # Case 1: a = b + d1, b = c + d2
-        # Then a = c + d2 + d1, b = c + d2
-        # a + b + c = 3c + d1 + 2d2 = k
-        # 3c = k - d1 - 2d2
-        # c = (k - d1 - 2d2) / 3
-        # Must be integer and non-negative
+        # The total wins for each team after all games is total
+        # So, the current wins must be such that:
+        # a = total - x
+        # b = total - y
+        # c = total - z
+        # where x + y + z = n - k
+        # and x, y, z >= 0
+        # Also, |a - b| = d1 => |x - y| = d1
+        # |b - c| = d2 => |y - z| = d2
         
-        # Case 2: a = b - d1, b = c + d2
-        # Then a = c + d2 - d1, b = c + d2
-        # a + b + c = 3c + 2d2 - d1 = k
-        # 3c = k - 2d2 + d1
-        # c = (k - 2d2 + d1) / 3
-        # Must be integer and non-negative
+        # Let's try all possible combinations of x, y, z that satisfy the conditions
         
-        # Case 3: a = b + d1, b = c - d2
-        # Then a = c - d2 + d1, b = c - d2
-        # a + b + c = 3c - d2 + d1 = k
-        # 3c = k + d2 - d1
-        # c = (k + d2 - d1) / 3
-        # Must be integer and non-negative
+        # We can try all possible combinations of x, y, z that satisfy the conditions
+        # and check if x + y + z = n - k and x, y, z >= 0
         
-        # Case 4: a = b - d1, b = c - d2
-        # Then a = c - d2 - d1, b = c - d2
-        # a + b + c = 3c - 2d2 - d1 = k
-        # 3c = k + 2d2 + d1
-        # c = (k + 2d2 + d1) / 3
-        # Must be integer and non-negative
+        # Let's try all possible values for x, y, z that satisfy the conditions
+        # Since n can be up to 1e12, we need an efficient way to check
+        # We can use the fact that the difference between a and b is d1, and between b and c is d2
+        # So, a = b + d1 or a = b - d1
+        # c = b + d2 or c = b - d2
         
-        valid = False
+        # We can try all 4 combinations of signs
+        found = False
+        for sign1 in [-1, 1]:
+            for sign2 in [-1, 1]:
+                a = total + sign1 * d1
+                c = total + sign2 * d2
+                b = total
+                # Check if a + b + c = k
+                if a + b + c == k:
+                    found = True
+                    break
+                # Try other combinations
+                a = total - sign1 * d1
+                c = total - sign2 * d2
+                b = total
+                if a + b + c == k:
+                    found = True
+                    break
+                # Try a = b + d1, c = b - d2
+                a = total + d1
+                c = total - d2
+                b = total
+                if a + b + c == k:
+                    found = True
+                    break
+                # Try a = b - d1, c = b + d2
+                a = total - d1
+                c = total + d2
+                b = total
+                if a + b + c == k:
+                    found = True
+                    break
+            if found:
+                break
         
-        # Check case 1
-        if (k - d1 - 2 * d2) % 3 == 0:
-            c = (k - d1 - 2 * d2) // 3
-            if c >= 0:
-                a = c + d1 + d2
-                b = c + d2
-                if a + b + c == k and a <= x and b <= x and c <= x:
-                    valid = True
-        
-        # Check case 2
-        if (k - 2 * d2 + d1) % 3 == 0:
-            c = (k - 2 * d2 + d1) // 3
-            if c >= 0:
-                a = c + d2 - d1
-                b = c + d2
-                if a + b + c == k and a <= x and b <= x and c <= x:
-                    valid = True
-        
-        # Check case 3
-        if (k + d2 - d1) % 3 == 0:
-            c = (k + d2 - d1) // 3
-            if c >= 0:
-                a = c - d2 + d1
-                b = c - d2
-                if a + b + c == k and a <= x and b <= x and c <= x:
-                    valid = True
-        
-        # Check case 4
-        if (k + 2 * d2 + d1) % 3 == 0:
-            c = (k + 2 * d2 + d1) // 3
-            if c >= 0:
-                a = c - d2 - d1
-                b = c - d2
-                if a + b + c == k and a <= x and b <= x and c <= x:
-                    valid = True
-        
-        results.append("yes" if valid else "no")
+        results.append("yes" if found else "no")
     
-    print("\n".join(results))
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

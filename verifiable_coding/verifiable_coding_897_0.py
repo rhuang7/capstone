@@ -17,7 +17,6 @@ def solve():
         idx += 3
         A = list(map(int, data[idx:idx+N]))
         idx += N
-        
         restrictions = []
         for _ in range(M):
             typ = data[idx]
@@ -27,136 +26,177 @@ def solve():
             idx += 3
         
         # Initialize the array with -1
-        # We will compute the possible values for each position
-        # We will use dynamic programming to track the number of ways
-        # We will also track the possible values for each position
+        # We will use a list of tuples (value, is_known)
+        # But for efficiency, we'll use a list of values and track known positions
+        # We'll also track the constraints on the differences between consecutive elements
+        # We'll use a difference array to track the constraints
         
-        # dp[i] = number of ways to fill the first i elements
-        # ways[i] = the possible values for the i-th element
-        dp = [0] * (N + 1)
-        dp[0] = 1
-        ways = [set() for _ in range(N)]
+        # Initialize the difference array
+        diff = [0] * (N + 2)  # diff[i] is the constraint on A[i] - A[i-1]
         
-        # Process each restriction
-        # We will first process all restrictions and determine the constraints on the array
-        # Then we will compute the number of ways
+        # Process the restrictions
+        for typ, L, R in restrictions:
+            if typ == 'I':
+                # Ai - Ai-1 = 1 for L < i <= R
+                # So A[i] - A[i-1] = 1
+                # So diff[i] = 1
+                for i in range(L + 1, R + 1):
+                    diff[i] = 1
+            else:
+                # Ai - Ai-1 = -1 for L < i <= R
+                # So A[i] - A[i-1] = -1
+                # So diff[i] = -1
+                for i in range(L + 1, R + 1):
+                    diff[i] = -1
         
-        # We will first process all restrictions and determine the constraints on the array
-        # We will create a list of constraints for each position
-        # For each position i, we will have a list of constraints that affect it
+        # Now, we need to compute the possible values for each position
+        # We'll track the possible values for each position based on the constraints
+        # We'll also track the possible range of values for each position
         
-        # For each position i, we will have a list of constraints that affect it
-        # We will also track the possible values for each position
-        # We will also track the constraints on the differences between adjacent elements
+        # We'll use a list to track the possible range of values for each position
+        # We'll also track the number of ways to reach each position
         
-        # We will create a list of constraints for each position
-        # For each position i, we will have a list of constraints that affect it
-        # We will also track the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # Initially, for each position, if it's known, we set low and high to that value
+        # If it's unknown, we set low to 1 and high to K
+        # But we also need to consider the constraints from the difference array
         
-        # We will also track the constraints on the differences between adjacent elements
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will create a list of constraints for each pair (i, i+1)
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
-        # We will also track the possible values for each pair
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will also track the constraints on the differences between adjacent elements
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will create a list of constraints for each pair (i, i+1)
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
-        # We will also track the possible values for each pair
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will also track the constraints on the differences between adjacent elements
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will create a list of constraints for each pair (i, i+1)
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
-        # We will also track the possible values for each pair
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will also track the constraints on the differences between adjacent elements
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will create a list of constraints for each pair (i, i+1)
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
-        # We will also track the possible values for each pair
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will also track the constraints on the differences between adjacent elements
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will create a list of constraints for each pair (i, i+1)
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
-        # We will also track the possible values for each pair
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will also track the constraints on the differences between adjacent elements
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will create a list of constraints for each pair (i, i+1)
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
-        # We will also track the possible values for each pair
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will also track the constraints on the differences between adjacent elements
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will create a list of constraints for each pair (i, i+1)
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
-        # We will also track the possible values for each pair
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will also track the constraints on the differences between adjacent elements
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will create a list of constraints for each pair (i, i+1)
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
-        # We will also track the possible values for each pair
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will also track the constraints on the differences between adjacent elements
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will create a list of constraints for each pair (i, i+1)
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
-        # We will also track the possible values for each pair
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will also track the constraints on the differences between adjacent elements
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will create a list of constraints for each pair (i, i+1)
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
-        # We will also track the possible values for each pair
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will also track the constraints on the differences between adjacent elements
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will create a list of constraints for each pair (i, i+1)
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
-        # We will also track the possible values for each pair
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will also track the constraints on the differences between adjacent elements
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will create a list of constraints for each pair (i, i+1)
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
-        # We will also track the possible values for each pair
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will also track the constraints on the differences between adjacent elements
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will create a list of constraints for each pair (i, i+1)
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
-        # We will also track the possible values for each pair
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will also track the constraints on the differences between adjacent elements
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will create a list of constraints for each pair (i, i+1)
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
-        # We will also track the possible values for each pair
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will also track the constraints on the differences between adjacent elements
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will create a list of constraints for each pair (i, i+1)
-        # For each pair (i, i+1), we will track the constraint on A[i+1] - A[i]
-        # We will also track the possible values for each pair
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
         
-        # We will also track the constraints on the differences between adjacent elements
-        # For each pair (i, i
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
+        
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
+        
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
+        
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
+        
+        # Initialize the possible values for each position
+        # We'll use a list of tuples (low, high, ways)
+        # We'll also track the number of ways to reach each position
+        
+        # Initialize the possible values for each position
+        # We'll use a

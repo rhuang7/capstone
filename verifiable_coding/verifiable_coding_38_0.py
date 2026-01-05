@@ -26,8 +26,8 @@ def solve():
         b.sort()
         
         # The player with the highest card can always win
-        # because they can always choose their highest card to beat the opponent's
-        # and keep playing with the remaining cards
+        # Because they can always play their highest card to win
+        # and then continue playing with the remaining cards
         if a[-1] > b[-1]:
             results.append("YES")
         else:

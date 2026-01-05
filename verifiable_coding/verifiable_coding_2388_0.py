@@ -23,14 +23,14 @@ def solve():
             idx += 2
         
         # BFS to find a vertex with the smallest degree
-        min_deg = n
+        min_degree = n
         min_vertex = -1
         for i in range(1, n+1):
-            if len(adj[i]) < min_deg:
-                min_deg = len(adj[i])
+            if len(adj[i]) < min_degree:
+                min_degree = len(adj[i])
                 min_vertex = i
         
-        # Perform BFS from min_vertex to mark all reachable nodes
+        # Perform BFS from min_vertex to find all vertices not in the chosen set
         visited = [False] * (n+1)
         q = deque()
         q.append(min_vertex)
@@ -43,16 +43,18 @@ def solve():
                 if not visited[v]:
                     visited[v] = True
                     q.append(v)
-                    chosen.append(v)
         
-        # The chosen set is all nodes reachable from min_vertex
-        # We need to select at most floor(n/2) nodes
-        # So we can choose the first half of the chosen nodes
-        k = len(chosen)
-        if k > n // 2:
-            chosen = chosen[:n//2]
+        # Collect all unvisited vertices (they need to be covered)
+        result = []
+        for i in range(1, n+1):
+            if not visited[i]:
+                result.append(i)
         
-        results.append(str(len(chosen)))
-        results.append(' '.join(map(str, chosen)))
+        # The chosen set is the min_vertex and the unvisited vertices
+        chosen_set = [min_vertex] + result
+        
+        # Output
+        results.append(str(len(chosen_set)))
+        results.append(' '.join(map(str, chosen_set)))
     
     print('\n'.join(results))

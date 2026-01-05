@@ -2,44 +2,65 @@ import sys
 import math
 from collections import defaultdict
 
-def compute_s(x):
-    s = 0
-    i = 2
-    while i * i <= x:
-        if x % i == 0:
-            s += i
-            while x % i == 0:
-                x //= i
-        i += 1
-    if x > 1:
-        s += x
-    return s
+def sieve(max_limit):
+    is_prime = [True] * (max_limit + 1)
+    is_prime[0] = is_prime[1] = False
+    for i in range(2, int(math.sqrt(max_limit)) + 1):
+        if is_prime[i]:
+            for j in range(i * i, max_limit + 1, i):
+                is_prime[j] = False
+    return is_prime
+
+def get_prime_factors(x, is_prime):
+    factors = set()
+    while x > 1:
+        for i in range(2, int(math.sqrt(x)) + 1):
+            if is_prime[i] and x % i == 0:
+                factors.add(i)
+                while x % i == 0:
+                    x //= i
+                break
+        else:
+            if is_prime[x]:
+                factors.add(x)
+            break
+    return factors
 
 def solve():
+    import sys
     input = sys.stdin.buffer.read
     data = input().split()
     idx = 0
     T = int(data[idx])
     idx += 1
-    results = []
+    max_a = 0
     for _ in range(T):
         n = int(data[idx])
         idx += 1
         a = list(map(int, data[idx:idx + n]))
         idx += n
-        s_map = defaultdict(int)
-        for num in a:
-            s = compute_s(num)
-            s_map[s] += 1
-        count = 0
-        for s_val in s_map:
-            freq = s_map[s_val]
-            for s2_val in s_map:
-                if s2_val % s_val == 0:
-                    count += freq * s_map[s2_val]
-        results.append(count)
-    for res in results:
-        print(res)
+        max_a = max(max_a, max(a))
+    
+    is_prime = sieve(max_a)
+    
+    prime_sum = dict()
+    for num in a:
+        factors = get_prime_factors(num, is_prime)
+        s = sum(factors)
+        if s not in prime_sum:
+            prime_sum[s] = 0
+        prime_sum[s] += 1
+    
+    result = 0
+    for s in prime_sum:
+        count = prime_sum[s]
+        if count == 0:
+            continue
+        for s2 in prime_sum:
+            if s2 % s == 0:
+                result += count * prime_sum[s2]
+    
+    print(result)
 
 if __name__ == '__main__':
     solve()

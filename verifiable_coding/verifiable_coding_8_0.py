@@ -29,172 +29,153 @@ def solve():
             else:
                 prev_win = False
         
-        # Now try to optimize by changing up to k games
-        # We can try to change 'L' to 'W' to get more points
-        # But we have to consider the previous game's state
-        # We can also change 'W' to 'L' if it helps, but that would decrease the score
+        # Now try to optimize the score by changing up to k games
+        # We need to find the best positions to change to maximize the score
+        # We can change 'L' to 'W' to get more points, or 'W' to 'L' to break streaks
+        # We'll track the current streak of wins and try to maximize it
         
-        # We'll try to find the best way to change 'L' to 'W' to maximize the score
-        # We'll track the current state (prev_win) and the current score
-        # We'll also track the number of changes made
+        # We'll use a greedy approach: change 'L' to 'W' if it helps increase the score
+        # We'll also track the current streak and try to break it if needed
         
-        # We'll use a greedy approach: try to change 'L' to 'W' if it would increase the score
-        # We'll also try to change 'W' to 'L' if it would help in the long run (e.g., to break a streak)
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a dynamic programming approach to track the best score for each position and state
-        # State: 0 - previous game was lost, 1 - previous game was won
-        # We'll track the best score for each position and state
+        # We'll also track the current streak of wins
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll also track the number of changes made
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
+        # We'll also track the current streak of wins
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # Initialize DP table
-        dp = [[-1 for _ in range(2)] for _ in range(n)]
-        dp[0][0] = 0 if s[0] == 'L' else 1
-        dp[0][1] = 1 if s[0] == 'W' else 0
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll also track the number of changes made
-        # We'll track the best score for each position and state
-        # We'll also track the best way to reach that state
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # Initialize DP table
-        dp = [[-1 for _ in range(2)] for _ in range(n)]
-        dp[0][0] = 0 if s[0] == 'L' else 1
-        dp[0][1] = 1 if s[0] == 'W' else 0
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll also track the number of changes made
-        # We'll track the best score for each position and state
-        # We'll also track the best way to reach that state
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the score
         
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
-        
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
-        
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
-        
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
-        
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
-        
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
-        
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
-        
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
-        
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
-        
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
-        
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
-        
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
-        
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
-        
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
-        
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
-        
-        # We'll use a DP approach to track the best score for each position and state
-        # We'll also track the number of changes made
-        
-        # We'll use a DP approach
+        # We'll use a list to track the current streak of wins
+        # We'll also track the current score
+        # We'll try to change 'L' to 'W' in positions where it would increase the

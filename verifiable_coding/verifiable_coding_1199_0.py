@@ -22,18 +22,16 @@ def solve():
         remaining = S - ones
         
         # Number of even coins needed
-        # Since N is even, we can use as many N as possible
+        # Maximum even value is N, so we use as many as possible
+        # Each even coin is of value N, so coins = remaining // N
         coins = remaining // N
         
-        # If there is a remainder, we need one more coin
-        if remaining % N != 0:
-            coins += 1
-        
         # Total coins is ones + coins
-        results.append(ones + coins)
+        total_coins = ones + coins
+        
+        results.append(str(total_coins))
     
-    for res in results:
-        print(res)
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

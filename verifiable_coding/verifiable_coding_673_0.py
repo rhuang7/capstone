@@ -4,10 +4,9 @@ def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
-    
     t = int(data[0])
     index = 1
-    
+    results = []
     for _ in range(t):
         n = int(data[index])
         m = int(data[index+1])
@@ -19,44 +18,36 @@ def solve():
         values = [a + i*d for i in range(5)]
         
         # Use inclusion-exclusion principle to count numbers not divisible by any of the values
-        # Total numbers in range [n, m] is m - n + 1
+        # Total numbers in range: m - n + 1
         total = m - n + 1
         
         # Count numbers divisible by at least one of the values
-        # Use inclusion-exclusion to calculate this
-        # For 5 elements, the inclusion-exclusion formula is:
-        # |A1 ∪ A2 ∪ A3 ∪ A4 ∪ A5| = Σ|Ai| - Σ|Ai ∩ Aj| + Σ|Ai ∩ Aj ∩ Ak| - ... + (-1)^{k+1} |A1 ∩ A2 ∩ ... ∩ Ak|}
+        # Using inclusion-exclusion for 5 sets
+        # This is a simplified version for 5 values
+        # For the actual implementation, we need to compute all combinations
+        # But given the constraints, we can precompute all combinations of the 5 values
+        # and apply inclusion-exclusion
         
-        # We'll compute all subsets of the 5 values and calculate their intersections
-        # For each subset, calculate the LCM of the values in the subset
-        # Then count how many numbers in [n, m] are divisible by that LCM
-        
+        # Generate all non-empty subsets of the 5 values
         from itertools import combinations
-        
-        # Function to count numbers divisible by x in [n, m]
-        def count_divisible(x):
-            return (m // x) - ((n - 1) // x)
-        
-        # Inclusion-exclusion
-        res = 0
-        for i in range(1, 6):  # i is the size of the subset
-            for subset in combinations(values, i):
-                lcm = 1
-                for num in subset:
-                    lcm = lcm * num // (gcd(lcm, num))
-                cnt = count_divisible(lcm)
-                if i % 2 == 1:
-                    res += cnt
+        cnt = 0
+        for k in range(1, 6):
+            for subset in combinations(values, k):
+                # Compute LCM of the subset
+                lcm = subset[0]
+                for num in subset[1:]:
+                    lcm = lcm * num // (lcm // num)
+                # Count numbers in [n, m] divisible by lcm
+                count = (m // lcm) - ((n - 1) // lcm)
+                if k % 2 == 1:
+                    cnt += count
                 else:
-                    res -= cnt
+                    cnt -= count
         
-        # The answer is total - res
-        print(total - res)
+        # The answer is total - cnt
+        results.append(str(total - cnt))
     
-def gcd(a, b):
-    while b:
-        a, b = b, a % b
-    return a
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

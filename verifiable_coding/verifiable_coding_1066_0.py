@@ -7,18 +7,22 @@ def is_nice(num):
             return False
     return True
 
-def find_largest_nice(num):
-    s = list(str(num))
+def find_largest_nice(n):
+    s = str(n)
     length = len(s)
-    for i in range(length - 1, -1, -1):
-        for j in range(i + 1, length):
-            if s[j] > s[i]:
-                # Swap and decrease the next digit
-                s[i], s[j] = s[j], s[i]
-                for k in range(i + 1, length):
-                    s[k] = '9'
-                return int(''.join(s))
-    return 0
+    result = ""
+    for i in range(length):
+        if i == 0:
+            result += s[i]
+        else:
+            if s[i] > s[i - 1]:
+                result += s[i]
+            else:
+                result += str(int(s[i]) - 1)
+                for j in range(i, length):
+                    result += '9'
+                break
+    return int(result)
 
 def solve():
     import sys

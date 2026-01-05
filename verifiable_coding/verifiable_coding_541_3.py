@@ -1,0 +1,43 @@
+import sys
+import collections
+
+def solve():
+    import sys
+    input = sys.stdin.buffer.read
+    data = input().split()
+    idx = 0
+    T = int(data[idx])
+    idx += 1
+    results = []
+    
+    for _ in range(T):
+        N = int(data[idx])
+        idx += 1
+        C = list(map(int, data[idx:idx+N]))
+        idx += N
+        
+        max_height = 0
+        color_count = collections.defaultdict(int)
+        left = 0
+        
+        for right in range(N):
+            color = C[right]
+            color_count[color] += 1
+            
+            while right - left + 1 > 2 * max_height + 1:
+                left_color = C[left]
+                color_count[left_color] -= 1
+                left += 1
+            
+            if right - left + 1 == 2 * max_height + 1:
+                valid = True
+                for cnt in color_count.values():
+                    if cnt % 2 != 0:
+                        valid = False
+                        break
+                if valid:
+                    max_height += 1
+        
+        results.append(str(max_height))
+    
+    print('\n'.join(results))

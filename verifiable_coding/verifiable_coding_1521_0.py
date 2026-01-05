@@ -17,9 +17,9 @@ def solve():
             U = int(data[idx+1])
             singers.append((L, U))
             idx += 2
-        # Sort singers by L and U to determine dominance
+        # Sort singers by L and U to find dominance
         singers.sort()
-        # For each singer, determine how many others are dominated by it
+        # For each singer, find how many others are dominated by it
         scores = [0] * N
         for i in range(N):
             L_i, U_i = singers[i]
@@ -31,10 +31,8 @@ def solve():
                 # Check if singer i dominates singer j
                 if L_j >= L_i and U_j <= U_i:
                     count += 1
-            # Each dominated singer gives 2 points, each draw gives 1 point
-            # Since all ranges are distinct, no draw is possible
-            # So if count is the number of singers dominated by i, then i gets 2 * count
-            scores[i] = 2 * count
+            # Each dominated singer gives 2 points
+            scores[i] = count * 2
         results.append(' '.join(map(str, scores)))
     print('\n'.join(results))
 

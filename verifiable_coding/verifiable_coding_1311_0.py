@@ -10,20 +10,21 @@ def solve():
     
     for _ in range(T):
         N = int(data[index])
-        K = int(data[index+1])
+        K = int(data[index + 1])
         index += 2
         
-        # We need exactly K positions where the prefix sum is positive
-        # One way is to make the first K elements positive and the rest negative
-        # This ensures that the prefix sum is positive for the first K elements
+        # Construct the sequence
         result = []
-        for i in range(1, N+1):
-            if i <= K:
+        count = 0  # Number of positions where A_i = i
+        
+        for i in range(1, N + 1):
+            if count < K:
                 result.append(i)
+                count += 1
             else:
                 result.append(-i)
         
         print(' '.join(map(str, result)))
-        
+
 if __name__ == '__main__':
     solve()

@@ -23,17 +23,16 @@ def solve():
             continue
         
         # Count the number of mismatches for both targets
-        count1 = 0
-        count2 = 0
+        cnt1 = 0
+        cnt2 = 0
         for i in range(n):
             if s[i] != target1[i]:
-                count1 += 1
+                cnt1 += 1
             if s[i] != target2[i]:
-                count2 += 1
+                cnt2 += 1
         
-        # The minimum number of operations is the minimum of the two counts divided by 2
-        # Because each operation can fix two mismatches
-        print(min(count1, count2) // 2)
+        # The minimum number of operations is the minimum of the two counts
+        print(min(cnt1, cnt2) // 2)
 
 if __name__ == '__main__':
     solve()

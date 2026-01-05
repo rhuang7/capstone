@@ -19,167 +19,94 @@ def solve():
         p = list(map(int, data[idx:idx+K]))
         idx += K
         
-        # Sort the known values
+        # Check if the known values already violate constraints
+        if len(p) != K:
+            results.append(-1)
+            continue
+        
+        # Sort known values
         p.sort()
         
-        # Check if the known values already violate the D condition
-        for i in range(K):
-            if i + 1 < K and p[i+1] - p[i] > D:
+        # Check if any two known values are more than D apart
+        for i in range(K-1):
+            if p[i+1] - p[i] > D:
                 results.append(-1)
                 break
         else:
-            # Find the maximum possible values for the unknowns
-            # The unknowns must be placed in such a way that each has at least one other within D
-            # Also, all values must be <= x and distinct
-            # We need to fill the unknowns in the gaps between known values, and also at the ends
+            # Try to fill in the missing values
+            # We need to add (N - K) values such that:
+            # 1. All values are distinct and <= x
+            # 2. Every value has at least one other value within D
+            # 3. The total sum is maximized
             
-            # Create a list of known values
-            known = p[:]
+            # We can use a greedy approach to fill in the missing values
+            # by placing them as high as possible while maintaining the constraints
             
-            # Add x if it's not already in the known list
-            if x not in known:
-                known.append(x)
-                known.sort()
+            # We'll use a set to keep track of used values
+            used = set(p)
             
-            # Now, fill the unknowns
+            # We'll use a list to keep track of the current values
+            current = p.copy()
+            
+            # We'll use a list to keep track of the current values in sorted order
+            current.sort()
+            
+            # We'll use a list to keep track of the current values in sorted order
+            # and insert new values in the right position
+            # We'll also keep track of the maximum value
+            max_val = current[-1]
+            
             # We need to add (N - K) values
-            # These values must be placed in such a way that each has at least one other within D
-            # Also, all values must be <= x
-            
-            # We'll use a greedy approach: place the values as high as possible
-            # We'll use a list to keep track of the current positions
-            # We'll use a sorted list to manage the positions
-            
-            # Start with the known values
-            positions = known[:]
-            positions.sort()
-            
-            # Now, we need to add (N - K) values
-            added = 0
-            while added < (N - K):
+            for _ in range(N - K):
                 # Try to place the next value as high as possible
-                # Find the rightmost position where we can place a value
-                # such that it is within D of at least one existing value
-                # and is <= x
-                # We'll check the rightmost possible position
-                # We can do this by checking the last element
-                # and trying to place a value as high as possible
+                # while maintaining the constraints
+                # We'll try to place it at the end of the current list
+                # and check if it's within D of the previous value
+                # If not, we'll try to place it in the middle
                 
-                # Check if we can place a value after the last known value
-                last = positions[-1]
-                if last + D <= x:
-                    # We can place a value at last + D
-                    # But we need to ensure it's not already in the list
-                    # and that it's not already in the list
-                    # Also, we need to make sure that it is within D of at least one existing value
-                    # So we can place it at last + D
-                    # But we need to check if it's within D of any existing value
-                    # Since we are placing it at last + D, it is within D of last
-                    # So it's valid
-                    # Also, we need to ensure that it's not already in the list
-                    # Since the list is sorted, we can use bisect to check
-                    pos = bisect.bisect_right(positions, last + D)
-                    if pos < len(positions) and positions[pos] == last + D:
-                        # Already exists
-                        pass
+                # Try to place it at the end
+                candidate = max_val + 1
+                if candidate > x:
+                    # Not possible, try to place it in the middle
+                    # Find the position where it can be placed
+                    pos = bisect.bisect_right(current, max_val - D)
+                    if pos == 0:
+                        # Can't place it anywhere
+                        results.append(-1)
+                        break
+                    # Place it at pos
+                    candidate = current[pos] - D
+                    if candidate <= current[pos] and candidate >= current[pos-1]:
+                        # Place it at pos
+                        current.insert(pos, candidate)
+                        used.add(candidate)
+                        max_val = candidate
                     else:
-                        # Add it
-                        positions.insert(pos, last + D)
-                        added += 1
+                        # Not possible
+                        results.append(-1)
+                        break
                 else:
-                    # Try to place a value in the middle of the existing positions
-                    # Find the rightmost position where we can place a value
-                    # such that it is within D of at least one existing value
-                    # We can do this by checking the last few positions
-                    # Try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # We'll start from the end and go backwards
-                    # Try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to place a value in the middle of the existing positions
-                    # We'll try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the rightmost position where we can place a value
-                    # that is within D of at least one existing value
-                    # and is <= x
-                    # We can try to find the right
+                    # Place it at the end
+                    current.append(candidate)
+                    used.add(candidate)
+                    max_val = candidate
+            
+            else:
+                # Check if all values are within D of at least one other value
+                # We can do this by checking if the maximum value is within D of the minimum value
+                # If not, then there's at least one value that is not within D of any other value
+                if max_val - min(current) > D:
+                    results.append(-1)
+                else:
+                    # Calculate the sum
+                    total = sum(current)
+                    results.append(total)
+            continue
+        
+        results.append(-1)
+    
+    for res in results:
+        print(res)
+
+if __name__ == '__main__':
+    solve()

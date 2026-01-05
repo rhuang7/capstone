@@ -10,16 +10,17 @@ def solve():
         N = int(data[i])
         # Find the smallest M such that M ^ (M + 1) = N
         # M ^ (M + 1) = (M | (M + 1)) - (M & (M + 1)) = (M | (M + 1)) - (M & (M + 1))
-        # But since M and M+1 are consecutive, their binary representations differ in the least significant 1 bit
-        # So M ^ (M + 1) is a number with a single 1 followed by zeros
-        # So N must be a number with a single 1 in its binary representation
-        # Check if N is a power of two
-        if (N & (N - 1)) != 0:
-            results.append(-1)
-            continue
-        # If N is a power of two, then M is N >> 1
-        results.append(N >> 1)
-    sys.stdout.write('\n'.join(map(str, results)) + '\n')
+        # But M ^ (M + 1) is a sequence of 1s in binary
+        # So N must be of the form 2^k - 1
+        # Check if N is of the form 2^k - 1
+        if (N + 1) & N == 0:
+            # N is of the form 2^k - 1
+            k = (N + 1).bit_length()
+            M = 1 << (k - 1)
+            results.append(str(M))
+        else:
+            results.append("-1")
+    print("\n".join(results))
 
 if __name__ == '__main__':
     solve()

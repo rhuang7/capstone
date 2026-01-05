@@ -10,7 +10,7 @@ def solve():
     
     for _ in range(T):
         S = data[index]
-        R = data[index+1]
+        R = data[index + 1]
         index += 2
         
         N = len(S)
@@ -18,7 +18,7 @@ def solve():
             print(0)
             continue
         
-        # Find the positions where S and R differ
+        # Find the regions where S and R differ
         diff = []
         for i in range(N):
             if S[i] != R[i]:
@@ -29,24 +29,22 @@ def solve():
             print(0)
             continue
         
-        # The minimum cost is achieved by making as few operations as possible
-        # Each operation can cover a contiguous block of differing positions
-        # So we need to find the number of operations required to cover all differing positions
-        # This is equivalent to the number of "blocks" of differing positions
+        # Calculate the minimum cost
+        # The optimal way is to perform one operation per contiguous block of differences
+        # So the number of operations is the number of contiguous blocks
+        # The total length of all operations is the sum of the lengths of these blocks
+        # The cost is (number of operations) * (total length of all operations)
         
-        # Initialize the number of operations
-        k = 1
-        # Start from the first differing position
-        start = diff[0]
-        # Iterate through the differing positions
+        # Count the number of contiguous blocks
+        block_count = 1
         for i in range(1, len(diff)):
-            if diff[i] != diff[i-1] + 1:
-                k += 1
+            if diff[i] != diff[i - 1] + 1:
+                block_count += 1
         
-        # The length of the operation is the number of differing positions
-        l = len(diff)
-        # The cost is k * l
-        print(k * l)
-
+        # Total length of all operations is the total number of differing characters
+        total_length = len(diff)
+        
+        print(block_count * total_length)
+        
 if __name__ == '__main__':
     solve()

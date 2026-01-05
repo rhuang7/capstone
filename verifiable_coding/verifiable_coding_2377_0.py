@@ -16,21 +16,25 @@ def solve():
         a = list(map(int, data[idx:idx+n]))
         idx += n
         
+        # Sort the array to find the target order
         sorted_a = sorted(a)
-        pos = [0] * n
-        for i in range(n):
-            pos[i] = sorted_a.index(a[i])
         
-        max_len = 0
-        current_len = 0
-        for i in range(n):
-            if i == 0 or pos[i] == pos[i-1] + 1:
-                current_len += 1
-            else:
-                current_len = 1
-            max_len = max(max_len, current_len)
+        # Find the longest increasing subsequence in the original array that is in the sorted order
+        # This subsequence represents elements that are already in the correct relative order
+        # The number of operations needed is n - length of this subsequence
         
-        results.append(n - max_len)
+        # Create a mapping from value to index in the sorted array
+        value_to_index = {val: i for i, val in enumerate(sorted_a)}
+        
+        # Find the length of the longest increasing subsequence in the original array
+        # where each element's index in the sorted array is increasing
+        l = 0
+        for val in a:
+            i = value_to_index[val]
+            if i > l:
+                l = i
+        
+        results.append(n - l)
     
     for res in results:
         print(res)

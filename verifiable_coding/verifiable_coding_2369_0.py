@@ -13,70 +13,62 @@ def solve():
     for _ in range(q):
         n = int(data[idx])
         idx += 1
-        type_count = collections.defaultdict(list)
-        f_count = collections.defaultdict(list)
+        type_counts = collections.defaultdict(list)
+        type_f1 = collections.defaultdict(list)
+        type_f0 = collections.defaultdict(list)
         for _ in range(n):
             a = int(data[idx])
             f = int(data[idx + 1])
             idx += 2
-            type_count[a].append(f)
-            f_count[a].append(f)
+            type_counts[a].append(f)
+            if f == 1:
+                type_f1[a].append(1)
+            else:
+                type_f0[a].append(0)
         
         # For each type, count how many f=1 and f=0 candies
-        type_f1 = {}
-        type_f0 = {}
-        for a in type_count:
-            type_f1[a] = sum(1 for f in type_count[a] if f == 1)
-            type_f0[a] = sum(1 for f in type_count[a] if f == 0)
+        type_f1_counts = {}
+        type_f0_counts = {}
+        for a in type_counts:
+            type_f1_counts[a] = len(type_f1[a])
+            type_f0_counts[a] = len(type_f0[a])
         
-        # We need to select for each type a number of candies (k) such that all k's are distinct
-        # We want to maximize the total number of candies, and among those, maximize the number of f=1 candies
+        # We want to maximize the number of candies, and among those, maximize f=1
+        # So we try to take as many as possible, but with distinct counts per type
         
-        # We'll try to assign as many as possible, starting from the types with more f=1 candies
-        # We'll use a priority queue to select the types with the most f=1 candies first
+        # We'll use a greedy approach: sort types by the number of f=1 candies in descending order
+        types = list(type_f1_counts.keys())
+        types.sort(key=lambda x: -type_f1_counts[x])
         
-        # Create a list of (f1, f0, type) for each type
-        types = []
-        for a in type_count:
-            types.append((type_f1[a], type_f0[a], a))
-        
-        # Sort types by f1 in descending order
-        types.sort(reverse=True)
-        
-        # We'll use a greedy approach to assign the maximum possible number of candies
-        # We'll use a set to track the counts we've already used
+        # We'll track how many candies we can take and how many f=1
+        max_total = 0
+        max_f1 = 0
         used_counts = set()
-        total_candies = 0
-        total_f1 = 0
         
-        for f1, f0, a in types:
-            # Try to assign as many as possible without repeating counts
-            # We'll try to assign the maximum possible count for this type
-            # The maximum possible count for this type is min(f1 + f0, max_count)
-            # We'll try to assign the largest possible count that hasn't been used yet
-            max_possible = min(f1 + f0, len(used_counts) + 1)
-            for k in range(max_possible, 0, -1):
-                if k not in used_counts:
-                    used_counts.add(k)
-                    total_candies += k
-                    total_f1 += k * (f1 / (f1 + f0))  # This is a simplification, we'll compute it properly later
+        for a in types:
+            # Try to take as many as possible of this type, but with a count not already used
+            # We can take up to min(type_f1_counts[a], type_f0_counts[a]) candies
+            # But we need to choose a count that is not already used
+            # So we try to take the maximum possible count for this type
+            # We try from the maximum possible down to 0
+            # We want to take as many as possible, but with distinct counts
+            # We also want to maximize f=1, so we prefer taking more f=1 candies
+            # So we take as many as possible of this type, but with a count not used yet
+            # We try to take the maximum possible count for this type, but not already used
+            # We can take up to min(type_f1_counts[a], type_f0_counts[a]) candies
+            # But we need to choose a count that is not already used
+            # So we try to take the maximum possible count for this type, but not already used
+            # We try from the maximum possible down to 0
+            max_possible = min(type_f1_counts[a], type_f0_counts[a])
+            for cnt in range(max_possible, -1, -1):
+                if cnt not in used_counts:
+                    used_counts.add(cnt)
+                    total = cnt
+                    f1 = type_f1_counts[a]
+                    max_total += total
+                    max_f1 += f1
                     break
         
-        # Now, we need to compute the exact number of f1 candies
-        # We'll recompute the total_f1 properly
-        total_f1 = 0
-        used_counts = set()
-        for f1, f0, a in types:
-            # Try to assign as many as possible without repeating counts
-            # We'll try to assign the largest possible count that hasn't been used yet
-            max_possible = min(f1 + f0, len(used_counts) + 1)
-            for k in range(max_possible, 0, -1):
-                if k not in used_counts:
-                    used_counts.add(k)
-                    total_candies += k
-                    total_f1 += min(k, f1)
-                    break
-        
-        results.append(f"{total_candies} {total_f1}")
+        results.append(f"{max_total} {max_f1}")
     
     print("\n".join(results))

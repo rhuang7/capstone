@@ -1,5 +1,6 @@
 import sys
-import collections
+import math
+from collections import defaultdict, deque
 
 def solve():
     import sys
@@ -13,9 +14,9 @@ def solve():
     idx += 1
     
     edges = []
-    color_map = collections.defaultdict(list)
-    color_dict = {}
-    total_color_count = 0
+    color_dict = defaultdict(list)
+    color_sum = defaultdict(int)
+    color_count = defaultdict(int)
     
     for _ in range(N-1):
         a = int(data[idx]) - 1
@@ -27,57 +28,9 @@ def solve():
         d = int(data[idx])
         idx += 1
         edges.append((a, b, c, d))
-        color_map[c].append((a, b, d))
-        if c not in color_dict:
-            color_dict[c] = 0
-        color_dict[c] += 1
-        total_color_count += 1
-    
-    # Preprocess for LCA
-    LOG = 20
-    up = [[-1]*N for _ in range(LOG)]
-    depth = [0]*N
-    parent = [0]*N
-    
-    def dfs(u, p):
-        parent[u] = p
-        for v, _, _ in edges:
-            if v == u:
-                dfs(v, u)
-    
-    dfs(0, -1)
-    
-    for i in range(1, N):
-        up[0][i] = parent[i]
-    
-    for k in range(1, LOG):
-        for i in range(N):
-            if up[k-1][i] != -1:
-                up[k][i] = up[k-1][up[k-1][i]]
-    
-    def lca(u, v):
-        if depth[u] < depth[v]:
-            u, v = v, u
-        for k in range(LOG-1, -1, -1):
-            if depth[u] - (1 << k) >= depth[v]:
-                u = up[k][u]
-        if u == v:
-            return u
-        for k in range(LOG-1, -1, -1):
-            if up[k][u] != up[k][v]:
-                u = up[k][u]
-                v = up[k][v]
-        return parent[u]
-    
-    def get_distance(u, v):
-        l = lca(u, v)
-        dist = 0
-        for i in range(N):
-            if i == l:
-                continue
-            if (parent[i] == l or parent[l] == i):
-                dist += 1
-        return dist
+        color_dict[c].append((a, b, d))
+        color_sum[c] += d
+        color_count[c] += 1
     
     for _ in range(Q):
         x = int(data[idx]) - 1
@@ -89,65 +42,25 @@ def solve():
         v = int(data[idx]) - 1
         idx += 1
         
-        # For each query, we need to calculate the distance between u and v with the color x's edge lengths changed to y
-        # We'll do this by modifying the edge lengths temporarily and then calculating the distance
-        # But since we can't modify the original data, we'll create a copy of the edge lengths and modify it
+        # Build the tree with the current color values
+        tree = defaultdict(list)
+        for c in color_dict:
+            if c != x:
+                for a, b, d in color_dict[c]:
+                    tree[a].append((b, d))
+                    tree[b].append((a, d))
         
-        # Create a copy of the edge lengths
-        edge_lengths = [0] * (N-1)
-        for i in range(N-1):
-            edge_lengths[i] = edges[i][3]
-        
-        # Modify the edge lengths for color x
-        for a, b, c, d in edges:
-            if c == x:
-                edge_lengths[edges.index((a, b, c, d))] = y
-        
-        # Now calculate the distance between u and v using the modified edge lengths
-        # We'll do this by performing a BFS or DFS to find the path and sum the edge lengths
-        
-        # BFS to find the path
+        # BFS to find distance between u and v
         visited = [False] * N
-        prev = [-1] * N
-        queue = [u]
+        q = deque()
+        q.append((u, 0))
         visited[u] = True
-        while queue:
-            current = queue.pop(0)
-            if current == v:
+        while q:
+            node, dist = q.popleft()
+            if node == v:
+                print(dist)
                 break
-            for i in range(N-1):
-                a, b, c, d = edges[i]
-                if (a == current and b == parent[current] and c == x) or (b == current and a == parent[current] and c == x):
-                    if not visited[b]:
-                        visited[b] = True
-                        prev[b] = current
-                        queue.append(b)
-                if (a == current and b == parent[current] and c != x) or (b == current and a == parent[current] and c != x):
-                    if not visited[b]:
-                        visited[b] = True
-                        prev[b] = current
-                        queue.append(b)
-        
-        # Reconstruct the path
-        path = []
-        current = v
-        while current != u:
-            path.append(current)
-            current = prev[current]
-        path.append(u)
-        path.reverse()
-        
-        # Calculate the distance
-        dist = 0
-        for i in range(len(path)-1):
-            a = path[i]
-            b = path[i+1]
-            for edge in edges:
-                if (edge[0] == a and edge[1] == b) or (edge[0] == b and edge[1] == a):
-                    if edge[2] == x:
-                        dist += y
-                    else:
-                        dist += edge[3]
-                    break
-        
-        print(dist)
+            for neighbor, d in tree[node]:
+                if not visited[neighbor]:
+                    visited[neighbor] = True
+                    q.append((neighbor, dist + d))

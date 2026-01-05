@@ -13,24 +13,33 @@ def solve():
         boys = s.count('b')
         girls = len(s) - boys
         
-        # To minimize the awkwardness, we should alternate 'b' and 'g' as much as possible
+        # To minimize awkwardness, boys and girls should be placed alternately
         # Start with 'b' if there are more boys, else start with 'g'
-        start_with_b = boys >= girls
+        start = 'b' if boys >= girls else 'g'
         
         res = 0
-        pos = 0
-        for c in s:
-            if c == 'b' and start_with_b:
-                res += pos
-                start_with_b = False
-            elif c == 'g' and not start_with_b:
-                res += pos
-                start_with_b = True
-            pos += 1
+        b_pos = 0
+        g_pos = 0
         
-        results.append(str(res))
+        for j in range(len(s)):
+            if j % 2 == 0:
+                if start == 'b':
+                    res += b_pos
+                    b_pos += 1
+                else:
+                    res += g_pos
+                    g_pos += 1
+            else:
+                if start == 'b':
+                    res += g_pos
+                    g_pos += 1
+                else:
+                    res += b_pos
+                    b_pos += 1
+        
+        results.append(res)
     
-    print('\n'.join(results))
+    sys.stdout.write('\n'.join(map(str, results)) + '\n')
 
 if __name__ == '__main__':
     solve()

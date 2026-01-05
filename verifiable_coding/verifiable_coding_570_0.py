@@ -1,125 +1,54 @@
 import sys
 from math import factorial
-from itertools import permutations
 
-def solve():
+def main():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
     T = int(data[0])
-    cases = data[1:]
+    cases = data[1:T+1]
 
     def count_valid_permutations(s):
         n = len(s)
         total = factorial(n)
-        forbidden = 0
-
         # Count permutations containing "kar"
-        k_index = s.find('k')
-        a_index = s.find('a')
-        r_index = s.find('r')
-        if k_index != -1 and a_index != -1 and r_index != -1:
-            # Number of ways to arrange the rest
-            rest = factorial(n - 3)
-            # Number of ways to place "kar" in the sequence
-            # Choose 3 positions out of n, fix "kar" in those positions
-            # The rest can be arranged freely
-            # But we need to count all permutations that contain "kar" as a substring
-            # So we treat "kar" as a single entity and permute the rest
-            # Total ways = (n - 3 + 1) * (n - 3)! = (n - 2) * (n - 3)!
-            # But this is not correct as it overcounts
-            # So we use inclusion-exclusion
-            # Count permutations containing "kar" as a substring
-            # We treat "kar" as a single entity, so we have (n - 3 + 1) = n - 2 entities
-            # These can be arranged in (n - 2)! ways
-            # But "kar" can appear in multiple positions, so we need to subtract overlaps
-            # But for small n (up to 18), we can use inclusion-exclusion with bitmasking
-            # We will use inclusion-exclusion to count permutations containing "kar" or "shi"
-            # First count permutations containing "kar"
-            # Treat "kar" as a single entity, so we have (n - 3 + 1) = n - 2 entities
-            # These can be arranged in (n - 2)! ways
-            # But "kar" can appear in multiple positions, so we need to subtract overlaps
-            # But for small n, we can use inclusion-exclusion with bitmasking
-            # We will use inclusion-exclusion to count permutations containing "kar" or "shi"
-            # First count permutations containing "kar"
-            # Treat "kar" as a single entity, so we have (n - 3 + 1) = n - 2 entities
-            # These can be arranged in (n - 2)! ways
-            # But "kar" can appear in multiple positions, so we need to subtract overlaps
-            # But for small n, we can use inclusion-exclusion with bitmasking
-            # We will use inclusion-exclusion to count permutations containing "kar" or "shi"
-            # First count permutations containing "kar"
-            # Treat "kar" as a single entity, so we have (n - 3 + 1) = n - 2 entities
-            # These can be arranged in (n - 2)! ways
-            # But "kar" can appear in multiple positions, so we need to subtract overlaps
-            # But for small n, we can use inclusion-exclusion with bitmasking
-            # We will use inclusion-exclusion to count permutations containing "kar" or "shi"
-            # First count permutations containing "kar"
-            # Treat "kar" as a single entity, so we have (n - 3 + 1) = n - 2 entities
-            # These can be arranged in (n - 2)! ways
-            # But "kar" can appear in multiple positions, so we need to subtract overlaps
-            # But for small n, we can use inclusion-exclusion with bitmasking
-            # We will use inclusion-exclusion to count permutations containing "kar" or "shi"
-            # First count permutations containing "kar"
-            # Treat "kar" as a single entity, so we have (n - 3 + 1) = n - 2 entities
-            # These can be arranged in (n - 2)! ways
-            # But "kar" can appear in multiple positions, so we need to subtract overlaps
-            # But for small n, we can use inclusion-exclusion with bitmasking
-            # We will use inclusion-exclusion to count permutations containing "kar" or "shi"
-            # First count permutations containing "kar"
-            # Treat "kar" as a single entity, so we have (n - 3 + 1) = n - 2 entities
-            # These can be arranged in (n - 2)! ways
-            # But "kar" can appear in multiple positions, so we need to subtract overlaps
-            # But for small n, we can use inclusion-exclusion with bitmasking
-            # We will use inclusion-exclusion to count permutations containing "kar" or "shi"
-            # First count permutations containing "kar"
-            # Treat "kar" as a single entity, so we have (n - 3 + 1) = n - 2 entities
-            # These can be arranged in (n - 2)! ways
-            # But "kar" can appear in multiple positions, so we need to subtract overlaps
-            # But for small n, we can use inclusion-exclusion with bitmasking
-            # We will use inclusion-exclusion to count permutations containing "kar" or "shi"
-            # First count permutations containing "kar"
-            # Treat "kar" as a single entity, so we have (n - 3 + 1) = n - 2 entities
-            # These can be arranged in (n - 2)! ways
-            # But "kar" can appear in multiple positions, so we need to subtract overlaps
-            # But for small n, we can use inclusion-exclusion with bitmasking
-            # We will use inclusion-exclusion to count permutations containing "kar" or "shi"
-            # First count permutations containing "kar"
-            # Treat "kar" as a single entity, so we have (n - 3 + 1) = n - 2 entities
-            # These can be arranged in (n - 2)! ways
-            # But "kar" can appear in multiple positions, so we need to subtract overlaps
-            # But for small n, we can use inclusion-exclusion with bitmasking
-            # We will use inclusion-exclusion to count permutations containing "kar" or "shi"
-            # First count permutations containing "kar"
-            # Treat "kar" as a single entity, so we have (n - 3 + 1) = n - 2 entities
-            # These can be arranged in (n - 2)! ways
-            # But "kar" can appear in multiple positions, so we need to subtract overlaps
-            # But for small n, we can use inclusion-exclusion with bitmasking
-            # We will use inclusion-exclusion to count permutations containing "kar" or "shi"
-            # First count permutations containing "kar"
-            # Treat "kar" as a single entity, so we have (n - 3 + 1) = n - 2 entities
-            # These can be arranged in (n - 2)! ways
-            # But "kar" can appear in multiple positions, so we need to subtract overlaps
-            # But for small n, we can use inclusion-exclusion with bitmasking
-            # We will use inclusion-exclusion to count permutations containing "kar" or "shi"
-            # First count permutations containing "kar"
-            # Treat "kar" as a single entity, so we have (n - 3 + 1) = n - 2 entities
-            # These can be arranged in (n - 2)! ways
-            # But "kar" can appear in multiple positions, so we need to subtract overlaps
-            # But for small n, we can use inclusion-exclusion with bitmasking
-            # We will use inclusion-exclusion to count permutations containing "kar" or "shi"
-            # First count permutations containing "kar"
-            # Treat "kar" as a single entity, so we have (n - 3 + 1) = n - 2 entities
-            # These can be arranged in (n - 2)! ways
-            # But "kar" can appear in multiple positions, so we need to subtract overlaps
-            # But for small n, we can use inclusion-exclusion with bitmasking
-            # We will use inclusion-exclusion to count permutations containing "kar" or "shi"
-            # First count permutations containing "kar"
-            # Treat "kar" as a single entity, so we have (n - 3 + 1) = n - 2 entities
-            # These can be arranged in (n - 2)! ways
-            # But "kar" can appear in multiple positions, so we need to subtract overlaps
-            # But for small n, we can use inclusion-exclusion with bitmasking
-            # We will use inclusion-exclusion to count permutations containing "kar" or "shi"
-            # First count permutations containing "kar"
-            # Treat "kar" as a single entity, so we have (n - 3 + 1) = n - 2 entities
-            # These can be arranged in (n - 2)! ways
-            # But "kar" can appear in multiple positions, so we need to subtract overlaps
+        k = s.find('k')
+        a = s.find('a')
+        r = s.find('r')
+        if k != -1 and a != -1 and r != -1 and k < a < r:
+            # Count permutations where 'k' is before 'a' and 'a' is before 'r'
+            count_kar = factorial(n - 3) * 1  # 1 way to arrange k, a, r in order
+            total -= count_kar
+        # Count permutations containing "shi"
+        s = s.find('s')
+        h = s.find('h')
+        i = s.find('i')
+        if s != -1 and h != -1 and i != -1 and s < h < i:
+            # Count permutations where 's' is before 'h' and 'h' is before 'i'
+            count_shi = factorial(n - 3) * 1  # 1 way to arrange s, h, i in order
+            total -= count_shi
+        # Subtract overlap (permutations containing both "kar" and "shi")
+        # Check if both phrases can be present
+        k = s.find('k')
+        a = s.find('a')
+        r = s.find('r')
+        s2 = s.find('s')
+        h2 = s.find('h')
+        i2 = s.find('i')
+        if k != -1 and a != -1 and r != -1 and s2 != -1 and h2 != -1 and i2 != -1:
+            # Check if "kar" and "shi" can be in the string without overlapping
+            # Check if 'k' < 'a' < 'r' and 's' < 'h' < 'i'
+            if k < a < r and s2 < h2 < i2:
+                # Count permutations where both "kar" and "shi" are present
+                # Treat "kar" and "shi" as blocks
+                # Total ways = (n - 6 + 2)! * 2! (ways to arrange the two blocks)
+                # But since "kar" and "shi" are fixed in order, it's (n - 6)! * 1 * 1
+                count_both = factorial(n - 6) * 1 * 1
+                total -= count_both
+        return total
+
+    for s in cases:
+        print(count_valid_permutations(s))
+
+if __name__ == '__main__':
+    main()

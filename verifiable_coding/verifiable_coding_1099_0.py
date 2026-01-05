@@ -2,7 +2,7 @@ import sys
 
 def solve():
     import sys
-    input = sys.stdin.buffer.read().splitlines()
+    input = sys.stdin.buffer.read().split(b'\n')
     idx = 0
     T = int(input[idx])
     idx += 1
@@ -12,8 +12,8 @@ def solve():
         votes = []
         for _ in range(N):
             parts = input[idx].split()
-            votes.append((parts[0], parts[1]))
             idx += 1
+            votes.append(parts)
         score = 0
         user_votes = {}
         for user, vote in votes:
@@ -30,7 +30,7 @@ def solve():
                 else:
                     score -= 1
             else:
-                # Add current vote
+                # First vote
                 if vote == '+':
                     score += 1
                 else:

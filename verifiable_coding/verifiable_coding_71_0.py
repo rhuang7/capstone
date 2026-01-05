@@ -17,7 +17,8 @@ def solve():
         prefix = [0] * (n + 1)
         for i in range(n):
             prefix[i + 1] = prefix[i] + a[i]
-        # The coins needed is the sum of the absolute values of the prefix sums except the last one
+        # The minimum coins needed is the sum of the absolute values of the prefix sums
+        # except the last one (which is zero)
         coins = 0
         for i in range(1, n):
             coins += abs(prefix[i])

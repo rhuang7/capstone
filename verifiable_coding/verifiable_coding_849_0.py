@@ -11,26 +11,31 @@ def solve():
     max_gcd = 0
     max_len = 0
 
-    # Use a dictionary to store the last occurrence of each gcd value
+    # Use a dictionary to keep track of the last occurrence of each gcd value
     last_occurrence = {}
 
     for i in range(n):
         current = arr[i]
-        # Initialize the current gcd with the current element
-        current_gcd = current
-        # Iterate through the previous gcd values
-        for g in list(last_occurrence.keys()):
-            current_gcd = math.gcd(current_gcd, g)
-            if current_gcd == 0:
-                break
-        # Update the last occurrence of the current_gcd
-        last_occurrence[current_gcd] = i
-        # Update max_gcd and max_len if needed
-        if current_gcd > max_gcd:
-            max_gcd = current_gcd
-            max_len = 1
-        elif current_gcd == max_gcd:
-            max_len = max(max_len, i - last_occurrence[current_gcd] + 1)
+        # For each element, compute gcd with all previous gcd values
+        # Start with the current element itself
+        temp = {}
+        temp[current] = i
+        # Check previous gcd values
+        for g in last_occurrence:
+            new_gcd = math.gcd(g, current)
+            if new_gcd in temp:
+                temp[new_gcd] = max(temp[new_gcd], last_occurrence[g])
+            else:
+                temp[new_gcd] = last_occurrence[g]
+        # Update the last_occurrence with the new gcd values
+        last_occurrence = temp
+        # Update max_gcd and max_len
+        for g in last_occurrence:
+            if g > max_gcd:
+                max_gcd = g
+                max_len = last_occurrence[g] - i + 1
+            elif g == max_gcd:
+                max_len = max(max_len, last_occurrence[g] - i + 1)
 
     print(max_len)
 

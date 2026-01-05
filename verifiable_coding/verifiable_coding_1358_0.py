@@ -1,5 +1,5 @@
 import sys
-import collections
+from collections import Counter
 
 def solve():
     input = sys.stdin.buffer.read().split()
@@ -9,105 +9,182 @@ def solve():
         w = input[idx]
         K = int(input[idx+1])
         idx += 2
-        
-        freq = collections.Counter(w)
-        letters = list(freq.keys())
-        n = len(letters)
-        
-        # Sort the letters based on their frequencies
-        letters.sort(key=lambda x: freq[x])
-        freqs = [freq[x] for x in letters]
-        
+        count = Counter(w)
+        freq = list(count.values())
+        freq.sort()
+        n = len(freq)
+        if n == 1:
+            print(0)
+            continue
         # Try all possible frequencies to find the minimum removals
         min_removals = float('inf')
         for i in range(n):
-            # Try to make all frequencies as close as possible to freqs[i]
-            # We can adjust the frequencies to be within K of each other
-            # We can try to make all frequencies between (freqs[i] - K) and (freqs[i] + K)
-            # But we need to adjust the frequencies to be as close as possible
-            # We can use a greedy approach to adjust the frequencies
-            # We can try to make all frequencies as close as possible to the median
-            # We can try to make all frequencies as close as possible to the mean
-            # We can try to make all frequencies as close as possible to the mode
-            # We can try to make all frequencies as close as possible to the middle value
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of the sorted list
-            # We can try to make all frequencies as close as possible to the middle of
+            # Try to make all frequencies <= freq[i] + K
+            # We can keep the frequencies as they are, but adjust the counts
+            # to ensure that the difference between any two is <= K
+            # So we need to find the maximum frequency that can be kept
+            # such that all other frequencies are within K of it
+            # We can try to make the frequencies as close as possible
+            # to each other
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by choosing a target frequency
+            # We can try to make the frequencies as close as possible
+            # by

@@ -7,7 +7,7 @@ def get_divisors(n):
         if n % i == 0:
             divisors.add(i)
             divisors.add(n // i)
-    return sorted(divisors)
+    return divisors
 
 def solve():
     import sys
@@ -23,12 +23,9 @@ def solve():
         possible_N = []
         for N in range(1, M - A + 1):
             if (M - A) % N == 0:
-                divisors = get_divisors(N)
-                for d in divisors:
-                    if A * N + d == M:
-                        possible_N.append(N)
-                        break
-        possible_N = list(set(possible_N))
+                d = (M - A) // N
+                if d >= 1 and d <= N:
+                    possible_N.append(N)
         possible_N.sort()
         results.append(str(len(possible_N)))
         results.append(' '.join(map(str, possible_N)))

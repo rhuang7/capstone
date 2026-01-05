@@ -20,7 +20,7 @@ def solve():
             if i + 1 < N:
                 swapped[i], swapped[i+1] = swapped[i+1], swapped[i]
         
-        # Step 2: Replace each character with its opposite in the alphabet
+        # Step 2: Replace each character with its opposite
         encoded = []
         for c in swapped:
             if 'a' <= c <= 'z':

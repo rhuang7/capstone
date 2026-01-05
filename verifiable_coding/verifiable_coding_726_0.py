@@ -1,28 +1,36 @@
 import sys
 
 def solve():
-    from collections import Counter
-
-    input = sys.stdin.buffer.read().split()
+    import sys
+    input = sys.stdin.buffer.read
+    data = input().split()
+    
     idx = 0
-    T = int(input[idx])
+    T = int(data[idx])
     idx += 1
-    results = []
-
-    target = Counter("codechef")
+    
     for _ in range(T):
-        N = int(input[idx])
+        N = int(data[idx])
         idx += 1
-        counts = Counter()
+        
+        count = {}
         for _ in range(N):
-            s = input[idx]
+            s = data[idx]
             idx += 1
-            counts += Counter(s)
-        # Calculate how many times each character in target can be used
-        max_meals = 0
-        for char, required in target.items():
-            available = counts.get(char, 0)
-            max_meals = min(max_meals, available // required)
-        results.append(str(max_meals))
+            for c in s:
+                count[c] = count.get(c, 0) + 1
+        
+        # Target counts for "codechef"
+        target = {'c': 2, 'o': 1, 'd': 1, 'e': 2, 'h': 1, 'f': 1}
+        res = float('inf')
+        
+        for key in target:
+            if key not in count or count[key] < target[key]:
+                res = 0
+                break
+            res = min(res, count[key] // target[key])
+        
+        print(res)
 
-    print('\n'.join(results))
+if __name__ == '__main__':
+    solve()

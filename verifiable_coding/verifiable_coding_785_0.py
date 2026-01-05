@@ -16,7 +16,7 @@ def solve():
         
         for D in range(1, 60):  # Since 2^59 is way larger than 1e9
             total_received = A * D
-            total_given = (1 << (D - 1)) * (D) // 2  # Sum of 2^(i-1) for i=1 to D is 2^D - 1
+            total_given = (1 << (D - 1)) * (D) // 2  # Sum of 2^0 + 2^1 + ... + 2^(D-1) = 2^D - 1
             profit = total_received - total_given
             
             if profit > 0:
@@ -24,9 +24,8 @@ def solve():
             if profit > max_profit:
                 max_profit = profit
                 D2 = D
-            elif profit == max_profit:
-                if D < D2:
-                    D2 = D
+            elif profit == max_profit and D < D2:
+                D2 = D
         
         results.append(f"{D1} {D2}")
     

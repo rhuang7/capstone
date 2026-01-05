@@ -27,29 +27,36 @@ def solve():
         # Sort customers by time
         customers.sort()
         
-        # Initial temperature
+        # Initialize current temperature
         current_temp = m
         
-        # Check each customer
+        # Process each customer
         possible = True
         for t, l, h in customers:
             # Time difference
-            delta = t - 0  # current time is 0
-            # The temperature can vary between current_temp - delta and current_temp + delta
-            # Because we can heat or cool for delta minutes
-            min_temp = current_temp - delta
-            max_temp = current_temp + delta
+            delta = t - 0  # since current time is 0
             
-            # Check if the customer's preferred range overlaps with [min_temp, max_temp]
-            if h < min_temp or l > max_temp:
+            # The temperature can be adjusted between [current_temp - delta, current_temp + delta]
+            # We need to find a temperature in [l, h] that is within this range
+            # The possible range is [current_temp - delta, current_temp + delta]
+            # The intersection of [l, h] and [current_temp - delta, current_temp + delta] must be non-empty
+            
+            # Find the overlap between [l, h] and [current_temp - delta, current_temp + delta]
+            lower = max(l, current_temp - delta)
+            upper = min(h, current_temp + delta)
+            
+            if lower > upper:
                 possible = False
                 break
             
-            # Update current temperature to the maximum possible value within the customer's range
-            # This allows for more flexibility in the future
-            current_temp = min(max_temp, h)
+            # Update current temperature to the maximum possible value in the overlap
+            # This allows more flexibility for future customers
+            current_temp = upper
         
-        results.append("YES" if possible else "NO")
+        if possible:
+            results.append("YES")
+        else:
+            results.append("NO")
     
     print("\n".join(results))
 

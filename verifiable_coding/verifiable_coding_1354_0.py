@@ -1,16 +1,14 @@
 import sys
-import math
-
 MOD = 10**9 + 7
 
 def solve():
+    import sys
     input = sys.stdin.buffer.read
     data = input().split()
     idx = 0
     T = int(data[idx])
     idx += 1
     results = []
-    
     for _ in range(T):
         n, k = int(data[idx]), int(data[idx+1])
         idx += 2
@@ -20,76 +18,34 @@ def solve():
             v = int(data[idx+1]) - 1
             edges.append((u, v))
             idx += 2
-        
         # Build adjacency list
-        adj = [[] for _ in range(n)]
+        from collections import defaultdict
+        adj = defaultdict(list)
         for u, v in edges:
             adj[u].append(v)
             adj[v].append(u)
-        
-        # Compute the number of valid colorings
-        # The valid colorings are those where each color forms a connected component
-        # So the problem reduces to counting the number of colorings where each color is used on a connected component
-        # This is equivalent to the number of colorings where each node is colored with a color such that all nodes in the same color form a connected component
-        
-        # The number of valid colorings is k * (k-1)^(c-1), where c is the number of connected components
-        # But since the tree is connected, c = 1, so the answer is k * (k-1)^(n-1)
-        # Wait, no. That's not correct. Because the tree is connected, but the coloring must ensure that any two nodes of the same color form a connected component.
-        # This is only possible if all nodes of the same color form a connected subtree.
-        # The only way this can happen is if each color is used on a connected subtree, and all nodes of the same color form a connected subtree.
-        # This is only possible if the color of each node is the same as its parent, or the color is unique.
-        # This is equivalent to the number of colorings where each node is colored with a color such that all nodes in the same color form a connected subtree.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is equivalent to the number of colorings where the color of each node is either the same as its parent or a new color.
-        # This is
+        # Perform BFS to find the number of connected components
+        visited = [False] * n
+        components = 0
+        for i in range(n):
+            if not visited[i]:
+                components += 1
+                queue = [i]
+                visited[i] = True
+                while queue:
+                    node = queue.pop(0)
+                    for neighbor in adj[node]:
+                        if not visited[neighbor]:
+                            visited[neighbor] = True
+                            queue.append(neighbor)
+        # The number of ways is k^components
+        # But if k == 1, then it's 1
+        if k == 1:
+            results.append(1)
+        else:
+            results.append(pow(k, components, MOD))
+    for res in results:
+        print(res)
+
+if __name__ == '__main__':
+    solve()

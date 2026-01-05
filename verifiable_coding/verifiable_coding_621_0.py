@@ -12,30 +12,33 @@ def solve():
     for _ in range(T):
         n = int(data[idx])
         idx += 1
-        words = data[idx:idx + n]
+        words = data[idx:idx+n]
         idx += n
         
         # Find the minimum length of the words
         min_len = min(len(word) for word in words)
         
         # Generate all possible substrings of the first word
-        substrings = set()
+        candidates = set()
         for i in range(len(words[0])):
-            for j in range(i + 1, len(words[0]) + 1):
+            for j in range(i+1, len(words[0])+1):
                 substr = words[0][i:j]
-                substrings.add(substr)
+                if len(substr) <= min_len:
+                    candidates.add(substr)
         
-        # Check which substrings are present in all words
-        common_substrings = []
-        for substr in substrings:
-            if all(substr in word for word in words):
-                common_substrings.append(substr)
+        # Check which candidates are present in all words
+        valid = []
+        for cand in sorted(candidates):
+            all_contain = True
+            for word in words:
+                if cand not in word:
+                    all_contain = False
+                    break
+            if all_contain:
+                valid.append(cand)
         
-        # If there are common substrings, choose the smallest lexicographically
-        if common_substrings:
-            print(min(common_substrings))
-        else:
-            print("")
+        # Output the smallest valid candidate
+        print(valid[0])
 
 if __name__ == '__main__':
     solve()

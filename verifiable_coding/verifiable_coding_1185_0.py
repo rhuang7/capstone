@@ -12,55 +12,37 @@ def solve():
     for _ in range(t):
         s = int(data[idx])
         idx += 1
-        f_count = int(data[idx])
+        f = int(data[idx])
         idx += 1
-        missing = list(map(int, data[idx:idx + f_count]))
-        idx += f_count
+        missing = list(map(int, data[idx:idx + f]))
+        idx += f
         torn = int(data[idx])
         idx += 1
         
         total_pages = 2 * s
         missing_set = set(missing)
-        torn_pages = set()
+        torn_leaves = torn
         
-        for i in range(1, total_pages + 1, 2):
-            if i in missing_set:
+        # Calculate total sum of all pages
+        total_sum = sum(range(1, total_pages + 1))
+        
+        # Calculate sum of missing pages
+        missing_sum = sum(missing)
+        
+        # Calculate sum of pages on torn leaves
+        torn_sum = 0
+        for i in range(torn_leaves):
+            page1 = 2 * i + 1
+            page2 = 2 * i + 2
+            if page1 in missing_set or page2 in missing_set:
                 continue
-            if (i + 1) <= total_pages:
-                if (i + 1) in missing_set:
-                    continue
-                torn_pages.add(i)
-                torn_pages.add(i + 1)
+            torn_sum += page1 + page2
         
-        if torn > 0:
-            for i in range(1, total_pages + 1, 2):
-                if i in missing_set:
-                    continue
-                if (i + 1) <= total_pages:
-                    if (i + 1) in missing_set:
-                        continue
-                    if torn > 0:
-                        torn_pages.add(i)
-                        torn_pages.add(i + 1)
-                        torn -= 1
-        
-        sum_left = 0
-        for i in range(1, total_pages + 1, 2):
-            if i in missing_set:
-                continue
-            if (i + 1) <= total_pages:
-                if (i + 1) in missing_set:
-                    continue
-            if i not in torn_pages:
-                sum_left += i
-            if (i + 1) <= total_pages and (i + 1) not in torn_pages:
-                sum_left += i + 1
-        
-        expected = sum_left / (total_pages - len(missing_set) - torn * 2)
-        results.append("{0:.4f}".format(expected))
+        # Calculate expected sum
+        expected_sum = total_sum - missing_sum - torn_sum
+        results.append(f"{expected_sum:.4f}")
     
-    for res in results:
-        print(res)
+    print("\n".join(results))
 
 if __name__ == '__main__':
     solve()

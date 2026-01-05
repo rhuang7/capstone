@@ -17,24 +17,22 @@ def solve():
         B = int(data[index+3])
         index += 4
         
-        # Calculate relative speed
+        # Calculate the relative speed
         rel_speed = abs(A - B)
         
-        # Calculate total distance covered by both in X rounds
-        # Since they are on a circular track, the number of meetings is determined by how many times the faster one laps the slower one
-        # The number of meetings is floor((A * X - B * X) / (A + B)) if A > B, else floor((B * X - A * X) / (A + B))
-        # But since they start at the same point, the first meeting is not counted if they start together
-        # So we use floor((A * X - B * X) / (A + B)) if A > B, else floor((B * X - A * X) / (A + B))
-        # But since they start together, we subtract 1 if the faster one laps the slower one at least once
-        if A > B:
-            meetings = (A * X - B * X) // (A + B)
-        else:
-            meetings = (B * X - A * X) // (A + B)
+        # Total distance covered by both in X rounds
+        total_distance = 2 * 3.141592653589793 * R * X
         
-        # Subtract 1 if the faster one laps the slower one at least once
-        if A > B and (A * X - B * X) > 0:
-            meetings -= 1
-        elif B > A and (B * X - A * X) > 0:
+        # Time taken for the faster to complete X rounds
+        time = total_distance / max(A, B)
+        
+        # Number of meetings is determined by how many times the faster laps the slower
+        # Since they start at the same point, the first meeting is when the faster has lapped the slower
+        # So the number of meetings is floor((rel_speed * time) / (2 * pi * R))
+        meetings = int((rel_speed * time) // (2 * 3.141592653589793 * R))
+        
+        # Subtract 1 if the faster is exactly lapping the slower at the end (they meet at the start point)
+        if (rel_speed * time) % (2 * 3.141592653589793 * R) == 0:
             meetings -= 1
         
         results.append(meetings)

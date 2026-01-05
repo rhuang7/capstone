@@ -5,46 +5,34 @@ def solve():
     input = sys.stdin.buffer.read
     data = input().split()
     
-    index = 0
-    T = int(data[index])
-    index += 1
+    idx = 0
+    T = int(data[idx])
+    idx += 1
     
     results = []
     
     for _ in range(T):
-        N = int(data[index])
-        index += 1
-        A = list(map(int, data[index:index + N]))
-        index += N
+        N = int(data[idx])
+        idx += 1
+        A = list(map(int, data[idx:idx+N]))
+        idx += N
         
-        unpaid = 0
-        fines = 0
+        # Track the number of unpaid months
+        unpaid_months = 0
         
-        # Find the first month where Chef did not pay
-        first_unpaid = -1
-        for i in range(N):
-            if A[i] == 0:
-                first_unpaid = i
-                break
-        
-        # If no unpaid months, then no fines
-        if first_unpaid == -1:
-            results.append(0)
-            continue
-        
-        # Count the number of months where Chef paid after the first unpaid month
-        paid_after = 0
+        # For each month, if Chef paid, it's used to cover the earliest unpaid month
         for i in range(N):
             if A[i] == 1:
-                paid_after += 1
+                # This payment is used to cover the earliest unpaid month
+                unpaid_months -= 1
+                if unpaid_months < 0:
+                    unpaid_months = 0
+            else:
+                # This month is unpaid
+                unpaid_months += 1
         
-        # Each unpaid month incurs a fine of 100
-        fines = (N - paid_after) * 100
-        
-        # Each unpaid month also incurs a maintenance fee of 1000
-        unpaid = (N - paid_after) * 1000
-        
-        total = unpaid + fines
+        # Total amount = (unpaid_months * 1000) + (unpaid_months * 100)
+        total = unpaid_months * 1000 + unpaid_months * 100
         results.append(total)
     
     for res in results:

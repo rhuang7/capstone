@@ -28,10 +28,10 @@ def solve():
     # Dijkstra's algorithm for all special nodes
     dist = [float('inf')] * (N + 1)
     dist_special = [float('inf')] * (N + 1)
-    heap = []
-    
     for node in special:
         dist[node] = 0
+    heap = []
+    for node in special:
         heapq.heappush(heap, (0, node))
     
     while heap:
@@ -39,10 +39,11 @@ def solve():
         if d > dist[u]:
             continue
         for v, w in adj[u]:
-            if dist[v] > dist[u] + w:
-                dist[v] = dist[u] + w
+            if dist[v] > d + w:
+                dist[v] = d + w
                 heapq.heappush(heap, (dist[v], v))
     
+    # Find the minimum distance between any two special nodes
     min_dist = float('inf')
     for i in range(len(special)):
         for j in range(i + 1, len(special)):

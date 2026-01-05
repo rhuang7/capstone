@@ -20,13 +20,13 @@ def solve():
         found = False
         
         for i in range(N):
-            a = A[i]
-            if a not in value_indices:
-                value_indices[a] = []
-            value_indices[a].append(i)
+            val = A[i]
+            if val not in value_indices:
+                value_indices[val] = []
+            value_indices[val].append(i)
         
-        for key in value_indices:
-            indices = value_indices[key]
+        for val in value_indices:
+            indices = value_indices[val]
             if len(indices) >= 2:
                 i1 = indices[0]
                 i2 = indices[1]
@@ -39,7 +39,7 @@ def solve():
         else:
             results.append("Poor Chef")
     
-    print('\n'.join(results))
+    print("\n".join(results))
 
 if __name__ == '__main__':
     solve()

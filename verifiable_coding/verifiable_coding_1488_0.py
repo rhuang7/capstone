@@ -16,30 +16,41 @@ def solve():
         idx += N
         
         zeros = a.count(0)
-        non_zeros = N - zeros
-        missing = set(range(1, N+1)) - set(a)
+        nums = [x for x in a if x != 0]
+        m = len(nums)
+        if m + zeros != N:
+            results.append(0)
+            continue
         
-        # Generate all possible permutations of the missing numbers
-        missing_list = list(missing)
-        permutations = itertools.permutations(missing_list)
+        # Generate all permutations of the numbers 1..N
+        # But we need to insert the missing numbers (those not in nums) into the zeros
+        # So first, find the missing numbers
+        missing = [x for x in range(1, N+1) if x not in nums]
+        # Now, we need to insert these missing numbers into the zeros
+        # For each possible way to insert the missing numbers into the zeros, we get a sequence
+        # Then, for each such sequence, count the number of increasing positions
         
-        count = 0
-        for perm in permutations:
-            new_a = a.copy()
-            for i in range(N):
-                if new_a[i] == 0:
-                    new_a[i] = perm[0]
-                    perm = perm[1:]
-            # Check if new_a is a permutation of 1..N
-            if set(new_a) == set(range(1, N+1)):
-                # Count the number of increasing positions
-                inc = 0
-                for i in range(1, N):
-                    if new_a[i] > new_a[i-1]:
-                        inc += 1
-                if inc == K:
-                    count += 1
-        results.append(count)
+        total = 0
+        for perm in itertools.permutations(missing):
+            # Create a new list with the numbers and the perm inserted into the zeros
+            new_a = []
+            zero_count = 0
+            for x in a:
+                if x == 0:
+                    zero_count += 1
+                    new_a.append(perm[zero_count-1])
+                else:
+                    new_a.append(x)
+            
+            # Now, count the number of increasing positions
+            cnt = 0
+            for i in range(1, N):
+                if new_a[i] > new_a[i-1]:
+                    cnt += 1
+            if cnt == K:
+                total += 1
+        
+        results.append(total)
     
     for res in results:
         print(res)

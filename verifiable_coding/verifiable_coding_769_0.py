@@ -12,12 +12,12 @@ def solve():
         index += 2
         # The largest number that divides both A and B is their GCD
         # But for the modular inverse to exist, A and B must be coprime
-        # So we need to check if GCD(A, B) is 1
-        g = math.gcd(A, B)
-        if g == 1:
+        # So we need to check if gcd(A, B) is 1
+        gcd = math.gcd(A, B)
+        if gcd == 1:
             print(1)
         else:
-            print(g)
+            print(gcd)
 
 if __name__ == '__main__':
     solve()

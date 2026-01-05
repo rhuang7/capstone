@@ -16,25 +16,24 @@ def solve():
         a = list(map(int, data[idx:idx + n]))
         idx += n
         
-        # Build the BFS order and track the level of each node
-        level = [0] * (n + 1)
+        # Build the BFS order and track the depth of each node
+        depth = [0] * (n + 1)
         q = deque()
         q.append(1)
-        level[1] = 0
-        current_level = 0
-        next_level = 0
+        depth[1] = 0
+        pos = 0
         
         while q:
             u = q.popleft()
-            for v in a:
-                if level[v] == 0 and v != 1:
-                    level[v] = level[u] + 1
+            for v in a[pos + 1:]:
+                if depth[v] == 0:
+                    depth[v] = depth[u] + 1
                     q.append(v)
-                    next_level += 1
-            current_level = next_level
-            next_level = 0
+                else:
+                    break
+            pos += 1
         
-        max_height = max(level[1:])
-        results.append(str(max_height))
+        max_depth = max(depth[1:])
+        results.append(str(max_depth))
     
     print('\n'.join(results))

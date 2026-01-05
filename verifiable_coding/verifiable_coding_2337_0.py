@@ -16,139 +16,46 @@ def solve():
         p = list(map(int, data[idx:idx + n]))
         idx += n
         
-        # We need to find the maximum number of medalists such that:
-        # g > 0, s > 0, b > 0
-        # g < s, g < b
-        # p_g > p_s > p_b > p_notmedal
-        # g + s + b <= n // 2
+        # Find the maximum number of medalists possible
+        max_medalists = n // 2
+        # We need at least 3 medalists (g, s, b > 0)
+        if max_medalists < 3:
+            results.append("0 0 0")
+            continue
         
-        # We will try to find the maximum possible g + s + b
-        # by trying different values of b, s, g
+        # We need to find g, s, b such that:
+        # g < s < b
+        # p[0] > p[g] > p[s] > p[b] > p[n-1]
+        # We try to maximize g + s + b
         
-        max_medals = 0
-        best_g = best_s = best_b = 0
+        # Try to find the largest possible g, s, b
+        # We need to find the largest possible b such that there are at least 3 people after it
+        # Then find s such that there are at least g + 1 people after s
+        # Then find g such that there are at least g + 1 people after g
         
-        # Try all possible values of b (number of bronze medalists)
-        # since b must be at least 1, and the number of bronze medalists must be at least 1
-        # and the bronze medalists must have strictly more problems than the non-medalists
-        # so we can try to find the maximum b such that p[b] > p[n - 1]
-        # and then find s and g accordingly
-        
-        # Try all possible b from 1 to n//2
-        for b in range(1, n // 2 + 1):
-            # Find the minimum value of p that is strictly greater than p[n - 1]
-            # since bronze medalists must have strictly more than non-medalists
-            # the non-medalists are the last (n - (g + s + b)) participants
-            # so the bronze medalists must have strictly more than p[n - (g + s + b)]
-            # but we don't know g and s yet
-            # so we can try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # but this is not straightforward
-            # so we will try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # and then find s and g accordingly
-            
-            # We can try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # but this is not straightforward
-            # so we will try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # and then find s and g accordingly
-            
-            # We can try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # but this is not straightforward
-            # so we will try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # and then find s and g accordingly
-            
-            # We will try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # but this is not straightforward
-            # so we will try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # and then find s and g accordingly
-            
-            # We can try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # but this is not straightforward
-            # so we will try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # and then find s and g accordingly
-            
-            # We can try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # but this is not straightforward
-            # so we will try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # and then find s and g accordingly
-            
-            # We can try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # but this is not straightforward
-            # so we will try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # and then find s and g accordingly
-            
-            # We can try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # but this is not straightforward
-            # so we will try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # and then find s and g accordingly
-            
-            # We can try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # but this is not straightforward
-            # so we will try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # and then find s and g accordingly
-            
-            # We can try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # but this is not straightforward
-            # so we will try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # and then find s and g accordingly
-            
-            # We can try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # but this is not straightforward
-            # so we will try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # and then find s and g accordingly
-            
-            # We can try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # but this is not straightforward
-            # so we will try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # and then find s and g accordingly
-            
-            # We can try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # but this is not straightforward
-            # so we will try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # and then find s and g accordingly
-            
-            # We can try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # but this is not straightforward
-            # so we will try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # and then find s and g accordingly
-            
-            # We can try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # but this is not straightforward
-            # so we will try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # and then find s and g accordingly
-            
-            # We can try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # but this is not straightforward
-            # so we will try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # and then find s and g accordingly
-            
-            # We can try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # but this is not straightforward
-            # so we will try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # and then find s and g accordingly
-            
-            # We can try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # but this is not straightforward
-            # so we will try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # and then find s and g accordingly
-            
-            # We can try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # but this is not straightforward
-            # so we will try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # and then find s and g accordingly
-            
-            # We can try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # but this is not straightforward
-            # so we will try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # and then find s and g accordingly
-            
-            # We can try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # but this is not straightforward
-            # so we will try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # and then find s and g accordingly
-            
-            # We can try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # but this is not straightforward
-            # so we will try to find the maximum b such that p[b] > p[n - (g + s + b)]
-            # and then find s and g accordingly
-            
-            # We can try to find the maximum b such
+        # Try to find the largest possible b
+        for b in range(n - 1, 2, -1):
+            if p[b] > p[n - 1]:
+                # Try to find s
+                for s in range(b - 1, 1, -1):
+                    if p[s] > p[b]:
+                        # Try to find g
+                        for g in range(s - 1, 0, -1):
+                            if p[g] > p[s]:
+                                # Check if the total medalists is <= max_medalists
+                                if g + s + b <= max_medalists:
+                                    results.append(f"{g} {s} {b}")
+                                    break
+                        else:
+                            continue
+                    else:
+                        continue
+                else:
+                    continue
+            else:
+                continue
+            break
+        else:
+            results.append("0 0 0")
+    
+    print('\n'.join(results))

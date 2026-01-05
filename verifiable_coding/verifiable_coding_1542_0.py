@@ -4,11 +4,9 @@ def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
-    
     idx = 0
     T = int(data[idx])
     idx += 1
-    
     results = []
     
     for _ in range(T):
@@ -39,25 +37,21 @@ def solve():
                 elif modifier == 'T':
                     word_modifiers.append(3)
             
-            # Apply letter modifiers
-            letter_scores = []
+            word_mod = 1
+            for m in word_modifiers:
+                word_mod *= m
+            
+            total = 0
             for i in range(8):
-                letter_score = points[i]
-                if letters[i] == 'd':
-                    letter_score *= 2
-                elif letters[i] == 't':
-                    letter_score *= 3
-                letter_scores.append(letter_score)
+                p = points[i]
+                m = 1
+                if letters[i] in ['d', 't']:
+                    m = letter_modifiers[i]
+                total += p * m
             
-            # Apply word modifiers
-            word_score = sum(letter_scores)
-            for mod in word_modifiers:
-                if mod == 2:
-                    word_score *= 2
-                elif mod == 3:
-                    word_score *= 3
-            
-            max_score = max(max_score, word_score)
+            total *= word_mod
+            if total > max_score:
+                max_score = total
         
         results.append(max_score)
     

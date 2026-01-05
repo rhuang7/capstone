@@ -14,68 +14,30 @@ def solve():
         X = int(data[index+1])
         index += 2
         
-        # The answer is the sum of the smallest K integers a_1, a_2, ..., a_K such that
-        # the least common multiple (LCM) of a_1, a_2, ..., a_K is exactly X
-        # and each a_i divides X.
+        # The minimal total workers is the sum of the minimal A_i for each task
+        # such that the least common multiple of all A_i is X
+        # We need to find K numbers A_1, A_2, ..., A_K such that LCM(A_1, A_2, ..., A_K) = X
+        # and sum(A_i) is minimized
         
-        # We need to find K divisors of X such that their LCM is X and their sum is minimized.
+        # To minimize the sum, we want to use as many as possible of the largest divisors of X
+        # that are as small as possible
+        # We can find all the divisors of X, sort them in increasing order, and then select the K largest ones
         
-        # Get all divisors of X
+        # Find all divisors of X
         divisors = set()
         for i in range(1, int(math.isqrt(X)) + 1):
             if X % i == 0:
                 divisors.add(i)
                 divisors.add(X // i)
         
-        # Convert to list and sort
+        # Sort the divisors in increasing order
         divisors = sorted(divisors)
         
-        # Try to select K divisors such that their LCM is X
-        # We need to choose K divisors, and their LCM must be X
-        # We can use backtracking or greedy approach.
-        # Here, we use a greedy approach: choose the smallest K divisors that include X and have LCM X.
+        # Take the K largest divisors
+        selected = divisors[-K:]
         
-        # Start with the largest divisor (X) and then choose the smallest possible divisors
-        # that when combined with X have LCM X.
+        # Sum them
+        print(sum(selected))
         
-        # We need to select K divisors such that their LCM is X.
-        # We can use a priority queue to select the smallest possible divisors that when combined with X have LCM X.
-        
-        # We'll use a min-heap to select the smallest K divisors that have LCM X.
-        # We'll start with X and then add the smallest possible divisors that when combined with X have LCM X.
-        
-        # We need to find K divisors of X such that their LCM is X.
-        # We'll use a greedy approach to select the smallest K divisors that have LCM X.
-        
-        # We'll use a min-heap to select the smallest K divisors that have LCM X.
-        # We'll start with X and then add the smallest possible divisors that when combined with X have LCM X.
-        
-        # Initialize the heap with X
-        import heapq
-        heap = [X]
-        res = [X]
-        
-        while len(res) < K:
-            # Get the smallest element from the heap
-            current = heapq.heappop(heap)
-            # Try to find the smallest divisor of X that is not a divisor of current
-            # and when combined with current has LCM X
-            for d in divisors:
-                if d == current:
-                    continue
-                if X % d == 0 and X % current == 0:
-                    if X // current == d // current:
-                        continue
-                    if X // d == current // d:
-                        continue
-                    if X % (current * d) == 0:
-                        new_lcm = current * d // math.gcd(current, d)
-                        if new_lcm == X:
-                            heapq.heappush(heap, d)
-                            res.append(d)
-                            break
-        
-        print(sum(res))
-
 if __name__ == '__main__':
     solve()

@@ -14,21 +14,14 @@ def solve():
         arr = list(map(int, data[index:index+n]))
         index += n
         
-        max_sum = -float('inf')
+        max_sum = -1
         seen = set()
         
         for i in range(n - k + 1):
             window = arr[i:i+k]
-            seen.clear()
-            current_sum = 0
-            distinct = True
-            for num in window:
-                if num in seen:
-                    distinct = False
-                    break
-                seen.add(num)
-                current_sum += num
-            if distinct:
+            unique = set(window)
+            if len(unique) == len(window):
+                current_sum = sum(window)
                 if current_sum > max_sum:
                     max_sum = current_sum
         

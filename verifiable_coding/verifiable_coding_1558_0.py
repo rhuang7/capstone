@@ -6,15 +6,16 @@ def solve():
     data = input().split()
     
     T = int(data[0])
-    index = 1
+    idx = 1
+    results = []
     
     for _ in range(T):
-        N = int(data[index])
-        M = int(data[index+1])
-        index += 2
+        N = int(data[idx])
+        M = int(data[idx+1])
+        idx += 2
         
         total = N * M
-        result = [0] * total
+        res = [0] * total
         
         # Precompute positions for row-major and column-major order
         row_major = []
@@ -33,21 +34,23 @@ def solve():
             destroyed_col = set()
             
             # First hero (row-major)
-            for i in range(total):
+            i = 0
+            while i < total:
                 if i % (K + 1) == 0:
                     destroyed_row.add(row_major[i])
+                i += 1
             
             # Second hero (column-major)
-            for i in range(total):
+            i = 0
+            while i < total:
                 if i % (K + 1) == 0:
                     destroyed_col.add(col_major[i])
+                i += 1
             
             # Count cells destroyed by at least one hero
             count = len(destroyed_row.union(destroyed_col))
-            result[K] = count
+            res[K] = count
         
-        # Print the result for this test case
-        print(' '.join(map(str, result)))
-
-if __name__ == '__main__':
-    solve()
+        results.append(' '.join(map(str, res)))
+    
+    print('\n'.join(results))

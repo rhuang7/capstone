@@ -23,10 +23,10 @@ def solve():
         # Initialize capacities
         capacities = [1] * N
         for l, r in ranges:
-            # Find minimum in [l, r]
+            # Find minimum in range [l, r]
             min_val = min(capacities[l:r+1])
             min_val %= MOD
-            # Update the range [l, r]
+            # Update capacities in range [l, r]
             for i in range(l, r + 1):
                 capacities[i] = (capacities[i] + min_val) % MOD
         # Find minimum capacity

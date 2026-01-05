@@ -14,7 +14,6 @@ def solve():
         index += 2
         
         # The lex smallest string is the smallest rotation of the first L characters
-        # We can generate all possible rotations of the first L characters and choose the smallest
         min_str = S
         for i in range(L):
             rotated = S[i:] + S[:i]

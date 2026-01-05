@@ -4,7 +4,6 @@ def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
-    
     idx = 0
     t = int(data[idx])
     idx += 1
@@ -17,89 +16,29 @@ def solve():
         idx += n
         
         # Find the maximum possible sum of absolute differences
-        # We can take the maximum and minimum elements in the permutation
-        # Because the maximum sum is achieved by taking the max and min elements
-        # The sum is |max - min|
-        max_val = max(p)
-        min_val = min(p)
-        max_index = p.index(max_val)
-        min_index = p.index(min_val)
+        max_sum = 0
+        best_subsequence = []
         
-        # If the max and min are adjacent, then the best subsequence is of length 2
-        if abs(max_index - min_index) == 1:
-            results.append(f"{2}")
-            results.append(f"{max_val} {min_val}")
-        else:
-            # Otherwise, the best subsequence is of length 3: max, min, and one more element
-            # We can take the max, min, and the element at the other end
-            # For example, if max is at the beginning and min is at the end, then the third element can be the first or last
-            # We choose the one that gives the maximum sum
-            # The sum is |max - min| + |max - third| or |min - third|
-            # So we can take the third element as the one that is farthest from both
-            # For this problem, we can just take the first and last elements
-            # But to get the maximum sum, we can take the max, min, and the element at the other end
-            # For example, if max is at the beginning and min is at the end, then the third element can be the last one
-            # So the subsequence is [max, min, last element]
-            # Or [max, last element, min]
-            # We can choose either
-            # For simplicity, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can just take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the element at the other end
-            # So the subsequence is [max, min, p[0] if max is at the end else p[-1]]
-            # But to make it simple, we can take the max, min, and the
+        # Try all possible pairs
+        for i in range(n):
+            for j in range(i + 1, n):
+                current_sum = abs(p[i] - p[j])
+                if current_sum > max_sum:
+                    max_sum = current_sum
+                    best_subsequence = [p[i], p[j]]
+                elif current_sum == max_sum:
+                    # Check if current subsequence is shorter
+                    if len(best_subsequence) > 2:
+                        best_subsequence = [p[i], p[j]]
+        
+        # If no pair found (should not happen as n >= 2)
+        if len(best_subsequence) < 2:
+            best_subsequence = p
+        
+        results.append(str(len(best_subsequence)))
+        results.append(' '.join(map(str, best_subsequence)))
+    
+    print('\n'.join(results))
+
+if __name__ == '__main__':
+    solve()

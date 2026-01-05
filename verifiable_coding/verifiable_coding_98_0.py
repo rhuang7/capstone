@@ -13,85 +13,11 @@ def solve():
         x = int(data[index+2])
         index += 3
         # The maximum number of teams is limited by the minimum of (c + m) // 3 and the minimum of c and m
-        # But also, we need to ensure that there are enough students to form the teams
-        # The minimum of (c + m) // 3 and min(c, m)
-        # But also, the total number of students is c + m + x, but we can only use c + m for teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # However, we also need to ensure that there are enough students to form the teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, the total number of students is c + m + x, but we can only use c + m for teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, we need to ensure that there are enough students to form the teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, the total number of students is c + m + x, but we can only use c + m for teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, we need to ensure that there are enough students to form the teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, the total number of students is c + m + x, but we can only use c + m for teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, we need to ensure that there are enough students to form the teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, the total number of students is c + m + x, but we can only use c + m for teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, we need to ensure that there are enough students to form the teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, the total number of students is c + m + x, but we can only use c + m for teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, we need to ensure that there are enough students to form the teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, the total number of students is c + m + x, but we can only use c + m for teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, we need to ensure that there are enough students to form the teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, the total number of students is c + m + x, but we can only use c + m for teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, we need to ensure that there are enough students to form the teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, the total number of students is c + m + x, but we can only use c + m for teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, we need to ensure that there are enough students to form the teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, the total number of students is c + m + x, but we can only use c + m for teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, we need to ensure that there are enough students to form the teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, the total number of students is c + m + x, but we can only use c + m for teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, we need to ensure that there are enough students to form the teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, the total number of students is c + m + x, but we can only use c + m for teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, we need to ensure that there are enough students to form the teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, the total number of students is c + m + x, but we can only use c + m for teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, we need to ensure that there are enough students to form the teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, the total number of students is c + m + x, but we can only use c + m for teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, we need to ensure that there are enough students to form the teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, the total number of students is c + m + x, but we can only use c + m for teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, we need to ensure that there are enough students to form the teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, the total number of students is c + m + x, but we can only use c + m for teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, we need to ensure that there are enough students to form the teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, the total number of students is c + m + x, but we can only use c + m for teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, we need to ensure that there are enough students to form the teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, the total number of students is c + m + x, but we can only use c + m for teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, we need to ensure that there are enough students to form the teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, the total number of students is c + m + x, but we can only use c + m for teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, we need to ensure that there are enough students to form the teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, the total number of students is c + m + x, but we can only use c + m for teams
-        # So the answer is min( (c + m) // 3, min(c, m) )
-        # But also, we need to ensure that there are enough students to form the teams
-        # So the answer is min( (c + m) //
+        # Also, we can't have more teams than the sum of coders and mathematicians
+        # So the answer is the minimum of (c + m) // 3 and min(c, m)
+        max_teams = min((c + m) // 3, min(c, m))
+        results.append(str(max_teams))
+    print('\n'.join(results))
+
+if __name__ == '__main__':
+    solve()

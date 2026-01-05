@@ -21,14 +21,14 @@ def is_special(s):
 
 def solve():
     import sys
-    input = sys.stdin.buffer.read().split()
-    D = int(input[0])
-    strings = input[1:D+1]
-    for s in strings:
-        if is_special(s):
-            print("YES")
-        else:
-            print("NO")
+    input = sys.stdin.buffer.read
+    data = input().split()
+    D = int(data[0])
+    results = []
+    for i in range(1, D + 1):
+        s = data[i]
+        results.append("YES" if is_special(s) else "NO")
+    print("\n".join(results))
 
 if __name__ == '__main__':
     solve()

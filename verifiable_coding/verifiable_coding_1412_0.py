@@ -23,37 +23,42 @@ def solve():
                 break
             line = data[idx].split()
             idx += 1
-            ci = line[0].decode()
-            pi = line[1].decode()
+            ci, pi = line[0], line[1]
             rules[ci] = pi
         while idx < len(data) and data[idx] == b'':
             idx += 1
         if idx >= len(data):
             S = b''
         else:
-            S = data[idx].decode()
+            S = data[idx]
             idx += 1
         # Apply rules
         encrypted = S
         for ci in rules:
-            encrypted = encrypted.replace(ci, rules[ci])
+            encrypted = encrypted.replace(ci, rules[ci].encode())
+        # Convert to string
+        encrypted_str = encrypted.decode()
         # Process the number
         # Split into integer and fractional parts
-        parts = encrypted.split('.')
-        integer_part = parts[0]
-        fractional_part = parts[1] if len(parts) > 1 else ''
-        # Remove leading and trailing zeros
-        integer_part = integer_part.rstrip('0')
-        fractional_part = fractional_part.rstrip('0')
-        # Handle cases
-        if integer_part == '' and fractional_part == '':
-            results.append('0')
-        elif integer_part == '':
-            results.append('.' + fractional_part)
-        elif fractional_part == '':
-            results.append(integer_part)
+        if '.' in encrypted_str:
+            int_part, frac_part = encrypted_str.split('.', 1)
         else:
-            results.append(integer_part + '.' + fractional_part)
+            int_part = encrypted_str
+            frac_part = ''
+        # Remove leading and trailing zeros
+        int_part = int_part.lstrip('0')
+        frac_part = frac_part.rstrip('0')
+        # Handle edge cases
+        if int_part == '':
+            int_part = '0'
+        if frac_part == '':
+            result = int_part
+        else:
+            result = f"{int_part}.{frac_part}" if int_part != '0' else frac_part
+        # Special case for 0.0
+        if result == '0.0':
+            result = '0'
+        results.append(result)
     for res in results:
         print(res)
 

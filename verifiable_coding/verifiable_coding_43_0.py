@@ -19,7 +19,7 @@ def solve():
         idx += n
         
         # For each dish, choose the minimum between a_i and b_i
-        # But we need to find the maximum of these choices, as that determines the total time
+        # But we need to find the maximum of these choices, since all dishes must be delivered
         max_time = 0
         for i in range(n):
             max_time = max(max_time, min(a[i], b[i]))

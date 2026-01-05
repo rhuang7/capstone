@@ -8,24 +8,25 @@ def solve():
     cases = data[1:T+1]
 
     def is_dynamic(s):
-        if len(set(s)) < 3:
-            return True
         freq = {}
         for c in s:
             freq[c] = freq.get(c, 0) + 1
-        freq_list = list(freq.values())
-        freq_list.sort()
-        if len(freq_list) == 3:
-            a, b, c = freq_list
-            if a == b + c:
+        chars = list(freq.keys())
+        n = len(chars)
+        if n < 3:
+            return True
+        # Generate all permutations of chars
+        from itertools import permutations
+        for perm in permutations(chars):
+            # Check if the condition holds for all i >= 3
+            valid = True
+            for i in range(2, len(perm)):
+                if freq[perm[i]] != freq[perm[i-1]] + freq[perm[i-2]]:
+                    valid = False
+                    break
+            if valid:
                 return True
-            return False
-        else:
-            from itertools import permutations
-            for perm in permutations(freq_list):
-                if perm[0] == perm[1] + perm[2] and perm[1] == perm[2] + perm[3]:
-                    return True
-            return False
+        return False
 
     for s in cases:
         if is_dynamic(s):

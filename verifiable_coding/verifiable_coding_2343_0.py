@@ -11,9 +11,8 @@ def solve():
         d = int(data[index])
         m = int(data[index+1])
         index += 2
-        # The answer is the sum of (d - 2^k + 1) for all k such that 2^k <= d
-        # This is because for each k, the number of valid arrays is (d - 2^k + 1)
-        # and we sum over all k where 2^k <= d
+        # The answer is the sum of (d - 2^k + 1) for all k where 2^k <= d
+        # But since we need to mod by m, we compute it efficiently
         total = 0
         power = 1
         while power <= d:

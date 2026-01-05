@@ -16,24 +16,21 @@ def solve():
         T_val = int(data[index+4])
         index += 5
         
-        # Distance between the cars after T seconds
+        # Calculate the distance between the cars after T seconds
         distance = D * 50  # in meters
         distance_km = distance / 1000  # convert to km
         
-        # Time in hours
-        time_h = T_val / 3600
+        # Calculate the relative speed
+        relative_speed = (distance_km / T_val) * 3600  # convert to km/h
         
-        # Speed difference
-        speed_diff = distance_km / time_h
+        # Real speed of the other car
+        real_speed = S + relative_speed
         
-        # Real speed of other car
-        real_speed = S + speed_diff
-        
-        # Calculate absolute differences
+        # Calculate the absolute difference between guesses and real speed
         diff_sebi = abs(real_speed - SG)
         diff_father = abs(real_speed - FG)
         
-        # Determine result
+        # Determine the result
         if diff_sebi < diff_father:
             print("SEBI")
         elif diff_sebi > diff_father:

@@ -12,6 +12,7 @@ def solve():
     
     # Concatenate them
     result = ''.join(strings)
+    
     print(result)
 
 if __name__ == '__main__':

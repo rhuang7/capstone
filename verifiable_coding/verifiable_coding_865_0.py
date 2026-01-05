@@ -12,14 +12,13 @@ def solve():
         if N < 3:
             print(0)
         else:
-            # The answer is 2^(N-1) - 2
-            # Because we need to count permutations that have exactly one peak
-            # And the number of such permutations is 2^(N-1) - 2
-            # But for N >= 3, the answer is 2^(N-1) - 2
-            # However, for N=3, 2^(3-1) - 2 = 4 - 2 = 2 which matches the example
-            # So the formula is correct
-            ans = pow(2, N-1, MOD) - 2
-            print(ans % MOD)
+            # The answer is 2 * (N-1) choose (N-2) - 2
+            # Which simplifies to 2*(N-1) - 2 = 2*(N-2)
+            # But this is only true for N >= 3
+            # However, the correct formula is 2*(N-1) - 2 = 2*(N-2)
+            # But for N=3, it's 2, which matches the sample
+            # So the correct formula is 2*(N-2)
+            print((2 * (N - 2)) % MOD)
 
 if __name__ == '__main__':
     solve()

@@ -4,39 +4,36 @@ def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
-    
-    index = 0
-    T = int(data[index])
-    index += 1
-    
+    idx = 0
+    T = int(data[idx])
+    idx += 1
     results = []
-    
     for _ in range(T):
-        N = int(data[index])
-        L = int(data[index+1])
-        R = int(data[index+2])
-        index += 3
+        N = int(data[idx])
+        L = int(data[idx+1])
+        R = int(data[idx+2])
+        idx += 3
         
-        # Minimum sum
-        min_sum = 0
-        # We need at least L unique numbers, and at most R unique numbers
-        # For minimum sum, use as many 1s as possible and then the smallest possible even numbers
-        # The unique numbers must be 1, 2, 4, 8, ..., 2^k
-        # So the minimum sum is when we have L unique numbers, each as small as possible
-        # The first L unique numbers are 1, 2, 4, 8, ..., 2^(L-1)
-        # The sum of these is 2^L - 1
-        # Then the remaining N - L elements are 1s
-        min_sum = (2 ** L) - 1
-        min_sum += (N - L) * 1
+        # Minimum sum: all elements are 1
+        min_sum = N * 1
         
-        # Maximum sum
-        # For maximum sum, use as many as possible of the largest possible numbers
-        # The maximum number of unique numbers is R
-        # The unique numbers are 1, 2, 4, 8, ..., 2^(R-1)
-        # The sum of these is 2^R - 1
-        # Then the remaining N - R elements are the largest possible number (2^(R-1))
-        max_sum = (2 ** R) - 1
-        max_sum += (N - R) * (2 ** (R - 1))
+        # Maximum sum: use the largest possible numbers such that each number is even and half is present
+        # We need to find the maximum sum with unique numbers in the range [L, R]
+        # The maximum sum is achieved by using the largest possible numbers, starting from 1, 2, 4, 8, ...
+        # So we need to find the maximum number of unique elements in [L, R] that can be formed in this way
+        # The maximum number of unique elements is min(R, 20) because 2^20 is very large
+        # We can generate the sequence 1, 2, 4, 8, ... up to the maximum number of elements allowed
+        max_unique = min(R, 20)
+        max_elements = []
+        current = 1
+        for i in range(max_unique):
+            max_elements.append(current)
+            current *= 2
+        # Take the first 'R' elements (if R is less than max_unique)
+        max_elements = max_elements[:R]
+        # Now, we need to choose exactly 'R' unique elements, but we can choose any subset of size R from the max_elements
+        # The maximum sum is achieved by taking the largest R elements
+        max_sum = sum(max_elements[-R:])
         
         results.append(f"{min_sum} {max_sum}")
     

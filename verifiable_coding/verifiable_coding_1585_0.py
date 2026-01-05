@@ -8,9 +8,21 @@ def solve():
         A = int(input[idx])
         B = int(input[idx+1])
         idx += 2
-        min_val = abs(A - B)
-        max_val = A + B
-        print(f"{min_val} {max_val}")
+        min_entry = A + B
+        max_entry = A + B
+        if A == 0 and B == 0:
+            print("0 0")
+            continue
+        if A == 0:
+            min_entry = B
+            max_entry = B
+        elif B == 0:
+            min_entry = A
+            max_entry = A
+        else:
+            min_entry = A + B
+            max_entry = A + B
+        print(f"{min_entry} {max_entry}")
 
 if __name__ == '__main__':
     solve()

@@ -4,61 +4,65 @@ def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
-    t = int(data[0])
-    idx = 1
+    
+    index = 0
+    t = int(data[index])
+    index += 1
+    
+    results = []
+    
     for _ in range(t):
-        n = int(data[idx])
-        m = int(data[idx+1])
-        a = int(data[idx+2])
-        b = int(data[idx+3])
-        idx += 4
+        n = int(data[index])
+        m = int(data[index+1])
+        a = int(data[index+2])
+        b = int(data[index+3])
+        index += 4
+        
+        # Check if it's possible to construct the matrix
+        if (n * a) % m != 0 or (m * b) % n != 0:
+            results.append("NO")
+            continue
         
         # Check if the total number of ones is consistent
         total_ones = n * a
-        if total_ones % m != 0:
-            print("NO")
-            continue
         if total_ones != m * b:
-            print("NO")
+            results.append("NO")
             continue
         
-        # Check if it's possible to distribute the ones
-        if (n * a) % m != 0 or (m * b) % n != 0:
-            print("NO")
-            continue
+        # Construct the matrix
+        matrix = [[0] * m for _ in range(n)]
+        row = 0
+        col = 0
         
-        # Check if the required conditions are met
-        if a == 0 or b == 0:
-            print("NO")
-            continue
-        
-        # Check if the required number of ones per row and column is possible
-        if (n * a) % m != 0 or (m * b) % n != 0:
-            print("NO")
-            continue
-        
-        # Create the matrix
-        matrix = []
         for i in range(n):
-            row = ['0'] * m
+            # Place a ones in the current row
             for j in range(a):
-                row[i * a + j] = '1'
-            matrix.append(''.join(row))
+                if col >= m:
+                    col = 0
+                matrix[i][col] = 1
+                col += 1
+            row += 1
         
         # Check if the column counts are correct
-        col_counts = [0] * m
-        for i in range(n):
-            for j in range(m):
-                col_counts[j] += int(matrix[i][j])
+        valid = True
+        for j in range(m):
+            count = 0
+            for i in range(n):
+                if matrix[i][j] == 1:
+                    count += 1
+            if count != b:
+                valid = False
+                break
         
-        # If column counts are not correct, try a different arrangement
-        if any(count != b for count in col_counts):
-            print("NO")
+        if not valid:
+            results.append("NO")
             continue
         
-        print("YES")
+        results.append("YES")
         for row in matrix:
-            print(row)
+            results.append(''.join(map(str, row)))
     
+    print('\n'.join(results))
+
 if __name__ == '__main__':
     solve()

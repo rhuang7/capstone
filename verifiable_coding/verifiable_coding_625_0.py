@@ -1,24 +1,26 @@
 import sys
 
 def solve():
-    MOD = 10**9
-    input = sys.stdin.buffer.read().split()
+    import sys
+    input = sys.stdin.buffer.read
+    data = input().split()
     idx = 0
-    T = int(input[idx])
+    T = int(data[idx])
     idx += 1
+    MOD = 10**9
     for _ in range(T):
-        N = int(input[idx])
+        N = int(data[idx])
         idx += 1
-        A = list(map(int, input[idx:idx+N]))
+        A = list(map(int, data[idx:idx+N]))
         idx += N
-        prefix_sum = 0
+        prefix_mod = 0
         count = 0
-        freq = {0: 1}
+        mod_count = {0: 1}
         for num in A:
-            prefix_sum += num
-            rem = prefix_sum % MOD
-            count += freq.get(rem, 0)
-            freq[rem] = freq.get(rem, 0) + 1
+            prefix_mod = (prefix_mod + num) % MOD
+            if (prefix_mod) in mod_count:
+                count += mod_count[prefix_mod]
+            mod_count[prefix_mod] = mod_count.get(prefix_mod, 0) + 1
         print(count)
 
 if __name__ == '__main__':

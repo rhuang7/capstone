@@ -1,9 +1,10 @@
 import sys
 import math
-from collections import defaultdict, deque
+from collections import deque, defaultdict
 
 def main():
     import sys
+    sys.setrecursionlimit(1 << 25)
     input = sys.stdin.buffer.read
     data = input().split()
     idx = 0
@@ -39,32 +40,12 @@ def main():
         def dfs(node, parent):
             visited[node] = True
             path.append(node)
-            for nei in tree[node]:
-                if not visited[nei]:
-                    dfs(nei, node)
+            for neighbor in tree[node]:
+                if not visited[neighbor]:
+                    dfs(neighbor, node)
         dfs(u, -1)
-        path2 = []
-        visited = [False] * N
-        def dfs2(node, parent):
-            visited[node] = True
-            path2.append(node)
-            for nei in tree[node]:
-                if not visited[nei]:
-                    dfs2(nei, node)
-        dfs2(v, -1)
-        common = []
-        i = 0
-        j = 0
-        while i < len(path) and j < len(path2):
-            if path[i] == path2[j]:
-                common.append(path[i])
-                i += 1
-                j += 1
-            elif path[i] < path2[j]:
-                i += 1
-            else:
-                j += 1
-        return common
+        idx1 = path.index(v)
+        return path[:idx1+1]
 
     def solve():
         for t, x, y in queries:

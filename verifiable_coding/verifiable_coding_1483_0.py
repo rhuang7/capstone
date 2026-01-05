@@ -10,21 +10,19 @@ def solve():
     
     lengths = list(map(int, data[2:2+K]))
     
-    # Initialize a set to keep track of damaged leaves
+    # Set to store damaged leaves
     damaged = set()
     
-    for l in lengths:
+    for length in lengths:
         # The caterpillar starts at position 1
-        # It eats leaves at positions 1, 1 + l, 1 + 2*l, ...
-        # So the positions are 1 + i*l for i >= 0
+        # It eats every 'length'th leaf starting from 1
+        # So the positions are 1, 1+length, 1+2*length, ...
         # We need to find all such positions <= N
-        i = 0
-        while True:
-            pos = 1 + i * l
-            if pos > N:
-                break
+        # The last position is 1 + m*length <= N => m <= (N-1)/length
+        max_m = (N - 1) // length
+        for m in range(max_m + 1):
+            pos = 1 + m * length
             damaged.add(pos)
-            i += 1
     
     # The total number of leaves is N
     # The number of undamaged leaves is N - size of damaged set

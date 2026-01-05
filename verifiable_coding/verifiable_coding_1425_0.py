@@ -21,7 +21,7 @@ def solve():
         # Convert binary strings to integer
         L = int(L1 + L2 * N + L3, 2)
         
-        # Calculate the number of accesses
+        # Compute the number of accesses
         count = 0
         while L > 0:
             count += 1

@@ -13,28 +13,35 @@ def solve():
         idx += 2
         A = list(map(int, data[idx:idx+N]))
         idx += N
-        # If K is 1, then no subsegment can satisfy the condition
+        max_len = 0
+        # If K is 1, then the entire array is invalid (since there is no flavor not present)
         if K == 1:
-            results.append(0)
+            results.append(N)
             continue
-        # The maximum possible length is N if all K flavors are present
-        # So we need to find the longest subsegment that is missing at least one flavor
-        # We can use a sliding window approach
+        # Sliding window to find the longest subarray that misses at least one flavor
+        # We need to find the longest subarray that does not contain all K flavors
+        # So we can use a sliding window approach where we track the count of each flavor
+        # and when all K flavors are present, we try to shrink the window from the left
         from collections import defaultdict
         count = defaultdict(int)
         left = 0
-        max_len = 0
+        unique = 0
         for right in range(N):
-            count[A[right]] += 1
-            # Check if all K flavors are present in the current window
-            while len(count) == K:
-                # If all K are present, we need to shrink the window
-                count[A[left]] -= 1
-                if count[A[left]] == 0:
-                    del count[A[left]]
+            flavor = A[right]
+            if count[flavor] == 0:
+                unique += 1
+            count[flavor] += 1
+            # If all K flavors are present, try to shrink the window
+            while unique == K:
+                left_flavor = A[left]
+                count[left_flavor] -= 1
+                if count[left_flavor] == 0:
+                    unique -= 1
                 left += 1
             # The current window is valid (missing at least one flavor)
-            max_len = max(max_len, right - left + 1)
+            current_len = right - left + 1
+            if current_len > max_len:
+                max_len = current_len
         results.append(max_len)
     for res in results:
         print(res)

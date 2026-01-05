@@ -21,47 +21,43 @@ def solve():
         for num in a:
             count[num] += 1
         
-        # Convert counts to log2 for easier handling
-        log_count = {}
-        for key in count:
-            log_count[key] = count[key]
+        # Convert to powers of two
+        power_count = defaultdict(int)
+        for num in count:
+            power = 0
+            while num > 1:
+                num >>= 1
+                power += 1
+            power_count[power] += count[num]
         
-        # Try to fill the bag starting from the largest possible power of two
+        # Try to fill the bag
         res = 0
-        current = n
-        found = False
-        
-        # Try all possible powers of two up to n
+        current = 0
         for power in range(60, -1, -1):
-            size = 1 << power
-            if size > n:
-                continue
-            # How many of this size can we use?
-            if size in log_count:
-                num = log_count[size]
-                if num > 0:
-                    # Use as many as possible
-                    use = min(num, current // size)
-                    current -= use * size
-                    if current == 0:
-                        found = True
+            needed = (n >> power) & 1
+            if needed:
+                if power_count[power] > 0:
+                    power_count[power] -= 1
+                    current += (1 << power)
+                else:
+                    # Try to split lower powers
+                    if power == 0:
+                        res = -1
                         break
-                    # If we have some left, we need to split
-                    if use < num:
-                        # We can split the remaining ones
-                        res += (num - use) * (power - 1)
-                        # But we need to track the split sizes
-                        # So we need to keep track of the split sizes
-                        # So we need to process smaller powers
-                        # So we need to break and process smaller powers
-                        # So we need to reset the current and proceed
-                        current = n
-                        found = False
+                    # Split a higher power into two
+                    if power_count[power - 1] > 0:
+                        power_count[power - 1] += 1
+                        res += 1
+                    else:
+                        res = -1
                         break
-        if found:
-            results.append(res)
-        else:
-            results.append(-1)
+            else:
+                if power_count[power] > 0:
+                    power_count[power] -= 1
+                    current += (1 << power)
+                else:
+                    pass
+        results.append(res if res != -1 else -1)
     
     for res in results:
         print(res)

@@ -4,10 +4,12 @@ def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
+    
     idx = 0
     T = int(data[idx])
     idx += 1
     results = []
+    
     for _ in range(T):
         N = int(data[idx])
         idx += 1
@@ -15,34 +17,23 @@ def solve():
         for _ in range(N):
             a = int(data[idx])
             b = int(data[idx + 1])
-            idx += 2
             shares.append((a, b))
+            idx += 2
+        
         # Sort shares by a_i in ascending order and then by b_i in descending order
         shares.sort(key=lambda x: (x[0], -x[1]))
-        # Find the longest increasing subsequence of b_i
-        # Since a_i is already sorted, we only need to check b_i
-        # We can use a greedy algorithm with binary search
-        # to find the length of the longest increasing subsequence
-        # of b_i
-        # This is O(N log N) time
-        # Initialize a list to store the smallest possible tail of all increasing subsequences
-        # with length i+1
-        tails = []
+        
+        # Greedy selection: select shares with increasing b_i
+        count = 0
+        prev_b = -1
         for a, b in shares:
-            # Use binary search to find the first element in tails >= b
-            # If found, replace it with b
-            # Otherwise, append b
-            # This is the standard LIS algorithm
-            # Using bisect_left
-            import bisect
-            idx_b = bisect.bisect_left(tails, b)
-            if idx_b == len(tails):
-                tails.append(b)
-            else:
-                tails[idx_b] = b
-        results.append(len(tails))
-    for res in results:
-        print(res)
+            if b > prev_b:
+                count += 1
+                prev_b = b
+        
+        results.append(str(count))
+    
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

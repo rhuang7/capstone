@@ -1,52 +1,46 @@
 import sys
 import math
-from collections import deque
+from itertools import permutations
 
-def get_distinct_three_digit_numbers_from_number(number):
+def get_distinct_three_digit_numbers(number):
     digits = list(str(number))
     unique_digits = set(digits)
     if len(unique_digits) < 3:
         return 0
-    result = set()
-    for i in range(3):
-        for j in range(3):
-            if i == j:
-                continue
-            for k in range(3):
-                if k == i or k == j:
-                    continue
-                num = int(digits[i] + digits[j] + digits[k])
-                result.add(num)
-    return len(result)
+    count = 0
+    for p in permutations(unique_digits, 3):
+        num = int(''.join(p))
+        if 100 <= num <= 999:
+            count += 1
+    return count
+
+def process_number(number):
+    result = number * 13 * 11 * 7
+    return result
 
 def solve():
-    input = sys.stdin.buffer.read().split()
-    T = int(input[0])
-    idx = 1
+    import sys
+    input = sys.stdin.buffer.read
+    data = input().split()
+    T = int(data[0])
+    index = 1
     for _ in range(T):
-        K = int(input[idx])
-        N = int(input[idx+1])
-        idx += 2
+        K = int(data[index])
+        N = int(data[index+1])
+        index += 2
         
-        # Initial number
+        # Initial step
         current = K
-        visited = set()
-        visited.add(current)
-        queue = deque([current])
-        count = 0
+        seen = set()
+        total = 0
+        for step in range(N + 1):
+            current = process_number(current)
+            distinct = get_distinct_three_digit_numbers(current)
+            if distinct > 0:
+                total += distinct
+            seen.add(current)
         
-        for _ in range(N):
-            next_queue = deque()
-            while queue:
-                num = queue.popleft()
-                distinct_numbers = get_distinct_three_digit_numbers_from_number(num)
-                count += distinct_numbers
-                for n in range(1000, 10000):
-                    if n not in visited:
-                        next_queue.append(n)
-            queue = next_queue
-        
-        print(count)
+        print(total)
 
 if __name__ == '__main__':
     solve()

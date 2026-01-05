@@ -22,100 +22,81 @@ def solve():
             XA = int(data[idx])
             YA = int(data[idx+1])
             DIRA = data[idx+2]
-            asteroids.append((XA, YA, DIRA))
             idx += 3
-        
-        earth_x, earth_y = XE, YE
-        earth_dir = DIRE
+            asteroids.append((XA, YA, DIRA))
         
         min_time = float('inf')
-        
-        # Determine Earth's movement
-        if earth_dir == 'U':
+        earth_x, earth_y = XE, YE
+        earth_dx, earth_dy = 0, 0
+        if DIRE == 'U':
             earth_dy = 1
-            earth_dx = 0
-        elif earth_dir == 'D':
+        elif DIRE == 'D':
             earth_dy = -1
-            earth_dx = 0
-        elif earth_dir == 'R':
+        elif DIRE == 'R':
             earth_dx = 1
-            earth_dy = 0
-        elif earth_dir == 'L':
+        elif DIRE == 'L':
             earth_dx = -1
-            earth_dy = 0
         
-        # Process each asteroid
-        for (XA, YA, DIRA) in asteroids:
-            # Determine asteroid's movement
-            if DIRA == 'U':
+        for xa, ya, dira in asteroids:
+            ast_x, ast_y = xa, ya
+            ast_dx, ast_dy = 0, 0
+            if dira == 'U':
                 ast_dy = 1
-                ast_dx = 0
-            elif DIRA == 'D':
+            elif dira == 'D':
                 ast_dy = -1
-                ast_dx = 0
-            elif DIRA == 'R':
+            elif dira == 'R':
                 ast_dx = 1
-                ast_dy = 0
-            elif DIRA == 'L':
+            elif dira == 'L':
                 ast_dx = -1
-                ast_dy = 0
             
-            # Calculate relative positions
-            dx = XA - earth_x
-            dy = YA - earth_y
-            
-            # Check if collision is possible
-            if (dx == 0 and dy == 0):
-                continue  # Not possible as per problem statement
-            
-            # Determine if paths intersect
-            # Earth's position at time t: (earth_x + earth_dx * t, earth_y + earth_dy * t)
-            # Asteroid's position at time t: (XA + ast_dx * t, YA + ast_dy * t)
-            
-            # Solve for t where earth_x + earth_dx * t = XA + ast_dx * t and earth_y + earth_dy * t = YA + ast_dy * t
-            # This is a system of linear equations
-            # Solve for t
+            # Calculate relative motion
+            dx = earth_dx - ast_dx
+            dy = earth_dy - ast_dy
             
             # Check if paths are parallel
-            if earth_dx == ast_dx and earth_dy == ast_dy:
+            if dx == 0 and dy == 0:
                 # Same direction, no collision
                 continue
             
-            # Check if paths are perpendicular
-            if earth_dx * ast_dx + earth_dy * ast_dy == 0:
-                # Perpendicular, no collision
+            # Check if they are moving towards each other
+            if (dx > 0 and ast_dx < 0) or (dx < 0 and ast_dx > 0):
+                # Moving towards each other in x direction
+                pass
+            else:
+                # Not moving towards each other in x direction
                 continue
             
+            if (dy > 0 and ast_dy < 0) or (dy < 0 and ast_dy > 0):
+                # Moving towards each other in y direction
+                pass
+            else:
+                # Not moving towards each other in y direction
+                continue
+            
+            # Calculate time of collision
+            # Earth's position at time t: (XE + earth_dx * t, YE + earth_dy * t)
+            # Asteroid's position at time t: (xa + ast_dx * t, ya + ast_dy * t)
+            # Set equations equal and solve for t
+            # XE + earth_dx * t = xa + ast_dx * t
+            # YE + earth_dy * t = ya + ast_dy * t
             # Solve for t
-            # From x-coordinate: earth_x + earth_dx * t = XA + ast_dx * t => t = (XA - earth_x) / (earth_dx - ast_dx)
-            # From y-coordinate: earth_y + earth_dy * t = YA + ast_dy * t => t = (YA - earth_y) / (earth_dy - ast_dy)
-            # These two t's must be equal
-            
-            # Calculate t from x-coordinate
-            t1 = (XA - earth_x) / (earth_dx - ast_dx)
-            # Calculate t from y-coordinate
-            t2 = (YA - earth_y) / (earth_dy - ast_dy)
-            
-            # Check if t1 and t2 are equal
-            if abs(t1 - t2) < 1e-9:
-                # Collision possible at time t1
-                t = t1
-                # Check if t is non-negative and if the positions are the same
-                if t >= 0:
-                    # Check if positions are the same
-                    earth_x_t = earth_x + earth_dx * t
-                    earth_y_t = earth_y + earth_dy * t
-                    ast_x_t = XA + ast_dx * t
-                    ast_y_t = YA + ast_dy * t
-                    if abs(earth_x_t - ast_x_t) < 1e-9 and abs(earth_y_t - ast_y_t) < 1e-9:
-                        min_time = min(min_time, t)
+            # From x equation: t = (xa - XE) / (earth_dx - ast_dx)
+            # From y equation: t = (ya - YE) / (earth_dy - ast_dy)
+            # Both must be equal and positive
+            try:
+                t_x = (xa - XE) / (earth_dx - ast_dx)
+                t_y = (ya - YE) / (earth_dy - ast_dy)
+                if t_x == t_y and t_x >= 0:
+                    min_time = min(min_time, t_x)
+            except ZeroDivisionError:
+                pass
         
         if min_time != float('inf'):
             results.append(f"{min_time:.1f}")
         else:
             results.append("SAFE")
     
-    print("\n".join(results))
+    print('\n'.join(results))
 
 if __name__ == '__main__':
     solve()

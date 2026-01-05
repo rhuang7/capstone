@@ -25,25 +25,22 @@ def solve():
         
         while left <= right:
             if a_candies * X < b_candies:
+                a_boxes += 1
                 a_candies += C[left]
                 left += 1
-                a_boxes += 1
-            elif b_candies * X < a_candies:
+            elif b_candies < a_candies * X:
+                b_boxes += 1
                 b_candies += C[right]
                 right -= 1
-                b_boxes += 1
             else:
                 if a_boxes > b_boxes:
+                    a_boxes += 1
                     a_candies += C[left]
                     left += 1
-                    a_boxes += 1
                 else:
+                    b_boxes += 1
                     b_candies += C[right]
                     right -= 1
-                    b_boxes += 1
         results.append(f"{a_boxes} {b_boxes}")
     
-    print("\n".join(results))
-
-if __name__ == '__main__':
-    solve()
+    print('\n'.join(results))

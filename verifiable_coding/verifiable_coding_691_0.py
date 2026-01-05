@@ -21,21 +21,20 @@ def solve():
         max_val = 0
         
         for num in A:
-            # Update max_val
-            if num > max_val:
-                max_val = num
-            
-            # Count multiples of num in the current frequency map
-            count = 0
+            max_val = max(max_val, num)
+        
+        # Use a sieve-like approach to count multiples
+        cnt = [0] * (max_val + 1)
+        for num in A:
             for multiple in range(num, max_val + 1, num):
-                count += freq[multiple]
-            
-            # Update max_star
-            if count > max_star:
-                max_star = count
-            
-            # Update frequency map
-            freq[num] += 1
+                cnt[multiple] += 1
+        
+        # Now calculate star values
+        for num in A:
+            star = 0
+            for multiple in range(num, max_val + 1, num):
+                star += cnt[multiple]
+            max_star = max(max_star, star)
         
         results.append(str(max_star))
     

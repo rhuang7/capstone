@@ -5,57 +5,63 @@ def solve():
     import sys
     input = sys.stdin.buffer.read
     data = input().split()
+    
     idx = 0
-    R = int(data[idx])
-    idx += 1
-    C = int(data[idx])
-    idx += 1
-    d = int(data[idx])
-    idx += 1
+    R = int(data[idx]); idx += 1
+    C = int(data[idx]); idx += 1
+    d = int(data[idx]); idx += 1
     
     grid = []
     for _ in range(R):
         row = list(map(int, data[idx:idx+C]))
-        idx += C
         grid.append(row)
+        idx += C
     
-    # dp[i][j][k] = number of paths to (i,j) with k consecutive steps in the same direction
-    # directions: 0 = right, 1 = down
-    # We'll use a 3D array: dp[i][j][0] = paths with last move right, dp[i][j][1] = paths with last move down
-    # Also, we need to track the number of consecutive steps in the same direction
-    # So we'll use a 3D array: dp[i][j][k] = number of paths to (i,j) with k consecutive steps in the same direction
+    # Directions: right (east), down (south)
+    # We'll track the number of consecutive steps in each direction
+    # dp[i][j][k] = number of paths to (i,j) with k consecutive steps in the last direction
+    # Since R and C can be up to 300, and d up to 300, this is manageable
+    # We'll use a 2D array for each direction, with size (R x C x (d+1))
     
-    # Since d can be up to 300, and R and C up to 300, the total size is 300*300*300 = 27,000,000 which is manageable
-    dp = [[[0] * (d + 1) for _ in range(C)] for _ in range(R)]
+    # Initialize dp arrays for right and down directions
+    dp_right = [[[0]*(d+1) for _ in range(C)] for _ in range(R)]
+    dp_down = [[[0]*(d+1) for _ in range(C)] for _ in range(R)]
     
-    # Starting point (0,0)
+    # Start at (0,0)
     if grid[0][0] == 1:
-        dp[0][0][0] = 1  # 0 consecutive steps in the same direction (just starting)
+        dp_right[0][0][1] = 1  # 1 step right (but we're at the start)
+        dp_down[0][0][1] = 1   # 1 step down (but we're at the start)
     
     for i in range(R):
         for j in range(C):
+            if i == 0 and j == 0:
+                continue
             if grid[i][j] == 0:
                 continue
+            
             # Check right direction
-            if j > 0:
-                # From (i, j-1) to (i, j) is a right move
-                # We can add to dp[i][j][1] the number of paths that ended with 0 consecutive right steps
-                # Or if the previous step was a right move, we can add to dp[i][j][k+1]
-                # So for each k in 0..d-1, we can add dp[i][j-1][k] to dp[i][j][k+1]
-                for k in range(d):
-                    dp[i][j][k+1] = (dp[i][j][k+1] + dp[i][j-1][k]) % MOD
+            if j > 0 and grid[i][j-1] == 1:
+                # From (i, j-1) to (i, j)
+                for k in range(1, d+1):
+                    if k == 1:
+                        dp_right[i][j][k] = (dp_right[i][j][k] + dp_right[i][j-1][k-1]) % MOD
+                    else:
+                        dp_right[i][j][k] = (dp_right[i][j][k] + dp_right[i][j-1][k-1]) % MOD
             # Check down direction
-            if i > 0:
-                # From (i-1, j) to (i, j) is a down move
-                # We can add to dp[i][j][1] the number of paths that ended with 0 consecutive down steps
-                # Or if the previous step was a down move, we can add to dp[i][j][k+1]
-                # So for each k in 0..d-1, we can add dp[i-1][j][k] to dp[i][j][k+1]
-                for k in range(d):
-                    dp[i][j][k+1] = (dp[i][j][k+1] + dp[i-1][j][k]) % MOD
+            if i > 0 and grid[i-1][j] == 1:
+                # From (i-1, j) to (i, j)
+                for k in range(1, d+1):
+                    if k == 1:
+                        dp_down[i][j][k] = (dp_down[i][j][k] + dp_down[i-1][k-1][j]) % MOD
+                    else:
+                        dp_down[i][j][k] = (dp_down[i][j][k] + dp_down[i-1][k-1][j]) % MOD
     
-    # Sum all possible ways to reach (R-1, C-1)
-    result = sum(dp[R-1][C-1][k] for k in range(d + 1)) % MOD
-    print(result)
+    # Total paths is the sum of all possible ways to reach (R-1, C-1)
+    total = 0
+    for k in range(1, d+1):
+        total = (total + dp_right[R-1][C-1][k] + dp_down[R-1][C-1][k]) % MOD
+    
+    print(total)
 
 if __name__ == '__main__':
     solve()

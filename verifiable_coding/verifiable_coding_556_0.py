@@ -5,36 +5,32 @@ def solve():
     input = sys.stdin.buffer.read
     data = input().split()
     T = int(data[0])
-    t_list = list(map(int, data[1:T+1]))
+    t_list = list(map(int, data[1:]))
     
     for t in t_list:
         if t == 0:
             print("0 0")
             continue
-        n = t
-        # Determine the layer and the position within the layer
-        layer = 0
-        while (2 * (layer + 1)) ** 2 <= n:
-            layer += 1
-        side = 2 * (layer + 1)
-        remainder = n - (2 * layer) ** 2
-        # Determine the direction
-        if remainder < side // 2:
-            # Right
-            x = remainder - 0
-            y = layer
-        elif remainder < side:
-            # Down
-            x = side - 1
-            y = layer - (remainder - side // 2)
-        elif remainder < side + side // 2:
-            # Left
-            x = side - 1 - (remainder - side - side // 2)
-            y = -layer - 1
+        # Determine the side length of the square the t-th step is in
+        n = 1
+        while n * 4 <= t:
+            n += 1
+        n -= 1
+        # Calculate the remaining steps after completing the square of side n
+        rem = t - (n * (n - 1))
+        # Determine which side of the square the remaining steps are on
+        if rem <= n:
+            # First side: up
+            x, y = -rem + 1, n
+        elif rem <= 2 * n:
+            # Second side: left
+            x, y = -n, rem - n
+        elif rem <= 3 * n:
+            # Third side: down
+            x, y = rem - 2 * n, -n
         else:
-            # Up
-            x = -remainder + side + side // 2 - side // 2
-            y = -layer - 1
+            # Fourth side: right
+            x, y = n, rem - 3 * n
         print(f"{x} {y}")
 
 if __name__ == '__main__':

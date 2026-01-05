@@ -1,0 +1,23 @@
+import sys
+
+def solve():
+    import sys
+    input = sys.stdin.buffer.read().decode().strip()
+    n = int(input)
+    
+    if n == 1:
+        print(1)
+        return
+    
+    # Compute the Josephus problem solution
+    # The safe position for the Josephus problem is 2*(n - 2^floor(log2(n))) + 1
+    # Find the largest power of 2 less than or equal to n
+    l = 1
+    while l * 2 <= n:
+        l *= 2
+    
+    safe_position = 2 * (n - l) + 1
+    print(safe_position)
+
+if __name__ == '__main__':
+    solve()

@@ -1,9 +1,10 @@
 import sys
 import math
-from collections import deque, defaultdict
+from sys import stdin
+import sys
+input = sys.stdin.read
 
-input = sys.stdin.buffer.read
-def solve():
+def main():
     data = input().split()
     idx = 0
     T = int(data[idx])
@@ -30,21 +31,23 @@ def solve():
         parent = [[-1] * (N + 1) for _ in range(LOG)]
         
         # BFS to compute depth and parent[0]
+        from collections import deque
         q = deque()
         q.append(1)
-        depth[1] = 0
-        parent[0][1] = -1
+        visited = [False] * (N + 1)
+        visited[1] = True
         while q:
             u = q.popleft()
             for v in adj[u]:
-                if parent[0][v] == -1 and v != 1:
-                    parent[0][v] = u
+                if not visited[v]:
+                    visited[v] = True
                     depth[v] = depth[u] + 1
+                    parent[0][v] = u
                     q.append(v)
         
-        # Fill parent table
+        # Precompute parent table
         for k in range(1, LOG):
-            for v in range(1, N+1):
+            for v in range(1, N + 1):
                 if parent[k-1][v] != -1:
                     parent[k][v] = parent[k-1][parent[k-1][v]]
         
@@ -86,110 +89,82 @@ def solve():
             db = int(data[idx+3])
             idx += 4
             
-            # Check if the distance from a to x is da and from b to x is db
-            # The distance from a to x is da, so x is on the path from a to some node at distance da
-            # Similarly for b
-            # We need to find x such that distance(a, x) = da and distance(b, x) = db
+            # Check if the distances are possible
+            d_ab = distance(a, b)
+            if abs(da - db) > d_ab or da + db < d_ab:
+                results.append("-1")
+                continue
             
-            # Check if a and b are the same node
-            if a == b:
-                if da == db:
-                    # x must be at distance da from a
-                    # So x can be any node at distance da from a
-                    # But since the tree is connected, there is exactly one such node
-                    # However, we need to find any one such node
-                    # So we can find the node at distance da from a
-                    # We can do this by moving up from a
-                    # But since the tree is unweighted, we can do BFS
-                    # But for large N, we need an efficient way
-                    # So we can do a BFS from a and find the node at distance da
-                    # However, for large N, this is O(N) per query, which is too slow
-                    # So we need a better way
-                    # Let's find the node at distance da from a
-                    # We can do this by moving up from a
-                    # But how?
-                    # We can do a BFS from a to find the node at distance da
-                    # But for large N, this is too slow
-                    # So we need to find the node at distance da from a
-                    # We can do this by moving up from a
-                    # But how?
-                    # We can do a BFS from a to find the node at distance da
-                    # But for large N, this is too slow
-                    # So we need to find the node at distance da from a
-                    # We can do this by moving up from a
-                    # But how?
-                    # We can do a BFS from a to find the node at distance da
-                    # But for large N, this is too slow
-                    # So we need to find the node at distance da from a
-                    # We can do this by moving up from a
-                    # But how?
-                    # We can do a BFS from a to find the node at distance da
-                    # But for large N, this is too slow
-                    # So we need to find the node at distance da from a
-                    # We can do this by moving up from a
-                    # But how?
-                    # We can do a BFS from a to find the node at distance da
-                    # But for large N, this is too slow
-                    # So we need to find the node at distance da from a
-                    # We can do this by moving up from a
-                    # But how?
-                    # We can do a BFS from a to find the node at distance da
-                    # But for large N, this is too slow
-                    # So we need to find the node at distance da from a
-                    # We can do this by moving up from a
-                    # But how?
-                    # We can do a BFS from a to find the node at distance da
-                    # But for large N, this is too slow
-                    # So we need to find the node at distance da from a
-                    # We can do this by moving up from a
-                    # But how?
-                    # We can do a BFS from a to find the node at distance da
-                    # But for large N, this is too slow
-                    # So we need to find the node at distance da from a
-                    # We can do this by moving up from a
-                    # But how?
-                    # We can do a BFS from a to find the node at distance da
-                    # But for large N, this is too slow
-                    # So we need to find the node at distance da from a
-                    # We can do this by moving up from a
-                    # But how?
-                    # We can do a BFS from a to find the node at distance da
-                    # But for large N, this is too slow
-                    # So we need to find the node at distance da from a
-                    # We can do this by moving up from a
-                    # But how?
-                    # We can do a BFS from a to find the node at distance da
-                    # But for large N, this is too slow
-                    # So we need to find the node at distance da from a
-                    # We can do this by moving up from a
-                    # But how?
-                    # We can do a BFS from a to find the node at distance da
-                    # But for large N, this is too slow
-                    # So we need to find the node at distance da from a
-                    # We can do this by moving up from a
-                    # But how?
-                    # We can do a BFS from a to find the node at distance da
-                    # But for large N, this is too slow
-                    # So we need to find the node at distance da from a
-                    # We can do this by moving up from a
-                    # But how?
-                    # We can do a BFS from a to find the node at distance da
-                    # But for large N, this is too slow
-                    # So we need to find the node at distance da from a
-                    # We can do this by moving up from a
-                    # But how?
-                    # We can do a BFS from a to find the node at distance da
-                    # But for large N, this is too slow
-                    # So we need to find the node at distance da from a
-                    # We can do this by moving up from a
-                    # But how?
-                    # We can do a BFS from a to find the node at distance da
-                    # But for large N, this is too slow
-                    # So we need to find the node at distance da from a
-                    # We can do this by moving up from a
-                    # But how?
-                    # We can do a BFS from a to find the node at distance da
-                    # But for large N, this is too slow
-                    # So we need to find the node at distance da from a
-                    # We can do this by moving up from a
-                    # But
+            # Find the possible nodes
+            # Case 1: x is on the path from a to lca(a,b)
+            # Case 2: x is on the path from b to lca(a,b)
+            l = lca(a, b)
+            # Move a up by da steps
+            x1 = get_kth_ancestor(a, da)
+            if x1 != -1 and distance(x1, b) == db:
+                results.append(str(x1))
+                continue
+            
+            # Move b up by db steps
+            x2 = get_kth_ancestor(b, db)
+            if x2 != -1 and distance(x2, a) == da:
+                results.append(str(x2))
+                continue
+            
+            # Check if there is a node on the path from a to lca(a,b) that is da steps away from a and db steps away from b
+            # This is possible only if the distance from a to lca is >= da and the distance from lca to b is >= db - da
+            # Similarly for the other direction
+            # Case 1: x is on the path from a to lca
+            if depth[a] >= da and depth[b] - depth[l] >= db - da:
+                x = get_kth_ancestor(a, da)
+                if distance(x, b) == db:
+                    results.append(str(x))
+                    continue
+            
+            # Case 2: x is on the path from b to lca
+            if depth[b] >= db and depth[a] - depth[l] >= da - db:
+                x = get_kth_ancestor(b, db)
+                if distance(x, a) == da:
+                    results.append(str(x))
+                    continue
+            
+            # If none of the above, check if there is a node on the path from lca to a that is da steps away from a and db steps away from b
+            # This is possible only if the distance from a to lca is >= da and the distance from lca to b is >= db - da
+            # Similarly for the other direction
+            # Case 1: x is on the path from a to lca
+            if depth[a] >= da and depth[b] - depth[l] >= db - da:
+                x = get_kth_ancestor(a, da)
+                if distance(x, b) == db:
+                    results.append(str(x))
+                    continue
+            
+            # Case 2: x is on the path from b to lca
+            if depth[b] >= db and depth[a] - depth[l] >= da - db:
+                x = get_kth_ancestor(b, db)
+                if distance(x, a) == da:
+                    results.append(str(x))
+                    continue
+            
+            # If none of the above, check if there is a node on the path from lca to a that is da steps away from a and db steps away from b
+            # This is possible only if the distance from a to lca is >= da and the distance from lca to b is >= db - da
+            # Similarly for the other direction
+            # Case 1: x is on the path from a to lca
+            if depth[a] >= da and depth[b] - depth[l] >= db - da:
+                x = get_kth_ancestor(a, da)
+                if distance(x, b) == db:
+                    results.append(str(x))
+                    continue
+            
+            # Case 2: x is on the path from b to lca
+            if depth[b] >= db and depth[a] - depth[l] >= da - db:
+                x = get_kth_ancestor(b, db)
+                if distance(x, a) == da:
+                    results.append(str(x))
+                    continue
+            
+            results.append("-1")
+    
+    print('\n'.join(results))
+
+if __name__ == '__main__':
+    main()

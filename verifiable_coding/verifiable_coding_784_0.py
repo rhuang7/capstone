@@ -11,98 +11,40 @@ def solve():
     
     commands = data[3:]
     
-    # Initialize matrix
-    # Since we only need to track the number of increments for each (i, j)
-    # We can use a 2D array of size (n+1) x (m+1) (1-based indexing)
-    # But for efficiency, we can use a list of lists
-    # However, since n and m can be up to 1e5, a 2D array is not feasible
-    # So we use a dictionary to track the increments
-    # But for speed, we can use a list of lists with initial 0s
-    # But since n and m can be up to 1e5, we can't create a 2D array of size 1e5 x 1e5
-    # So we use a list of lists with initial 0s, but only for the required rows and columns
-    # However, for the problem, we can use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a dictionary to track the increments
-    # But for the problem, we can use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial 0s for all rows and columns
-    # But since n and m can be up to 1e5, it's not feasible
-    # So we use a list of lists with initial
+    # Initialize the matrix
+    # Since m can be up to 1e5 and n up to 1e5, we can't store the full matrix
+    # Instead, we'll track the number of increments for each (i, j)
+    # We'll use a list of dictionaries to track the increments for each row
+    increments = [{} for _ in range(n)]
+    
+    idx = 3
+    for _ in range(p):
+        i = int(commands[idx]) - 1  # 0-based index
+        j = int(commands[idx + 1]) - 1
+        increments[i][j] = increments[i].get(j, 0) + 1
+        idx += 2
+    
+    # For each row, compute the answer
+    for i in range(n):
+        # Initialize the current value for each column
+        # Initially, each a_ij = j (1-based), so for 0-based it's j+1
+        # But we'll track the value as j+1 + increments[i].get(j, 0)
+        # We'll compute the values from right to left
+        # We'll also track the previous value to compute the cost
+        prev = 0
+        total = 0
+        for j in range(m - 1, -1, -1):
+            current = (j + 1) + increments[i].get(j, 0)
+            if j == m - 1:
+                prev = current
+                continue
+            if current < prev:
+                print(-1)
+                break
+            total += prev - current
+            prev = current
+        else:
+            print(total)
+    
+if __name__ == '__main__':
+    solve()

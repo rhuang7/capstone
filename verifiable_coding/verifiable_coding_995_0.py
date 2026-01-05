@@ -21,16 +21,11 @@ def solve():
         right[i] = right[i+1] + A[i]
     
     max_money = 0
-    for i in range(n):
-        if k == 0:
-            break
-        if i + k <= n:
-            total = left[i] + right[i + k]
-            if total > max_money:
-                max_money = total
-        if i + k <= n:
-            k -= 1
-    
+    for i in range(k+1):
+        if i <= n and (n - i) >= k:
+            current = left[i] + right[n - k + i - 1]
+            if current > max_money:
+                max_money = current
     print(max_money)
 
 if __name__ == '__main__':

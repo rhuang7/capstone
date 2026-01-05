@@ -20,7 +20,7 @@ def solve():
             l = []
             r = []
             n = len(arr) - 1
-            power = 1 << i
+            power = 1 << i  # 2^i
             for j in range(len(arr)):
                 if (arr[j] % (power << 1)) < power:
                     l.append(arr[j])
@@ -31,8 +31,8 @@ def solve():
             return l + r
         
         a = list(range(size))
-        final = order(a, 0)
-        print(final[idx])
+        ordered = order(a, 0)
+        print(ordered[idx])
 
 if __name__ == '__main__':
     solve()

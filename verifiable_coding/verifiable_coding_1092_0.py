@@ -1,5 +1,5 @@
 import sys
-import bisect
+import math
 
 def solve():
     import sys
@@ -24,47 +24,27 @@ def solve():
         idx += E-1
         
         # Compute total scores of other students
-        totals = []
+        other_totals = []
         for student in students:
             total = sum(student)
-            totals.append(total)
+            other_totals.append(total)
         
-        # Compute the current total of other students
-        # We need to find the minimum score Sergey needs in the last exam
-        # such that his total is strictly greater than at least (N-K) students' totals
-        
-        # Sort the totals
-        totals.sort()
-        
-        # We need to find the minimum score x such that:
-        # (sum of sergey's first E-1 scores + x) > totals[N-K-1]
-        # because there are N-K students that can have lower or equal totals
-        # and Sergey needs to be among the top K
-        
-        # The minimum x is such that:
-        # sergey_total + x > totals[N-K-1]
-        # x > totals[N-K-1] - sergey_total
-        
+        # Compute the total of Sergey's first E-1 exams
         sergey_total = sum(sergey_scores)
-        if N-K == 0:
-            # All students are enrolled, Sergey needs to be among them
-            # So he needs to have the highest total
-            # But since he is not part of the students, we need to find the max total
-            # and see if he can have a higher one
-            max_total = max(totals)
-            required = max_total + 1
-            if required > M:
-                results.append("Impossible")
-            else:
-                results.append(str(required))
-            continue
         
-        target = totals[N-K-1]
-        required = target - sergey_total + 1
-        if required > M:
+        # Find the (N-K)th highest total score among other students
+        other_totals.sort(reverse=True)
+        cutoff = other_totals[K-1]
+        
+        # Find the minimum score Sergey needs in the last exam
+        # To have his total >= cutoff
+        min_score = max(0, cutoff - sergey_total)
+        
+        # Check if it's possible
+        if min_score > M:
             results.append("Impossible")
         else:
-            results.append(str(required))
+            results.append(str(min_score))
     
     for res in results:
         print(res)

@@ -14,15 +14,16 @@ def solve():
         a = list(map(int, data[idx:idx+n]))
         idx += n
         # Compute maximum strength
-        # The maximum strength is achieved by selecting the largest element
-        # and then the next largest, alternating signs
-        # So we sort the array and take the largest, then the next largest, etc.
+        # The maximum strength is achieved by choosing the largest element
+        # and then the second largest, etc., alternating signs
+        # So we sort the array and take the largest, then the second largest, etc.
         a_sorted = sorted(a)
         max_strength = 0
-        turn = 1  # 1 for +, -1 for -
-        for i in range(n-1, -1, -2):
-            max_strength += a_sorted[i] * turn
-            turn *= -1
+        for i in range(n):
+            if i % 2 == 0:
+                max_strength += a_sorted[i]
+            else:
+                max_strength -= a_sorted[i]
         results.append(str(max_strength))
     print('\n'.join(results))
 

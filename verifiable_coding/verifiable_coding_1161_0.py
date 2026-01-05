@@ -2,21 +2,22 @@ import sys
 
 def solve():
     import sys
-    input = sys.stdin.buffer.read().split()
-    T = int(input[0])
-    cases = input[1:T+1]
+    input = sys.stdin.buffer.read
+    data = input().split()
+    T = int(data[0])
+    cases = data[1:T+1]
     
     for s in cases:
         snake_count = s.count('s')
         mongoose_count = s.count('m')
         
         # Maximum number of snakes that can be eaten is the number of consecutive 'm's
-        # But each 'm' can eat at most one neighbor 's'
+        # Each 'm' can eat at most one adjacent 's'
         # So the maximum number of snakes that can be eaten is the number of 'm's
-        # But if there are more 'm's than 's's, then all 's's can be eaten
-        # So the maximum number of snakes that can be eaten is min(mongoose_count, snake_count)
+        # But we can't eat more than the number of snakes
         max_eaten = min(mongoose_count, snake_count)
         
+        # After eating, the remaining snakes and mongooses
         remaining_snakes = snake_count - max_eaten
         remaining_mongoose = mongoose_count
         

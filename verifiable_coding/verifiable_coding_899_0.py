@@ -18,7 +18,6 @@ def solve():
         
         max_candies = 0
         current = 0
-        
         for i in range(N-1, -1, -1):
             current = max(A[i], current)
             max_candies = max(max_candies, current)
@@ -26,3 +25,6 @@ def solve():
         results.append(str(max_candies))
     
     print('\n'.join(results))
+
+if __name__ == '__main__':
+    solve()

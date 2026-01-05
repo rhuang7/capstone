@@ -3,7 +3,6 @@ import bisect
 
 def solve():
     import sys
-    sys.setrecursionlimit(1 << 25)
     input = sys.stdin.buffer.read
     data = input().split()
     
@@ -11,109 +10,58 @@ def solve():
     a = list(map(int, data[1:N+1]))
     edges = data[N+1:]
     
-    from collections import defaultdict
-    graph = defaultdict(list)
+    from collections import defaultdict, deque
+    
+    adj = defaultdict(list)
     for i in range(N-1):
         u = int(edges[2*i])
         v = int(edges[2*i+1])
-        graph[u].append(v)
-        graph[v].append(u)
+        adj[u].append(v)
+        adj[v].append(u)
     
-    # For each node, store the path from 1 to it
-    # We'll use BFS to find shortest paths
-    from collections import deque
-    parent = [0]*(N+1)
-    visited = [False]*(N+1)
+    # Precompute parent and depth for each node using BFS
+    parent = [0] * (N + 1)
+    depth = [0] * (N + 1)
+    visited = [False] * (N + 1)
     q = deque()
     q.append(1)
     visited[1] = True
+    parent[1] = 0
+    
     while q:
         u = q.popleft()
-        for v in graph[u]:
-            if not visited[v]:
+        for v in adj[u]:
+            if not visited[v] and v != parent[u]:
                 visited[v] = True
                 parent[v] = u
+                depth[v] = depth[u] + 1
                 q.append(v)
     
-    # Now, for each node k, we need to find the LIS of the path from 1 to k
-    # We'll use a list to store the LIS for each path
-    # We'll use a binary search approach for each path
-    # We'll store for each node the path from 1 to it as a list
-    # But since the tree is big, we can't store all paths
-    # Instead, we'll use a dynamic programming approach
-    # For each node, we'll keep track of the LIS up to that node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the LIS for the path from 1 to the current node
-    # We'll use a list to store the
+    # For each node, store the path from root to it
+    path = [[] for _ in range(N + 1)]
+    for i in range(1, N + 1):
+        current = i
+        path[i] = []
+        while current != 0:
+            path[i].append(a[current - 1])
+            current = parent[current]
+        path[i] = path[i][::-1]  # Reverse to get correct order
+    
+    # For each path, compute LIS
+    result = [0] * (N + 1)
+    for k in range(1, N + 1):
+        seq = path[k]
+        lis = []
+        for num in seq:
+            idx = bisect.bisect_left(lis, num)
+            if idx == len(lis):
+                lis.append(num)
+            else:
+                lis[idx] = num
+        result[k] = len(lis)
+    
+    for k in range(1, N + 1):
+        print(result[k])
+
+if __name__ == '__main__':
+    solve()

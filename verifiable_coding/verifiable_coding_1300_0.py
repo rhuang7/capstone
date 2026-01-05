@@ -35,19 +35,18 @@ def solve():
         prefix_gcd[0] = arr[0]
         for i in range(1, N):
             prefix_gcd[i] = math.gcd(prefix_gcd[i-1], arr[i])
-        # dp[i][j] = maximum sum for first i elements divided into j parts
-        dp = [[-1] * (K+1) for _ in range(N+1)]
-        dp[0][0] = 0
-        for i in range(1, N+1):
-            for j in range(1, K+1):
-                if j > i:
-                    continue
-                # Try all possible positions to split
-                for m in range(j-1, i):
-                    if dp[m][j-1] != -1:
-                        current_gcd = compute_gcd(arr[m:i])
-                        dp[i][j] = max(dp[i][j], dp[m][j-1] + current_gcd)
-        results.append(dp[N][K])
+        # Dynamic programming to find maximum sum
+        dp = [0] * (K + 1)
+        dp[0] = 0
+        for i in range(1, K + 1):
+            dp[i] = 0
+            for j in range(i-1, N):
+                if i == 1:
+                    current_gcd = compute_gcd(arr[:j+1])
+                else:
+                    current_gcd = math.gcd(prefix_gcd[j], dp[i-1])
+                dp[i] = max(dp[i], current_gcd)
+        results.append(dp[K])
     for res in results:
         print(res)
 

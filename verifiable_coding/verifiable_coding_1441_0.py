@@ -17,41 +17,34 @@ def solve():
         idx += K
         
         # Precompute 2^p for all p in A
-        power = [1 << a for a in A]
+        power = [1 << p for p in A]
         
         # Greedy approach: always take the largest possible move
-        # Since players play optimally, we simulate the game
-        # We'll use a priority queue to always take the largest possible move
-        # But since the moves are determined by the set S, we need to simulate the game
-        # We'll simulate the game by trying all possible moves in a greedy way
-        
-        # We'll simulate the game with a stack
-        stack = A
-        turn = 0  # 0 for Chef, 1 for Garry
+        # We will simulate the game by always choosing the largest possible x in S that is <= remaining discs
+        # We will keep track of the current score for Chef and Garry
         chef_score = 0
         garry_score = 0
+        remaining = N
+        turn = 0  # 0 for Chef, 1 for Garry
         
-        while stack:
-            # Try all possible moves in S
-            # We'll try the moves in descending order to maximize the score
-            # Since the set S is given, we can sort it in descending order
-            S_sorted = sorted(S, reverse=True)
-            move_found = False
-            for x in S_sorted:
-                if len(stack) >= x:
-                    # Pop x elements
-                    popped = stack[-x:]
-                    stack = stack[:-x]
-                    # Add to score
-                    if turn == 0:
-                        chef_score += sum(1 << p for p in popped)
-                    else:
-                        garry_score += sum(1 << p for p in popped)
-                    move_found = True
+        while remaining > 0:
+            # Find the largest x in S that is <= remaining
+            x = 0
+            for s in S:
+                if s <= remaining:
+                    x = s
                     break
-            if not move_found:
-                # No move possible, break
+            # If no such x, break (game ends)
+            if x == 0:
                 break
+            # Take x discs
+            # Take the top x discs
+            taken = power[-x:]
+            if turn == 0:
+                chef_score += sum(taken)
+            else:
+                garry_score += sum(taken)
+            remaining -= x
             turn = 1 - turn
         
         if chef_score > garry_score:

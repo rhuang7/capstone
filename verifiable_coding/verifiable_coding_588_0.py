@@ -11,22 +11,23 @@ def solve():
         idx += 1
         a = list(map(int, input[idx:idx+n]))
         idx += n
-        a.append(0)
+        a.append(360)
         a.sort()
         d = a[1] - a[0]
         for i in range(1, n):
             if a[i] - a[i-1] != d:
-                d = -1
                 break
-        if d == -1:
+        else:
             print(0)
             continue
         g = 360 // d
-        if 360 % d == 0:
-            res = g - n
+        for i in range(1, n):
+            if a[i] % d != 0:
+                break
         else:
-            res = g - n
-        print(res)
+            print(360 // d - n)
+            continue
+        print(360 // d - n)
 
 if __name__ == '__main__':
     solve()

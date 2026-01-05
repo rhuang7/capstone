@@ -17,13 +17,11 @@ def solve():
         # For K >= 2, the number of valid road signs is 9 * 9 * 2^(K-2)
         # Explanation:
         # - Choose the first digit (9 options: 1-9)
-        # - Choose the second digit (9 options: 0-9 except the first)
-        # - For the remaining K-2 digits, each can be either of the two digits (2 options)
-        # - Multiply by 2 because the two digits can be in either order
-        result = (9 * 9) % MOD
-        for _ in range(K-2):
-            result = (result * 2) % MOD
-        print(result)
+        # - Choose the second digit (9 options: 0-9 except first)
+        # - The remaining K-2 digits can be either of the two digits (2 options each)
+        # - Each pair of digits (a, b) and (b, a) are considered distinct
+        ans = 9 * 9 * (2 ** (K - 2)) % MOD
+        print(ans)
 
 if __name__ == '__main__':
     solve()

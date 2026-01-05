@@ -17,23 +17,25 @@ def solve():
             results.append("no")
             continue
         center = Ni // 2
-        if Ni % 2 == 0:
-            results.append("no")
-            continue
-        valid = True
+        increasing = True
         for i in range(center):
             if H[i] != H[i-1] + 1:
-                valid = False
+                increasing = False
                 break
-        if not valid:
+        if not increasing:
             results.append("no")
             continue
+        decreasing = True
         for i in range(center+1, Ni):
             if H[i] != H[i-1] - 1:
-                valid = False
+                decreasing = False
                 break
-        if valid:
+        if decreasing:
             results.append("yes")
         else:
             results.append("no")
-    print("\n".join(results))
+    for res in results:
+        print(res)
+
+if __name__ == '__main__':
+    solve()

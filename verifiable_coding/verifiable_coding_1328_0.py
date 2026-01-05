@@ -7,30 +7,32 @@ def solve():
     cases = input[1:T+1]
 
     def min_ops(n_str):
-        n = int(n_str)
+        length = len(n_str)
         min_ops = float('inf')
 
-        # Check all possible lucky numbers with the same length as n
-        for length in range(1, len(n_str)+1):
-            for lucky in ['4', '7'] * (length // 2) + ['4', '7'] * (length % 2):
-                lucky_num = int(''.join(lucky))
-                if lucky_num < n:
-                    ops = len(n_str) - len(str(lucky_num)) + (len(str(lucky_num)) - len(str(n)))
-                    min_ops = min(min_ops, ops)
-                else:
-                    ops = len(n_str) - len(str(lucky_num)) + (len(str(lucky_num)) - len(str(n)))
-                    min_ops = min(min_ops, ops)
+        # Generate all possible lucky numbers with the same length
+        from itertools import product
+        for digits in product(['4', '7'], repeat=length):
+            lucky = ''.join(digits)
+            ops = 0
+            for a, b in zip(n_str, lucky):
+                if a != b:
+                    ops += 1
+            min_ops = min(min_ops, ops)
 
-        # Check all possible lucky numbers with length + 1
-        for lucky in ['4', '7'] * (len(n_str) // 2) + ['4', '7'] * (len(n_str) % 2):
-            lucky_num = int(''.join(lucky))
-            ops = len(n_str) + 1 - len(str(lucky_num)) + (len(str(lucky_num)) - len(str(n)))
+        # Generate all possible lucky numbers with length + 1
+        for digits in product(['4', '7'], repeat=length + 1):
+            lucky = ''.join(digits)
+            ops = 0
+            for a, b in zip(n_str, lucky):
+                if a != b:
+                    ops += 1
             min_ops = min(min_ops, ops)
 
         return min_ops
 
-    for case in cases:
-        print(min_ops(case))
+    for n in cases:
+        print(min_ops(n))
 
 if __name__ == '__main__':
     solve()

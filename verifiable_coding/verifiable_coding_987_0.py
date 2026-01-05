@@ -1,9 +1,7 @@
 import sys
 
-import math
-
 def solve():
-    import sys
+    import math
     input = sys.stdin.buffer.read
     data = input().split()
     
@@ -19,27 +17,29 @@ def solve():
         boltSpeed = int(data[idx+3])
         idx += 4
         
-        # Distance for Bolt to finish
+        # Distance for Bolt
         bolt_distance = finish
         
         # Time for Bolt to finish
         time_bolt = bolt_distance / boltSpeed
         
-        # Distance for Tiger to finish
-        tiger_distance = finish + distancetoBolt
+        # Distance for Tiger
+        tiger_distance = distancetoBolt + finish
         
-        # Solve for time when tiger reaches finish
-        # tiger_distance = 0.5 * tigerAcceleration * t^2
+        # Solve for time when tiger reaches finish line
+        # S = ut + 0.5 * a * t^2
+        # tiger_distance = 0 * t + 0.5 * tigerAcceleration * t^2
+        # t^2 * tigerAcceleration / 2 = tiger_distance
         # t^2 = (2 * tiger_distance) / tigerAcceleration
-        # t = sqrt(2 * tiger_distance / tigerAcceleration)
-        t_tiger = math.sqrt(2 * tiger_distance / tigerAcceleration)
+        # t = sqrt( (2 * tiger_distance) / tigerAcceleration )
+        t_tiger = math.sqrt( (2 * tiger_distance) / tigerAcceleration )
         
         if t_tiger > time_bolt:
             results.append("Bolt")
         else:
             results.append("Tiger")
     
-    print('\n'.join(results))
+    print("\n".join(results))
 
 if __name__ == '__main__':
     solve()

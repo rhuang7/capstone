@@ -178,6 +178,32 @@ def verifiable_coding_id(p):
     m = re.search(r'verifiable_coding_(\d+)\.py$', p.name)
     return int(m.group(1)) if m else float("inf")
 
+def creat_json_for_eval(data_dict, out_file_name, conf_dict):
+    local_dict = {}
+    keys = list(data_dict.keys())
+    for i in tqdm(range(len(keys)), desc="Storing the data"):
+        current_key = keys[i]
+        current_data = data_dict[current_key]
+        current_conf = conf_dict[current_key]
+        
+        current_key_list = current_key.split('_')
+        store_key = current_key_list[0] + '_' + current_key_list[1] + '_' + current_key_list[2]
+        if store_key not in local_dict.keys():
+            local_dict[store_key] = [[], []]
+        
+        if current_data[1] >= 0:
+            mark = current_data[0] / current_data[1]
+        else: 
+            mark = 0
+        local_dict[store_key][0].append(mark)
+        local_dict[store_key][1].append(current_conf)
+    
+    out_file_name = 'output/' + out_file_name
+    with open(out_file_name, 'w') as file:
+        json.dump(local_dict, file)
+        
+    return
+
 def key_name_update(the_name):
     the_name_list = the_name.split('_')
     out_name = ''

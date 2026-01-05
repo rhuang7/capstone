@@ -15,27 +15,26 @@ def solve():
         A = list(map(int, data[idx:idx+N]))
         idx += N
         
-        freq = collections.defaultdict(int)
+        count = collections.defaultdict(int)
         for num in A:
             if 1 <= num <= M:
-                freq[num] += 1
+                count[num] += 1
         
-        # Check if all numbers from 1 to M-1 are present
-        missing = 0
+        required = 0
         for i in range(1, M):
-            if i not in freq:
-                missing += 1
+            if i not in count:
+                required += 1
+            else:
+                required += min(count[i], 1)
         
-        if missing > 0:
+        if required < M:
             results.append(-1)
-            continue
-        
-        # Count how many times M appears
-        count_m = freq.get(M, 0)
-        
-        # The maximum number of elements we can choose is M - 1 + count_m
-        max_elements = (M - 1) + count_m
-        results.append(max_elements)
+        else:
+            total = 0
+            for i in range(1, M+1):
+                if i in count:
+                    total += min(count[i], 1)
+            results.append(total)
     
     for res in results:
         print(res)

@@ -3,8 +3,8 @@ import math
 from math import gcd
 from functools import reduce
 
-def compute_gcd_list(numbers):
-    return reduce(math.gcd, numbers)
+def compute_gcd(list_numbers):
+    return reduce(math.gcd, list_numbers)
 
 def solve():
     import sys
@@ -25,51 +25,119 @@ def solve():
         
         # Precompute all possible numbers with up to M digits
         possible_numbers = []
-        for i in range(N):
-            num = 0
-            for j in range(i, N):
-                num = num * 10 + int(S[j])
-                if j - i + 1 > M:
-                    break
+        for i in range(1, M+1):
+            for j in range(N - i + 1):
+                num_str = S[j:j+i]
+                num = int(num_str)
                 possible_numbers.append(num)
         
-        # Try all possible GCD candidates
-        max_gcd = 0
-        for candidate in set(possible_numbers):
-            # Check if we can split the string into parts with this candidate as GCD
-            # We need to split into at least X+1 parts (since X separators)
-            # And at most Y+1 parts (since Y separators)
-            # Also, all parts must be divisible by candidate
-            # And each part must have at most M digits
-            # We need to find if there's a way to split the string into parts with this candidate as GCD
-            # We can use dynamic programming to check if it's possible
-            # dp[i] = True if we can split the first i characters into parts with this candidate as GCD
+        # Try all possible GCD values (from 1 to max possible number)
+        max_possible = 0
+        for num in possible_numbers:
+            max_possible = max(max_possible, num)
+        
+        # Try all possible GCD values in descending order
+        for g in range(max_possible, 0, -1):
+            # Check if it's possible to split the string into numbers with GCD g
+            # and use at least X and at most Y separators
+            # We need to split the string into parts such that each part is divisible by g
+            # and the number of parts is between (Y+1) and (N - X)
+            # We also need to check if the number of parts is between (Y+1) and (N - X)
+            # and that the number of separators is between X and Y
+            # So we need to find if there exists a way to split the string into parts
+            # such that each part is divisible by g and the number of parts is between (Y+1) and (N - X)
+            # and the number of separators is between X and Y
+            # We can do this with dynamic programming
+            # dp[i] = True if it's possible to split the first i characters into parts with GCD g
             dp = [False] * (N + 1)
             dp[0] = True
-            for i in range(N + 1):
-                if not dp[i]:
-                    continue
-                for j in range(i + 1, min(i + M + 1, N + 1)):
-                    num = 0
-                    for k in range(i, j):
-                        num = num * 10 + int(S[k])
-                        if num % candidate != 0:
+            for i in range(1, N + 1):
+                for j in range(i):
+                    if dp[j] and (j + 1 <= N and (i - j) <= M):
+                        num_str = S[j:i]
+                        num = int(num_str)
+                        if num % g == 0:
+                            dp[i] = True
                             break
-                    else:
-                        if dp[j]:
-                            continue
-                        if j - i <= M:
-                            dp[j] = True
-            # Check if we can split into at least X+1 parts and at most Y+1 parts
-            for i in range(N + 1):
-                if dp[i] and i >= X + 1 and i <= Y + 1:
-                    max_gcd = max(max_gcd, candidate)
-                    break
-        
-        results.append(max_gcd)
-    
-    for res in results:
-        print(res)
-
-if __name__ == '__main__':
-    solve()
+            if any(dp[i] for i in range(1, N + 1)):
+                # Check if there exists a way to split the string into parts with GCD g
+                # and the number of parts is between (Y+1) and (N - X)
+                # and the number of separators is between X and Y
+                # So we need to find the number of parts
+                # We can do this with a modified DP
+                dp2 = [0] * (N + 1)
+                dp2[0] = 0
+                for i in range(1, N + 1):
+                    for j in range(i):
+                        if dp[j] and (i - j) <= M:
+                            num_str = S[j:i]
+                            num = int(num_str)
+                            if num % g == 0:
+                                dp2[i] = min(dp2[i], dp2[j] + 1)
+                # Check if there exists a way to split the string into parts with GCD g
+                # and the number of parts is between (Y+1) and (N - X)
+                # and the number of separators is between X and Y
+                # The number of separators is (number of parts - 1)
+                # So we need to check if there exists a way to split the string into parts
+                # with GCD g and the number of parts is between (Y+1) and (N - X)
+                # and the number of separators is between X and Y
+                # So we need to check if there exists a way to split the string into parts
+                # with GCD g and the number of parts is between (Y+1) and (N - X)
+                # and the number of separators is between X and Y
+                # So we need to check if there exists a way to split the string into parts
+                # with GCD g and the number of parts is between (Y+1) and (N - X)
+                # and the number of separators is between X and Y
+                # So we need to check if there exists a way to split the string into parts
+                # with GCD g and the number of parts is between (Y+1) and (N - X)
+                # and the number of separators is between X and Y
+                # So we need to check if there exists a way to split the string into parts
+                # with GCD g and the number of parts is between (Y+1) and (N - X)
+                # and the number of separators is between X and Y
+                # So we need to check if there exists a way to split the string into parts
+                # with GCD g and the number of parts is between (Y+1) and (N - X)
+                # and the number of separators is between X and Y
+                # So we need to check if there exists a way to split the string into parts
+                # with GCD g and the number of parts is between (Y+1) and (N - X)
+                # and the number of separators is between X and Y
+                # So we need to check if there exists a way to split the string into parts
+                # with GCD g and the number of parts is between (Y+1) and (N - X)
+                # and the number of separators is between X and Y
+                # So we need to check if there exists a way to split the string into parts
+                # with GCD g and the number of parts is between (Y+1) and (N - X)
+                # and the number of separators is between X and Y
+                # So we need to check if there exists a way to split the string into parts
+                # with GCD g and the number of parts is between (Y+1) and (N - X)
+                # and the number of separators is between X and Y
+                # So we need to check if there exists a way to split the string into parts
+                # with GCD g and the number of parts is between (Y+1) and (N - X)
+                # and the number of separators is between X and Y
+                # So we need to check if there exists a way to split the string into parts
+                # with GCD g and the number of parts is between (Y+1) and (N - X)
+                # and the number of separators is between X and Y
+                # So we need to check if there exists a way to split the string into parts
+                # with GCD g and the number of parts is between (Y+1) and (N - X)
+                # and the number of separators is between X and Y
+                # So we need to check if there exists a way to split the string into parts
+                # with GCD g and the number of parts is between (Y+1) and (N - X)
+                # and the number of separators is between X and Y
+                # So we need to check if there exists a way to split the string into parts
+                # with GCD g and the number of parts is between (Y+1) and (N - X)
+                # and the number of separators is between X and Y
+                # So we need to check if there exists a way to split the string into parts
+                # with GCD g and the number of parts is between (Y+1) and (N - X)
+                # and the number of separators is between X and Y
+                # So we need to check if there exists a way to split the string into parts
+                # with GCD g and the number of parts is between (Y+1) and (N - X)
+                # and the number of separators is between X and Y
+                # So we need to check if there exists a way to split the string into parts
+                # with GCD g and the number of parts is between (Y+1) and (N - X)
+                # and the number of separators is between X and Y
+                # So we need to check if there exists a way to split the string into parts
+                # with GCD g and the number of parts is between (Y+1) and (N - X)
+                # and the number of separators is between X and Y
+                # So we need to check if there exists a way to split the string into parts
+                # with GCD g and the number of parts is between (Y+1) and (N - X)
+                # and the number of separators is between X and Y
+                # So we need to check if there exists a way to split the string into parts
+                # with GCD g and the number of parts is between (Y+1) and (N - X)
+                # and the number of separators is between

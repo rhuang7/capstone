@@ -15,36 +15,38 @@ def solve():
         M = int(data[idx+1])
         idx += 2
         matrix = []
-        for i in range(N):
+        for _ in range(N):
             row = data[idx]
             matrix.append([int(c) for c in row])
             idx += 1
         
+        # Precompute for rows
         row_ones = [0] * N
-        col_ones = [0] * M
-        
         for i in range(N):
             row_ones[i] = sum(matrix[i])
         
+        # Precompute for columns
+        col_ones = [0] * M
         for j in range(M):
             col_ones[j] = sum(matrix[i][j] for i in range(N))
         
-        res = []
+        # For each cell, compute min moves
+        output = []
         for i in range(N):
+            line = []
             for j in range(M):
                 if matrix[i][j] == 1:
-                    res.append(0)
+                    line.append(0)
                 else:
-                    row_has_one = row_ones[i] > 0
-                    col_has_one = col_ones[j] > 0
-                    if not row_has_one and not col_has_one:
-                        res.append(-1)
+                    # Check if there's at least one 1 in the row or column
+                    if row_ones[i] == 0 and col_ones[j] == 0:
+                        line.append(-1)
                     else:
-                        if row_has_one or col_has_one:
-                            res.append(1)
-                        else:
-                            res.append(-1)
+                        # Minimum moves: either 1 row operation or 1 column operation
+                        line.append(1)
+            output.append(line)
         
-        results.append(' '.join(map(str, res)))
+        # Convert to string and add to results
+        results.append('\n'.join(' '.join(map(str, row)) for row in output))
     
     print('\n'.join(results))

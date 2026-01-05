@@ -9,24 +9,24 @@ def solve():
     health = list(map(int, data[1:n+1]))
     P = int(data[n+1])
     
-    # Sort crystals by health in ascending order
+    # Sort the crystals by health in ascending order
     health.sort()
     
     points = 0
     for h in health:
-        # Try to destroy the crystal using the first action
         if P >= h:
-            points += 1
+            # Use the first action: destroy the crystal and gain 1 point
             P -= h
+            points += 1
         else:
-            # Try to destroy the crystal using the second action
+            # Use the second action: refuel the laser using 1 point
+            # This is only possible if we have at least 1 point
             if points > 0:
-                points -= 1
                 P += h
+                points -= 1
             else:
-                # Cannot destroy this crystal with either action
-                continue
-    
+                # No points to refuel, cannot perform this action
+                pass
     print(points)
 
 if __name__ == '__main__':

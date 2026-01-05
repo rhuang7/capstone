@@ -1,5 +1,4 @@
 import sys
-import math
 
 def solve():
     import sys
@@ -18,60 +17,30 @@ def solve():
         a = list(map(int, data[idx:idx + n]))
         idx += n
         
-        # Precompute for each position the minimum number of elements to remove from the front
-        # to make the remaining array good
-        # We will use a greedy approach to check if a subarray is good
-        
-        # For each possible prefix length k (0 <= k <= n), check if the subarray a[k:] is good
-        # We need to find the smallest k such that a[k:] is good
-        
-        # To check if a subarray is good, we can simulate the process of building a non-decreasing array
-        # by taking elements from either end of the subarray
-        
-        # We can use a two-pointer approach to check if the subarray is good
-        # We will try to build a non-decreasing array by taking elements from either end
-        
-        # For each possible k, check if a[k:] is good
-        # We will use a binary search approach to find the minimal k
-        
-        # Precompute for each position the minimum k such that a[k:] is good
-        # We can use a sliding window approach
-        
-        # We will use a greedy approach to find the minimal k
-        # For each possible k, check if a[k:] is good
-        
-        # To check if a subarray is good, we can simulate the process of building a non-decreasing array
-        # by taking elements from either end of the subarray
-        
-        # Let's define a helper function to check if a subarray is good
-        def is_good(sub):
-            left = 0
-            right = len(sub) - 1
+        # Check if the array is already good
+        def is_good(arr):
+            m = len(arr)
+            if m == 0:
+                return True
             c = []
-            while left <= right:
-                if not c or sub[left] <= c[-1]:
-                    c.append(sub[left])
-                    left += 1
-                elif not c or sub[right] <= c[-1]:
-                    c.append(sub[right])
-                    right -= 1
+            b = arr.copy()
+            for _ in range(m):
+                if not b:
+                    return True
+                if b[0] <= b[-1]:
+                    c.append(b.pop(0))
                 else:
-                    return False
-            return True
+                    c.append(b.pop())
+            return c == sorted(c)
         
-        # Now, for each possible k, check if a[k:] is good
-        # We can use binary search to find the minimal k
-        # We will try to find the minimal k such that a[k:] is good
-        
-        # Initialize the answer as n (meaning we need to remove all elements)
-        ans = n
-        
-        # Try all possible k from 0 to n
+        # Check for the minimal prefix to remove
+        min_len = n
         for k in range(n + 1):
             if is_good(a[k:]):
-                ans = min(ans, k)
+                min_len = k
+                break
         
-        results.append(str(ans))
+        results.append(str(min_len))
     
     print('\n'.join(results))
 

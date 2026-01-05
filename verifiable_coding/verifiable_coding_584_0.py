@@ -11,34 +11,27 @@ def solve():
             print(0)
             continue
         i = 0
-        square_size = 0
-        circle_diameter = 0
-        valid = True
+        current = 0
         while i < len(s):
             if s[i] == '1':
-                if square_size == 0:
-                    square_size = 1
+                if current == 0:
+                    current = 1
                 else:
-                    if square_size % 2 == 0:
-                        valid = False
-                        break
-                    square_size = square_size // 2
+                    if current % 2 == 1:
+                        current += 1
+                    else:
+                        current = 1
+                i += 1
             else:
-                if circle_diameter == 0:
-                    circle_diameter = 1
+                if current == 0:
+                    current = 1
                 else:
-                    if circle_diameter % 2 == 0:
-                        valid = False
-                        break
-                    circle_diameter = circle_diameter // 2
-            i += 1
-        if not valid:
-            print(0)
-        else:
-            if square_size > 0 and circle_diameter > 0:
-                print(circle_diameter // 2)
-            else:
-                print(0)
+                    if current % 2 == 1:
+                        current += 1
+                    else:
+                        current = 1
+                i += 1
+        print(current // 2)
 
 if __name__ == '__main__':
     solve()

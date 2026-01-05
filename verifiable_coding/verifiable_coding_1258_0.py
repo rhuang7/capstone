@@ -2,89 +2,28 @@ import sys
 
 def solve():
     import sys
-    input = sys.stdin.buffer.read
-    data = input().split()
-    T = int(data[0])
-    cases = data[1:T+1]
+    input = sys.stdin.buffer.read().split()
+    T = int(input[0])
+    cases = input[1:T+1]
     
     for N in cases:
-        if N == '0':
+        if int(N) % 9 == 0:
             print(0)
             continue
-        s = list(N)
-        total = sum(int(c) for c in s)
-        if total % 9 == 0:
+        # Calculate the sum of digits
+        s = sum(int(c) for c in N)
+        # The required sum to make it divisible by 9 is s % 9
+        # We can either subtract or add to make it divisible by 9
+        # The minimum steps is the minimum between (s % 9) and (9 - (s % 9))
+        # But since we can only change one digit at a time, we need to find the minimum steps to change one digit to make the sum divisible by 9
+        # So the minimum steps is the minimum between (s % 9) and (9 - (s % 9))
+        # But since we can only change one digit, the minimum steps is the minimum between (s % 9) and (9 - (s % 9))
+        # However, if the sum is already divisible by 9, we do nothing
+        remainder = s % 9
+        if remainder == 0:
             print(0)
-            continue
-        # Find the minimal changes needed
-        # We can change any digit to make the sum divisible by 9
-        # The minimal changes are to change one digit by (9 - (total % 9)) or (total % 9)
-        # But we need to find the minimal steps
-        # We can try changing each digit to make the sum divisible by 9
-        # The minimal steps would be the minimal between (9 - (total % 9)) and (total % 9)
-        # But we need to check if it's possible to change a digit to achieve that
-        # For example, if total % 9 is 2, we can change a digit by 2 or 7 (if possible)
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But we need to check if it's possible to change a digit to achieve that
-        # For example, if total % 9 is 2, we can change a digit by 2 (if the digit is not 9)
-        # Or change a digit by 7 (if the digit is not 0)
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by 2, so we need to find another digit
-        # So we need to check if there is a digit that can be changed by (total % 9) or (9 - (total % 9))
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need to find another digit
-        # So we need to check if there is a digit that can be changed by (total % 9) or (9 - (total % 9))
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need to find another digit
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need to find another digit
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need to find another digit
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need to find another digit
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need to find another digit
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need to find another digit
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need to find another digit
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need to find another digit
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need to find another digit
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need to find another digit
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need to find another digit
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need to find another digit
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need to find another digit
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need to find another digit
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need to find another digit
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need to find another digit
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need to find another digit
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need to find another digit
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need to find another digit
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need to find another digit
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need to find another digit
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need to find another digit
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need to find another digit
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need to find another digit
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need to find another digit
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need to find another digit
-        # So the minimal steps is min( (total % 9), (9 - (total % 9)) )
-        # But if the digit is 9, we can't change it by (total % 9), so we need
+        else:
+            print(min(remainder, 9 - remainder))
+            
+if __name__ == '__main__':
+    solve()

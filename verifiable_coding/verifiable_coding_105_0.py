@@ -21,15 +21,20 @@ def solve():
         
         # Calculate the maximum number of operations
         total = 0
-        current_sum = 0
-        for i in range(n):
-            # We can add a[i] to all other piles (n-1 times)
-            # But we need to ensure that after adding, the total doesn't exceed k
-            # So the maximum number of times we can add a[i] is (k - current_sum) // a[i]
-            # But we can't add more than (n-1) times (since there are n-1 other piles)
-            max_ops = min((k - current_sum) // a[i], n - 1)
-            total += max_ops
-            current_sum += max_ops * a[i]
+        for i in range(n-1, -1, -1):
+            # We can add a[i] to all previous piles
+            # But we need to make sure that the total doesn't exceed k
+            # So we calculate how many times we can add a[i] to the previous piles
+            # before the total exceeds k
+            # The previous piles have total sum of (a[0] + a[1] + ... + a[i-1])
+            # So the number of operations is (k - sum_prev) // a[i]
+            # But we can only do this once per pile
+            # So we take the minimum of (k - sum_prev) // a[i] and (i)
+            # Because we can only add a[i] to i piles (all before it)
+            sum_prev = sum(a[:i])
+            ops = (k - sum_prev) // a[i]
+            ops = min(ops, i)
+            total += ops
         
         results.append(str(total))
     

@@ -3,12 +3,7 @@ import sys
 def solve():
     import sys
     input = sys.stdin.buffer.read
-    data = input().split()
-    D1 = int(data[0])
-    V1 = int(data[1])
-    D2 = int(data[2])
-    V2 = int(data[3])
-    P = int(data[4])
+    D1, V1, D2, V2, P = map(int, input().split())
     
     total = 0
     days = 0
@@ -20,7 +15,8 @@ def solve():
             total += V1
         elif days >= D2:
             total += V2
-        # else: no production
+        else:
+            pass
     print(days)
 
 if __name__ == '__main__':

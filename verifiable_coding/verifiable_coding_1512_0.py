@@ -10,14 +10,16 @@ def solve():
         N = int(data[index])
         M = int(data[index+1])
         index += 2
-        # Calculate the Grundy numbers for the game
-        # The game is a combination of two independent games: moving up and moving right
-        # The Grundy number for moving up is (N - 1) % 4
-        # The Grundy number for moving right is (M - 1) % 2
-        # The total Grundy number is the XOR of the two
-        grundy_up = (N - 1) % 4
-        grundy_right = (M - 1) % 2
-        if grundy_up ^ grundy_right != 0:
+        # Calculate Grundy numbers for rows and columns
+        # For rows: each move reduces the row by 1, 2, or 3
+        # For columns: each move reduces the column by 1 or 2
+        # The game is a combination of two independent games
+        # The Grundy number for a row is (N - 1) % 4
+        # The Grundy number for a column is (M - 1) % 3
+        # The XOR of these two determines the winner
+        row_grundy = (N - 1) % 4
+        col_grundy = (M - 1) % 3
+        if (row_grundy ^ col_grundy) != 0:
             print("Tuzik")
         else:
             print("Vanya")

@@ -8,11 +8,13 @@ def solve():
     t = int(data[idx])
     idx += 1
     results = []
+    
     for _ in range(t):
         n, x = int(data[idx]), int(data[idx+1])
         idx += 2
         a = list(map(int, data[idx:idx+n]))
         idx += n
+        
         a.sort()
         count = 0
         i = n - 1
@@ -22,8 +24,10 @@ def solve():
                 i -= 1
             else:
                 i -= 1
-        results.append(str(count))
-    print('\n'.join(results))
+        results.append(count)
+    
+    for res in results:
+        print(res)
 
 if __name__ == '__main__':
     solve()

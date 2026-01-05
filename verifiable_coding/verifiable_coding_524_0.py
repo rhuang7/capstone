@@ -9,126 +9,47 @@ def solve():
     Q = int(data[1])
     queries = [(int(data[2 + 2*i]), int(data[2 + 2*i + 1])) for i in range(Q)]
     
-    # Preprocess: count frequency of each character
-    freq = [0] * 26
-    for c in S:
-        idx = ord(c) - ord('a')
-        freq[idx] += 1
-    
-    # Preprocess: for each position, store the character's value
-    positions = [0] * len(S)
-    for i in range(len(S)):
-        positions[i] = ord(S[i]) - ord('a') + 1  # 1-based value
-    
-    # Preprocess: for each value, store the positions where it occurs
     from collections import defaultdict
-    pos_map = defaultdict(list)
-    for i, val in enumerate(positions):
-        pos_map[val].append(i)
-    
-    # Preprocess: for each value, check if it's even and occurs only once
-    unique_even = []
-    for val in range(1, 27):
-        if val % 2 == 0 and freq[val - 1] == 1:
-            unique_even.append(val)
-    
+
+    # Preprocess: count frequency of each character in S
+    freq = defaultdict(int)
+    for c in S:
+        freq[c] += 1
+
+    # Preprocess: for each position, store the character and its value
+    char_values = [ord(c) - ord('a') + 1 for c in S]
+
     # Preprocess: for each value, store the positions where it occurs
-    # We will use binary search to count how many of these values are in [X, Y]
-    # Create a sorted list of unique even values
-    unique_even_sorted = sorted(unique_even)
-    
-    # Preprocess: for each value in unique_even_sorted, store its positions
-    # We will use binary search to count how many of these values are in [X, Y]
-    # For each query, we will check how many of the unique even values fall into [X, Y]
-    # And for each such value, count how many times it appears in the range [X, Y]
-    # But since the value is unique, we just need to check if it's in [X, Y]
-    # And if so, count how many times it appears in the range [X, Y]
-    
-    # Preprocess: for each value in unique_even_sorted, store its positions
-    # We will use binary search to count how many of these values are in [X, Y]
-    # And for each such value, count how many times it appears in the range [X, Y]
-    # But since the value is unique, we just need to check if it's in [X, Y]
-    # And if so, count how many times it appears in the range [X, Y]
-    
-    # Preprocess: for each value in unique_even_sorted, store its positions
-    # We will use binary search to count how many of these values are in [X, Y]
-    # And for each such value, count how many times it appears in the range [X, Y]
-    # But since the value is unique, we just need to check if it's in [X, Y]
-    # And if so, count how many times it appears in the range [X, Y]
-    
-    # Preprocess: for each value in unique_even_sorted, store its positions
-    # We will use binary search to count how many of these values are in [X, Y]
-    # And for each such value, count how many times it appears in the range [X, Y]
-    # But since the value is unique, we just need to check if it's in [X, Y]
-    # And if so, count how many times it appears in the range [X, Y]
-    
-    # Preprocess: for each value in unique_even_sorted, store its positions
-    # We will use binary search to count how many of these values are in [X, Y]
-    # And for each such value, count how many times it appears in the range [X, Y]
-    # But since the value is unique, we just need to check if it's in [X, Y]
-    # And if so, count how many times it appears in the range [X, Y]
-    
-    # Preprocess: for each value in unique_even_sorted, store its positions
-    # We will use binary search to count how many of these values are in [X, Y]
-    # And for each such value, count how many times it appears in the range [X, Y]
-    # But since the value is unique, we just need to check if it's in [X, Y]
-    # And if so, count how many times it appears in the range [X, Y]
-    
-    # Preprocess: for each value in unique_even_sorted, store its positions
-    # We will use binary search to count how many of these values are in [X, Y]
-    # And for each such value, count how many times it appears in the range [X, Y]
-    # But since the value is unique, we just need to check if it's in [X, Y]
-    # And if so, count how many times it appears in the range [X, Y]
-    
-    # Preprocess: for each value in unique_even_sorted, store its positions
-    # We will use binary search to count how many of these values are in [X, Y]
-    # And for each such value, count how many times it appears in the range [X, Y]
-    # But since the value is unique, we just need to check if it's in [X, Y]
-    # And if so, count how many times it appears in the range [X, Y]
-    
-    # Preprocess: for each value in unique_even_sorted, store its positions
-    # We will use binary search to count how many of these values are in [X, Y]
-    # And for each such value, count how many times it appears in the range [X, Y]
-    # But since the value is unique, we just need to check if it's in [X, Y]
-    # And if so, count how many times it appears in the range [X, Y]
-    
-    # Preprocess: for each value in unique_even_sorted, store its positions
-    # We will use binary search to count how many of these values are in [X, Y]
-    # And for each such value, count how many times it appears in the range [X, Y]
-    # But since the value is unique, we just need to check if it's in [X, Y]
-    # And if so, count how many times it appears in the range [X, Y]
-    
-    # Preprocess: for each value in unique_even_sorted, store its positions
-    # We will use binary search to count how many of these values are in [X, Y]
-    # And for each such value, count how many times it appears in the range [X, Y]
-    # But since the value is unique, we just need to check if it's in [X, Y]
-    # And if so, count how many times it appears in the range [X, Y]
-    
-    # Preprocess: for each value in unique_even_sorted, store its positions
-    # We will use binary search to count how many of these values are in [X, Y]
-    # And for each such value, count how many times it appears in the range [X, Y]
-    # But since the value is unique, we just need to check if it's in [X, Y]
-    # And if so, count how many times it appears in the range [X, Y]
-    
-    # Preprocess: for each value in unique_even_sorted, store its positions
-    # We will use binary search to count how many of these values are in [X, Y]
-    # And for each such value, count how many times it appears in the range [X, Y]
-    # But since the value is unique, we just need to check if it's in [X, Y]
-    # And if so, count how many times it appears in the range [X, Y]
-    
-    # Preprocess: for each value in unique_even_sorted, store its positions
-    # We will use binary search to count how many of these values are in [X, Y]
-    # And for each such value, count how many times it appears in the range [X, Y]
-    # But since the value is unique, we just need to check if it's in [X, Y]
-    # And if so, count how many times it appears in the range [X, Y]
-    
-    # Preprocess: for each value in unique_even_sorted, store its positions
-    # We will use binary search to count how many of these values are in [X, Y]
-    # And for each such value, count how many times it appears in the range [X, Y]
-    # But since the value is unique, we just need to check if it's in [X, Y]
-    # And if so, count how many times it appears in the range [X, Y]
-    
-    # Preprocess: for each value in unique_even_sorted, store its positions
-    # We will use binary search to count how many of these values are in [X, Y]
-    # And for each such value, count how many times it appears in the range [X, Y]
-    # But since the value is unique,
+    pos_map = defaultdict(list)
+    for i, val in enumerate(char_values):
+        pos_map[val].append(i + 1)  # 1-based index
+
+    # Preprocess: for each value, check if it's even and unique
+    unique_even_values = []
+    for val in freq:
+        if val % 2 == 0:
+            unique_even_values.append(val)
+
+    # For each query, count the number of positions in [X, Y] that have a value in unique_even_values
+    for X, Y in queries:
+        count = 0
+        for val in unique_even_values:
+            if val in pos_map:
+                # Binary search for the first position >= X and <= Y
+                positions = pos_map[val]
+                left = 0
+                right = len(positions) - 1
+                res = -1
+                while left <= right:
+                    mid = (left + right) // 2
+                    if positions[mid] >= X:
+                        res = mid
+                        right = mid - 1
+                    else:
+                        left = mid + 1
+                if res != -1 and positions[res] <= Y:
+                    count += 1
+        print(count)
+
+if __name__ == '__main__':
+    solve()

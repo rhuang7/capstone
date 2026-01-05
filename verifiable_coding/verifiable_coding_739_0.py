@@ -10,56 +10,43 @@ def solve():
         idx += len(path)
         distance = 0
         direction = (0, 0)  # (x, y)
-        current_dir = 'N'  # initial direction is North
+        current_dir = (0, 1)  # Start facing North (y increases upwards)
         for part in path:
             if part.isdigit():
                 distance += int(part)
             else:
                 # Turn left or right
-                if current_dir == 'N':
-                    if part == 'L':
-                        current_dir = 'W'
-                    else:
-                        current_dir = 'E'
-                elif current_dir == 'E':
-                    if part == 'L':
-                        current_dir = 'N'
-                    else:
-                        current_dir = 'S'
-                elif current_dir == 'S':
-                    if part == 'L':
-                        current_dir = 'E'
-                    else:
-                        current_dir = 'W'
-                elif current_dir == 'W':
-                    if part == 'L':
-                        current_dir = 'S'
-                    else:
-                        current_dir = 'N'
-        # Calculate final direction
+                if part == 'L':
+                    current_dir = (-current_dir[1], current_dir[0])
+                else:  # 'R'
+                    current_dir = (current_dir[1], -current_dir[0])
+                # Move one unit in the new direction
+                direction = (direction[0] + current_dir[0], direction[1] + current_dir[1])
+        # Determine direction
         if direction == (0, 0):
             print(f"{distance}.0")
         else:
-            # Determine final direction based on current_dir and displacement
-            if direction[0] > 0 and direction[1] > 0:
-                dir = 'NE'
-            elif direction[0] > 0 and direction[1] == 0:
-                dir = 'E'
-            elif direction[0] > 0 and direction[1] < 0:
-                dir = 'SE'
-            elif direction[0] == 0 and direction[1] > 0:
-                dir = 'N'
-            elif direction[0] == 0 and direction[1] < 0:
-                dir = 'S'
-            elif direction[0] < 0 and direction[1] > 0:
-                dir = 'NW'
-            elif direction[0] < 0 and direction[1] == 0:
-                dir = 'W'
-            elif direction[0] < 0 and direction[1] < 0:
-                dir = 'SW'
+            # Determine the direction based on the final position
+            dx, dy = direction
+            if dx > 0:
+                if dy > 0:
+                    dir_str = "NE"
+                elif dy < 0:
+                    dir_str = "SE"
+                else:
+                    dir_str = "E"
+            elif dx < 0:
+                if dy > 0:
+                    dir_str = "NW"
+                elif dy < 0:
+                    dir_str = "SW"
+                else:
+                    dir_str = "W"
+            elif dy > 0:
+                dir_str = "N"
             else:
-                dir = 'N'
-            print(f"{distance}.0{dir}")
+                dir_str = "S"
+            print(f"{distance}.0{dir_str}")
 
 if __name__ == '__main__':
     solve()

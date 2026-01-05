@@ -20,15 +20,16 @@ def solve():
         
         # Compute the difference between Y and X
         diff = Y ^ X
-        # Find the most significant bit where Y and X differ
-        msb = diff.bit_length() - 1
+        # Find the most significant bit (MSB) where Y and X differ
+        msb = 0
+        while diff >> msb == 0:
+            msb += 1
         
-        # Count the number of Z where (X ^ Z) < (Y ^ Z)
-        # This is equivalent to finding Z where the most significant differing bit between X and Y is set in Z
-        # So we count the number of Z where the msb is set in Z
+        # For Z in [0, N], count how many have (X ^ Z) < (Y ^ Z)
+        # This is equivalent to counting how many Z have the MSB where X and Y differ set to 0 in (X ^ Z)
         count = 0
-        for z in range(N + 1):
-            if (z >> msb) & 1:
+        for z in range(0, N + 1):
+            if (X ^ z) < (Y ^ z):
                 count += 1
         results.append(count)
     

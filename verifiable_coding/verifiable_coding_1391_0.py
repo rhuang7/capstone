@@ -8,6 +8,7 @@ def solve():
     idx = 0
     T = int(data[idx])
     idx += 1
+    
     results = []
     
     for _ in range(T):
@@ -24,21 +25,21 @@ def solve():
             customers.append((si, fi, pi))
         
         # Group customers by their preferred compartment
-        comparts = {}
+        from collections import defaultdict
+        comp_rooms = defaultdict(list)
         for si, fi, pi in customers:
-            if pi not in comparts:
-                comparts[pi] = []
-            comparts[pi].append((si, fi))
+            comp_rooms[pi].append((si, fi))
         
         # For each compartment, find the maximum number of non-overlapping intervals
-        # Using greedy algorithm: sort by start time, select earliest ending first
+        # This is the classic interval scheduling problem
+        # Sort by start time and greedily select non-overlapping intervals
         max_customers = 0
-        for comp in comparts.values():
+        for room in comp_rooms.values():
             # Sort by start time
-            comp.sort()
+            room.sort()
             count = 0
             last_end = -1
-            for si, fi in comp:
+            for si, fi in room:
                 if si >= last_end:
                     count += 1
                     last_end = fi

@@ -15,22 +15,14 @@ def solve():
         # Sum of internal angles of a polygon
         total = (N - 2) * 180
         
-        # The angles are in arithmetic progression
-        # First term a = A, common difference d
-        # Sum of arithmetic progression: S = N/2 * (2a + (N-1)d)
-        # So: N/2 * (2A + (N-1)d) = total
-        # Solve for d
-        d = (2 * total / N - 2 * A) / (N - 1)
+        # Common difference of the arithmetic progression
+        d = (total - N * A) // N
         
-        # K-th term of AP: a + (K-1)d
-        X = int(A + (K - 1) * d)
+        # K-th angle in AP
+        X = A + (K - 1) * d
         Y = 1
         
-        # Simplify fraction
-        gcd_val = math.gcd(X, Y)
-        X //= gcd_val
-        Y //= gcd_val
-        
+        # Output as X/Y with gcd(X, Y) = 1
         print(f"{X} {Y}")
 
 if __name__ == '__main__':

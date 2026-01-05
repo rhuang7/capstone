@@ -17,21 +17,21 @@ def solve():
     # Precompute all subarrays and their minimums
     min_subarrays = []
     for i in range(N):
-        min_val = A[i]
-        min_subarrays.append([min_val])
+        current_min = A[i]
+        min_subarrays.append(current_min)
         for j in range(i+1, N):
-            min_val = min(min_val, A[j])
-            min_subarrays[-1].append(min_val)
+            current_min = min(current_min, A[j])
+            min_subarrays.append(current_min)
     
-    # Count occurrences of each minimum value
+    # Prepare a frequency dictionary
     from collections import defaultdict
-    count = defaultdict(int)
-    for sub in min_subarrays:
-        count[sub[-1]] += 1
+    freq = defaultdict(int)
+    for m in min_subarrays:
+        freq[m] += 1
     
     # Process queries
     for K in queries:
-        print(count.get(K, 0))
+        print(freq.get(K, 0))
 
 if __name__ == '__main__':
     solve()

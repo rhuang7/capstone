@@ -9,7 +9,7 @@ def solve():
             if j % 2 == 0:
                 print(''.join(str(x) for x in range(j, -1, -1)))
             else:
-                print(''.join(str(x) for x in range(j, -1, -1)))
-
+                print(''.join(str(x) for x in range(j, K, 1)))
+                
 if __name__ == '__main__':
     solve()

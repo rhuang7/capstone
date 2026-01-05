@@ -9,7 +9,6 @@ def solve():
     T = int(data[idx])
     idx += 1
     results = []
-    
     for _ in range(T):
         N = int(data[idx])
         idx += 1
@@ -21,72 +20,25 @@ def solve():
             X.append(x)
             H.append(h)
             idx += 2
-        
-        # Sort the points by X coordinate (already sorted in input)
-        # We need to assign heights to points such that the area is maximized
-        # The area is the integral under the polyline, which can be computed using the trapezoidal rule
-        # To maximize the area, we need to assign the largest heights to the points with the largest X differences
-        
-        # Sort the points by X coordinate (already sorted)
-        # We will assign heights in a way that the largest heights are assigned to the points with the largest X differences
-        
-        # Sort the points by X coordinate (already sorted)
-        # We will assign heights in a way that the largest heights are assigned to the points with the largest X differences
-        
-        # To maximize the area, we need to assign the largest heights to the points with the largest X differences
-        # So we sort the heights in descending order and assign them to the points in the order of increasing X differences
-        
-        # Sort the points by X coordinate (already sorted)
-        # We will assign the heights in a way that the largest heights are assigned to the points with the largest X differences
-        
-        # To maximize the area, we need to assign the largest heights to the points with the largest X differences
-        # So we sort the heights in descending order and assign them to the points in the order of increasing X differences
-        
-        # Sort the points by X coordinate (already sorted)
-        # We will assign the heights in a way that the largest heights are assigned to the points with the largest X differences
-        
-        # Sort the heights in descending order
-        H_sorted = sorted(H, reverse=True)
-        
-        # Assign the largest heights to the points with the largest X differences
-        # We can do this by assigning the largest height to the first point, the second largest to the second point, etc.
-        
-        # Create a list of tuples (X_i, H_i)
-        points = list(zip(X, H))
-        
-        # Sort the points by X coordinate (already sorted)
-        # We will assign the heights in a way that the largest heights are assigned to the points with the largest X differences
-        
-        # Sort the points by X coordinate (already sorted)
-        # We will assign the heights in a way that the largest heights are assigned to the points with the largest X differences
-        
-        # To maximize the area, we need to assign the largest heights to the points with the largest X differences
-        # So we sort the heights in descending order and assign them to the points in the order of increasing X differences
-        
-        # Sort the points by X coordinate (already sorted)
-        # We will assign the heights in a way that the largest heights are assigned to the points with the largest X differences
-        
-        # Assign the sorted heights to the points
-        for i in range(N):
-            points[i] = (points[i][0], H_sorted[i])
-        
-        # Compute the area
+        # Sort the points by X
+        X.sort()
+        # We need to assign H values to X in a way that maximizes the area
+        # The optimal way is to use a greedy approach: for each point, assign the highest possible H that hasn't been used yet
+        # But since the points are sorted, we can use a stack-based approach
+        # We will use a monotonic stack to find the maximum area
+        # The area is the sum of the areas of the trapezoids between consecutive points
+        # The area between X[i] and X[i+1] is (X[i+1] - X[i]) * (H[i] + H[i+1]) / 2
+        # But since we can assign H values to points, we need to choose the best H values
+        # The optimal assignment is to sort H in descending order and assign them to X in sorted order
+        # So we sort H in descending order and assign them to X in sorted order
+        H.sort(reverse=True)
+        # Now compute the area
         area = 0
-        prev_x = points[0][0]
-        prev_h = points[0][1]
-        for i in range(1, N):
-            curr_x = points[i][0]
-            curr_h = points[i][1]
-            area += (curr_x - prev_x) * (prev_h + curr_h) // 2
-            prev_x = curr_x
-            prev_h = curr_h
-        
-        # Add the area of the triangle formed by the last point, the ground, and the first point
-        area += (points[-1][0] - points[0][0]) * prev_h // 2
-        
-        # Compute 2 * S
+        for i in range(N-1):
+            area += (X[i+1] - X[i]) * (H[i] + H[i+1]) // 2
+        # Add the area of the base
+        area += X[-1] * H[-1]
         results.append(2 * area)
-    
     sys.stdout.write('\n'.join(map(str, results)) + '\n')
 
 if __name__ == '__main__':

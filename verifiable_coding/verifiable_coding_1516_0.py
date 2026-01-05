@@ -20,15 +20,14 @@ def solve():
             if K == 1:
                 results.append(0)
             else:
-                # Unreachable values are 1, 2, ..., K-1
-                # But since K >= 2, the unreachable values are 1 to K-1
-                # But since K >= 2, the first value is 1, and the last is K-1
-                # So the count is K-1
+                # The smallest reachable value is K, and all values >= K can be formed
+                # So the number of unreachable values is (K-1)
                 results.append((K-1) % MOD)
         else:
-            # For N >= 3, the smallest value is K, and all values >= K can be formed
-            # So there are no unreachable values
-            results.append(0)
+            # For N >= 3, the smallest reachable value is K
+            # All values >= K can be formed
+            # So the number of unreachable values is (K-1)
+            results.append((K-1) % MOD)
     
     sys.stdout.write('\n'.join(map(str, results)) + '\n')
 

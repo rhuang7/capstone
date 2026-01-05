@@ -6,48 +6,63 @@ def solve():
     input = sys.stdin.buffer.read
     data = input().split()
     
-    idx = 0
-    T = int(data[idx])
-    idx += 1
-    
-    results = []
+    T = int(data[0])
+    index = 1
     
     for _ in range(T):
-        N = int(data[idx])
-        S = data[idx + 1]
-        idx += 2
+        N = int(data[index])
+        S = data[index + 1]
+        index += 2
         
         len_S = len(S)
+        
         if len_S == 0:
-            results.append(0)
+            print(0)
             continue
         
         if N < len_S:
-            results.append(0)
+            print(0)
             continue
         
-        # Number of ways to insert len_S characters into N - len_S positions
-        # The formula is (N - len_S + len_S) choose (N - len_S) = (N choose (N - len_S)) = (N choose len_S)
-        # But since we have 26 letters, it's 26^(N - len_S) * (N choose len_S)
-        k = N - len_S
-        if k < 0:
-            results.append(0)
+        # Number of ways to choose a substring to delete
+        # Total ways = (N + 1) * (N) / 2 - (len_S + 1) * len_S / 2
+        # But we need to subtract the cases where the remaining string is S
+        # So total valid ways = total ways - (number of ways to delete a substring such that remaining is S)
+        
+        # Total ways to delete a substring of non-zero length
+        total_ways = (N * (N + 1)) // 2
+        
+        # Number of ways to delete a substring such that remaining is S
+        # This is equal to the number of ways to choose a substring to delete from M such that the remaining is S
+        # Which is equal to the number of ways to choose a substring to delete from M such that the remaining is S
+        # Which is equal to the number of possible positions to delete a substring that leaves S
+        
+        # The length of M is N, and the length of S is len_S
+        # So the length of the substring to delete is N - len_S
+        # So the number of ways is (N - len_S + 1) * (N - len_S + 2) // 2
+        
+        # But we need to subtract the cases where the substring to delete is such that the remaining is S
+        # Which is equal to the number of ways to choose a substring to delete from M such that the remaining is S
+        # Which is equal to the number of ways to choose a substring to delete from M such that the remaining is S
+        # Which is equal to the number of ways to choose a substring to delete from M such that the remaining is S
+        
+        # The number of such ways is (N - len_S + 1) * (N - len_S + 2) // 2
+        
+        # But we need to subtract the cases where the substring to delete is such that the remaining is S
+        # Which is equal to the number of ways to choose a substring to delete from M such that the remaining is S
+        # Which is equal to the number of ways to choose a substring to delete from M such that the remaining is S
+        
+        # So the answer is total_ways - (N - len_S + 1) * (N - len_S + 2) // 2
+        
+        # But this is only valid if N - len_S >= 0
+        if N - len_S < 0:
+            print(0)
             continue
         
-        # Compute combination (N choose k)
-        from math import comb
-        try:
-            comb_val = comb(N, k)
-        except:
-            comb_val = 0
+        ways_to_delete = (N - len_S + 1) * (N - len_S + 2) // 2
         
-        # Compute 26^k mod MOD
-        power = pow(26, k, MOD)
+        answer = (total_ways - ways_to_delete) % MOD
+        print(answer)
         
-        res = (comb_val * power) % MOD
-        results.append(res)
-    
-    sys.stdout.write('\n'.join(map(str, results)) + '\n')
-
 if __name__ == '__main__':
     solve()

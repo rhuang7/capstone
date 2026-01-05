@@ -2,7 +2,6 @@ import sys
 import heapq
 
 def solve():
-    import sys
     input = sys.stdin.buffer.read
     data = input().split()
     idx = 0
@@ -17,13 +16,12 @@ def solve():
             Ai = int(data[idx])
             Bi = int(data[idx+1])
             Ci = int(data[idx+2])
-            idx += 3
             graph[Ai].append((Bi, Ci))
             graph[Bi].append((Ai, Ci))
+            idx += 3
+        # Dijkstra to find shortest distance from 1 to N
         dist = [float('inf')] * (N+1)
         dist[1] = 0
-        count = [0] * (N+1)
-        count[1] = 1
         heap = [(0, 1)]
         while heap:
             d, u = heapq.heappop(heap)
@@ -32,10 +30,18 @@ def solve():
             for v, w in graph[u]:
                 if dist[v] > dist[u] + w:
                     dist[v] = dist[u] + w
-                    count[v] = count[u]
                     heapq.heappush(heap, (dist[v], v))
-                elif dist[v] == dist[u] + w:
+        # BFS to count number of shortest paths
+        from collections import deque
+        count = [0] * (N+1)
+        count[1] = 1
+        queue = deque([1])
+        while queue:
+            u = queue.popleft()
+            for v, w in graph[u]:
+                if dist[v] == dist[u] + w:
                     count[v] += count[u]
+                    queue.append(v)
         print(count[N])
 
 if __name__ == '__main__':

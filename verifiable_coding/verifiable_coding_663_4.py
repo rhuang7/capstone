@@ -1,0 +1,24 @@
+import sys
+
+def solve():
+    import sys
+    input = sys.stdin.buffer.read
+    data = input().split()
+    T = int(data[0])
+    index = 1
+    for _ in range(T):
+        L = int(data[index])
+        S = data[index+1]
+        index += 2
+        n = len(S)
+        # The lex smallest string is the smallest rotation of S where the first L characters are rotated to the end
+        # We need to find the minimum among all possible rotations of the first L characters
+        min_str = S
+        for i in range(1, L+1):
+            rotated = S[i:] + S[:i]
+            if rotated < min_str:
+                min_str = rotated
+        print(min_str)
+
+if __name__ == '__main__':
+    solve()

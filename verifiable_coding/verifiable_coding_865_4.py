@@ -1,0 +1,23 @@
+import sys
+MOD = 10**9 + 7
+
+def solve():
+    import sys
+    input = sys.stdin.buffer.read
+    data = input().split()
+    T = int(data[0])
+    cases = list(map(int, data[1:T+1]))
+    
+    for N in cases:
+        if N < 3:
+            print(0)
+        else:
+            # The answer is 2^(N-1) - 2
+            # Because the valid permutations are those that have a single peak
+            # and the number of such permutations is 2^(N-1) - 2
+            # (subtract 2 for the cases where the peak is at the ends)
+            ans = (pow(2, N-1, MOD) - 2) % MOD
+            print(ans)
+
+if __name__ == '__main__':
+    solve()

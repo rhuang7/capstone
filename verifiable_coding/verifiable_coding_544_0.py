@@ -14,15 +14,19 @@ def solve():
         S = data[index]
         index += 1
         
-        result = ""
+        result = []
         for i in range(0, N, 4):
             bits = S[i:i+4]
-            letter = 0
+            letter = 'a'
+            low = 0
+            high = 15
             for bit in bits:
-                letter = (letter << 1) | int(bit)
-            result += chr(letter + ord('a'))
+                if bit == '0':
+                    high = (low + high) // 2
+                else:
+                    low = (low + high) // 2 + 1
+            result.append(chr(low + ord('a')))
+        print(''.join(result))
         
-        print(result)
-
 if __name__ == '__main__':
     solve()

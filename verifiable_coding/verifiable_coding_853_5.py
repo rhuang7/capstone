@@ -1,0 +1,26 @@
+import sys
+
+def solve():
+    import sys
+    input = sys.stdin.buffer.read
+    data = input().split(b'\n')
+    idx = 0
+    T = int(data[idx])
+    idx += 1
+    results = []
+    for _ in range(T):
+        N = int(data[idx])
+        idx += 1
+        drivers = []
+        for _ in range(N):
+            name = data[idx].decode('utf-8')
+            time = int(data[idx + 1])
+            drivers.append((time, name))
+            idx += 2
+        drivers.sort()
+        for time, name in drivers:
+            results.append(name)
+    print('\n'.join(results))
+
+if __name__ == '__main__':
+    solve()

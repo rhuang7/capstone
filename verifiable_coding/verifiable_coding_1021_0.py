@@ -9,38 +9,43 @@ def solve():
 
     from collections import defaultdict
 
-    # Count the frequency of each number
+    # Count frequency of each number
     count = defaultdict(int)
     for num in a:
         count[num] += 1
 
     # Build the sequence
     result = []
-    # Start with the number that is not divisible by 3
-    # Because the first number cannot be divided by 3
-    for num in a:
-        if count[num] > 0 and num % 3 != 0:
-            result.append(num)
-            count[num] -= 1
-            break
+    # Start from the number with the highest value (it's the starting point)
+    # We can use a sorted list to find the starting point
+    sorted_a = sorted(a)
+    start = sorted_a[0]
 
-    # Now build the sequence from the starting number
-    # We use a queue to process the numbers
+    # Use a queue to perform BFS to build the sequence
     from collections import deque
     queue = deque()
-    queue.append(result[-1])
+    queue.append(start)
+    visited = set()
+    visited.add(start)
 
     while queue:
         current = queue.popleft()
         result.append(current)
+        if count[current] == 0:
+            continue
         count[current] -= 1
-
-        # Check if current can be multiplied by 2
-        if count[current * 2] > 0:
-            queue.append(current * 2)
-        # Check if current can be divided by 3
-        if current % 3 == 0 and count[current // 3] > 0:
-            queue.append(current // 3)
+        # Check if current * 2 is in the list
+        if current * 2 in count and count[current * 2] > 0:
+            if current * 2 not in visited:
+                visited.add(current * 2)
+                queue.append(current * 2)
+        # Check if current / 3 is in the list
+        if current % 3 == 0:
+            next_val = current // 3
+            if next_val in count and count[next_val] > 0:
+                if next_val not in visited:
+                    visited.add(next_val)
+                    queue.append(next_val)
 
     print(' '.join(map(str, result)))
 

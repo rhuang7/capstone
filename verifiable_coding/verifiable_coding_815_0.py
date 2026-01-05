@@ -1,17 +1,17 @@
 import sys
-import itertools
-from collections import deque
+from collections import deque, defaultdict
+import math
 
 def is_prime(n):
     if n < 2:
         return False
-    for i in range(2, int(n**0.5) + 1):
+    for i in range(2, int(math.sqrt(n)) + 1):
         if n % i == 0:
             return False
     return True
 
-def get_state(board):
-    return tuple(tuple(row) for row in board)
+def get_state_tuple(grid):
+    return tuple(tuple(row) for row in grid)
 
 def get_neighbors(state):
     neighbors = []
@@ -37,15 +37,13 @@ def solve():
             idx += 1
         if idx >= len(input):
             break
-        board = []
-        for i in range(3):
+        grid = []
+        for _ in range(3):
             row = list(map(int, input[idx].split()))
-            board.append(row)
+            grid.append(row)
             idx += 1
-        while idx < len(input) and input[idx].strip() == b'':
-            idx += 1
-        goal = ((1, 2, 3), (4, 5, 6), (7, 8, 9))
-        start = get_state(board)
+        start = get_state_tuple(grid)
+        goal = (1, 2, 3, 4, 5, 6, 7, 8, 9)
         if start == goal:
             print(0)
             continue

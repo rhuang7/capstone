@@ -40,7 +40,8 @@ def solve():
                         else:
                             odd_count += 1
                     if (even_count % 2 == 0 and even_count != 0) or (odd_count % 2 == 1 and odd_count != 0):
-                        max_sum = max(max_sum, total)
+                        if total > max_sum:
+                            max_sum = total
         results.append(str(max_sum))
     print('\n'.join(results))
 
