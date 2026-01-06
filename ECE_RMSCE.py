@@ -56,3 +56,32 @@ def calculate_rmsce(confidences, true_labels, predicted_labels, num_bins=10):
         squared_error += (n_b / N) * (gap ** 2)
 
     return float(np.sqrt(squared_error))
+
+def ece_from_bin_pairs(bin_acc, bin_conf, counts=None):
+    bin_acc = np.asarray(bin_acc, dtype=float)
+    bin_conf = np.asarray(bin_conf, dtype=float)
+    assert bin_acc.shape == bin_conf.shape
+
+    gaps = np.abs(bin_acc - bin_conf)
+    if counts is None:
+        return float(np.mean(gaps))
+
+    counts = np.asarray(counts, dtype=float)
+    assert counts.shape == gaps.shape
+    w = counts / counts.sum()
+    
+    return float(np.sum(w * gaps))
+
+def rmsce_from_bin_pairs(bin_acc, bin_conf, counts=None):
+    bin_acc = np.asarray(bin_acc, dtype=float)
+    bin_conf = np.asarray(bin_conf, dtype=float)
+    assert bin_acc.shape == bin_conf.shape
+
+    sq_gaps = (bin_acc - bin_conf) ** 2
+    if counts is None:
+        return float(np.sqrt(np.mean(sq_gaps)))
+
+    counts = np.asarray(counts, dtype=float)
+    assert counts.shape == sq_gaps.shape
+    w = counts / counts.sum()
+    return float(np.sqrt(np.sum(w * sq_gaps)))
