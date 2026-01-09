@@ -96,13 +96,12 @@ def creat_json_for_phase_one(data_list, out_file_name):
             json_data[data[1]] = {}
         sub_dict = json_data[data[1]]
         if data[2] not in sub_dict.keys():
-            sub_dict[data[2]] = [0, 0, []]
+            sub_dict[data[2]] = [[], []]
         if data[0] == data[1]:
-            sub_dict[data[2]][0] += 1
-            sub_dict[data[2]][1] += 1
+            sub_dict[data[2]][0].append(1)
         else:
-            sub_dict[data[2]][0] += 1
-        sub_dict[data[2]][2].append(data[3])
+            sub_dict[data[2]][0].append(0)
+        sub_dict[data[2]][1].append(data[3])
     
     out_file_name = 'output/' + out_file_name
     with open(out_file_name, 'w') as file:
@@ -118,13 +117,12 @@ def creat_json_for_phase_third(data_list, out_file_name):
             json_data[data[2]] = {}
         sub_dict = json_data[data[2]]
         if data[1] not in sub_dict.keys():
-            sub_dict[data[1]] = [0, 0, []]
+            sub_dict[data[1]] = [[], []]
         if data[0] == data[1]:
-            sub_dict[data[1]][0] += 1
-            sub_dict[data[1]][1] += 1
+            sub_dict[data[1]][0].append(1)
         else:
-            sub_dict[data[1]][0] += 1
-        sub_dict[data[1]][2].append(data[3])
+            sub_dict[data[1]][0].append(0)
+        sub_dict[data[1]][1].append(data[3])
     
     out_file_name = 'output/' + out_file_name
     with open(out_file_name, 'w') as file:

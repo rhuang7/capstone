@@ -99,7 +99,7 @@ def do_test(testset, labels, model_id, cache_dir):
         raw_resp = tokenizer.decode(generated_tokens, skip_special_tokens=True).strip()
 
         obj = json.loads(raw_resp)
-        pred_label = obj["label"]
+        pred_label = obj["answer"]
         
         count_store.append([pred_label, pair[0], pair[1], pair[2]])
         # print("predict label:", raw_resp)
@@ -108,13 +108,13 @@ def do_test(testset, labels, model_id, cache_dir):
         # if pair[0] not in raw_resp:
         #     print(pair[0])
         
-    return 
+    return count_store
 
 
 
 
 dataset_path = "/data/ruoyu/dataset/mmlu_saved"
-each_num = 5
+each_num = 30
 rand_seed = 42
 model_id = "Qwen/Qwen3-4B"
 cache_dir = "/data/ruoyu/model"

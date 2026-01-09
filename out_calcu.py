@@ -42,9 +42,21 @@ def calculate_RMSCE(data):
     
     return base/len(acc_l)
 
+def convert_dict(current_data):
+    out_dict = {}
+    for key in current_data.keys():
+        temp_dict = current_data[key]
+        for t_key in temp_dict.keys():
+            out_dict[t_key] = temp_dict[t_key]
+    
+    return out_dict
+
 def sum_cal(file_list):
     for file in file_list:
         curr_data = fetch_outcome(file)
+        type_check = list(curr_data.keys())
+        if type(curr_data[type_check[0]]) != type([]):
+            curr_data = convert_dict(curr_data)
         ece = calculate_ECE(curr_data)
         rmsce = calculate_RMSCE(curr_data)
         print('for file \'' + file + '\'')
@@ -54,5 +66,6 @@ def sum_cal(file_list):
     return
 
 if __name__ == '__main__':
-    files = ['humaneval_out', 'mbpp_out', 'verifiable_out']
+    files = ['humaneval_out', 'mbpp_out', 'verifiable_out', 'phase_one', 'multi_cate_out']
     sum_cal(files)
+    
